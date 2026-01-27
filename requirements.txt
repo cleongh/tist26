@@ -1,0 +1,2 @@
+clingo>=5.6.0
+guidance>=0.3.0  # optional, for constrained JSON generation

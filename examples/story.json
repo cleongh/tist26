@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.1",
+  "entities": {
+    "characters": [{"id": "alice"}],
+    "objects": [{"id": "rock1", "type": "rock"}],
+    "locations": [{"id": "kitchen"}, {"id": "road"}]
+  },
+  "events": [
+    {
+      "id": "e1",
+      "type": "go",
+      "agent": "alice",
+      "patient": null,
+      "location": "kitchen",
+      "time": {"start": "t1", "end": "t2"},
+      "requires_focus": false
+    },
+    {
+      "id": "e2",
+      "type": "eat",
+      "agent": "alice",
+      "patient": "rock1",
+      "location": "kitchen",
+      "time": {"start": "t2", "end": "t3"},
+      "requires_focus": true
+    },
+    {
+      "id": "e3",
+      "type": "drive",
+      "agent": "alice",
+      "patient": null,
+      "location": "road",
+      "time": {"start": "t4", "end": "t6"},
+      "requires_focus": true
+    },
+    {
+      "id": "e4",
+      "type": "give_speech",
+      "agent": "alice",
+      "patient": null,
+      "location": "road",
+      "time": {"start": "t4", "end": "t6"},
+      "requires_focus": true
+    }
+  ],
+  "fluents": [
+    {"id": "hungry(alice)", "time": {"start": "t0", "end": "t3"}}
+  ],
+  "traits": [],
+  "rules": [
+    {"id": "r1", "type": "precondition", "head": "eat(A,B)", "body": ["edible(B)"]},
+    {"id": "r2", "type": "causes", "head": "eat(A,B)", "body": ["not(hungry(A))"]}
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "type": "temporal",
+      "description": "same agent cannot overlap on two focus events",
+      "body": "overlap(E1,E2) and requires_focus(E1) and requires_focus(E2) and agent(E1,A) and agent(E2,A)"
+    }
+  ],
+  "candidate_rules": [
+    {"id": "cr1", "type": "world_knowledge", "rule": "edible(X) :- not rock(X).", "confidence": "medium"}
+  ]
+}

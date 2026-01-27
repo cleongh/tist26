@@ -1,0 +1,302 @@
+[
+  {
+    "command": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/scripts/story_lint.py --mode llm --llm-base-url http://localhost:8080/v1 --llm-timeout 600 --no-interpret /home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story1_temporal_errors.txt",
+    "start_time": "2026-01-19T20:11:06.824824",
+    "end_time": "2026-01-19T20:11:42.844616",
+    "duration_seconds": 36.019792,
+    "config": {
+      "mode": "llm",
+      "llm": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "temperature": 0.0,
+        "timeout": 600,
+        "max_tokens": 2048,
+        "retries": 3,
+        "backoff": 5,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "structurer": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "timeout": 600,
+        "max_tokens": 8192,
+        "retries": 5,
+        "backoff": 30,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "mock": false,
+      "mock_llm": false,
+      "no_interpret": true,
+      "include_candidates": false
+    },
+    "story_path": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story1_temporal_errors.txt",
+    "story": "THE MAGICAL RING\n(Modified Tale with Intentional Temporal Errors)\n\nOnce upon a time, a young farmer named Hans lived in a small village. He was poor but hardworking.\n\nOne morning, Hans found a magical golden ring in his field. The ring could grant three wishes. Hans put the ring on his finger and made his first wish: \"I wish for a bag of gold coins!\"\n\nInstantly, a bag of gold appeared before him. Hans was overjoyed. He took the gold to the market and bought a beautiful horse. He rode the horse back to his village, where everyone admired his new wealth.\n\n[ERROR 1: TEMPORAL - Hans uses the horse BEFORE he buys it]\nThe previous day, Hans had ridden that same horse to visit his sick mother in the neighboring town. She was grateful for his visit.\n\n[ERROR 2: TEMPORAL - Hans makes his second wish BEFORE his first wish]\nThree days earlier, Hans had used his second wish to cure his mother's illness. \"I wish my mother was healthy again!\" he had said, and she was immediately cured.\n\nHans still had one wish remaining. He decided to save it for a truly important occasion.\n\n[ERROR 3: TEMPORAL - Event happens AFTER it already concluded]\nThe very next week, Hans decided to use his first wish - the one for gold - even though he had already received the gold and spent it at the market.\n\n[ERROR 4: TEMPORAL - Dead character appears alive without explanation]\nHans's father, who had died five years ago, came to visit him that evening. \"Son, I see you have found the magical ring,\" his father said. Hans hugged his father warmly.\n\nThe next morning, Hans attended his father's funeral. The whole village mourned the loss.\n\n[ERROR 5: TEMPORAL - Simultaneous contradictory locations]\nAt noon that day, Hans was working in his field. At the same moment, Hans was also attending a wedding in the distant city of Bremen, dancing with the bride's sister.\n\nHans lived happily with his magical ring, always grateful for the wishes it had granted him.\n\nTHE END\n",
+    "result": {
+      "llm_lint": {
+        "error_count": 5,
+        "errors": [
+          {
+            "id": "e1",
+            "description": "Temporal inconsistency: Hans rides a horse before buying it."
+          },
+          {
+            "id": "e2",
+            "description": "Temporal inconsistency: Hans makes his second wish before his first wish."
+          },
+          {
+            "id": "e3",
+            "description": "Temporal inconsistency: Hans re-uses his first wish after already receiving and spending the gold."
+          },
+          {
+            "id": "e4",
+            "description": "Temporal inconsistency and world-knowledge violation: Hans's deceased father appears alive and visits him."
+          },
+          {
+            "id": "e5",
+            "description": "Temporal inconsistency: Hans is simultaneously in his field and at a wedding in Bremen."
+          }
+        ],
+        "details": {
+          "prompt": "You are a narrative linting assistant. Analyze the story for inconsistencies and subtle errors.\nFocus on temporal conflicts, causality errors, character inconsistency, and world-knowledge violations.\nReturn ONLY valid JSON. Do not include reasoning, preambles, or markdown. If you need to think, do it silently.\nIf you output a <think>...</think> block, place the JSON object after it and output nothing else.\nSchema (strict):\n{\n  \"error_count\": integer,\n  \"errors\": [{\"id\": \"e1\", \"description\": \"string\"}]\n}\nEnsure error_count equals the number of errors.\n\nStory:\n\"\"\"\nTHE MAGICAL RING\n(Modified Tale with Intentional Temporal Errors)\n\nOnce upon a time, a young farmer named Hans lived in a small village. He was poor but hardworking.\n\nOne morning, Hans found a magical golden ring in his field. The ring could grant three wishes. Hans put the ring on his finger and made his first wish: \"I wish for a bag of gold coins!\"\n\nInstantly, a bag of gold appeared before him. Hans was overjoyed. He took the gold to the market and bought a beautiful horse. He rode the horse back to his village, where everyone admired his new wealth.\n\n[ERROR 1: TEMPORAL - Hans uses the horse BEFORE he buys it]\nThe previous day, Hans had ridden that same horse to visit his sick mother in the neighboring town. She was grateful for his visit.\n\n[ERROR 2: TEMPORAL - Hans makes his second wish BEFORE his first wish]\nThree days earlier, Hans had used his second wish to cure his mother's illness. \"I wish my mother was healthy again!\" he had said, and she was immediately cured.\n\nHans still had one wish remaining. He decided to save it for a truly important occasion.\n\n[ERROR 3: TEMPORAL - Event happens AFTER it already concluded]\nThe very next week, Hans decided to use his first wish - the one for gold - even though he had already received the gold and spent it at the market.\n\n[ERROR 4: TEMPORAL - Dead character appears alive without explanation]\nHans's father, who had died five years ago, came to visit him that evening. \"Son, I see you have found the magical ring,\" his father said. Hans hugged his father warmly.\n\nThe next morning, Hans attended his father's funeral. The whole village mourned the loss.\n\n[ERROR 5: TEMPORAL - Simultaneous contradictory locations]\nAt noon that day, Hans was working in his field. At the same moment, Hans was also attending a wedding in the distant city of Bremen, dancing with the bride's sister.\n\nHans lived happily with his magical ring, always grateful for the wishes it had granted him.\n\nTHE END\n\"\"\"\n",
+          "raw_response": "```json\n{\n  \"error_count\": 5,\n  \"errors\": [\n    {\n      \"id\": \"e1\",\n      \"description\": \"Temporal inconsistency: Hans rides a horse before buying it.\"\n    },\n    {\n      \"id\": \"e2\",\n      \"description\": \"Temporal inconsistency: Hans makes his second wish before his first wish.\"\n    },\n    {\n      \"id\": \"e3\",\n      \"description\": \"Temporal inconsistency: Hans re-uses his first wish after already receiving and spending the gold.\"\n    },\n    {\n      \"id\": \"e4\",\n      \"description\": \"Temporal inconsistency and world-knowledge violation: Hans's deceased father appears alive and visits him.\"\n    },\n    {\n      \"id\": \"e5\",\n      \"description\": \"Temporal inconsistency: Hans is simultaneously in his field and at a wedding in Bremen.\"\n    }\n  ]\n}\n```<end_of_turn>",
+          "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+          "backend": "openai"
+        }
+      },
+      "total_errors": 5
+    }
+  },
+  {
+    "command": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/scripts/story_lint.py --mode llm --llm-base-url http://localhost:8080/v1 --llm-timeout 600 --no-interpret /home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story2_spatial_errors.txt",
+    "start_time": "2026-01-19T20:11:43.134949",
+    "end_time": "2026-01-19T20:12:32.443772",
+    "duration_seconds": 49.308823,
+    "config": {
+      "mode": "llm",
+      "llm": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "temperature": 0.0,
+        "timeout": 600,
+        "max_tokens": 2048,
+        "retries": 3,
+        "backoff": 5,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "structurer": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "timeout": 600,
+        "max_tokens": 8192,
+        "retries": 5,
+        "backoff": 30,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "mock": false,
+      "mock_llm": false,
+      "no_interpret": true,
+      "include_candidates": false
+    },
+    "story_path": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story2_spatial_errors.txt",
+    "story": "THE WANDERING MERCHANT\n(Modified Tale with Intentional Spatial/Ubiquity Errors)\n\nThere once lived a merchant named Wilhelm who traveled between three towns: Aldorf, Bremen, and Cologne. He sold fine silks and spices.\n\nOne Monday morning, Wilhelm set out from his home in Aldorf with his donkey laden with goods.\n\n[ERROR 1: UBIQUITY - Character in two places simultaneously]\nAt noon on Monday, Wilhelm arrived in Bremen and began selling his wares in the marketplace. At that very same moment, Wilhelm was also in Cologne, negotiating a large order with the Duke.\n\nThe townspeople of Bremen loved Wilhelm's silks. A wealthy baroness purchased three bolts of red silk.\n\n[ERROR 2: UBIQUITY - Object in two places at once]\nThat same afternoon, Wilhelm sold his finest blue silk to a tailor in Bremen. Simultaneously, in Aldorf, Wilhelm's wife was using that exact same blue silk to make a dress for their daughter.\n\n[ERROR 3: SPATIAL - Impossible travel without time passage]\nWilhelm finished his sales in Bremen at sunset. He walked to the town gate. In the next instant, without any travel, Wilhelm was suddenly inside the Duke's castle in Cologne, which was three days' journey away.\n\nThe Duke welcomed Wilhelm warmly. \"I've been expecting you,\" said the Duke.\n\n[ERROR 4: UBIQUITY - Character simultaneously dead and alive in different places]\nWilhelm's brother Franz was at that moment lying dead in his coffin in Aldorf, having passed away that morning. At the same moment, Franz was standing next to Wilhelm in Cologne, helping him carry the merchandise.\n\n\"Brother, help me with these heavy crates,\" Wilhelm said to Franz.\n\n[ERROR 5: SPATIAL - Same character in three places]\nThe next day at dawn:\n- Wilhelm was having breakfast in Cologne with the Duke\n- Wilhelm was loading his donkey in Bremen for the journey home\n- Wilhelm was attending his brother Franz's funeral in Aldorf\n\nAll three activities happened at the exact same time.\n\n[ERROR 6: OBJECT CONTINUITY - Object used before acquisition]\nWilhelm paid the Duke with gold coins from the purse the Duke would give him as payment the following week.\n\nWilhelm returned home safely and lived prosperously for many years.\n\nTHE END\n",
+    "result": {
+      "llm_lint": {
+        "error_count": 6,
+        "errors": [
+          {
+            "id": "e1",
+            "description": "Wilhelm is simultaneously in Bremen and Cologne at noon on Monday, violating the principle of single location."
+          },
+          {
+            "id": "e2",
+            "description": "The same bolt of blue silk is simultaneously in Bremen and Aldorf, violating object continuity."
+          },
+          {
+            "id": "e3",
+            "description": "Wilhelm instantaneously travels from Bremen to Cologne, a three-days' journey, without any time passage, violating spatial constraints."
+          },
+          {
+            "id": "e4",
+            "description": "Franz is simultaneously dead in Aldorf and alive in Cologne, violating the laws of life and death."
+          },
+          {
+            "id": "e5",
+            "description": "Wilhelm is simultaneously in Cologne, Bremen, and Aldorf at dawn, violating the principle of single location."
+          },
+          {
+            "id": "e6",
+            "description": "Wilhelm pays the Duke with coins he will receive in the future, violating causality."
+          }
+        ],
+        "details": {
+          "prompt": "You are a narrative linting assistant. Analyze the story for inconsistencies and subtle errors.\nFocus on temporal conflicts, causality errors, character inconsistency, and world-knowledge violations.\nReturn ONLY valid JSON. Do not include reasoning, preambles, or markdown. If you need to think, do it silently.\nIf you output a <think>...</think> block, place the JSON object after it and output nothing else.\nSchema (strict):\n{\n  \"error_count\": integer,\n  \"errors\": [{\"id\": \"e1\", \"description\": \"string\"}]\n}\nEnsure error_count equals the number of errors.\n\nStory:\n\"\"\"\nTHE WANDERING MERCHANT\n(Modified Tale with Intentional Spatial/Ubiquity Errors)\n\nThere once lived a merchant named Wilhelm who traveled between three towns: Aldorf, Bremen, and Cologne. He sold fine silks and spices.\n\nOne Monday morning, Wilhelm set out from his home in Aldorf with his donkey laden with goods.\n\n[ERROR 1: UBIQUITY - Character in two places simultaneously]\nAt noon on Monday, Wilhelm arrived in Bremen and began selling his wares in the marketplace. At that very same moment, Wilhelm was also in Cologne, negotiating a large order with the Duke.\n\nThe townspeople of Bremen loved Wilhelm's silks. A wealthy baroness purchased three bolts of red silk.\n\n[ERROR 2: UBIQUITY - Object in two places at once]\nThat same afternoon, Wilhelm sold his finest blue silk to a tailor in Bremen. Simultaneously, in Aldorf, Wilhelm's wife was using that exact same blue silk to make a dress for their daughter.\n\n[ERROR 3: SPATIAL - Impossible travel without time passage]\nWilhelm finished his sales in Bremen at sunset. He walked to the town gate. In the next instant, without any travel, Wilhelm was suddenly inside the Duke's castle in Cologne, which was three days' journey away.\n\nThe Duke welcomed Wilhelm warmly. \"I've been expecting you,\" said the Duke.\n\n[ERROR 4: UBIQUITY - Character simultaneously dead and alive in different places]\nWilhelm's brother Franz was at that moment lying dead in his coffin in Aldorf, having passed away that morning. At the same moment, Franz was standing next to Wilhelm in Cologne, helping him carry the merchandise.\n\n\"Brother, help me with these heavy crates,\" Wilhelm said to Franz.\n\n[ERROR 5: SPATIAL - Same character in three places]\nThe next day at dawn:\n- Wilhelm was having breakfast in Cologne with the Duke\n- Wilhelm was loading his donkey in Bremen for the journey home\n- Wilhelm was attending his brother Franz's funeral in Aldorf\n\nAll three activities happened at the exact same time.\n\n[ERROR 6: OBJECT CONTINUITY - Object used before acquisition]\nWilhelm paid the Duke with gold coins from the purse the Duke would give him as payment the following week.\n\nWilhelm returned home safely and lived prosperously for many years.\n\nTHE END\n\"\"\"\n",
+          "raw_response": "```json\n{\n  \"error_count\": 6,\n  \"errors\": [\n    {\n      \"id\": \"e1\",\n      \"description\": \"Wilhelm is simultaneously in Bremen and Cologne at noon on Monday, violating the principle of single location.\"\n    },\n    {\n      \"id\": \"e2\",\n      \"description\": \"The same bolt of blue silk is simultaneously in Bremen and Aldorf, violating object continuity.\"\n    },\n    {\n      \"id\": \"e3\",\n      \"description\": \"Wilhelm instantaneously travels from Bremen to Cologne, a three-days' journey, without any time passage, violating spatial constraints.\"\n    },\n    {\n      \"id\": \"e4\",\n      \"description\": \"Franz is simultaneously dead in Aldorf and alive in Cologne, violating the laws of life and death.\"\n    },\n    {\n      \"id\": \"e5\",\n      \"description\": \"Wilhelm is simultaneously in Cologne, Bremen, and Aldorf at dawn, violating the principle of single location.\"\n    },\n    {\n      \"id\": \"e6\",\n      \"description\": \"Wilhelm pays the Duke with coins he will receive in the future, violating causality.\"\n    }\n  ]\n}\n```<end_of_turn>",
+          "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+          "backend": "openai"
+        }
+      },
+      "total_errors": 6
+    }
+  },
+  {
+    "command": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/scripts/story_lint.py --mode llm --llm-base-url http://localhost:8080/v1 --llm-timeout 600 --no-interpret /home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story3_causal_errors.txt",
+    "start_time": "2026-01-19T20:12:32.728590",
+    "end_time": "2026-01-19T20:13:20.690234",
+    "duration_seconds": 47.961644,
+    "config": {
+      "mode": "llm",
+      "llm": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "temperature": 0.0,
+        "timeout": 600,
+        "max_tokens": 2048,
+        "retries": 3,
+        "backoff": 5,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "structurer": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "timeout": 600,
+        "max_tokens": 8192,
+        "retries": 5,
+        "backoff": 30,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "mock": false,
+      "mock_llm": false,
+      "no_interpret": true,
+      "include_candidates": false
+    },
+    "story_path": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story3_causal_errors.txt",
+    "story": "THE ENCHANTED SWORD\n(Modified Tale with Intentional Causal and Object Errors)\n\nIn a kingdom far away, there lived a brave knight named Sir Roland. He served the good King Heinrich.\n\nOne day, the King summoned Sir Roland. \"A dragon terrorizes our northern villages. You must slay it.\"\n\nSir Roland bowed. \"I shall need a mighty weapon, Your Majesty.\"\n\n[ERROR 1: CAUSAL - Effect before cause]\nThe dragon fell dead, pierced by Sir Roland's enchanted sword. This happened three days before Sir Roland received the sword from the wizard.\n\nThe wizard Aldric lived in a tower beyond the Dark Forest. Sir Roland traveled for five days to reach him.\n\n\"I need a weapon to slay the dragon,\" said Sir Roland.\n\nThe wizard gave him the Sword of Dawn. \"This blade was forged in dragon fire. Only it can pierce a dragon's scales.\"\n\n[ERROR 2: OBJECT - Using object that doesn't exist yet]\nSir Roland thanked the wizard and showed him the dragon's head as proof of his victory - the very dragon he had not yet fought.\n\nSir Roland journeyed north to find the dragon's lair.\n\n[ERROR 3: CAUSAL - Receiving reward before completing quest]\nThe King held a grand celebration for Sir Roland's victory over the dragon. Knights and nobles came from across the realm to honor him. Sir Roland was given lands and titles. This celebration occurred while Sir Roland was still traveling north, three weeks before he would encounter the dragon.\n\n[ERROR 4: OBJECT CONTINUITY - Object destroyed but then used]\nThe Sword of Dawn shattered into a thousand pieces when Sir Roland first struck the dragon's scales. The sword was completely destroyed. \nIn the next moment, Sir Roland thrust the Sword of Dawn deep into the dragon's heart, killing the beast instantly.\n\n[ERROR 5: CAUSAL - Death before mortal wound]\nThe dragon died at sunrise. An hour later, Sir Roland finally inflicted the mortal wound that killed it.\n\n[ERROR 6: CHARACTER STATE - Married before meeting spouse]\nSir Roland married the Princess Elena on the day he returned victorious. They had been husband and wife for three years already, even though they had never met before this day.\n\nSir Roland lived happily ever after with his beloved princess.\n\nTHE END\n",
+    "result": {
+      "llm_lint": {
+        "error_count": 6,
+        "errors": [
+          {
+            "id": "e1",
+            "description": "Causal error: The dragon fell dead before Sir Roland received the enchanted sword."
+          },
+          {
+            "id": "e2",
+            "description": "Object error: Sir Roland showed the wizard the dragon's head before fighting the dragon."
+          },
+          {
+            "id": "e3",
+            "description": "Causal error: The King held a celebration while Sir Roland was still traveling north."
+          },
+          {
+            "id": "e4",
+            "description": "Object continuity error: The Sword of Dawn shattered but was then used again."
+          },
+          {
+            "id": "e5",
+            "description": "Causal error: The dragon died at sunrise, but the mortal wound was inflicted an hour later."
+          },
+          {
+            "id": "e6",
+            "description": "Character state error: Sir Roland and Princess Elena were married for three years despite never having met."
+          }
+        ],
+        "details": {
+          "prompt": "You are a narrative linting assistant. Analyze the story for inconsistencies and subtle errors.\nFocus on temporal conflicts, causality errors, character inconsistency, and world-knowledge violations.\nReturn ONLY valid JSON. Do not include reasoning, preambles, or markdown. If you need to think, do it silently.\nIf you output a <think>...</think> block, place the JSON object after it and output nothing else.\nSchema (strict):\n{\n  \"error_count\": integer,\n  \"errors\": [{\"id\": \"e1\", \"description\": \"string\"}]\n}\nEnsure error_count equals the number of errors.\n\nStory:\n\"\"\"\nTHE ENCHANTED SWORD\n(Modified Tale with Intentional Causal and Object Errors)\n\nIn a kingdom far away, there lived a brave knight named Sir Roland. He served the good King Heinrich.\n\nOne day, the King summoned Sir Roland. \"A dragon terrorizes our northern villages. You must slay it.\"\n\nSir Roland bowed. \"I shall need a mighty weapon, Your Majesty.\"\n\n[ERROR 1: CAUSAL - Effect before cause]\nThe dragon fell dead, pierced by Sir Roland's enchanted sword. This happened three days before Sir Roland received the sword from the wizard.\n\nThe wizard Aldric lived in a tower beyond the Dark Forest. Sir Roland traveled for five days to reach him.\n\n\"I need a weapon to slay the dragon,\" said Sir Roland.\n\nThe wizard gave him the Sword of Dawn. \"This blade was forged in dragon fire. Only it can pierce a dragon's scales.\"\n\n[ERROR 2: OBJECT - Using object that doesn't exist yet]\nSir Roland thanked the wizard and showed him the dragon's head as proof of his victory - the very dragon he had not yet fought.\n\nSir Roland journeyed north to find the dragon's lair.\n\n[ERROR 3: CAUSAL - Receiving reward before completing quest]\nThe King held a grand celebration for Sir Roland's victory over the dragon. Knights and nobles came from across the realm to honor him. Sir Roland was given lands and titles. This celebration occurred while Sir Roland was still traveling north, three weeks before he would encounter the dragon.\n\n[ERROR 4: OBJECT CONTINUITY - Object destroyed but then used]\nThe Sword of Dawn shattered into a thousand pieces when Sir Roland first struck the dragon's scales. The sword was completely destroyed. \nIn the next moment, Sir Roland thrust the Sword of Dawn deep into the dragon's heart, killing the beast instantly.\n\n[ERROR 5: CAUSAL - Death before mortal wound]\nThe dragon died at sunrise. An hour later, Sir Roland finally inflicted the mortal wound that killed it.\n\n[ERROR 6: CHARACTER STATE - Married before meeting spouse]\nSir Roland married the Princess Elena on the day he returned victorious. They had been husband and wife for three years already, even though they had never met before this day.\n\nSir Roland lived happily ever after with his beloved princess.\n\nTHE END\n\"\"\"\n",
+          "raw_response": "```json\n{\n  \"error_count\": 6,\n  \"errors\": [\n    {\n      \"id\": \"e1\",\n      \"description\": \"Causal error: The dragon fell dead before Sir Roland received the enchanted sword.\"\n    },\n    {\n      \"id\": \"e2\",\n      \"description\": \"Object error: Sir Roland showed the wizard the dragon's head before fighting the dragon.\"\n    },\n    {\n      \"id\": \"e3\",\n      \"description\": \"Causal error: The King held a celebration while Sir Roland was still traveling north.\"\n    },\n    {\n      \"id\": \"e4\",\n      \"description\": \"Object continuity error: The Sword of Dawn shattered but was then used again.\"\n    },\n    {\n      \"id\": \"e5\",\n      \"description\": \"Causal error: The dragon died at sunrise, but the mortal wound was inflicted an hour later.\"\n    },\n    {\n      \"id\": \"e6\",\n      \"description\": \"Character state error: Sir Roland and Princess Elena were married for three years despite never having met.\"\n    }\n  ]\n}\n```<end_of_turn>",
+          "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+          "backend": "openai"
+        }
+      },
+      "total_errors": 6
+    }
+  },
+  {
+    "command": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/scripts/story_lint.py --mode llm --llm-base-url http://localhost:8080/v1 --llm-timeout 600 --no-interpret /home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story4_character_errors.txt",
+    "start_time": "2026-01-19T20:13:20.961215",
+    "end_time": "2026-01-19T20:14:18.562432",
+    "duration_seconds": 57.601217,
+    "config": {
+      "mode": "llm",
+      "llm": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "temperature": 0.0,
+        "timeout": 600,
+        "max_tokens": 2048,
+        "retries": 3,
+        "backoff": 5,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "structurer": {
+        "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+        "backend": "openai",
+        "base_url": "http://localhost:8080/v1",
+        "timeout": 600,
+        "max_tokens": 8192,
+        "retries": 5,
+        "backoff": 30,
+        "thinking_budget": 0,
+        "no_auth": true
+      },
+      "mock": false,
+      "mock_llm": false,
+      "no_interpret": true,
+      "include_candidates": false
+    },
+    "story_path": "/home/cleon/ucm/investigacion/articulos/2025/evaluador_narrativa/codigo/experiments/validation_experiment-20260119_195951-pending-e2b4eddc/tales_modified/story4_character_errors.txt",
+    "story": "THE BAKER'S DAUGHTER\n(Modified Tale with Intentional Character State Errors)\n\nIn the town of Millbrook, there lived an old baker named Heinrich and his daughter Anna. Anna was known for her kindness and her beautiful singing voice.\n\n[ERROR 1: CHARACTER STATE - Character is simultaneously alive and dead]\nHeinrich had been dead for ten years. Every morning, Heinrich woke early to start the bread ovens. He kneaded the dough with his skilled hands while Anna slept.\n\nOne day, a mysterious old woman came to the bakery. Anna gave her bread without asking for payment.\n\n\"For your kindness, I grant you a wish,\" said the old woman, who was secretly a fairy.\n\n[ERROR 2: CHARACTER STATE - Character has contradictory physical states]\nAnna wished for golden hair. Her hair immediately turned golden and shimmered in the sunlight. Anna's hair remained pitch black, as dark as a raven's wing, unchanged by any magic.\n\nThe Prince of the realm was riding through town and saw Anna's beauty. He fell in love instantly.\n\n[ERROR 3: CHARACTER STATE - Character is simultaneously a peasant and royalty]\nAnna was a poor baker's daughter who could not afford new shoes. Anna was also the wealthy Duchess of Nordland, with a castle and a hundred servants.\n\nThe Prince asked Anna to marry him. She accepted with joy.\n\n[ERROR 4: CHARACTER KNOWLEDGE - Character knows something before learning it]\nAnna knew the Prince's secret name, the name only his mother had ever spoken. She had known this name since birth, though she had never heard of the Prince until today.\n\nThe wedding was held in the great cathedral.\n\n[ERROR 5: CHARACTER AGE - Contradictory ages]\nAnna was eighteen years old on her wedding day, young and full of hope. Anna was also seventy-three years old, bent and wrinkled with age, barely able to walk to the altar.\n\n[ERROR 6: CHARACTER RELATIONSHIPS - Contradictory relationships]\nThe Prince was Anna's beloved husband. The Prince was also Anna's father, her brother, and a complete stranger she had never met.\n\nHeinrich watched his daughter marry with tears of joy, despite having been dead for a decade.\n\nThey lived happily ever after, though Anna was simultaneously dead and alive for the rest of her days.\n\nTHE END\n",
+    "result": {
+      "llm_lint": {
+        "error_count": 6,
+        "errors": [
+          {
+            "id": "e1",
+            "description": "CHARACTER STATE - Character is simultaneously alive and dead: Heinrich is stated to be dead for ten years, yet wakes up every morning to bake bread."
+          },
+          {
+            "id": "e2",
+            "description": "CHARACTER STATE - Character has contradictory physical states: Anna's hair is described as turning golden, but also remaining pitch black."
+          },
+          {
+            "id": "e3",
+            "description": "CHARACTER STATE - Character is simultaneously a peasant and royalty: Anna is described as a poor baker's daughter who cannot afford shoes, but also as the wealthy Duchess of Nordland."
+          },
+          {
+            "id": "e4",
+            "description": "CHARACTER KNOWLEDGE - Character knows something before learning it: Anna knows the Prince's secret name despite having just met him."
+          },
+          {
+            "id": "e5",
+            "description": "CHARACTER AGE - Contradictory ages: Anna is described as being eighteen and seventy-three years old."
+          },
+          {
+            "id": "e6",
+            "description": "CHARACTER RELATIONSHIPS - Contradictory relationships: The Prince is Anna's husband, father, brother, and stranger simultaneously."
+          }
+        ],
+        "details": {
+          "prompt": "You are a narrative linting assistant. Analyze the story for inconsistencies and subtle errors.\nFocus on temporal conflicts, causality errors, character inconsistency, and world-knowledge violations.\nReturn ONLY valid JSON. Do not include reasoning, preambles, or markdown. If you need to think, do it silently.\nIf you output a <think>...</think> block, place the JSON object after it and output nothing else.\nSchema (strict):\n{\n  \"error_count\": integer,\n  \"errors\": [{\"id\": \"e1\", \"description\": \"string\"}]\n}\nEnsure error_count equals the number of errors.\n\nStory:\n\"\"\"\nTHE BAKER'S DAUGHTER\n(Modified Tale with Intentional Character State Errors)\n\nIn the town of Millbrook, there lived an old baker named Heinrich and his daughter Anna. Anna was known for her kindness and her beautiful singing voice.\n\n[ERROR 1: CHARACTER STATE - Character is simultaneously alive and dead]\nHeinrich had been dead for ten years. Every morning, Heinrich woke early to start the bread ovens. He kneaded the dough with his skilled hands while Anna slept.\n\nOne day, a mysterious old woman came to the bakery. Anna gave her bread without asking for payment.\n\n\"For your kindness, I grant you a wish,\" said the old woman, who was secretly a fairy.\n\n[ERROR 2: CHARACTER STATE - Character has contradictory physical states]\nAnna wished for golden hair. Her hair immediately turned golden and shimmered in the sunlight. Anna's hair remained pitch black, as dark as a raven's wing, unchanged by any magic.\n\nThe Prince of the realm was riding through town and saw Anna's beauty. He fell in love instantly.\n\n[ERROR 3: CHARACTER STATE - Character is simultaneously a peasant and royalty]\nAnna was a poor baker's daughter who could not afford new shoes. Anna was also the wealthy Duchess of Nordland, with a castle and a hundred servants.\n\nThe Prince asked Anna to marry him. She accepted with joy.\n\n[ERROR 4: CHARACTER KNOWLEDGE - Character knows something before learning it]\nAnna knew the Prince's secret name, the name only his mother had ever spoken. She had known this name since birth, though she had never heard of the Prince until today.\n\nThe wedding was held in the great cathedral.\n\n[ERROR 5: CHARACTER AGE - Contradictory ages]\nAnna was eighteen years old on her wedding day, young and full of hope. Anna was also seventy-three years old, bent and wrinkled with age, barely able to walk to the altar.\n\n[ERROR 6: CHARACTER RELATIONSHIPS - Contradictory relationships]\nThe Prince was Anna's beloved husband. The Prince was also Anna's father, her brother, and a complete stranger she had never met.\n\nHeinrich watched his daughter marry with tears of joy, despite having been dead for a decade.\n\nThey lived happily ever after, though Anna was simultaneously dead and alive for the rest of her days.\n\nTHE END\n\"\"\"\n",
+          "raw_response": "```json\n{\n  \"error_count\": 6,\n  \"errors\": [\n    {\n      \"id\": \"e1\",\n      \"description\": \"CHARACTER STATE - Character is simultaneously alive and dead: Heinrich is stated to be dead for ten years, yet wakes up every morning to bake bread.\"\n    },\n    {\n      \"id\": \"e2\",\n      \"description\": \"CHARACTER STATE - Character has contradictory physical states: Anna's hair is described as turning golden, but also remaining pitch black.\"\n    },\n    {\n      \"id\": \"e3\",\n      \"description\": \"CHARACTER STATE - Character is simultaneously a peasant and royalty: Anna is described as a poor baker's daughter who cannot afford shoes, but also as the wealthy Duchess of Nordland.\"\n    },\n    {\n      \"id\": \"e4\",\n      \"description\": \"CHARACTER KNOWLEDGE - Character knows something before learning it: Anna knows the Prince's secret name despite having just met him.\"\n    },\n    {\n      \"id\": \"e5\",\n      \"description\": \"CHARACTER AGE - Contradictory ages: Anna is described as being eighteen and seventy-three years old.\"\n    },\n    {\n      \"id\": \"e6\",\n      \"description\": \"CHARACTER RELATIONSHIPS - Contradictory relationships: The Prince is Anna's husband, father, brother, and stranger simultaneously.\"\n    }\n  ]\n}\n```<end_of_turn>",
+          "model": "google_gemma-3-12b-it-Q4_K_M.gguf",
+          "backend": "openai"
+        }
+      },
+      "total_errors": 6
+    }
+  }
+]
