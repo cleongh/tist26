@@ -105,12 +105,13 @@ violation(temporal, explicit_order_violated, E1, E2, "Story states E1 should pre
     not precedes(E1, E2).
 
 % VIOLATION: Same event happening at different times without explanation
-violation(temporal, impossible_duration, E, Duration, "Event duration exceeds stated time interval") :-
-    event(E),
-    time(E, Start, End),
-    min_duration(E, MinDur),
-    actual_duration(Start, End, ActualDur),
-    ActualDur < MinDur.
+% Note: This rule requires actual_duration/3 to be defined in domain module
+% violation(temporal, impossible_duration, E, MinDur, "Event duration exceeds stated time interval") :-
+%     event(E),
+%     time(E, Start, End),
+%     min_duration(E, MinDur),
+%     actual_duration(Start, End, ActualDur),
+%     ActualDur < MinDur.
 
 
 % =============================================================================
@@ -515,7 +516,7 @@ contradicts_emotion(terrified, approach).
 contradicts_emotion(grieving, celebrate).
 
 % VIOLATION: Sudden emotional shift without trigger
-violation(emotional, sudden_shift, A, E, "Character shows sudden emotional change without trigger") :-
+violation(emotional, sudden_shift, A, State2, "Character shows sudden emotional change without trigger") :-
     emotional_state(A, State1, T1),
     emotional_state(A, State2, T2),
     before(T1, T2),

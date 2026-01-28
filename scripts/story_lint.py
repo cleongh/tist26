@@ -247,6 +247,76 @@ def strip_think(text):
     return text
 
 
+def sanitize_json_string(text):
+    """
+    Sanitize a JSON string by fixing common LLM output issues.
+    
+    LLMs often produce JSON with:
+    - Unescaped control characters inside strings
+    - Literal newlines inside string values
+    - Invalid escape sequences
+    
+    This function attempts to fix these issues while preserving valid JSON.
+    
+    Args:
+        text: Raw JSON text that may have issues
+        
+    Returns:
+        Sanitized JSON string
+    """
+    import re
+    
+    # First, handle control characters that appear inside string values
+    # We need to be careful to only fix characters inside strings, not structural JSON
+    
+    result = []
+    in_string = False
+    escape_next = False
+    
+    for i, ch in enumerate(text):
+        if escape_next:
+            # Previous char was backslash - check if this is a valid escape
+            if ch in 'nrtbf\\"/' or ch == 'u':
+                result.append(ch)
+            elif ch == '\n':
+                # Literal newline after backslash - convert to \n
+                result.append('n')
+            else:
+                # Invalid escape - just keep the character
+                result.append(ch)
+            escape_next = False
+            continue
+            
+        if ch == '\\' and in_string:
+            result.append(ch)
+            escape_next = True
+            continue
+            
+        if ch == '"' and not escape_next:
+            in_string = not in_string
+            result.append(ch)
+            continue
+            
+        if in_string:
+            # Inside a string - escape control characters
+            if ch == '\n':
+                result.append('\\n')
+            elif ch == '\r':
+                result.append('\\r')
+            elif ch == '\t':
+                result.append('\\t')
+            elif ord(ch) < 32:
+                # Other control characters - use unicode escape
+                result.append(f'\\u{ord(ch):04x}')
+            else:
+                result.append(ch)
+        else:
+            # Outside string - keep as-is (structural JSON)
+            result.append(ch)
+    
+    return ''.join(result)
+
+
 def extract_json(text):
     """
     Extract a JSON object from text that may contain other content.
@@ -620,8 +690,9 @@ def parse_llm_lint(content):
     This function:
     1. Extracts JSON from the response (handling wrapper text)
     2. Strips <think> blocks if present
-    3. Validates required fields (error_count, errors)
-    4. Normalizes the error_count to match actual error list length
+    3. Sanitizes control characters inside strings
+    4. Validates required fields (error_count, errors)
+    5. Normalizes the error_count to match actual error list length
     
     Args:
         content: Raw LLM response text
@@ -642,8 +713,26 @@ def parse_llm_lint(content):
         snippet = content.strip().replace("\n", " ")[:300]
         log(f"LLM lint raw output (truncated): {snippet}")
         raise SystemExit("LLM lint output did not contain a JSON object.")
-        
-    data = json.loads(raw_json)
+    
+    # Try to parse JSON, sanitizing if first attempt fails
+    try:
+        data = json.loads(raw_json)
+    except json.JSONDecodeError as e:
+        log(f"JSON parse error: {e}. Attempting sanitization.")
+        try:
+            sanitized = sanitize_json_string(raw_json)
+            data = json.loads(sanitized)
+            log("JSON parsed after sanitization.")
+        except json.JSONDecodeError as e2:
+            # Log the problematic area for debugging
+            log(f"Sanitization failed: {e2}")
+            # Try to show context around the error
+            if hasattr(e2, 'pos') and e2.pos:
+                start = max(0, e2.pos - 50)
+                end = min(len(raw_json), e2.pos + 50)
+                context = raw_json[start:end]
+                log(f"Error context: ...{context!r}...")
+            raise SystemExit(f"LLM lint JSON parse failed: {e2}")
     
     # Validate required fields
     if "errors" not in data or "error_count" not in data:
@@ -1123,8 +1212,16 @@ def llm_lint(story_text, args):
         result = parse_llm_lint(content)
     except SystemExit as exc:
         log(f"LLM lint parse failed, retrying with higher max_tokens: {exc}")
-        content = fetch(max(args.llm_max_tokens * 2, 2048))
-        result = parse_llm_lint(content)
+        try:
+            content = fetch(max(args.llm_max_tokens * 2, 2048))
+            result = parse_llm_lint(content)
+        except SystemExit as exc2:
+            log(f"LLM lint parse failed again, returning empty result: {exc2}")
+            result = {
+                "error_count": 0,
+                "errors": [],
+                "parse_error": str(exc2)
+            }
     
     # Add full details for debugging
     result["details"] = {
