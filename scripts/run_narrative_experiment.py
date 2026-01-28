@@ -153,23 +153,33 @@ class StepResults:
 # LLM PROMPT
 # =============================================================================
 
-LLM_LINT_PROMPT = """Find narrative errors in this chapter.
+# System message for JSON-only output
+LLM_SYSTEM_MESSAGE = """You are a narrative error detector. You analyze story chapters and return ONLY valid JSON.
+
+CRITICAL RULES:
+- Output ONLY a JSON object, nothing else
+- Never summarize or explain the story
+- Never continue or extend the story
+- Never echo back the input
+- If no errors found, return: {"error_count": 0, "errors": []}
+- If errors found, return: {"error_count": N, "errors": [...]}"""
+
+# User prompt: chapter FIRST, then instructions
+LLM_LINT_PROMPT = """---BEGIN CHAPTER---
+{chapter_text}
+---END CHAPTER---
+
+Analyze the chapter above for narrative consistency errors.
 
 ERROR CATEGORIES:
-1. CAUSALITY - unexplained effects, missing causes
-2. COHERENCE - logical impossibilities (dead acting, wrong traits)
-3. TEMPORAL - wrong event order, time paradoxes
-4. LOCATION - characters in two places, impossible travel
-5. EMOTIONAL - actions contradicting relationships
+- causality: unexplained effects, missing causes
+- coherence: logical impossibilities, contradictions
+- temporal: wrong event order, time paradoxes  
+- location: impossible travel, characters in two places
+- emotional: actions contradicting established relationships
 
-Respond ONLY with JSON:
-{{"error_count": N, "errors": [{{"category": "causality|coherence|temporal|location|emotional", "description": "what's wrong"}}]}}
-
-If no errors: {{"error_count": 0, "errors": []}}
-
-CHAPTER:
-{chapter_text}
-"""
+Respond with JSON only:
+{{"error_count": N, "errors": [{{"category": "causality|coherence|temporal|location|emotional", "description": "brief description"}}]}}"""
 
 
 # =============================================================================
@@ -246,9 +256,14 @@ class LLMClient:
         
         payload = {
             "model": "auto",
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [
+                {"role": "system", "content": LLM_SYSTEM_MESSAGE},
+                {"role": "user", "content": prompt}
+            ],
             "temperature": self.temperature,
-            "max_tokens": 2048,
+            "max_tokens": 1024,
+            "repetition_penalty": 1.2,
+            "frequency_penalty": 0.5,
         }
         
         req = urllib.request.Request(
@@ -409,25 +424,30 @@ class LogicEvaluator:
         """Use LLM to structure chapter into JSON. Returns (structured_data, prompt, response)."""
         import urllib.request
         
-        prompt = f"""Structure this story chapter into JSON:
-- entities: {{characters: [{{id, name}}], objects: [{{id, type}}], locations: [{{id, name}}]}}
-- events: [{{id, type, agent, patient, location}}]
-- relationships: [{{type, from, to}}]
+        # Truncate chapter - 4000 chars is enough to extract key entities
+        truncated_text = chapter_text[:4000]
+        
+        prompt = f"""---CHAPTER TEXT---
+{truncated_text}
+---END CHAPTER---
 
-Chapter:
-\"\"\"
-{chapter_text[:15000]}
-\"\"\"
+Extract from the text above:
+1. Characters (people mentioned)
+2. Locations (places mentioned)  
+3. Key events (actions that happen)
 
-Output ONLY valid JSON."""
+Return JSON only:
+{{"entities": {{"characters": [{{"id": "lowercase_name", "name": "Name"}}], "locations": [{{"id": "place_id", "name": "Place"}}]}}, "events": [{{"id": "e1", "type": "action", "agent": "who", "location": "where"}}]}}"""
         
         payload = {
             "model": "auto",
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": self.temperature,
-            "max_tokens": 2048,
-            "repetition_penalty": 1.2,
-            "frequency_penalty": 0.5,
+            "messages": [
+                {"role": "system", "content": "You are a JSON extractor. Output ONLY valid JSON, nothing else."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.0,
+            "max_tokens": 1024,
+            "repetition_penalty": 1.1,
         }
         
         response_text = ""
@@ -438,7 +458,7 @@ Output ONLY valid JSON."""
                 headers={"Content-Type": "application/json"},
             )
             
-            with urllib.request.urlopen(req, timeout=180) as resp:
+            with urllib.request.urlopen(req, timeout=120) as resp:
                 data = json.loads(resp.read().decode())
                 response_text = data["choices"][0]["message"]["content"]
             
