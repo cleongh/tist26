@@ -1,0 +1,62 @@
+[
+  {
+    "story_name": "Goosebumps",
+    "variant": "original",
+    "approach": "llm",
+    "k_fold": 1,
+    "errors": [],
+    "error_count": 0,
+    "duration_seconds": 104.77241349220276,
+    "llm_calls": 1,
+    "ilasp_calls": 0,
+    "clingo_calls": 0,
+    "learned_rules": 0,
+    "success": true,
+    "error_message": ""
+  },
+  {
+    "story_name": "Goosebumps",
+    "variant": "original",
+    "approach": "logic",
+    "k_fold": 1,
+    "errors": [],
+    "error_count": 0,
+    "duration_seconds": 300.1598906517029,
+    "llm_calls": 0,
+    "ilasp_calls": 1,
+    "clingo_calls": 1,
+    "learned_rules": 0,
+    "success": true,
+    "error_message": ""
+  },
+  {
+    "story_name": "Goosebumps",
+    "variant": "modified",
+    "approach": "llm",
+    "k_fold": 1,
+    "errors": [],
+    "error_count": 0,
+    "duration_seconds": 300.1034007072449,
+    "llm_calls": 1,
+    "ilasp_calls": 0,
+    "clingo_calls": 0,
+    "learned_rules": 0,
+    "success": true,
+    "error_message": ""
+  },
+  {
+    "story_name": "Goosebumps",
+    "variant": "modified",
+    "approach": "logic",
+    "k_fold": 1,
+    "errors": [],
+    "error_count": 0,
+    "duration_seconds": 300.13062167167664,
+    "llm_calls": 0,
+    "ilasp_calls": 1,
+    "clingo_calls": 1,
+    "learned_rules": 0,
+    "success": true,
+    "error_message": ""
+  }
+]

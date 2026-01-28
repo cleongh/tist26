@@ -1,0 +1,37 @@
+[2026-01-28T18:53:01.807565] [INFO ] [+    0.23s] ======================================================================
+[2026-01-28T18:53:01.807693] [INFO ] [+    0.23s] NARRATIVE EVALUATION EXPERIMENT
+[2026-01-28T18:53:01.807728] [INFO ] [+    0.23s] ======================================================================
+[2026-01-28T18:53:01.807755] [INFO ] [+    0.23s] Experiment: test_run
+[2026-01-28T18:53:01.807779] [INFO ] [+    0.23s] Stories: Goosebumps
+[2026-01-28T18:53:01.807811] [INFO ] [+    0.23s] K-folds: [1]
+[2026-01-28T18:53:01.807838] [INFO ] [+    0.23s] LLM URL: http://localhost:8080/v1
+[2026-01-28T18:53:01.808861] [INFO ] [+    0.23s] LLM server OK, model: Mistral-7B-Instruct-v0.3.Q5_1.gguf
+[2026-01-28T18:53:01.808917] [INFO ] [+    0.23s] ======================================================================
+[2026-01-28T18:53:01.808941] [INFO ] [+    0.23s] STORY: Goosebumps
+[2026-01-28T18:53:01.808963] [INFO ] [+    0.23s] ======================================================================
+[2026-01-28T18:53:01.809010] [INFO ] [+    0.23s] Consolidating story chapters...
+[2026-01-28T18:53:01.812422] [INFO ] [+    0.24s] Original: 68 chapters, 366202 chars
+[2026-01-28T18:53:01.812450] [INFO ] [+    0.24s] Modified: 68 chapters, 366645 chars
+[2026-01-28T18:53:01.812466] [INFO ] [+    0.24s] K-fold: 1
+[2026-01-28T18:53:01.812480] [INFO ] [+    0.24s] Evaluating Goosebumps (original) k=1
+[2026-01-28T18:53:01.812492] [INFO ] [+    0.24s] Running LLM-based evaluation...
+[2026-01-28T18:53:01.950546] [ERROR] [+    0.37s] Guidance evaluation failed: OpenAI.__init__() got an unexpected keyword argument 'temperature'
+[2026-01-28T18:54:46.584678] [INFO ] [+  105.01s] LLM call: narrative_analysis (104.63s, 1000 chars)
+[2026-01-28T18:54:46.584933] [INFO ] [+  105.01s] LLM found 0 errors in 104.77s
+[2026-01-28T18:54:46.584964] [INFO ] [+  105.01s] Running Logic-based evaluation...
+[2026-01-28T18:59:46.685919] [ERROR] [+  405.11s] Structuring failed: timed out
+[2026-01-28T18:59:46.693379] [INFO ] [+  405.12s] Using advanced ILASP task generator
+[2026-01-28T18:59:46.708716] [INFO ] [+  405.13s] ILASP call: Goosebumps ch0 (0.02s, 0 rules)
+[2026-01-28T18:59:46.742393] [INFO ] [+  405.17s] Clingo call: Goosebumps ch0 (0.03s, 0 violations)
+[2026-01-28T18:59:46.744888] [INFO ] [+  405.17s] Logic found 0 errors in 300.16s
+[2026-01-28T18:59:46.744947] [INFO ] [+  405.17s] Evaluating Goosebumps (modified) k=1
+[2026-01-28T18:59:46.744966] [INFO ] [+  405.17s] Running LLM-based evaluation...
+[2026-01-28T18:59:46.745152] [ERROR] [+  405.17s] Guidance evaluation failed: OpenAI.__init__() got an unexpected keyword argument 'temperature'
+[2026-01-28T19:04:46.848048] [ERROR] [+  705.27s] API call failed: timed out
+[2026-01-28T19:04:46.848414] [INFO ] [+  705.27s] LLM found 0 errors in 300.10s
+[2026-01-28T19:04:46.848700] [INFO ] [+  705.27s] Running Logic-based evaluation...
+[2026-01-28T19:09:46.952002] [ERROR] [+ 1005.38s] Structuring failed: timed out
+[2026-01-28T19:09:46.954159] [INFO ] [+ 1005.38s] Using advanced ILASP task generator
+[2026-01-28T19:09:46.966778] [INFO ] [+ 1005.39s] ILASP call: Goosebumps ch0 (0.01s, 0 rules)
+[2026-01-28T19:09:46.977906] [INFO ] [+ 1005.40s] Clingo call: Goosebumps ch0 (0.01s, 0 violations)
+[2026-01-28T19:09:46.979405] [INFO ] [+ 1005.40s] Logic found 0 errors in 300.13s

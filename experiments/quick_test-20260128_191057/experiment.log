@@ -1,0 +1,19 @@
+[2026-01-28T19:10:57.583392] [INFO ] [+    0.00s] Using raw API (guidance disabled for llamafile compatibility)
+[2026-01-28T19:10:57.651622] [INFO ] [+    0.07s] ======================================================================
+[2026-01-28T19:10:57.651922] [INFO ] [+    0.07s] NARRATIVE EVALUATION EXPERIMENT
+[2026-01-28T19:10:57.652514] [INFO ] [+    0.07s] ======================================================================
+[2026-01-28T19:10:57.652572] [INFO ] [+    0.07s] Experiment: quick_test
+[2026-01-28T19:10:57.652594] [INFO ] [+    0.07s] Stories: Goosebumps
+[2026-01-28T19:10:57.652627] [INFO ] [+    0.07s] K-folds: [1]
+[2026-01-28T19:10:57.652653] [INFO ] [+    0.07s] LLM URL: http://localhost:8080/v1
+[2026-01-28T19:10:57.659760] [INFO ] [+    0.08s] LLM server OK, model: Mistral-7B-Instruct-v0.3.Q5_1.gguf
+[2026-01-28T19:10:57.659963] [INFO ] [+    0.08s] ======================================================================
+[2026-01-28T19:10:57.660018] [INFO ] [+    0.08s] STORY: Goosebumps
+[2026-01-28T19:10:57.660051] [INFO ] [+    0.08s] ======================================================================
+[2026-01-28T19:10:57.660265] [INFO ] [+    0.08s] Consolidating story chapters...
+[2026-01-28T19:10:57.669265] [INFO ] [+    0.09s] Original: 68 chapters, 366202 chars
+[2026-01-28T19:10:57.669445] [INFO ] [+    0.09s] Modified: 68 chapters, 366645 chars
+[2026-01-28T19:10:57.669530] [INFO ] [+    0.09s] K-fold: 1
+[2026-01-28T19:10:57.669552] [INFO ] [+    0.09s] Evaluating Goosebumps (original) k=1
+[2026-01-28T19:10:57.669568] [INFO ] [+    0.09s] Running LLM-based evaluation...
+[2026-01-28T19:10:57.669587] [INFO ] [+    0.09s] Large story (366202 chars), processing in chunks...

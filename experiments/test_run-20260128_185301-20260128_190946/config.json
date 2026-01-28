@@ -1,0 +1,13 @@
+{
+  "name": "test_run",
+  "llm_url": "http://localhost:8080/v1",
+  "temperature": 0.0,
+  "k_folds": [
+    1
+  ],
+  "stories": [
+    "Goosebumps"
+  ],
+  "timeout_seconds": 600,
+  "verbose": true
+}

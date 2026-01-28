@@ -1,2 +1,62 @@
+# =============================================================================
+# Narrative Consistency Checker - Requirements
+# =============================================================================
+
+# Core ASP solver for logic-based reasoning
 clingo>=5.6.0
-guidance>=0.3.0  # optional, for constrained JSON generation
+
+# Constrained JSON generation with LLMs (recommended for schema compliance)
+guidance>=0.3.0
+
+# HTTP requests for LLM API calls
+requests>=2.28.0
+
+# =============================================================================
+# ILASP Integration (Per-Story Rule Learning)
+# =============================================================================
+# ILASP requires Python 3.10 and must be installed separately:
+#
+# 1. Create a Python 3.10 conda environment:
+#    conda create -n tist26 python=3.10 -y
+#    conda activate tist26
+#
+# 2. Install project dependencies:
+#    pip install clingo guidance requests openai
+#
+# 3. Download ILASP from: https://doc.ilasp.com/installation.html
+#    Ensure 'ILASP' binary is in PATH
+#
+# 4. Set library path before running (REQUIRED for ILASP):
+#    export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+#
+# 5. Test ILASP:
+#    ILASP --help
+#
+# If ILASP is not available, the system falls back to heuristic rule learning.
+
+# =============================================================================
+# LLM Backend Options (install based on your setup)
+# =============================================================================
+
+# For OpenAI-compatible APIs (llamafile, ollama, vLLM, OpenAI)
+openai>=1.0.0
+
+# For Google Gemini API (optional)
+google-generativeai>=0.3.0
+
+# =============================================================================
+# Experiment and Reporting Dependencies
+# =============================================================================
+
+# For markdown report generation
+# (stdlib modules used: json, datetime, pathlib, hashlib, uuid)
+
+# For timing and logging
+# (stdlib modules used: time, logging, subprocess)
+
+# =============================================================================
+# Development Dependencies (optional)
+# =============================================================================
+# pytest>=7.0.0        # for testing
+# black>=23.0.0        # for code formatting
+# mypy>=1.0.0          # for type checking

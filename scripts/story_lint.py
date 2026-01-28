@@ -128,6 +128,19 @@ from pathlib import Path
 from json_to_asp import json_to_asp
 from llm_structurer import structure_story
 
+# Import incremental learning modules (optional - graceful fallback)
+try:
+    from ilasp_learner import ILASPLearner, StoryKnowledge
+    ILASP_AVAILABLE = True
+except ImportError:
+    ILASP_AVAILABLE = False
+
+try:
+    from llm_server import LlamafileServer, MODELS as LLAMAFILE_MODELS
+    LLAMAFILE_AVAILABLE = True
+except ImportError:
+    LLAMAFILE_AVAILABLE = False
+
 
 # =============================================================================
 # PROMPT TEMPLATES
@@ -1371,6 +1384,538 @@ def resolve_model_id_gemini(base_url, model, api_key, timeout):
 
 
 # =============================================================================
+# INCREMENTAL LINTING (ILASP + Chapter-by-Chapter Learning)
+# =============================================================================
+
+def incremental_lint(story_path, args):
+    """
+    Perform incremental linting comparing LLM direct linting vs ILASP learning.
+    
+    This mode processes a story directory containing chapter files (000.txt, 001.txt, etc.)
+    and runs TWO approaches in parallel for comparison:
+    
+    1. LLM Direct Linting: Ask LLM to find inconsistencies directly (per chapter)
+    2. ILASP Incremental Learning: Learn rules from earlier chapters, check later ones
+    
+    KEY PRINCIPLE: COMPLETE ISOLATION
+    Each run starts with a FRESH LLM server and FRESH ILASP learner.
+    There is no state carryover between experiments.
+    
+    Workflow:
+        For each chapter:
+            - LLM: Direct analysis of chapter for inconsistencies
+            - ILASP: Chapter 1 learns only, Chapter 2+ checks then learns
+        Compare results at the end.
+    
+    Args:
+        story_path: Path to directory containing chapter .txt files
+        args: Parsed command-line arguments
+        
+    Returns:
+        Dictionary with:
+            - error_count: Total violations found (combined)
+            - llm_errors: Errors found by LLM direct linting
+            - ilasp_errors: Errors found by ILASP incremental learning
+            - chapters: Per-chapter results with both approaches
+            - knowledge_summary: Final accumulated ILASP knowledge
+            - comparison: Summary comparing both approaches
+    """
+    log("Starting incremental lint: LLM vs ILASP comparison mode.")
+    
+    # Validate dependencies
+    if not ILASP_AVAILABLE:
+        raise SystemExit("ILASP learner module not available. Check ilasp_learner.py exists.")
+    
+    story_dir = Path(story_path)
+    if not story_dir.is_dir():
+        raise SystemExit(f"Incremental mode requires a directory of chapter files: {story_path}")
+    
+    # Get chapter files (sorted)
+    chapter_files = sorted(story_dir.glob("*.txt"), key=lambda p: p.stem)
+    if not chapter_files:
+        raise SystemExit(f"No .txt chapter files found in {story_path}")
+    
+    log(f"Found {len(chapter_files)} chapter files in {story_path}")
+    
+    # Generate experiment ID
+    experiment_id = args.experiment_id or f"{story_dir.parent.name}_{story_dir.name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    
+    # Initialize results (now tracking both LLM and ILASP)
+    result = {
+        "experiment_id": experiment_id,
+        "story_dir": str(story_dir),
+        "error_count": 0,  # Combined total
+        "llm_errors": [],  # LLM direct linting errors
+        "ilasp_errors": [],  # ILASP incremental learning errors
+        "chapters": [],
+        "knowledge_summary": {},
+        "comparison": {},  # Summary comparing both approaches
+    }
+    
+    # Create FRESH ILASP learner (isolated state)
+    learner = ILASPLearner(experiment_id=experiment_id, verbose=True)
+    
+    # Start FRESH LLM server if using local llamafile
+    llm_server = None
+    if LLAMAFILE_AVAILABLE and args.llm_backend == "openai" and is_local_server(args.llm_base_url):
+        try:
+            log(f"Starting FRESH local LLM server: {args.local_llm}")
+            llm_server = LlamafileServer(
+                model=args.local_llm,
+                port=args.local_llm_port,
+                verbose=True,
+                auto_start=True,
+            )
+            # Update base URL to use our fresh server
+            args.llm_base_url = f"http://127.0.0.1:{args.local_llm_port}/v1"
+            args.struct_base_url = args.llm_base_url
+            log(f"LLM server ready at {args.llm_base_url}")
+        except Exception as e:
+            log(f"Could not start local LLM server: {e}")
+            llm_server = None
+    
+    try:
+        # Process each chapter with BOTH approaches
+        for i, chapter_path in enumerate(chapter_files):
+            chapter_num = i + 1
+            log(f"\n{'='*60}")
+            log(f"Processing chapter {chapter_num}: {chapter_path.name}")
+            
+            chapter_result = _process_chapter_incremental(
+                chapter_path, chapter_num, learner, args
+            )
+            result["chapters"].append(chapter_result)
+            
+            # Accumulate LLM errors
+            for error in chapter_result.get("llm_violations", []):
+                result["llm_errors"].append({
+                    "id": f"ch{chapter_num}_llm_{error.get('id', 'unknown')}",
+                    "category": error.get("category", "llm_detected"),
+                    "description": error.get("description", str(error)),
+                    "chapter": chapter_num,
+                    "chapter_file": chapter_path.name,
+                    "severity": error.get("severity", "medium"),
+                    "source": "llm_direct",
+                })
+            
+            # Accumulate ILASP errors
+            for violation in chapter_result.get("ilasp_violations", []):
+                result["ilasp_errors"].append({
+                    "id": f"ch{chapter_num}_ilasp_{violation.get('type', 'unknown')}",
+                    "category": violation.get("category", "ilasp_detected"),
+                    "description": violation.get("description", str(violation)),
+                    "chapter": chapter_num,
+                    "chapter_file": chapter_path.name,
+                    "severity": violation.get("severity", "medium"),
+                    "source": "ilasp_incremental",
+                })
+        
+        # Get final knowledge summary
+        result["knowledge_summary"] = learner.get_summary()
+        
+        # Build comparison summary
+        result["error_count"] = len(result["llm_errors"]) + len(result["ilasp_errors"])
+        result["comparison"] = _build_comparison_summary(result)
+        
+    finally:
+        # ALWAYS stop the LLM server (ensures clean state for next experiment)
+        if llm_server is not None:
+            log("Stopping LLM server (cleaning state)...")
+            try:
+                llm_server.stop()
+            except Exception as e:
+                log(f"Error stopping server: {e}")
+    
+    log(f"\nIncremental lint complete:")
+    log(f"  LLM direct: {len(result['llm_errors'])} errors")
+    log(f"  ILASP incremental: {len(result['ilasp_errors'])} errors")
+    log(f"  Combined total: {result['error_count']} errors")
+    return result
+
+
+def _process_chapter_incremental(chapter_path, chapter_num, learner, args):
+    """
+    Process a single chapter through BOTH LLM direct linting and ILASP learning.
+    
+    This runs two parallel analysis approaches:
+    1. LLM Direct: Ask LLM to find inconsistencies in this chapter
+    2. ILASP Incremental: Check against learned knowledge, then learn from chapter
+    
+    Args:
+        chapter_path: Path to chapter file
+        chapter_num: Chapter number (1-indexed)
+        learner: ILASPLearner instance
+        args: Command-line arguments
+        
+    Returns:
+        Dictionary with chapter processing results from both approaches
+    """
+    result = {
+        "chapter_num": chapter_num,
+        "file": chapter_path.name,
+        "llm_violations": [],   # LLM direct linting results
+        "ilasp_violations": [], # ILASP incremental learning results
+        "entities_found": 0,
+        "events_found": 0,
+    }
+    
+    # Read chapter text
+    try:
+        text = chapter_path.read_text(encoding="utf-8")
+    except Exception as e:
+        log(f"  Error reading file: {e}")
+        result["error"] = str(e)
+        return result
+    
+    # ========== APPROACH 1: LLM DIRECT LINTING ==========
+    log(f"  [LLM] Running direct LLM linting...")
+    try:
+        if getattr(args, 'mock_llm', False):
+            log("  [LLM] Using mock response.")
+            llm_result = {"error_count": 0, "errors": []}
+        else:
+            llm_result = _llm_lint_chapter(text, chapter_num, args)
+        
+        result["llm_violations"] = llm_result.get("errors", [])
+        log(f"  [LLM] Found {len(result['llm_violations'])} issues")
+    except Exception as e:
+        log(f"  [LLM] Direct linting failed: {e}")
+        result["llm_error"] = str(e)
+    
+    # ========== APPROACH 2: ILASP INCREMENTAL LEARNING ==========
+    log(f"  [ILASP] Running incremental learning...")
+    
+    # Structure text using LLM (needed for ILASP)
+    try:
+        if getattr(args, 'mock', False):
+            log("  [ILASP] Using mock structured data.")
+            structured = {
+                "entities": {"characters": [], "objects": [], "locations": []},
+                "events": [],
+                "relationships": [],
+                "traits": [],
+                "fluents": [],
+            }
+        else:
+            log(f"  [ILASP] Structuring chapter via LLM...")
+            struct_result = structure_story(
+                text,
+                model=args.struct_model,
+                base_url=args.struct_base_url,
+                api_key=args.struct_api_key,
+                no_auth=args.struct_no_auth,
+                backend=args.struct_backend,
+                timeout=args.struct_timeout,
+                max_tokens=args.struct_max_tokens,
+                retries=args.struct_retries,
+                backoff=args.struct_backoff,
+                thinking_budget=args.struct_thinking_budget,
+                return_details=False,
+            )
+            structured = struct_result if isinstance(struct_result, dict) else struct_result.get("parsed", {})
+    except Exception as e:
+        log(f"  [ILASP] LLM structuring failed: {e}")
+        # Fallback to simple structure
+        structured = _simple_structure_text(text)
+    
+    result["entities_found"] = len(structured.get("entities", {}).get("characters", []))
+    result["events_found"] = len(structured.get("events", []))
+    
+    # Process with ILASP learner (check + learn)
+    ilasp_violations = learner.process_chapter(
+        structured_json=structured,
+        chapter_num=chapter_num,
+        chapter_text=text,
+    )
+    
+    result["ilasp_violations"] = ilasp_violations
+    log(f"  [ILASP] Found {len(ilasp_violations)} violations, learned from chapter")
+    
+    # Summary for this chapter
+    log(f"  Chapter {chapter_num} summary: LLM={len(result['llm_violations'])} ILASP={len(result['ilasp_violations'])}")
+    
+    return result
+
+
+def _llm_lint_chapter(chapter_text, chapter_num, args):
+    """
+    Run direct LLM linting on a single chapter.
+    
+    Uses the same prompt structure as llm_lint() but adapted for per-chapter use.
+    
+    Args:
+        chapter_text: Text content of the chapter
+        chapter_num: Chapter number for context
+        args: Command-line arguments
+        
+    Returns:
+        Dictionary with error_count and errors list
+    """
+    # Build prompt for chapter-specific linting
+    prompt = f"""Analyze this chapter (Chapter {chapter_num}) for narrative inconsistencies.
+
+Look for:
+1. Characters acting out of established character
+2. Timeline inconsistencies
+3. Location/spatial impossibilities
+4. Objects appearing/disappearing without explanation
+5. Contradictions with established facts
+
+Chapter text:
+{chapter_text.strip()}
+
+Respond with JSON:
+{{
+  "error_count": <number>,
+  "errors": [
+    {{
+      "id": "<unique_id>",
+      "category": "<category>",
+      "description": "<detailed description>",
+      "severity": "low|medium|high",
+      "evidence": "<quote from text>"
+    }}
+  ]
+}}
+
+If no errors found, return {{"error_count": 0, "errors": []}}"""
+
+    raw_response = None
+    
+    try:
+        if args.llm_backend == "gemini":
+            raw_response = call_gemini_json(
+                prompt,
+                args.llm_model,
+                args.llm_base_url,
+                args.llm_api_key,
+                temperature=args.llm_temperature,
+                timeout=args.llm_timeout,
+                max_tokens=args.llm_max_tokens,
+                retries=args.llm_retries,
+                backoff_seconds=args.llm_backoff,
+                thinking_budget=args.llm_thinking_budget,
+            )
+        elif args.llm_backend == "guidance":
+            raw_response = call_guidance_json(
+                prompt,
+                args.llm_model,
+                args.llm_api_key,
+                base_url=args.llm_base_url,
+                no_auth=args.llm_no_auth,
+                timeout=args.llm_timeout,
+                max_tokens=args.llm_max_tokens,
+            )
+        else:
+            # OpenAI-compatible
+            raw_response = call_openai_json(
+                prompt,
+                args.llm_model,
+                args.llm_base_url,
+                args.llm_api_key,
+                no_auth=args.llm_no_auth,
+                temperature=args.llm_temperature,
+                timeout=args.llm_timeout,
+                max_tokens=args.llm_max_tokens,
+            )
+        
+        # Parse the response
+        result = parse_llm_lint(raw_response)
+        return result
+        
+    except Exception as e:
+        log(f"  [LLM] Chapter lint failed: {e}")
+        return {"error_count": 0, "errors": [], "error": str(e)}
+
+
+def _build_comparison_summary(result):
+    """
+    Build a summary comparing LLM direct linting vs ILASP incremental learning.
+    
+    This analyzes the errors found by each approach and categorizes them
+    to help understand the strengths of each method.
+    
+    Args:
+        result: The full incremental lint result dictionary
+        
+    Returns:
+        Dictionary with comparison statistics and analysis
+    """
+    llm_errors = result.get("llm_errors", [])
+    ilasp_errors = result.get("ilasp_errors", [])
+    chapters = result.get("chapters", [])
+    
+    # Per-chapter breakdown
+    chapter_breakdown = []
+    for ch in chapters:
+        chapter_breakdown.append({
+            "chapter": ch.get("chapter_num", 0),
+            "file": ch.get("file", ""),
+            "llm_count": len(ch.get("llm_violations", [])),
+            "ilasp_count": len(ch.get("ilasp_violations", [])),
+        })
+    
+    # Categorize by severity
+    llm_by_severity = {"high": 0, "medium": 0, "low": 0}
+    for err in llm_errors:
+        sev = err.get("severity", "medium").lower()
+        if sev in llm_by_severity:
+            llm_by_severity[sev] += 1
+        else:
+            llm_by_severity["medium"] += 1
+    
+    ilasp_by_severity = {"high": 0, "medium": 0, "low": 0}
+    for err in ilasp_errors:
+        sev = err.get("severity", "medium").lower()
+        if sev in ilasp_by_severity:
+            ilasp_by_severity[sev] += 1
+        else:
+            ilasp_by_severity["medium"] += 1
+    
+    # Categorize by error type/category
+    llm_categories = {}
+    for err in llm_errors:
+        cat = err.get("category", "unknown")
+        llm_categories[cat] = llm_categories.get(cat, 0) + 1
+    
+    ilasp_categories = {}
+    for err in ilasp_errors:
+        cat = err.get("category", "unknown")
+        ilasp_categories[cat] = ilasp_categories.get(cat, 0) + 1
+    
+    # Summary statistics
+    return {
+        "llm_total": len(llm_errors),
+        "ilasp_total": len(ilasp_errors),
+        "combined_total": len(llm_errors) + len(ilasp_errors),
+        "llm_by_severity": llm_by_severity,
+        "ilasp_by_severity": ilasp_by_severity,
+        "llm_categories": llm_categories,
+        "ilasp_categories": ilasp_categories,
+        "chapter_breakdown": chapter_breakdown,
+        "analysis": {
+            "llm_only_advantage": "Direct contextual analysis, catches subtle stylistic issues",
+            "ilasp_only_advantage": "Logical consistency based on learned rules, no hallucination",
+            "recommendation": "Use both for comprehensive coverage",
+        },
+    }
+
+
+def _simple_structure_text(text):
+    """Simple fallback text structuring without LLM."""
+    import re
+    
+    entities = {"characters": [], "objects": [], "locations": []}
+    events = []
+    
+    # Find speakers from dialogue patterns
+    speakers = set()
+    for match in re.finditer(r'"[^"]+"\s*(?:said|asked|replied|shouted)\s+(\w+)', text, re.I):
+        speakers.add(match.group(1))
+    for match in re.finditer(r'(\w+)\s+(?:said|asked|replied|shouted)\s*"', text, re.I):
+        speakers.add(match.group(1))
+    
+    for speaker in speakers:
+        entities["characters"].append({
+            "id": f"char_{speaker.lower()}",
+            "name": speaker,
+        })
+    
+    return {
+        "entities": entities,
+        "events": events,
+        "relationships": [],
+        "traits": [],
+        "fluents": [],
+    }
+
+
+def compare_incremental(original_dir, modified_dir, args):
+    """
+    Run TWO COMPLETELY ISOLATED incremental experiments and compare.
+    
+    Each experiment gets a FRESH LLM server that is killed after.
+    The modified experiment knows NOTHING about the original.
+    
+    Runs BOTH LLM direct linting and ILASP learning on each story,
+    then compares results to see which approach better detects the modifications.
+    
+    Args:
+        original_dir: Path to original story directory
+        modified_dir: Path to modified story directory
+        args: Command-line arguments
+        
+    Returns:
+        Comparison result dictionary with LLM vs ILASP breakdown
+    """
+    log("="*60)
+    log("COMPARISON EXPERIMENT (Incremental Mode: LLM vs ILASP)")
+    log("="*60)
+    log(f"Original: {original_dir}")
+    log(f"Modified: {modified_dir}")
+    
+    # Run original (ISOLATED)
+    log("\n>>> RUNNING ORIGINAL (isolated experiment)")
+    args.experiment_id = f"original_{Path(original_dir).name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    original_result = incremental_lint(original_dir, args)
+    
+    # Run modified (COMPLETELY FRESH - ISOLATED)
+    log("\n>>> RUNNING MODIFIED (isolated experiment - NO knowledge from original)")
+    args.experiment_id = f"modified_{Path(modified_dir).name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    modified_result = incremental_lint(modified_dir, args)
+    
+    # Build comparison with LLM vs ILASP breakdown
+    comparison = {
+        "original": {
+            "story_dir": original_dir,
+            "chapters": len(original_result["chapters"]),
+            "total_errors": original_result["error_count"],
+            "llm_errors": len(original_result["llm_errors"]),
+            "ilasp_errors": len(original_result["ilasp_errors"]),
+            "comparison": original_result.get("comparison", {}),
+        },
+        "modified": {
+            "story_dir": modified_dir,
+            "chapters": len(modified_result["chapters"]),
+            "total_errors": modified_result["error_count"],
+            "llm_errors": len(modified_result["llm_errors"]),
+            "ilasp_errors": len(modified_result["ilasp_errors"]),
+            "comparison": modified_result.get("comparison", {}),
+        },
+        "detection_analysis": {
+            # Overall detection
+            "combined_detection_success": modified_result["error_count"] > original_result["error_count"],
+            "combined_additional": modified_result["error_count"] - original_result["error_count"],
+            # LLM-specific detection
+            "llm_detection_success": len(modified_result["llm_errors"]) > len(original_result["llm_errors"]),
+            "llm_additional": len(modified_result["llm_errors"]) - len(original_result["llm_errors"]),
+            # ILASP-specific detection
+            "ilasp_detection_success": len(modified_result["ilasp_errors"]) > len(original_result["ilasp_errors"]),
+            "ilasp_additional": len(modified_result["ilasp_errors"]) - len(original_result["ilasp_errors"]),
+        },
+        "error_count": modified_result["error_count"],  # For compatibility
+    }
+    
+    log("\n" + "="*60)
+    log("COMPARISON RESULTS: LLM vs ILASP")
+    log("="*60)
+    log(f"\nOriginal story:")
+    log(f"  Total errors: {comparison['original']['total_errors']}")
+    log(f"  LLM direct:   {comparison['original']['llm_errors']}")
+    log(f"  ILASP:        {comparison['original']['ilasp_errors']}")
+    log(f"\nModified story:")
+    log(f"  Total errors: {comparison['modified']['total_errors']}")
+    log(f"  LLM direct:   {comparison['modified']['llm_errors']}")
+    log(f"  ILASP:        {comparison['modified']['ilasp_errors']}")
+    log(f"\nDetection Analysis:")
+    log(f"  Combined: +{comparison['detection_analysis']['combined_additional']} errors {'(SUCCESS)' if comparison['detection_analysis']['combined_detection_success'] else '(FAILED)'}")
+    log(f"  LLM only: +{comparison['detection_analysis']['llm_additional']} errors {'(SUCCESS)' if comparison['detection_analysis']['llm_detection_success'] else '(FAILED)'}")
+    log(f"  ILASP:    +{comparison['detection_analysis']['ilasp_additional']} errors {'(SUCCESS)' if comparison['detection_analysis']['ilasp_detection_success'] else '(FAILED)'}")
+    
+    return comparison
+
+
+# =============================================================================
 # MAIN ENTRY POINT
 # =============================================================================
 
@@ -1402,21 +1947,30 @@ Examples:
   
   # Mock mode for testing
   python scripts/story_lint.py --mock --mock-llm story.txt
+  
+  # Incremental mode (compares LLM direct linting vs ILASP learning per chapter)
+  python scripts/story_lint.py --mode incremental original_books/Goosebumps/
+  
+  # Compare original vs modified (incremental mode, detects injected errors)
+  python scripts/story_lint.py --mode incremental original_books/Goosebumps/ --compare-dir modified_books/Goosebumps/
+  
+  # Incremental mode with specific local LLM
+  python scripts/story_lint.py --mode incremental --local-llm gemma-3-12b original_books/Goosebumps/
         """
     )
     
     # Mode selection
     parser.add_argument(
         "--mode",
-        choices=["llm", "logic", "both"],
+        choices=["llm", "logic", "both", "incremental"],
         default="both",
-        help="Which lint modes to run: llm (direct LLM analysis), logic (ASP reasoning), or both (default)"
+        help="Which lint modes to run: llm (direct LLM analysis), logic (ASP reasoning), both (default), or incremental (chapter-by-chapter comparison of LLM vs ILASP learning)"
     )
     parser.add_argument(
         "story",
         nargs="?",
         default="story.txt",
-        help="Path to story file (default: story.txt)"
+        help="Path to story file or directory of chapters (for incremental mode)"
     )
     
     # LLM configuration (for direct linting and violation interpretation)
@@ -1447,6 +2001,17 @@ Examples:
     parser.add_argument("--struct-retries", type=int, default=5, help="Structurer retries")
     parser.add_argument("--struct-backoff", type=int, default=30, help="Structurer backoff")
     parser.add_argument("--struct-thinking-budget", type=int, default=0, help="Structurer thinking budget")
+    
+    # Incremental mode options (for chapter-by-chapter ILASP learning)
+    parser.add_argument("--local-llm", default="mistral-7b",
+                        choices=["mistral-7b", "gemma-3-12b", "deepseek-r1-7b"],
+                        help="Local llamafile model for incremental mode")
+    parser.add_argument("--local-llm-port", type=int, default=8080,
+                        help="Port for local llamafile server")
+    parser.add_argument("--experiment-id", default=None,
+                        help="Custom experiment ID for incremental mode")
+    parser.add_argument("--compare-dir", default=None,
+                        help="Compare story directory with this modified version (incremental mode)")
     
     # Other options
     parser.add_argument("--include-candidates", action="store_true",
@@ -1511,10 +2076,70 @@ Examples:
         if args.struct_backend == "openai" and not args.struct_no_auth and not args.struct_api_key:
             raise SystemExit("Missing OPENAI_API_KEY or --struct-api-key (or use --struct-no-auth).")
 
-    # ===== LOAD STORY =====
+    # ===== INCREMENTAL MODE =====
+    # Incremental mode has different path handling (directory vs file)
+    if args.mode == "incremental":
+        story_path = Path(args.story)
+        if not story_path.exists():
+            raise SystemExit(f"Story path not found: {story_path}")
+        
+        start_time = datetime.now()
+        
+        # Check if comparing two directories
+        if args.compare_dir:
+            result = compare_incremental(str(story_path), args.compare_dir, args)
+            result["mode"] = "incremental_compare"
+        else:
+            result = incremental_lint(str(story_path), args)
+            result["mode"] = "incremental"
+        
+        end_time = datetime.now()
+        result["total_errors"] = result.get("error_count", 0)
+        
+        # Build execution record for incremental mode
+        command_line = " ".join(sys.argv)
+        execution_record = {
+            "command": command_line,
+            "start_time": start_time.isoformat(),
+            "end_time": end_time.isoformat(),
+            "duration_seconds": (end_time - start_time).total_seconds(),
+            "config": {
+                "mode": args.mode,
+                "local_llm": args.local_llm,
+                "local_llm_port": args.local_llm_port,
+                "experiment_id": args.experiment_id,
+                "compare_dir": args.compare_dir,
+            },
+            "story_path": str(story_path),
+            "result": result,
+        }
+        
+        # Save to output.json
+        output_file = Path("output.json")
+        if output_file.exists():
+            try:
+                history = json.loads(output_file.read_text())
+                if not isinstance(history, list):
+                    history = [history]
+            except json.JSONDecodeError:
+                history = []
+        else:
+            history = []
+        history.append(execution_record)
+        output_file.write_text(json.dumps(history, indent=2) + "\n")
+        log(f"Appended result to {output_file}")
+        
+        # Output to stdout
+        log("Writing JSON result to stdout.")
+        sys.stdout.write(json.dumps(result, indent=2) + "\n")
+        return
+
+    # ===== LOAD STORY (for non-incremental modes) =====
     story_path = Path(args.story)
     if not story_path.exists():
         raise SystemExit(f"Story file not found: {story_path}")
+    if story_path.is_dir():
+        raise SystemExit(f"For directory processing, use --mode incremental: {story_path}")
     story_text = story_path.read_text()
     if not story_text.strip():
         raise SystemExit("Story file is empty.")
