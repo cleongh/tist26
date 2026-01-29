@@ -27,7 +27,7 @@
 % Alive persists
 #modeh(alive(var(character))).
 #modeb(alive(var(character))).
-#modeb(not dead(var(character))).
+#modeb(dead(var(character)), (negative)).  % Allow negated dead in body
 
 % Dead persists (once dead, always dead)
 #modeh(dead(var(character))).
@@ -40,12 +40,12 @@
 % Location persists
 #modeh(at_location(var(character), var(location))).
 #modeb(at_location(var(character), var(location))).
-#modeb(not at_location(var(character), var(location))).
+#modeb(at_location(var(character), var(location)), (negative)).  % Allow negated
 
 % Ownership persists
 #modeh(has(var(character), var(object))).
 #modeb(has(var(character), var(object))).
-#modeb(not has(var(character), var(object))).
+#modeb(has(var(character), var(object)), (negative)).  % Allow negated
 
 %% === ENTITY PREDICATES ===
 %% Background knowledge about entities
@@ -188,11 +188,7 @@ incompatible_trait_action(paralyzed, attack).
 
 %% === BIAS SETTINGS ===
 %% Control hypothesis space size
-
-#bias("No rule may have more than 5 body literals.").
-#maxv(5).
-
-%% === WEIGHT AND NOISE ===
-%% Allow for noisy examples
-
-#noise_threshold(0.1).
+%% Note: These directives are handled via command-line options in ILASP4
+%% --max-body-literals=5 (instead of #bias)
+%% --max-variables=5 (instead of #maxv)
+%% --noise=0.1 (instead of #noise_threshold)

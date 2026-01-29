@@ -178,8 +178,10 @@ ERROR CATEGORIES:
 - location: impossible travel, characters in two places
 - emotional: actions contradicting established relationships
 
+For each error found, include the exact quote from the chapter that contains the error.
+
 Respond with JSON only:
-{{"error_count": N, "errors": [{{"category": "causality|coherence|temporal|location|emotional", "description": "brief description"}}]}}"""
+{{"error_count": N, "errors": [{{"category": "causality|coherence|temporal|location|emotional", "description": "brief description of the error", "error_text": "exact quote from chapter with the error"}}]}}"""
 
 
 # =============================================================================
@@ -340,6 +342,7 @@ class LogicEvaluator:
         # Accumulated knowledge for incremental learning
         self.accumulated_facts: List[str] = []
         self.learned_rules: List[str] = []
+        self.chapter_violations_history: List[Dict] = []  # Track violations for ILASP
         
         # Initialize log file
         if self.log_file:
@@ -371,57 +374,73 @@ class LogicEvaluator:
         """Reset accumulated knowledge (for new story)."""
         self.accumulated_facts = []
         self.learned_rules = []
+        self.chapter_violations_history = []  # Track violations for ILASP learning
     
     def evaluate_chapter(self, chapter_text: str, chapter_num: int, story: str = "", variant: str = "", chapter_name: str = "") -> Tuple[List[Dict], float]:
         """
         Evaluate a chapter using logic-based approach.
         
-        Steps:
-        1. Structure chapter with LLM
-        2. Convert to ASP facts
-        3. Learn rules with ILASP (if not first chapter)
-        4. Check with Clingo
+        Pipeline:
+        1. LLM structures chapter → JSON (entities, events)
+        2. Convert to ASP facts + run Clingo with existing rules → violations
+        3. ILASP learns from violations + accumulates cross-chapter constraints
+        4. LLM interprets violations → natural language errors (same format as Step 1)
         
         Returns:
             Tuple of (list of error dicts, duration in seconds)
         """
         start_time = time.time()
         
-        # Step 1: Structure with LLM
+        # === STEP 1: Structure with LLM ===
         structured, struct_prompt, struct_response = self._structure_chapter(chapter_text)
         
-        # Log structuring step
         self._log_interaction(
-            story, variant, chapter_name, "structure",
+            story, variant, chapter_name, "step1_structure",
             struct_prompt, struct_response, structured,
             time.time() - start_time
         )
         
-        # Step 2: Convert to ASP
+        # === STEP 2: Convert to ASP + Check with Clingo ===
         facts = self._to_asp(structured, chapter_num)
-        
-        # Step 3: Learn rules with ILASP (incremental)
-        if chapter_num > 0 and self.accumulated_facts:
-            self._learn_rules(chapter_num)
-        
-        # Step 4: Check with Clingo
         violations = self._check_with_clingo(facts, chapter_num)
         
-        # Update accumulated facts
+        self._log_interaction(
+            story, variant, chapter_name, "step2_clingo",
+            facts, "", {"violations": violations, "learned_rules_count": len(self.learned_rules)},
+            time.time() - start_time
+        )
+        
+        # === STEP 3: ILASP Learning ===
+        # Learn from current violations and accumulated knowledge
+        new_rules = self._learn_rules_from_violations(facts, violations, chapter_num)
+        
+        # Update accumulated facts for next chapter
         self.accumulated_facts.extend(facts.split('\n'))
         
-        duration = time.time() - start_time
-        
-        # Convert violations to error format
-        errors = []
-        for v in violations:
-            errors.append({
-                "category": v.get("category", "unknown"),
-                "error_type": v.get("type", "unknown"),
-                "description": v.get("description", str(v)),
-                "story_fragment": "",
+        # Track violations for cross-chapter learning
+        if violations:
+            self.chapter_violations_history.append({
+                "chapter": chapter_num,
+                "violations": violations,
             })
         
+        self._log_interaction(
+            story, variant, chapter_name, "step3_ilasp",
+            "", "", {"new_rules": new_rules, "total_rules": len(self.learned_rules)},
+            time.time() - start_time
+        )
+        
+        # === STEP 4: LLM Interpretation ===
+        # Convert violations to natural language (same format as LLM-only step)
+        errors = self._interpret_violations(violations, chapter_text, structured)
+        
+        self._log_interaction(
+            story, variant, chapter_name, "step4_interpret",
+            "", "", {"errors": errors},
+            time.time() - start_time
+        )
+        
+        duration = time.time() - start_time
         return errors, duration
     
     def _structure_chapter(self, chapter_text: str) -> Tuple[Dict, str, str]:
@@ -491,11 +510,21 @@ Return JSON only:
             if s and s[0].isdigit(): s = 'n' + s
             return s or "unknown"
         
+        # Track all character/location IDs and their name variants
+        char_ids = set()
+        location_ids = set()
+        
         entities = data.get("entities", {})
         for char in entities.get("characters", []):
-            cid = sanitize(char.get("id", char.get("name", "")))
+            # Add both the ID and the sanitized name as character facts
+            cid = sanitize(char.get("id", ""))
+            cname = sanitize(char.get("name", ""))
             if cid and cid != "unknown":
                 lines.append(f"character({cid}).")
+                char_ids.add(cid)
+            if cname and cname != "unknown" and cname != cid:
+                lines.append(f"character({cname}).")
+                char_ids.add(cname)
         
         for obj in entities.get("objects", []):
             oid = sanitize(obj.get("id", obj.get("name", "")))
@@ -503,9 +532,15 @@ Return JSON only:
                 lines.append(f"object({oid}).")
         
         for loc in entities.get("locations", []):
-            lid = sanitize(loc.get("id", loc.get("name", "")))
+            # Add both the ID and the sanitized name as location facts
+            lid = sanitize(loc.get("id", ""))
+            lname = sanitize(loc.get("name", ""))
             if lid and lid != "unknown":
                 lines.append(f"location_entity({lid}).")
+                location_ids.add(lid)
+            if lname and lname != "unknown" and lname != lid:
+                lines.append(f"location_entity({lname}).")
+                location_ids.add(lname)
         
         for i, event in enumerate(data.get("events", [])):
             eid = sanitize(event.get("id", f"e{chapter_num}_{i+1}"))
@@ -513,31 +548,93 @@ Return JSON only:
             if event.get("type"):
                 lines.append(f"event_type({eid}, {sanitize(event['type'])}).")
             if event.get("agent"):
-                lines.append(f"agent({eid}, {sanitize(event['agent'])}).")
+                agent_id = sanitize(event['agent'])
+                lines.append(f"agent({eid}, {agent_id}).")
+                # Auto-add agent as character if not already known
+                if agent_id not in char_ids and agent_id != "unknown":
+                    lines.append(f"character({agent_id}).")
+                    char_ids.add(agent_id)
             if event.get("patient"):
                 lines.append(f"patient({eid}, {sanitize(event['patient'])}).")
             if event.get("location"):
-                lines.append(f"location({eid}, {sanitize(event['location'])}).")
+                loc_id = sanitize(event['location'])
+                lines.append(f"location({eid}, {loc_id}).")
+                # Auto-add event location if not already known
+                if loc_id not in location_ids and loc_id != "unknown":
+                    lines.append(f"location_entity({loc_id}).")
+                    location_ids.add(loc_id)
         
         return "\n".join(lines)
     
-    def _learn_rules(self, chapter_num: int):
-        """Use ILASP to learn rules from accumulated facts."""
+    def _learn_rules_from_violations(self, current_facts: str, violations: List[Dict], chapter_num: int) -> List[str]:
+        """
+        Use ILASP to learn rules from detected violations and accumulated knowledge.
+        
+        This creates proper positive/negative examples for ILASP:
+        - Positive examples: patterns that SHOULD trigger violations
+        - Negative examples: patterns that should NOT trigger violations
+        
+        Returns list of newly learned rules.
+        """
+        new_rules = []
+        
+        # Build the ILASP learning task
         task_lines = [
-            "% ILASP Learning Task",
+            "% ILASP Learning Task - Generated from Chapter " + str(chapter_num),
+            "% Learning from accumulated narrative knowledge",
             "",
         ]
         
-        # Include mode declarations
+        # Include mode declarations for hypothesis space
         if self.mode_declarations.exists():
             task_lines.append(self.mode_declarations.read_text())
         
-        task_lines.append("\n% === BACKGROUND KNOWLEDGE ===\n")
+        # === BACKGROUND KNOWLEDGE ===
+        task_lines.append("\n% === BACKGROUND KNOWLEDGE ===")
+        task_lines.append("% Accumulated facts from previous chapters:")
         task_lines.extend(self.accumulated_facts)
+        task_lines.append("")
+        task_lines.append("% Current chapter facts:")
+        task_lines.extend(current_facts.split('\n'))
+        task_lines.append("")
         
+        # Include previously learned rules
+        if self.learned_rules:
+            task_lines.append("% Previously learned rules:")
+            task_lines.extend(self.learned_rules)
+            task_lines.append("")
+        
+        # === EXAMPLES ===
         task_lines.append("\n% === EXAMPLES ===")
-        task_lines.append("#pos({}, {violation(_,_,_,_)}).")
         
+        # Positive examples: violations we detected (ILASP should learn to predict these)
+        for i, v in enumerate(violations):
+            category = v.get("category", "unknown")
+            vtype = v.get("type", "unknown")
+            event = v.get("event", "none")
+            detail = v.get("detail", "none")
+            # Create positive example: this pattern SHOULD produce a violation
+            task_lines.append(f"#pos(v{chapter_num}_{i}, {{violation({category}, {vtype}, {event}, {detail})}}, {{}}).")
+        
+        # Negative examples: things that are NOT violations
+        # Use accumulated facts about characters/locations that exist and are valid
+        task_lines.append("")
+        task_lines.append("% Negative examples: valid patterns that should NOT be violations")
+        # Don't flag known characters as unknown_agent
+        for fact in self.accumulated_facts:
+            if fact.startswith("character("):
+                char = fact.replace("character(", "").replace(").", "").strip()
+                if char:
+                    task_lines.append(f"#neg(neg_char_{char}, {{violation(coherence, unknown_agent, _, {char})}}, {{}}).")
+        
+        # === CROSS-CHAPTER CONSTRAINTS ===
+        # Learn persistence rules (e.g., if character dies, they stay dead)
+        task_lines.append("")
+        task_lines.append("% === CROSS-CHAPTER CONSTRAINTS ===")
+        task_lines.append("% Characters seen persist across chapters")
+        task_lines.append("% Locations seen persist across chapters")
+        
+        # Build the full task
         task = "\n".join(task_lines)
         
         with tempfile.NamedTemporaryFile(mode="w", suffix=".las", delete=False) as f:
@@ -557,11 +654,107 @@ Return JSON only:
                     line = line.strip()
                     if line and not line.startswith("%") and line not in self.learned_rules:
                         self.learned_rules.append(line)
+                        new_rules.append(line)
+                        log(f"ILASP learned: {line}", "INFO")
+            elif result.stderr:
+                log(f"ILASP stderr: {result.stderr[:200]}", "DEBUG")
                         
+        except subprocess.TimeoutExpired:
+            log("ILASP learning timed out", "WARN")
+        except FileNotFoundError:
+            log("ILASP not found in PATH", "WARN")
         except Exception as e:
             log(f"ILASP error: {e}", "WARN")
         finally:
-            os.unlink(task_path)
+            try:
+                os.unlink(task_path)
+            except:
+                pass
+        
+        return new_rules
+    
+    def _interpret_violations(self, violations: List[Dict], chapter_text: str, structured: Dict) -> List[Dict]:
+        """
+        Use LLM to interpret violations and produce natural language errors.
+        
+        Output format matches LLM-only step:
+        {"category": "...", "description": "...", "error_text": "..."}
+        """
+        import urllib.request
+        
+        if not violations:
+            return []
+        
+        # Build a summary of violations for the LLM
+        violation_summary = []
+        for v in violations:
+            violation_summary.append({
+                "category": v.get("category", "unknown"),
+                "type": v.get("type", "unknown"),
+                "event": v.get("event", ""),
+                "detail": v.get("detail", ""),
+            })
+        
+        # Get first 3000 chars of chapter for context
+        chapter_excerpt = chapter_text[:3000]
+        
+        prompt = f"""---CHAPTER EXCERPT---
+{chapter_excerpt}
+---END CHAPTER---
+
+The following logical violations were detected in this chapter:
+{json.dumps(violation_summary, indent=2)}
+
+For each violation, find the relevant text in the chapter and explain the error.
+
+Return JSON array with this exact format:
+[{{"category": "causality|coherence|temporal|location|emotional", "description": "what the error is", "error_text": "the exact quote from the chapter with the error"}}]
+
+Return ONLY the JSON array, nothing else."""
+
+        payload = {
+            "model": "auto",
+            "messages": [
+                {"role": "system", "content": "You interpret logical violations and find corresponding text. Output ONLY valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.0,
+            "max_tokens": 1024,
+        }
+        
+        try:
+            req = urllib.request.Request(
+                f"{self.base_url}/chat/completions",
+                data=json.dumps(payload).encode(),
+                headers={"Content-Type": "application/json"},
+            )
+            
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                data = json.loads(resp.read().decode())
+                response_text = data["choices"][0]["message"]["content"]
+            
+            # Parse JSON response
+            cleaned = re.sub(r'```json\s*', '', response_text)
+            cleaned = re.sub(r'```\s*', '', cleaned)
+            
+            # Find JSON array
+            match = re.search(r'\[.*\]', cleaned, re.DOTALL)
+            if match:
+                errors = json.loads(match.group())
+                return errors
+                
+        except Exception as e:
+            log(f"Interpretation failed: {e}", "WARN")
+        
+        # Fallback: convert violations directly without LLM interpretation
+        errors = []
+        for v in violations:
+            errors.append({
+                "category": v.get("category", "unknown"),
+                "description": v.get("description", f"Violation: {v.get('type', 'unknown')}"),
+                "error_text": v.get("detail", ""),
+            })
+        return errors
     
     def _check_with_clingo(self, facts: str, chapter_num: int) -> List[Dict]:
         """Use Clingo to find violations."""
@@ -616,16 +809,8 @@ Return JSON only:
                                 "detail": parts[3] if len(parts) > 3 else "",
                                 "description": f"Violation: {parts[1] if len(parts) > 1 else 'unknown'}",
                             })
-                        elif atom.name == "possible_location_change":
-                            # Track location changes as potential issues
-                            parts = [str(arg) for arg in atom.arguments]
-                            violations.append({
-                                "category": "location",
-                                "type": "location_change",
-                                "event": parts[3] if len(parts) > 3 else "",
-                                "detail": f"{parts[0]}: {parts[1]} -> {parts[2]}" if len(parts) > 2 else "",
-                                "description": f"Character {parts[0]} moved from {parts[1]} to {parts[2]}" if len(parts) > 2 else "Location change",
-                            })
+                        # Note: possible_location_change is informational, not an error
+                        # We don't add it to violations - it just tracks character movement
                             
         except Exception as e:
             log(f"Clingo error: {e}", "ERROR")

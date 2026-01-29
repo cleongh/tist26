@@ -179,4 +179,5 @@ is_reflexive_action(E) :- event_type(E, run).
 % =============================================================================
 
 #show violation/4.
-#show possible_location_change/5.
+% Note: possible_location_change is for tracking only, not an error
+% #show possible_location_change/5.
