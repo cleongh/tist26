@@ -329,7 +329,11 @@ class LogicEvaluator:
     def __init__(self, base_url: str = "http://localhost:8080/v1", temperature: float = 0.0, log_file: Path = None):
         self.base_url = base_url.rstrip("/")
         self.temperature = temperature
-        self.general_rules = RULES_DIR / "general.lp"
+        # Load multiple rule files for comprehensive checking
+        self.rule_files = [
+            RULES_DIR / "simple_narrative.lp",  # Works with basic extracted facts
+            RULES_DIR / "general.lp",           # Advanced rules (temporal, spatial, etc.)
+        ]
         self.mode_declarations = RULES_DIR / "ilasp_mode_declarations.las"
         self.log_file = log_file
         
@@ -585,8 +589,17 @@ Return JSON only:
         try:
             ctl = clingo.Control(["--warn=none"])
             
-            if self.general_rules.exists():
-                ctl.load(str(self.general_rules))
+            # Load all rule files
+            rules_loaded = 0
+            for rule_file in self.rule_files:
+                if rule_file.exists():
+                    ctl.load(str(rule_file))
+                    rules_loaded += 1
+                else:
+                    log(f"Rules file not found: {rule_file}", "WARN")
+            
+            if rules_loaded == 0:
+                log("No rule files loaded!", "ERROR")
             
             ctl.load(facts_path)
             ctl.ground([("base", [])])
@@ -602,6 +615,16 @@ Return JSON only:
                                 "event": parts[2] if len(parts) > 2 else "",
                                 "detail": parts[3] if len(parts) > 3 else "",
                                 "description": f"Violation: {parts[1] if len(parts) > 1 else 'unknown'}",
+                            })
+                        elif atom.name == "possible_location_change":
+                            # Track location changes as potential issues
+                            parts = [str(arg) for arg in atom.arguments]
+                            violations.append({
+                                "category": "location",
+                                "type": "location_change",
+                                "event": parts[3] if len(parts) > 3 else "",
+                                "detail": f"{parts[0]}: {parts[1]} -> {parts[2]}" if len(parts) > 2 else "",
+                                "description": f"Character {parts[0]} moved from {parts[1]} to {parts[2]}" if len(parts) > 2 else "Location change",
                             })
                             
         except Exception as e:
