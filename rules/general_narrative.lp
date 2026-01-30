@@ -180,7 +180,39 @@ is_travel_event(E) :- event_type(E, ride).
 is_travel_event(E) :- event_type(E, sail).
 is_travel_event(E) :- event_type(E, drive).
 is_travel_event(E) :- event_type(E, teleport).
-is_travel_event(E) :- event_type(E, apparate).
+is_travel_event(E) :- event_type(E, transport).
+is_travel_event(E) :- event_type(E, arrive).
+is_travel_event(E) :- event_type(E, leave).
+is_travel_event(E) :- event_type(E, move).
+
+% ----- Location Connectivity Reasoning -----
+
+% Transitive connectivity: if A connects to B and B connects to C, A can reach C
+reachable(L1, L2) :- connected(L1, L2).
+reachable(L1, L3) :- reachable(L1, L2), connected(L2, L3), L1 != L3.
+
+% Containment implies connectivity
+connected(L1, L2) :- contains(L1, L2).
+connected(L2, L1) :- contains(L1, L2).
+
+% VIOLATION: Movement between unconnected locations (spatial impossibility)
+% Only trigger if we have connectivity info for at least one of the locations
+violation(location, unreachable_location, E1, E2, "Character moves to location not connected to previous location") :-
+    event(E1), event(E2),
+    agent(E1, A), agent(E2, A),
+    location(E1, L1), location(E2, L2),
+    L1 != L2,
+    time_order(E1, E2),
+    not reachable(L1, L2),
+    has_connectivity_info(L1),
+    not is_travel_event(E1),
+    not is_travel_event(E2).
+
+% Helper: Check if a location has any connectivity information defined
+has_connectivity_info(L) :- connected(L, _).
+has_connectivity_info(L) :- connected(_, L).
+has_connectivity_info(L) :- contains(L, _).
+has_connectivity_info(L) :- contains(_, L).
 
 
 % =============================================================================
@@ -406,6 +438,48 @@ violation(coherence, focus_overlap, E1, E2, "Character cannot perform two focus-
     agent(E1, A), agent(E2, A),
     overlap(E1, E2),
     E1 < E2.
+
+% ----- Appearance/Physical State Coherence -----
+
+% VIOLATION: Unusual appearance without explanation
+% This detects when a character has an unusual appearance that might indicate an error
+% (e.g., "pale green" face when they should be angry, not sick)
+
+% Define color appearances that suggest sickness
+sick_appearance(pale).
+sick_appearance(green).
+sick_appearance(pale_green).
+sick_appearance(white).
+sick_appearance(gray).
+sick_appearance(grey).
+sick_appearance(sickly).
+
+% Define appearances that suggest injury
+injured_appearance(bloody).
+injured_appearance(bruised).
+injured_appearance(scarred).
+injured_appearance(wounded).
+injured_appearance(burned).
+
+% VIOLATION: Character has sick appearance but emotion is angry (not sick)
+violation(coherence, appearance_emotion_mismatch, C, Appearance, "Character appearance suggests sickness but emotion is angry/happy") :-
+    character(C),
+    character_appearance(C, Appearance),
+    sick_appearance(Appearance),
+    character_emotion(C, angry).
+
+violation(coherence, appearance_emotion_mismatch, C, Appearance, "Character appearance suggests sickness but emotion is happy") :-
+    character(C),
+    character_appearance(C, Appearance),
+    sick_appearance(Appearance),
+    character_emotion(C, happy).
+
+% VIOLATION: Character has injured appearance but state is normal
+violation(coherence, appearance_state_mismatch, C, Appearance, "Character appearance suggests injury but state is normal") :-
+    character(C),
+    character_appearance(C, Appearance),
+    injured_appearance(Appearance),
+    character_state(C, normal).
 
 
 % =============================================================================

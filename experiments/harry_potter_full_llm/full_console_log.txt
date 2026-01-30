@@ -1,0 +1,533 @@
+=== Experiment Log Started: 2026-01-30T16:58:18.349494 ===
+
+[2026-01-30 16:58:18] [INFO] API Mode: openai
+[2026-01-30 16:58:18] [INFO] ============================================================
+[2026-01-30 16:58:18] [INFO] STEP 1: LLM-Only Evaluation
+[2026-01-30 16:58:18] [INFO] ============================================================
+[2026-01-30 16:58:18] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_full_llm/step1_llm_log.jsonl
+[2026-01-30 16:58:18] [INFO] Using OpenAI API with model: gpt-4o
+[2026-01-30 16:58:18] [INFO] LLM server is available
+[2026-01-30 16:58:18] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 16:58:18] [INFO]   NOTE: Original books are error-free references - expect few/no errors
+[2026-01-30 16:58:18] [INFO]   Found 57 chapters
+[2026-01-30 16:58:18] [INFO]   Chapter 0: 000.txt
+[2026-01-30 16:58:22] [DEBUG]     Summary: In this chapter, we are introduced to the Dursley family, who live at number fou...
+[2026-01-30 16:58:22] [INFO]     -> 0 errors (3.5s)
+[2026-01-30 16:58:22] [INFO]   Chapter 1: 001.txt
+[2026-01-30 16:58:22] [INFO]     (with 1 previous chapter summaries for context)
+[2026-01-30 16:58:25] [DEBUG]     Summary: In this chapter, nearly ten years have passed since Harry Potter was left with t...
+[2026-01-30 16:58:25] [INFO]     -> 0 errors (3.3s)
+[2026-01-30 16:58:25] [INFO]   Chapter 2: 002.txt
+[2026-01-30 16:58:25] [INFO]     (with 2 previous chapter summaries for context)
+[2026-01-30 16:58:31] [DEBUG]     LLM reported 1 errors
+[2026-01-30 16:58:31] [DEBUG]     Summary: In this chapter, Harry receives mysterious letters addressed to him, which Uncle...
+[2026-01-30 16:58:31] [INFO]     -> 1 errors (5.7s)
+[2026-01-30 16:58:31] [INFO]   Chapter 3: 003.txt
+[2026-01-30 16:58:31] [INFO]     (with 3 previous chapter summaries for context)
+[2026-01-30 16:58:35] [DEBUG]     LLM reported 1 errors
+[2026-01-30 16:58:35] [DEBUG]     Summary: In this chapter, Hagrid arrives at the Dursleys' remote shack to deliver Harry's...
+[2026-01-30 16:58:35] [INFO]     -> 1 errors (4.3s)
+[2026-01-30 16:58:35] [INFO]   Chapter 4: 004.txt
+[2026-01-30 16:58:35] [INFO]     (with 4 previous chapter summaries for context)
+[2026-01-30 16:58:40] [DEBUG]     Summary: In this chapter, Harry wakes up to find that his magical journey is real and not...
+[2026-01-30 16:58:40] [INFO]     -> 0 errors (4.6s)
+[2026-01-30 16:58:40] [INFO]   Chapter 5: 005.txt
+[2026-01-30 16:58:40] [INFO]     (with 5 previous chapter summaries for context)
+[2026-01-30 16:58:52] [DEBUG]     Summary: In this chapter, Harry prepares to leave the Dursleys and travel to Hogwarts for...
+[2026-01-30 16:58:52] [INFO]     -> 0 errors (12.3s)
+[2026-01-30 16:58:52] [INFO]   Chapter 6: 006.txt
+[2026-01-30 16:58:52] [INFO]     (with 6 previous chapter summaries for context)
+[2026-01-30 16:59:06] [DEBUG]     Summary: In this chapter, Harry and the other first-year students arrive at Hogwarts and ...
+[2026-01-30 16:59:06] [INFO]     -> 0 errors (14.2s)
+[2026-01-30 16:59:06] [INFO]   Chapter 7: 007.txt
+[2026-01-30 16:59:06] [INFO]     (with 7 previous chapter summaries for context)
+[2026-01-30 16:59:18] [DEBUG]     LLM reported 1 errors
+[2026-01-30 16:59:18] [DEBUG]     Summary: In this chapter, Harry navigates his first week at Hogwarts, encountering variou...
+[2026-01-30 16:59:18] [INFO]     -> 1 errors (11.5s)
+[2026-01-30 16:59:18] [INFO]   Chapter 8: 008.txt
+[2026-01-30 16:59:18] [INFO]     (with 8 previous chapter summaries for context)
+[2026-01-30 16:59:34] [DEBUG]     LLM reported 2 errors
+[2026-01-30 16:59:34] [DEBUG]     Summary: In this chapter, Harry and his classmates have their first flying lesson, where ...
+[2026-01-30 16:59:34] [INFO]     -> 2 errors (16.7s)
+[2026-01-30 16:59:34] [INFO]   Chapter 9: 009.txt
+[2026-01-30 16:59:34] [INFO]     (with 9 previous chapter summaries for context)
+[2026-01-30 16:59:48] [DEBUG]     LLM reported 1 errors
+[2026-01-30 16:59:48] [DEBUG]     Summary: In this chapter, Harry receives a Nimbus Two Thousand broomstick and begins Quid...
+[2026-01-30 16:59:48] [INFO]     -> 1 errors (13.8s)
+[2026-01-30 16:59:48] [INFO]   Chapter 10: 010.txt
+[2026-01-30 16:59:48] [INFO]     (with 10 previous chapter summaries for context)
+[2026-01-30 17:00:07] [DEBUG]     LLM reported 2 errors
+[2026-01-30 17:00:07] [DEBUG]     Summary: In this chapter, the Quidditch season begins, and Harry prepares for his first m...
+[2026-01-30 17:00:07] [INFO]     -> 2 errors (18.6s)
+[2026-01-30 17:00:07] [INFO]   Chapter 11: 011.txt
+[2026-01-30 17:00:07] [INFO]     (with 11 previous chapter summaries for context)
+[2026-01-30 17:00:19] [DEBUG]     Summary: In this chapter, Harry experiences his first Christmas at Hogwarts, receiving an...
+[2026-01-30 17:00:19] [INFO]     -> 0 errors (12.6s)
+[2026-01-30 17:00:19] [INFO]   Chapter 12: 012.txt
+[2026-01-30 17:00:19] [INFO]     (with 12 previous chapter summaries for context)
+[2026-01-30 17:00:32] [DEBUG]     Summary: In this chapter, Harry struggles with nightmares about his parents and learns ab...
+[2026-01-30 17:00:32] [INFO]     -> 0 errors (12.4s)
+[2026-01-30 17:00:32] [INFO]   Chapter 13: 013.txt
+[2026-01-30 17:00:32] [INFO]     (with 13 previous chapter summaries for context)
+[2026-01-30 17:00:45] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:00:45] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione discover that Hagrid has acquired a dr...
+[2026-01-30 17:00:45] [INFO]     -> 1 errors (13.0s)
+[2026-01-30 17:00:45] [INFO]   Chapter 14: 014.txt
+[2026-01-30 17:00:45] [INFO]     (with 14 previous chapter summaries for context)
+[2026-01-30 17:01:21] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:01:21] [DEBUG]     Summary: In this chapter, Harry, Hermione, Neville, and Malfoy serve detention in the For...
+[2026-01-30 17:01:21] [INFO]     -> 1 errors (36.8s)
+[2026-01-30 17:01:21] [INFO]   Chapter 15: 015.txt
+[2026-01-30 17:01:21] [INFO]     (with 15 previous chapter summaries for context)
+[2026-01-30 17:01:27] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:01:27] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione finish their exams and become increasi...
+[2026-01-30 17:01:27] [INFO]     -> 1 errors (5.4s)
+[2026-01-30 17:01:27] [INFO]   Chapter 16: 016.txt
+[2026-01-30 17:01:27] [INFO]     (with 16 previous chapter summaries for context)
+[2026-01-30 17:01:43] [DEBUG]     Summary: In this chapter, Harry confronts Professor Quirrell, who reveals himself as the ...
+[2026-01-30 17:01:43] [INFO]     -> 0 errors (16.6s)
+[2026-01-30 17:01:43] [INFO]   Chapter 17: 017.txt
+[2026-01-30 17:01:43] [INFO]     (with 17 previous chapter summaries for context)
+[2026-01-30 17:01:54] [DEBUG]     Summary: In this chapter, Harry Potter endures a miserable birthday with the Dursleys, wh...
+[2026-01-30 17:01:54] [INFO]     -> 0 errors (10.2s)
+[2026-01-30 17:01:54] [INFO]   Chapter 18: 018.txt
+[2026-01-30 17:01:54] [INFO]     (with 18 previous chapter summaries for context)
+[2026-01-30 17:02:05] [DEBUG]     Summary: In this chapter, Harry Potter is visited by Dobby, a house-elf, who warns him no...
+[2026-01-30 17:02:05] [INFO]     -> 0 errors (11.6s)
+[2026-01-30 17:02:05] [INFO]   Chapter 19: 019.txt
+[2026-01-30 17:02:05] [INFO]     (with 19 previous chapter summaries for context)
+[2026-01-30 17:02:23] [DEBUG]     Summary: In this chapter, Ron, Fred, and George Weasley rescue Harry from the Dursleys us...
+[2026-01-30 17:02:23] [INFO]     -> 0 errors (17.7s)
+[2026-01-30 17:02:23] [INFO]   Chapter 20: 020.txt
+[2026-01-30 17:02:23] [INFO]     (with 20 previous chapter summaries for context)
+[2026-01-30 17:02:51] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:02:51] [DEBUG]     Summary: Harry enjoys life at the Weasleys' home before traveling to Diagon Alley using F...
+[2026-01-30 17:02:51] [INFO]     -> 1 errors (28.5s)
+[2026-01-30 17:02:51] [INFO]   Chapter 21: 021.txt
+[2026-01-30 17:02:51] [INFO]     (with 21 previous chapter summaries for context)
+[2026-01-30 17:03:06] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:03:06] [DEBUG]     Summary: In this chapter, Harry and Ron miss the Hogwarts Express and decide to fly to Ho...
+[2026-01-30 17:03:06] [INFO]     -> 1 errors (14.9s)
+[2026-01-30 17:03:06] [INFO]   Chapter 22: 022.txt
+[2026-01-30 17:03:06] [INFO]     (with 22 previous chapter summaries for context)
+[2026-01-30 17:03:23] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:03:23] [DEBUG]     Summary: In this chapter, Harry receives a Howler from Mrs. Weasley, reprimanding him and...
+[2026-01-30 17:03:23] [INFO]     -> 1 errors (17.0s)
+[2026-01-30 17:03:23] [INFO]   Chapter 23: 023.txt
+[2026-01-30 17:03:23] [INFO]     (with 23 previous chapter summaries for context)
+[2026-01-30 17:03:41] [DEBUG]     Summary: In this chapter, Harry tries to avoid Gilderoy Lockhart and deals with Colin Cre...
+[2026-01-30 17:03:41] [INFO]     -> 0 errors (17.8s)
+[2026-01-30 17:03:41] [INFO]   Chapter 24: 024.txt
+[2026-01-30 17:03:41] [INFO]     (with 24 previous chapter summaries for context)
+[2026-01-30 17:03:58] [DEBUG]     Summary: In this chapter, Harry attends Nearly Headless Nick's deathday party, where he l...
+[2026-01-30 17:03:58] [INFO]     -> 0 errors (17.3s)
+[2026-01-30 17:03:58] [INFO]   Chapter 25: 025.txt
+[2026-01-30 17:03:58] [INFO]     (with 25 previous chapter summaries for context)
+[2026-01-30 17:04:04] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:04:04] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione are accused of petrifying Mrs. Norris,...
+[2026-01-30 17:04:04] [INFO]     -> 1 errors (5.2s)
+[2026-01-30 17:04:04] [INFO]   Chapter 26: 026.txt
+[2026-01-30 17:04:04] [INFO]     (with 26 previous chapter summaries for context)
+[2026-01-30 17:04:41] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:04:41] [DEBUG]     Summary: In this chapter, Professor Lockhart continues to demonstrate his incompetence, w...
+[2026-01-30 17:04:41] [INFO]     -> 1 errors (37.0s)
+[2026-01-30 17:04:41] [INFO]   Chapter 27: 027.txt
+[2026-01-30 17:04:41] [INFO]     (with 27 previous chapter summaries for context)
+[2026-01-30 17:05:07] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:05:07] [DEBUG]     Summary: In this chapter, Harry recovers from his injuries and learns about the attack on...
+[2026-01-30 17:05:07] [INFO]     -> 1 errors (26.0s)
+[2026-01-30 17:05:07] [INFO]   Chapter 28: 028.txt
+[2026-01-30 17:05:07] [INFO]     (with 28 previous chapter summaries for context)
+[2026-01-30 17:05:26] [DEBUG]     Summary: In this chapter, Harry visits Dumbledore's office and witnesses Fawkes the phoen...
+[2026-01-30 17:05:26] [INFO]     -> 0 errors (19.0s)
+[2026-01-30 17:05:26] [INFO]   Chapter 29: 029.txt
+[2026-01-30 17:05:26] [INFO]     (with 29 previous chapter summaries for context)
+[2026-01-30 17:05:48] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:05:48] [DEBUG]     Summary: In this chapter, Hermione recovers from her transformation and Harry and Ron dis...
+[2026-01-30 17:05:48] [INFO]     -> 1 errors (22.2s)
+[2026-01-30 17:05:48] [INFO]   Chapter 30: 030.txt
+[2026-01-30 17:05:48] [INFO]     (with 30 previous chapter summaries for context)
+[2026-01-30 17:06:06] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:06:06] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione grapple with the mystery of the Chambe...
+[2026-01-30 17:06:06] [INFO]     -> 1 errors (18.5s)
+[2026-01-30 17:06:06] [INFO]   Chapter 31: 031.txt
+[2026-01-30 17:06:06] [INFO]     (with 31 previous chapter summaries for context)
+[2026-01-30 17:06:25] [DEBUG]     LLM reported 2 errors
+[2026-01-30 17:06:25] [DEBUG]     Summary: In this chapter, Harry and Ron follow Hagrid's advice to 'follow the spiders' in...
+[2026-01-30 17:06:25] [INFO]     -> 2 errors (18.8s)
+[2026-01-30 17:06:25] [INFO]   Chapter 32: 032.txt
+[2026-01-30 17:06:25] [INFO]     (with 32 previous chapter summaries for context)
+[2026-01-30 17:06:57] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione learn that the Mandrakes are ready to ...
+[2026-01-30 17:06:57] [INFO]     -> 0 errors (31.5s)
+[2026-01-30 17:06:57] [INFO]   Chapter 33: 033.txt
+[2026-01-30 17:06:57] [INFO]     (with 33 previous chapter summaries for context)
+[2026-01-30 17:07:10] [DEBUG]     Summary: In this chapter, Harry confronts Tom Riddle in the Chamber of Secrets, where he ...
+[2026-01-30 17:07:10] [INFO]     -> 0 errors (13.2s)
+[2026-01-30 17:07:10] [INFO]   Chapter 34: 034.txt
+[2026-01-30 17:07:10] [INFO]     (with 34 previous chapter summaries for context)
+[2026-01-30 17:07:29] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:07:29] [DEBUG]     Summary: In this chapter, Harry, Ron, and Ginny return from the Chamber of Secrets, and H...
+[2026-01-30 17:07:29] [INFO]     -> 1 errors (19.0s)
+[2026-01-30 17:07:29] [INFO]   Chapter 35: 035.txt
+[2026-01-30 17:07:29] [INFO]     (with 35 previous chapter summaries for context)
+[2026-01-30 17:07:45] [DEBUG]     Summary: In this chapter, Harry Potter spends a lonely birthday at the Dursleys, reflecti...
+[2026-01-30 17:07:45] [INFO]     -> 0 errors (15.9s)
+[2026-01-30 17:07:45] [INFO]   Chapter 36: 036.txt
+[2026-01-30 17:07:45] [INFO]     (with 36 previous chapter summaries for context)
+[2026-01-30 17:07:59] [DEBUG]     Summary: In this chapter, Harry endures a miserable breakfast with the Dursleys, who are ...
+[2026-01-30 17:07:59] [INFO]     -> 0 errors (14.2s)
+[2026-01-30 17:07:59] [INFO]   Chapter 37: 037.txt
+[2026-01-30 17:07:59] [INFO]     (with 37 previous chapter summaries for context)
+[2026-01-30 17:08:22] [DEBUG]     Summary: In this chapter, Harry Potter finds himself stranded in the Muggle world after a...
+[2026-01-30 17:08:22] [INFO]     -> 0 errors (23.1s)
+[2026-01-30 17:08:22] [INFO]   Chapter 38: 038.txt
+[2026-01-30 17:08:22] [INFO]     (with 38 previous chapter summaries for context)
+[2026-01-30 17:08:42] [DEBUG]     Summary: In this chapter, Harry enjoys his newfound freedom in Diagon Alley, exploring sh...
+[2026-01-30 17:08:42] [INFO]     -> 0 errors (19.7s)
+[2026-01-30 17:08:42] [INFO]   Chapter 39: 039.txt
+[2026-01-30 17:08:42] [INFO]     (with 39 previous chapter summaries for context)
+[2026-01-30 17:09:12] [DEBUG]     Summary: In this chapter, Harry and his friends prepare to return to Hogwarts, encounteri...
+[2026-01-30 17:09:12] [INFO]     -> 0 errors (30.3s)
+[2026-01-30 17:09:12] [INFO]   Chapter 40: 040.txt
+[2026-01-30 17:09:12] [INFO]     (with 40 previous chapter summaries for context)
+[2026-01-30 17:09:41] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:09:41] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione start their new school year at Hogwart...
+[2026-01-30 17:09:41] [INFO]     -> 1 errors (29.1s)
+[2026-01-30 17:09:41] [INFO]   Chapter 41: 041.txt
+[2026-01-30 17:09:41] [INFO]     (with 41 previous chapter summaries for context)
+[2026-01-30 17:09:59] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:09:59] [DEBUG]     Summary: In this chapter, Malfoy returns to class with an injured arm, causing tension be...
+[2026-01-30 17:09:59] [INFO]     -> 1 errors (18.0s)
+[2026-01-30 17:09:59] [INFO]   Chapter 42: 042.txt
+[2026-01-30 17:09:59] [INFO]     (with 42 previous chapter summaries for context)
+[2026-01-30 17:10:22] [DEBUG]     Summary: In this chapter, Defense Against the Dark Arts becomes a favorite class, while t...
+[2026-01-30 17:10:22] [INFO]     -> 0 errors (22.6s)
+[2026-01-30 17:10:22] [INFO]   Chapter 43: 043.txt
+[2026-01-30 17:10:22] [INFO]     (with 43 previous chapter summaries for context)
+[2026-01-30 17:10:48] [DEBUG]     Summary: In this chapter, Hogwarts students are confined to the Great Hall for safety as ...
+[2026-01-30 17:10:48] [INFO]     -> 0 errors (25.9s)
+[2026-01-30 17:10:48] [INFO]   Chapter 44: 044.txt
+[2026-01-30 17:10:48] [INFO]     (with 44 previous chapter summaries for context)
+[2026-01-30 17:11:14] [DEBUG]     Summary: In this chapter, Harry is recovering in the hospital wing after a Quidditch acci...
+[2026-01-30 17:11:14] [INFO]     -> 0 errors (26.1s)
+[2026-01-30 17:11:14] [INFO]   Chapter 45: 045.txt
+[2026-01-30 17:11:14] [INFO]     (with 45 previous chapter summaries for context)
+[2026-01-30 17:11:42] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:11:42] [DEBUG]     Summary: In this chapter, Harry grapples with the revelation that Sirius Black betrayed h...
+[2026-01-30 17:11:42] [INFO]     -> 1 errors (27.7s)
+[2026-01-30 17:11:42] [INFO]   Chapter 46: 046.txt
+[2026-01-30 17:11:42] [INFO]     (with 46 previous chapter summaries for context)
+[2026-01-30 17:11:47] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:11:47] [DEBUG]     Summary: In this chapter, Harry is upset with Hermione for reporting his new Firebolt bro...
+[2026-01-30 17:11:47] [INFO]     -> 1 errors (5.3s)
+[2026-01-30 17:11:47] [INFO]   Chapter 47: 047.txt
+[2026-01-30 17:11:47] [INFO]     (with 47 previous chapter summaries for context)
+[2026-01-30 17:11:53] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:11:53] [DEBUG]     Summary: In this chapter, tensions rise between Ron and Hermione over the disappearance o...
+[2026-01-30 17:11:53] [INFO]     -> 1 errors (5.8s)
+[2026-01-30 17:11:53] [INFO]   Chapter 48: 048.txt
+[2026-01-30 17:11:53] [INFO]     (with 48 previous chapter summaries for context)
+[2026-01-30 17:12:24] [ERROR] LLM request failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-dCmP8bM10JRripsRhDGGBGFo on tokens per min (TPM): Limit 30000, Used 26676, Requested 13473. Please try again in 20.298s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+[2026-01-30 17:12:24] [INFO]     -> 0 errors (30.8s)
+[2026-01-30 17:12:24] [INFO]   Chapter 49: 049.txt
+[2026-01-30 17:12:24] [INFO]     (with 49 previous chapter summaries for context)
+[2026-01-30 17:12:51] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:12:51] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione deal with the aftermath of Buckbeak's ...
+[2026-01-30 17:12:51] [INFO]     -> 1 errors (26.9s)
+[2026-01-30 17:12:51] [INFO]   Chapter 50: 050.txt
+[2026-01-30 17:12:51] [INFO]     (with 50 previous chapter summaries for context)
+[2026-01-30 17:13:14] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:13:14] [DEBUG]     Summary: In this chapter, Harry and his friends face the stress of exams while worrying a...
+[2026-01-30 17:13:14] [INFO]     -> 1 errors (23.0s)
+[2026-01-30 17:13:14] [INFO]   Chapter 51: 051.txt
+[2026-01-30 17:13:14] [INFO]     (with 51 previous chapter summaries for context)
+[2026-01-30 17:13:36] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione, under the Invisibility Cloak, witness...
+[2026-01-30 17:13:36] [INFO]     -> 0 errors (22.3s)
+[2026-01-30 17:13:36] [INFO]   Chapter 52: 052.txt
+[2026-01-30 17:13:36] [INFO]     (with 52 previous chapter summaries for context)
+[2026-01-30 17:13:41] [DEBUG]     Summary: In this chapter, tensions rise in the Shrieking Shack as Sirius Black and Remus ...
+[2026-01-30 17:13:41] [INFO]     -> 0 errors (4.9s)
+[2026-01-30 17:13:41] [INFO]   Chapter 53: 053.txt
+[2026-01-30 17:13:41] [INFO]     (with 53 previous chapter summaries for context)
+[2026-01-30 17:14:12] [DEBUG]     Summary: In this chapter, tensions escalate in the Shrieking Shack as Sirius Black and Re...
+[2026-01-30 17:14:12] [INFO]     -> 0 errors (30.9s)
+[2026-01-30 17:14:12] [INFO]   Chapter 54: 054.txt
+[2026-01-30 17:14:12] [INFO]     (with 54 previous chapter summaries for context)
+[2026-01-30 17:14:33] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:14:33] [DEBUG]     Summary: In this chapter, Harry, Hermione, and their group navigate a tunnel with Sirius ...
+[2026-01-30 17:14:33] [INFO]     -> 1 errors (20.9s)
+[2026-01-30 17:14:33] [INFO]   Chapter 55: 055.txt
+[2026-01-30 17:14:33] [INFO]     (with 55 previous chapter summaries for context)
+[2026-01-30 17:14:36] [DEBUG]     Summary: In this chapter, Harry and Hermione use a Time-Turner to go back in time and sav...
+[2026-01-30 17:14:36] [INFO]     -> 0 errors (3.5s)
+[2026-01-30 17:14:36] [INFO]   Chapter 56: 056.txt
+[2026-01-30 17:14:36] [INFO]     (with 56 previous chapter summaries for context)
+[2026-01-30 17:15:26] [DEBUG]     Summary: In this chapter, Harry and Hermione successfully use the Time-Turner to save Sir...
+[2026-01-30 17:15:26] [INFO]     -> 0 errors (50.2s)
+[2026-01-30 17:15:26] [INFO] 
+Processing: Harry Potter (modified)
+[2026-01-30 17:15:26] [INFO]   NOTE: Modified books have injected errors - expect errors to be detected
+[2026-01-30 17:15:26] [INFO]   Found 57 chapters
+[2026-01-30 17:15:26] [INFO]   Chapter 0: 000.txt
+[2026-01-30 17:15:30] [DEBUG]     Summary: In this chapter, we are introduced to the Dursley family, who live at number fou...
+[2026-01-30 17:15:30] [INFO]     -> 0 errors (4.1s)
+[2026-01-30 17:15:30] [INFO]   Chapter 1: 001.txt
+[2026-01-30 17:15:30] [INFO]     (with 1 previous chapter summaries for context)
+[2026-01-30 17:15:49] [DEBUG]     Summary: In this chapter, nearly ten years have passed since Harry Potter was left with t...
+[2026-01-30 17:15:49] [INFO]     -> 0 errors (18.4s)
+[2026-01-30 17:15:49] [INFO]   Chapter 2: 002.txt
+[2026-01-30 17:15:49] [INFO]     (with 2 previous chapter summaries for context)
+[2026-01-30 17:16:01] [DEBUG]     Summary: In this chapter, Harry receives mysterious letters addressed to him, which Uncle...
+[2026-01-30 17:16:01] [INFO]     -> 0 errors (12.0s)
+[2026-01-30 17:16:01] [INFO]   Chapter 3: 003.txt
+[2026-01-30 17:16:01] [INFO]     (with 3 previous chapter summaries for context)
+[2026-01-30 17:16:13] [DEBUG]     Summary: In this chapter, Hagrid arrives at the Dursleys' remote hut to deliver Harry's a...
+[2026-01-30 17:16:13] [INFO]     -> 0 errors (12.2s)
+[2026-01-30 17:16:13] [INFO]   Chapter 4: 004.txt
+[2026-01-30 17:16:13] [INFO]     (with 4 previous chapter summaries for context)
+[2026-01-30 17:16:34] [DEBUG]     Summary: In this chapter, Harry wakes up to find that his encounter with Hagrid was real,...
+[2026-01-30 17:16:34] [INFO]     -> 0 errors (21.0s)
+[2026-01-30 17:16:34] [INFO]   Chapter 5: 005.txt
+[2026-01-30 17:16:34] [INFO]     (with 5 previous chapter summaries for context)
+[2026-01-30 17:16:38] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:16:38] [DEBUG]     Summary: In this chapter, Harry prepares to leave the Dursleys and travel to Hogwarts for...
+[2026-01-30 17:16:38] [INFO]     -> 1 errors (4.4s)
+[2026-01-30 17:16:38] [INFO]   Chapter 6: 006.txt
+[2026-01-30 17:16:38] [INFO]     (with 6 previous chapter summaries for context)
+[2026-01-30 17:17:09] [DEBUG]     Summary: In this chapter, Harry and the other first-year students arrive at Hogwarts and ...
+[2026-01-30 17:17:09] [INFO]     -> 0 errors (31.0s)
+[2026-01-30 17:17:09] [INFO]   Chapter 7: 007.txt
+[2026-01-30 17:17:09] [INFO]     (with 7 previous chapter summaries for context)
+[2026-01-30 17:17:22] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:17:22] [DEBUG]     Summary: In this chapter, Harry navigates his first week at Hogwarts, encountering variou...
+[2026-01-30 17:17:22] [INFO]     -> 1 errors (12.6s)
+[2026-01-30 17:17:22] [INFO]   Chapter 8: 008.txt
+[2026-01-30 17:17:22] [INFO]     (with 8 previous chapter summaries for context)
+[2026-01-30 17:17:38] [DEBUG]     LLM reported 3 errors
+[2026-01-30 17:17:38] [DEBUG]     Summary: In this chapter, Harry and his friends attend their first flying lesson, where H...
+[2026-01-30 17:17:38] [INFO]     -> 3 errors (16.5s)
+[2026-01-30 17:17:38] [INFO]   Chapter 9: 009.txt
+[2026-01-30 17:17:38] [INFO]     (with 9 previous chapter summaries for context)
+[2026-01-30 17:17:51] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:17:51] [DEBUG]     Summary: In this chapter, Harry receives a Nimbus Two Thousand broomstick and begins Quid...
+[2026-01-30 17:17:51] [INFO]     -> 1 errors (12.7s)
+[2026-01-30 17:17:51] [INFO]   Chapter 10: 010.txt
+[2026-01-30 17:17:51] [INFO]     (with 10 previous chapter summaries for context)
+[2026-01-30 17:18:05] [DEBUG]     LLM reported 2 errors
+[2026-01-30 17:18:05] [DEBUG]     Summary: In this chapter, the Quidditch season begins, and Harry prepares for his first m...
+[2026-01-30 17:18:05] [INFO]     -> 2 errors (13.4s)
+[2026-01-30 17:18:05] [INFO]   Chapter 11: 011.txt
+[2026-01-30 17:18:05] [INFO]     (with 11 previous chapter summaries for context)
+[2026-01-30 17:18:08] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:18:08] [DEBUG]     Summary: In this chapter, Christmas approaches at Hogwarts, and Harry receives an invisib...
+[2026-01-30 17:18:08] [INFO]     -> 1 errors (3.5s)
+[2026-01-30 17:18:08] [INFO]   Chapter 12: 012.txt
+[2026-01-30 17:18:08] [INFO]     (with 12 previous chapter summaries for context)
+[2026-01-30 17:18:32] [DEBUG]     Summary: In this chapter, Harry struggles with nightmares about his parents and the press...
+[2026-01-30 17:18:32] [INFO]     -> 0 errors (24.1s)
+[2026-01-30 17:18:32] [INFO]   Chapter 13: 013.txt
+[2026-01-30 17:18:32] [INFO]     (with 13 previous chapter summaries for context)
+[2026-01-30 17:18:36] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:18:36] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione discover that Hagrid has acquired a dr...
+[2026-01-30 17:18:36] [INFO]     -> 1 errors (3.7s)
+[2026-01-30 17:18:36] [INFO]   Chapter 14: 014.txt
+[2026-01-30 17:18:36] [INFO]     (with 14 previous chapter summaries for context)
+[2026-01-30 17:19:04] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:19:04] [DEBUG]     Summary: In this chapter, Harry, Hermione, Neville, and Malfoy serve detention in the For...
+[2026-01-30 17:19:04] [INFO]     -> 1 errors (28.6s)
+[2026-01-30 17:19:04] [INFO]   Chapter 15: 015.txt
+[2026-01-30 17:19:04] [INFO]     (with 15 previous chapter summaries for context)
+[2026-01-30 17:19:28] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:19:28] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione finish their exams and become increasi...
+[2026-01-30 17:19:28] [INFO]     -> 1 errors (23.6s)
+[2026-01-30 17:19:28] [INFO]   Chapter 16: 016.txt
+[2026-01-30 17:19:28] [INFO]     (with 16 previous chapter summaries for context)
+[2026-01-30 17:19:48] [DEBUG]     Summary: In this chapter, Harry confronts Professor Quirrell, who reveals that he has bee...
+[2026-01-30 17:19:48] [INFO]     -> 0 errors (20.3s)
+[2026-01-30 17:19:48] [INFO]   Chapter 17: 017.txt
+[2026-01-30 17:19:48] [INFO]     (with 17 previous chapter summaries for context)
+[2026-01-30 17:19:57] [DEBUG]     Summary: In this chapter, Harry Potter endures a miserable birthday with the Dursleys, wh...
+[2026-01-30 17:19:57] [INFO]     -> 0 errors (9.2s)
+[2026-01-30 17:19:57] [INFO]   Chapter 18: 018.txt
+[2026-01-30 17:19:57] [INFO]     (with 18 previous chapter summaries for context)
+[2026-01-30 17:20:10] [DEBUG]     Summary: In this chapter, Harry Potter encounters Dobby, a house-elf, who warns him not t...
+[2026-01-30 17:20:10] [INFO]     -> 0 errors (12.3s)
+[2026-01-30 17:20:10] [INFO]   Chapter 19: 019.txt
+[2026-01-30 17:20:10] [INFO]     (with 19 previous chapter summaries for context)
+[2026-01-30 17:20:27] [DEBUG]     Summary: In this chapter, Ron, Fred, and George Weasley rescue Harry from the Dursleys us...
+[2026-01-30 17:20:27] [INFO]     -> 0 errors (17.0s)
+[2026-01-30 17:20:27] [INFO]   Chapter 20: 020.txt
+[2026-01-30 17:20:27] [INFO]     (with 20 previous chapter summaries for context)
+[2026-01-30 17:20:50] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:20:50] [DEBUG]     Summary: In this chapter, Harry enjoys life at the Weasleys' home before traveling to Dia...
+[2026-01-30 17:20:50] [INFO]     -> 1 errors (22.8s)
+[2026-01-30 17:20:50] [INFO]   Chapter 21: 021.txt
+[2026-01-30 17:20:50] [INFO]     (with 21 previous chapter summaries for context)
+[2026-01-30 17:21:12] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:21:12] [DEBUG]     Summary: In this chapter, Harry and Ron miss the Hogwarts Express due to a sealed barrier...
+[2026-01-30 17:21:12] [INFO]     -> 1 errors (22.6s)
+[2026-01-30 17:21:12] [INFO]   Chapter 22: 022.txt
+[2026-01-30 17:21:12] [INFO]     (with 22 previous chapter summaries for context)
+[2026-01-30 17:21:17] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:21:17] [DEBUG]     Summary: In this chapter, Harry and his friends experience a chaotic breakfast in the Gre...
+[2026-01-30 17:21:17] [INFO]     -> 1 errors (4.9s)
+[2026-01-30 17:21:17] [INFO]   Chapter 23: 023.txt
+[2026-01-30 17:21:17] [INFO]     (with 23 previous chapter summaries for context)
+[2026-01-30 17:21:45] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:21:45] [DEBUG]     Summary: In this chapter, Harry dodges Gilderoy Lockhart and deals with Colin Creevey's e...
+[2026-01-30 17:21:45] [INFO]     -> 1 errors (27.8s)
+[2026-01-30 17:21:45] [INFO]   Chapter 24: 024.txt
+[2026-01-30 17:21:45] [INFO]     (with 24 previous chapter summaries for context)
+[2026-01-30 17:22:06] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:22:06] [DEBUG]     Summary: In this chapter, Harry attends Nearly Headless Nick's Deathday Party, where he l...
+[2026-01-30 17:22:06] [INFO]     -> 1 errors (21.4s)
+[2026-01-30 17:22:06] [INFO]   Chapter 25: 025.txt
+[2026-01-30 17:22:06] [INFO]     (with 25 previous chapter summaries for context)
+[2026-01-30 17:22:10] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:22:10] [DEBUG]     Summary: In this chapter, the petrification of Mrs. Norris leads to an investigation invo...
+[2026-01-30 17:22:10] [INFO]     -> 1 errors (4.1s)
+[2026-01-30 17:22:10] [INFO]   Chapter 26: 026.txt
+[2026-01-30 17:22:10] [INFO]     (with 26 previous chapter summaries for context)
+[2026-01-30 17:22:44] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:22:44] [DEBUG]     Summary: In this chapter, Professor Lockhart continues to demonstrate his incompetence, w...
+[2026-01-30 17:22:44] [INFO]     -> 1 errors (33.9s)
+[2026-01-30 17:22:44] [INFO]   Chapter 27: 027.txt
+[2026-01-30 17:22:44] [INFO]     (with 27 previous chapter summaries for context)
+[2026-01-30 17:23:08] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:23:08] [DEBUG]     Summary: In this chapter, Harry recovers from his injuries and learns about the attack on...
+[2026-01-30 17:23:08] [INFO]     -> 1 errors (23.6s)
+[2026-01-30 17:23:08] [INFO]   Chapter 28: 028.txt
+[2026-01-30 17:23:08] [INFO]     (with 28 previous chapter summaries for context)
+[2026-01-30 17:23:11] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:23:11] [DEBUG]     Summary: In this chapter, Harry visits Dumbledore's office and witnesses Fawkes the phoen...
+[2026-01-30 17:23:11] [INFO]     -> 1 errors (3.4s)
+[2026-01-30 17:23:11] [INFO]   Chapter 29: 029.txt
+[2026-01-30 17:23:11] [INFO]     (with 29 previous chapter summaries for context)
+[2026-01-30 17:23:49] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:23:49] [DEBUG]     Summary: In this chapter, Hermione recovers in the hospital wing while Harry and Ron disc...
+[2026-01-30 17:23:49] [INFO]     -> 1 errors (37.8s)
+[2026-01-30 17:23:49] [INFO]   Chapter 30: 030.txt
+[2026-01-30 17:23:49] [INFO]     (with 30 previous chapter summaries for context)
+[2026-01-30 17:24:09] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:24:09] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione discuss the possibility of Hagrid's in...
+[2026-01-30 17:24:09] [INFO]     -> 1 errors (19.7s)
+[2026-01-30 17:24:09] [INFO]   Chapter 31: 031.txt
+[2026-01-30 17:24:09] [INFO]     (with 31 previous chapter summaries for context)
+[2026-01-30 17:24:29] [DEBUG]     LLM reported 2 errors
+[2026-01-30 17:24:29] [DEBUG]     Summary: In this chapter, Harry and Ron follow a trail of spiders into the Forbidden Fore...
+[2026-01-30 17:24:29] [INFO]     -> 2 errors (19.9s)
+[2026-01-30 17:24:29] [INFO]   Chapter 32: 032.txt
+[2026-01-30 17:24:29] [INFO]     (with 32 previous chapter summaries for context)
+[2026-01-30 17:24:52] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:24:52] [DEBUG]     Summary: In this chapter, Harry and Ron discover the truth about the monster in the Chamb...
+[2026-01-30 17:24:52] [INFO]     -> 1 errors (22.9s)
+[2026-01-30 17:24:52] [INFO]   Chapter 33: 033.txt
+[2026-01-30 17:24:52] [INFO]     (with 33 previous chapter summaries for context)
+[2026-01-30 17:25:12] [DEBUG]     Summary: In this chapter, Harry confronts Tom Riddle in the Chamber of Secrets, discoveri...
+[2026-01-30 17:25:12] [INFO]     -> 0 errors (20.4s)
+[2026-01-30 17:25:12] [INFO]   Chapter 34: 034.txt
+[2026-01-30 17:25:12] [INFO]     (with 34 previous chapter summaries for context)
+[2026-01-30 17:25:34] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:25:34] [DEBUG]     Summary: In this chapter, Harry, Ron, and Ginny return from the Chamber of Secrets, and D...
+[2026-01-30 17:25:34] [INFO]     -> 1 errors (21.6s)
+[2026-01-30 17:25:34] [INFO]   Chapter 35: 035.txt
+[2026-01-30 17:25:34] [INFO]     (with 35 previous chapter summaries for context)
+[2026-01-30 17:25:47] [DEBUG]     Summary: In this chapter, Harry Potter spends a lonely birthday at the Dursleys, reflecti...
+[2026-01-30 17:25:47] [INFO]     -> 0 errors (13.8s)
+[2026-01-30 17:25:47] [INFO]   Chapter 36: 036.txt
+[2026-01-30 17:25:47] [INFO]     (with 36 previous chapter summaries for context)
+[2026-01-30 17:26:06] [DEBUG]     Summary: In this chapter, Harry endures a miserable breakfast with the Dursleys, who igno...
+[2026-01-30 17:26:06] [INFO]     -> 0 errors (18.3s)
+[2026-01-30 17:26:06] [INFO]   Chapter 37: 037.txt
+[2026-01-30 17:26:06] [INFO]     (with 37 previous chapter summaries for context)
+[2026-01-30 17:26:27] [DEBUG]     Summary: In this chapter, Harry Potter runs away from the Dursleys after inflating Aunt M...
+[2026-01-30 17:26:27] [INFO]     -> 0 errors (21.2s)
+[2026-01-30 17:26:27] [INFO]   Chapter 38: 038.txt
+[2026-01-30 17:26:27] [INFO]     (with 38 previous chapter summaries for context)
+[2026-01-30 17:26:47] [DEBUG]     Summary: In this chapter, Harry enjoys his newfound freedom in Diagon Alley, exploring sh...
+[2026-01-30 17:26:47] [INFO]     -> 0 errors (20.4s)
+[2026-01-30 17:26:47] [INFO]   Chapter 39: 039.txt
+[2026-01-30 17:26:47] [INFO]     (with 39 previous chapter summaries for context)
+[2026-01-30 17:27:19] [DEBUG]     Summary: In this chapter, Harry and his friends prepare to return to Hogwarts, encounteri...
+[2026-01-30 17:27:19] [INFO]     -> 0 errors (31.3s)
+[2026-01-30 17:27:19] [INFO]   Chapter 40: 040.txt
+[2026-01-30 17:27:19] [INFO]     (with 40 previous chapter summaries for context)
+[2026-01-30 17:27:23] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:27:23] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione attend their first Divination class wi...
+[2026-01-30 17:27:23] [INFO]     -> 1 errors (4.3s)
+[2026-01-30 17:27:23] [INFO]   Chapter 41: 041.txt
+[2026-01-30 17:27:23] [INFO]     (with 41 previous chapter summaries for context)
+[2026-01-30 17:27:27] [DEBUG]     Summary: In this chapter, Malfoy returns to class with an injured arm, causing tension be...
+[2026-01-30 17:27:27] [INFO]     -> 0 errors (4.5s)
+[2026-01-30 17:27:27] [INFO]   Chapter 42: 042.txt
+[2026-01-30 17:27:27] [INFO]     (with 42 previous chapter summaries for context)
+[2026-01-30 17:27:59] [ERROR] LLM request failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4o in organization org-dCmP8bM10JRripsRhDGGBGFo on tokens per min (TPM): Limit 30000, Used 28715, Requested 12432. Please try again in 22.294s. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+[2026-01-30 17:27:59] [INFO]     -> 0 errors (31.3s)
+[2026-01-30 17:27:59] [INFO]   Chapter 43: 043.txt
+[2026-01-30 17:27:59] [INFO]     (with 43 previous chapter summaries for context)
+[2026-01-30 17:28:26] [DEBUG]     Summary: In this chapter, Hogwarts is on high alert after Sirius Black's suspected intrus...
+[2026-01-30 17:28:26] [INFO]     -> 0 errors (27.2s)
+[2026-01-30 17:28:26] [INFO]   Chapter 44: 044.txt
+[2026-01-30 17:28:26] [INFO]     (with 44 previous chapter summaries for context)
+[2026-01-30 17:28:54] [DEBUG]     Summary: In this chapter, Harry is recovering in the hospital wing after a Quidditch acci...
+[2026-01-30 17:28:54] [INFO]     -> 0 errors (27.7s)
+[2026-01-30 17:28:54] [INFO]   Chapter 45: 045.txt
+[2026-01-30 17:28:54] [INFO]     (with 45 previous chapter summaries for context)
+[2026-01-30 17:29:36] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:29:36] [DEBUG]     Summary: In this chapter, Harry grapples with the revelation of Sirius Black's betrayal a...
+[2026-01-30 17:29:36] [INFO]     -> 1 errors (42.1s)
+[2026-01-30 17:29:36] [INFO]   Chapter 46: 046.txt
+[2026-01-30 17:29:36] [INFO]     (with 46 previous chapter summaries for context)
+[2026-01-30 17:29:46] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:29:46] [DEBUG]     Summary: In this chapter, Harry struggles with the confiscation of his Firebolt broomstic...
+[2026-01-30 17:29:46] [INFO]     -> 1 errors (10.7s)
+[2026-01-30 17:29:46] [INFO]   Chapter 47: 047.txt
+[2026-01-30 17:29:46] [INFO]     (with 47 previous chapter summaries for context)
+[2026-01-30 17:30:05] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:30:05] [DEBUG]     Summary: In this chapter, tensions rise between Ron and Hermione over the disappearance o...
+[2026-01-30 17:30:05] [INFO]     -> 1 errors (18.7s)
+[2026-01-30 17:30:05] [INFO]   Chapter 48: 048.txt
+[2026-01-30 17:30:05] [INFO]     (with 48 previous chapter summaries for context)
+[2026-01-30 17:30:38] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:30:38] [DEBUG]     Summary: In this chapter, Gryffindor Tower is on high alert after Sirius Black's intrusio...
+[2026-01-30 17:30:38] [INFO]     -> 1 errors (33.2s)
+[2026-01-30 17:30:38] [INFO]   Chapter 49: 049.txt
+[2026-01-30 17:30:38] [INFO]     (with 49 previous chapter summaries for context)
+[2026-01-30 17:31:08] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:31:08] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione deal with the aftermath of Buckbeak's ...
+[2026-01-30 17:31:08] [INFO]     -> 1 errors (29.9s)
+[2026-01-30 17:31:08] [INFO]   Chapter 50: 050.txt
+[2026-01-30 17:31:08] [INFO]     (with 50 previous chapter summaries for context)
+[2026-01-30 17:31:31] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:31:31] [DEBUG]     Summary: In this chapter, Harry and his friends face the stress of exams at Hogwarts whil...
+[2026-01-30 17:31:31] [INFO]     -> 1 errors (22.5s)
+[2026-01-30 17:31:31] [INFO]   Chapter 51: 051.txt
+[2026-01-30 17:31:31] [INFO]     (with 51 previous chapter summaries for context)
+[2026-01-30 17:31:35] [DEBUG]     Summary: In this chapter, Harry, Ron, and Hermione are under the Invisibility Cloak when ...
+[2026-01-30 17:31:35] [INFO]     -> 0 errors (4.0s)
+[2026-01-30 17:31:35] [INFO]   Chapter 52: 052.txt
+[2026-01-30 17:31:35] [INFO]     (with 52 previous chapter summaries for context)
+[2026-01-30 17:31:59] [DEBUG]     Summary: In this chapter, tensions rise in the Shrieking Shack as Sirius Black and Remus ...
+[2026-01-30 17:31:59] [INFO]     -> 0 errors (24.4s)
+[2026-01-30 17:31:59] [INFO]   Chapter 53: 053.txt
+[2026-01-30 17:31:59] [INFO]     (with 53 previous chapter summaries for context)
+[2026-01-30 17:32:09] [DEBUG]     Summary: In this chapter, tensions escalate in the Shrieking Shack as Sirius Black and Re...
+[2026-01-30 17:32:09] [INFO]     -> 0 errors (10.2s)
+[2026-01-30 17:32:09] [INFO]   Chapter 54: 054.txt
+[2026-01-30 17:32:09] [INFO]     (with 54 previous chapter summaries for context)
+[2026-01-30 17:32:35] [DEBUG]     Summary: In this chapter, Harry, Hermione, and their group navigate through a tunnel with...
+[2026-01-30 17:32:35] [INFO]     -> 0 errors (26.0s)
+[2026-01-30 17:32:35] [INFO]   Chapter 55: 055.txt
+[2026-01-30 17:32:35] [INFO]     (with 55 previous chapter summaries for context)
+[2026-01-30 17:33:11] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:33:11] [DEBUG]     Summary: In this chapter, Harry and Hermione use a Time-Turner to go back in time and sav...
+[2026-01-30 17:33:11] [INFO]     -> 1 errors (36.0s)
+[2026-01-30 17:33:11] [INFO]   Chapter 56: 056.txt
+[2026-01-30 17:33:11] [INFO]     (with 56 previous chapter summaries for context)
+[2026-01-30 17:33:27] [DEBUG]     LLM reported 1 errors
+[2026-01-30 17:33:27] [DEBUG]     Summary: In this chapter, Harry and Hermione use a Time-Turner to save Sirius Black and B...
+[2026-01-30 17:33:27] [INFO]     -> 1 errors (15.9s)
+[2026-01-30 17:33:27] [INFO] 
+Step 1 complete: 114 chapters, 66 errors
+[2026-01-30 17:33:27] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_full_llm/step1_llm_results.json

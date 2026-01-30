@@ -1,0 +1,161 @@
+=== Experiment Log Started: 2026-01-30T11:43:52.244389 ===
+
+[2026-01-30 11:43:52] [INFO] API Mode: openai
+[2026-01-30 11:43:52] [INFO] ============================================================
+[2026-01-30 11:43:52] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 11:43:52] [INFO] ============================================================
+[2026-01-30 11:43:52] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash_3/step2_logic_log.jsonl
+[2026-01-30 11:43:52] [INFO] Using OpenAI API with model: gpt-4o
+[2026-01-30 11:43:52] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 11:43:52] [INFO]   Found 11 chapters
+[2026-01-30 11:43:52] [INFO]   Chapter 0: 000.txt
+[2026-01-30 11:43:52] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:44:07] [DEBUG]   LLM response length: 2581 chars
+[2026-01-30 11:44:07] [DEBUG]     Parsing response (2570 chars after cleanup, was 2581)
+[2026-01-30 11:44:07] [DEBUG]   Extracted: chars=7, locs=2, items=2, events=9, rels=3
+[2026-01-30 11:44:07] [INFO]     -> 0 errors (15.6s)
+[2026-01-30 11:44:07] [INFO]   Chapter 1: 001.txt
+[2026-01-30 11:44:07] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:44:36] [DEBUG]   LLM response length: 3759 chars
+[2026-01-30 11:44:36] [DEBUG]     Parsing response (3748 chars after cleanup, was 3759)
+[2026-01-30 11:44:36] [DEBUG]   Extracted: chars=6, locs=7, items=5, events=12, rels=5
+[2026-01-30 11:44:36] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 11:44:36] [INFO]     -> 1 errors (29.1s)
+[2026-01-30 11:44:36] [INFO]   Chapter 2: 002.txt
+[2026-01-30 11:44:36] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:44:52] [DEBUG]   LLM response length: 3430 chars
+[2026-01-30 11:44:52] [DEBUG]     Parsing response (3419 chars after cleanup, was 3430)
+[2026-01-30 11:44:52] [DEBUG]   Extracted: chars=5, locs=6, items=2, events=12, rels=5
+[2026-01-30 11:44:52] [INFO]     -> 0 errors (15.8s)
+[2026-01-30 11:44:52] [INFO]   Chapter 3: 003.txt
+[2026-01-30 11:44:52] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:45:09] [DEBUG]   LLM response length: 2832 chars
+[2026-01-30 11:45:09] [DEBUG]     Parsing response (2821 chars after cleanup, was 2832)
+[2026-01-30 11:45:09] [DEBUG]   Extracted: chars=5, locs=1, items=4, events=12, rels=5
+[2026-01-30 11:45:09] [INFO]     -> 0 errors (16.6s)
+[2026-01-30 11:45:09] [INFO]   Chapter 4: 004.txt
+[2026-01-30 11:45:09] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:45:30] [DEBUG]   LLM response length: 4178 chars
+[2026-01-30 11:45:30] [DEBUG]     Parsing response (4167 chars after cleanup, was 4178)
+[2026-01-30 11:45:30] [DEBUG]   Extracted: chars=9, locs=10, items=6, events=12, rels=3
+[2026-01-30 11:45:30] [INFO]     -> 0 errors (21.0s)
+[2026-01-30 11:45:30] [INFO]   Chapter 5: 005.txt
+[2026-01-30 11:45:30] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:45:46] [DEBUG]   LLM response length: 4479 chars
+[2026-01-30 11:45:46] [DEBUG]     Parsing response (4468 chars after cleanup, was 4479)
+[2026-01-30 11:45:46] [DEBUG]   Extracted: chars=15, locs=5, items=5, events=10, rels=5
+[2026-01-30 11:45:46] [INFO]     -> 0 errors (16.2s)
+[2026-01-30 11:45:46] [INFO]   Chapter 6: 006.txt
+[2026-01-30 11:45:46] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:46:03] [DEBUG]   LLM response length: 4186 chars
+[2026-01-30 11:46:03] [DEBUG]     Parsing response (4175 chars after cleanup, was 4186)
+[2026-01-30 11:46:03] [DEBUG]   Extracted: chars=15, locs=5, items=0, events=12, rels=3
+[2026-01-30 11:46:03] [INFO]     -> 0 errors (17.1s)
+[2026-01-30 11:46:03] [INFO]   Chapter 7: 007.txt
+[2026-01-30 11:46:03] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:46:25] [DEBUG]   LLM response length: 4697 chars
+[2026-01-30 11:46:25] [DEBUG]     Parsing response (4686 chars after cleanup, was 4697)
+[2026-01-30 11:46:25] [DEBUG]   Extracted: chars=15, locs=6, items=3, events=12, rels=5
+[2026-01-30 11:46:25] [INFO]     -> 0 errors (22.1s)
+[2026-01-30 11:46:25] [INFO]   Chapter 8: 008.txt
+[2026-01-30 11:46:25] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:46:44] [DEBUG]   LLM response length: 3511 chars
+[2026-01-30 11:46:44] [DEBUG]     Parsing response (3500 chars after cleanup, was 3511)
+[2026-01-30 11:46:44] [DEBUG]   Extracted: chars=10, locs=5, items=1, events=10, rels=5
+[2026-01-30 11:46:44] [INFO]     -> 0 errors (18.3s)
+[2026-01-30 11:46:44] [INFO]   Chapter 9: 009.txt
+[2026-01-30 11:46:44] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:47:08] [DEBUG]   LLM response length: 4649 chars
+[2026-01-30 11:47:08] [DEBUG]     Parsing response (4638 chars after cleanup, was 4649)
+[2026-01-30 11:47:08] [DEBUG]   Extracted: chars=13, locs=6, items=5, events=12, rels=5
+[2026-01-30 11:47:08] [INFO]     -> 0 errors (24.7s)
+[2026-01-30 11:47:08] [INFO]   Chapter 10: 010.txt
+[2026-01-30 11:47:08] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:47:23] [DEBUG]   LLM response length: 3547 chars
+[2026-01-30 11:47:23] [DEBUG]     Parsing response (3536 chars after cleanup, was 3547)
+[2026-01-30 11:47:23] [DEBUG]   Extracted: chars=10, locs=4, items=3, events=9, rels=5
+[2026-01-30 11:47:23] [INFO]     -> 0 errors (15.1s)
+[2026-01-30 11:47:23] [INFO] 
+Processing: Harry Potter (modified)
+[2026-01-30 11:47:23] [INFO]   Found 11 chapters
+[2026-01-30 11:47:23] [INFO]   Chapter 0: 000.txt
+[2026-01-30 11:47:23] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:47:32] [DEBUG]   LLM response length: 2695 chars
+[2026-01-30 11:47:32] [DEBUG]     Parsing response (2684 chars after cleanup, was 2695)
+[2026-01-30 11:47:32] [DEBUG]   Extracted: chars=7, locs=2, items=2, events=10, rels=3
+[2026-01-30 11:47:32] [INFO]     -> 0 errors (9.0s)
+[2026-01-30 11:47:32] [INFO]   Chapter 1: 001.txt
+[2026-01-30 11:47:32] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:47:50] [DEBUG]   LLM response length: 3202 chars
+[2026-01-30 11:47:50] [DEBUG]     Parsing response (3191 chars after cleanup, was 3202)
+[2026-01-30 11:47:50] [DEBUG]   Extracted: chars=6, locs=7, items=0, events=10, rels=5
+[2026-01-30 11:47:50] [INFO]     -> 0 errors (18.2s)
+[2026-01-30 11:47:50] [INFO]   Chapter 2: 002.txt
+[2026-01-30 11:47:50] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:48:08] [DEBUG]   LLM response length: 3385 chars
+[2026-01-30 11:48:08] [DEBUG]     Parsing response (3374 chars after cleanup, was 3385)
+[2026-01-30 11:48:08] [DEBUG]   Extracted: chars=5, locs=5, items=2, events=12, rels=5
+[2026-01-30 11:48:08] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 11:48:08] [INFO]     -> 1 errors (17.3s)
+[2026-01-30 11:48:08] [INFO]   Chapter 3: 003.txt
+[2026-01-30 11:48:08] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:48:44] [DEBUG]   LLM response length: 2989 chars
+[2026-01-30 11:48:44] [DEBUG]     Parsing response (2978 chars after cleanup, was 2989)
+[2026-01-30 11:48:44] [DEBUG]   Extracted: chars=5, locs=1, items=4, events=12, rels=5
+[2026-01-30 11:48:44] [INFO]     -> 0 errors (36.7s)
+[2026-01-30 11:48:44] [INFO]   Chapter 4: 004.txt
+[2026-01-30 11:48:44] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:49:00] [DEBUG]   LLM response length: 4168 chars
+[2026-01-30 11:49:00] [DEBUG]     Parsing response (4157 chars after cleanup, was 4168)
+[2026-01-30 11:49:00] [WARN]   WARNING: Locations (11) exceeds suggested limit (10)
+[2026-01-30 11:49:00] [DEBUG]   Extracted: chars=8, locs=11, items=6, events=12, rels=3
+[2026-01-30 11:49:00] [INFO]     -> 0 errors (16.0s)
+[2026-01-30 11:49:00] [INFO]   Chapter 5: 005.txt
+[2026-01-30 11:49:00] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:49:30] [DEBUG]   LLM response length: 4568 chars
+[2026-01-30 11:49:30] [DEBUG]     Parsing response (4557 chars after cleanup, was 4568)
+[2026-01-30 11:49:30] [DEBUG]   Extracted: chars=15, locs=5, items=3, events=12, rels=5
+[2026-01-30 11:49:30] [INFO]     -> 0 errors (29.3s)
+[2026-01-30 11:49:30] [INFO]   Chapter 6: 006.txt
+[2026-01-30 11:49:30] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:49:41] [DEBUG]   LLM response length: 2869 chars
+[2026-01-30 11:49:41] [DEBUG]     Parsing response (2858 chars after cleanup, was 2869)
+[2026-01-30 11:49:41] [DEBUG]   Extracted: chars=11, locs=4, items=0, events=8, rels=0
+[2026-01-30 11:49:41] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 11:49:41] [INFO]     -> 1 errors (11.7s)
+[2026-01-30 11:49:41] [INFO]   Chapter 7: 007.txt
+[2026-01-30 11:49:41] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:49:54] [DEBUG]   LLM response length: 3686 chars
+[2026-01-30 11:49:54] [DEBUG]     Parsing response (3675 chars after cleanup, was 3686)
+[2026-01-30 11:49:54] [DEBUG]   Extracted: chars=15, locs=6, items=2, events=6, rels=3
+[2026-01-30 11:49:54] [INFO]     -> 0 errors (12.3s)
+[2026-01-30 11:49:54] [INFO]   Chapter 8: 008.txt
+[2026-01-30 11:49:54] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:50:06] [DEBUG]   LLM response length: 3364 chars
+[2026-01-30 11:50:06] [DEBUG]     Parsing response (3353 chars after cleanup, was 3364)
+[2026-01-30 11:50:06] [DEBUG]   Extracted: chars=10, locs=5, items=1, events=10, rels=3
+[2026-01-30 11:50:06] [INFO]     -> 0 errors (12.0s)
+[2026-01-30 11:50:06] [INFO]   Chapter 9: 009.txt
+[2026-01-30 11:50:06] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:50:42] [DEBUG]   LLM response length: 4908 chars
+[2026-01-30 11:50:42] [DEBUG]     Parsing response (4897 chars after cleanup, was 4908)
+[2026-01-30 11:50:42] [DEBUG]   Extracted: chars=15, locs=7, items=5, events=12, rels=5
+[2026-01-30 11:50:42] [INFO]     -> 0 errors (36.7s)
+[2026-01-30 11:50:42] [INFO]   Chapter 10: 010.txt
+[2026-01-30 11:50:42] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 11:50:53] [DEBUG]   LLM response length: 3557 chars
+[2026-01-30 11:50:53] [DEBUG]     Parsing response (3546 chars after cleanup, was 3557)
+[2026-01-30 11:50:53] [DEBUG]   Extracted: chars=10, locs=4, items=3, events=9, rels=5
+[2026-01-30 11:50:53] [INFO]     -> 0 errors (11.1s)
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Hunger Games
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Hunger Games
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Lord of the Rings
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Lord of the Rings
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Twilight
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Twilight
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Goosebumps
+[2026-01-30 11:50:53] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Goosebumps
+[2026-01-30 11:50:53] [INFO] 
+Step 2 complete: 22 chapters, 3 errors
+[2026-01-30 11:50:53] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash_3/step2_logic_results.json

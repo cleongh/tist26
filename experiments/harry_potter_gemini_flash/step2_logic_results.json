@@ -1,0 +1,312 @@
+{
+  "step": 2,
+  "approach": "logic",
+  "timestamp": "2026-01-30T10:27:28.126471",
+  "chapters_processed": 22,
+  "total_errors": 8,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 1.9240491390228271,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 7.878366470336914,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.671386480331421,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.257975101470947,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 15.467750310897827,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.313610553741455,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Violation: solo_communication",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.288409233093262,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.392590045928955,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 11.77405333518982,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.980071306228638,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.607085227966309,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 9.612661123275757,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 10.854181051254272,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: unreachable_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 10.847608804702759,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.057536125183105,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.816868305206299,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 15.121117115020752,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Violation: solo_communication",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.082501888275146,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.211885452270508,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.185931205749512,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 5.631414890289307,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 9.824572801589966,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

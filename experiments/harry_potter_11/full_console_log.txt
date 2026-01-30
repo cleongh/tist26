@@ -1,0 +1,11 @@
+=== Experiment Log Started: 2026-01-30T00:25:45.380881 ===
+
+[2026-01-30 00:25:45] [INFO] ============================================================
+[2026-01-30 00:25:45] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 00:25:45] [INFO] ============================================================
+[2026-01-30 00:25:45] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_11/step2_logic_log.jsonl
+[2026-01-30 00:25:45] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 00:25:45] [INFO]   Found 11 chapters
+[2026-01-30 00:25:45] [INFO]   Chapter 0: 000.txt
+[2026-01-30 00:25:45] [DEBUG]   Calling LLM for unified extraction...

@@ -1,0 +1,415 @@
+{
+  "step": 2,
+  "approach": "logic",
+  "timestamp": "2026-01-29T22:29:19.591783",
+  "chapters_processed": 34,
+  "total_errors": 4,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.913084268569946,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 35.35508847236633,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 42.554856300354004,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 46.32153081893921,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.72333741188049,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 46.50344443321228,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 229.06930136680603,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 51.51957941055298,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 237.90668201446533,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The mention of a troll does not fit the context of the chapter, as there is no indication of a troll being present or discussed.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 76.47074055671692,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 55.89102363586426,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 241.5446319580078,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.08509659767151,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 46.54106831550598,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 240.4203906059265,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.57187604904175,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Voldemort cannot be acting as he is dead.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 46.3966178894043,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 63.22479271888733,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 47.97918510437012,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 44.80277681350708,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 46.5742564201355,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.91955375671387,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 50.35777711868286,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 232.08260297775269,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 58.42181873321533,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 239.44987845420837,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The mention of a troll does not fit the context of the chapter, as there is no indication of a troll being present or discussed.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 75.71034121513367,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 55.82243204116821,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 65.16410732269287,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 65.12332940101624,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 47.15371131896973,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 240.8442258834839,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.21845889091492,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Voldemort cannot be acting as he is dead.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 46.23664665222168,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

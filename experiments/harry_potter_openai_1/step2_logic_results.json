@@ -1,0 +1,323 @@
+{
+  "step": 2,
+  "approach": "logic",
+  "timestamp": "2026-01-30T14:11:33.918078",
+  "chapters_processed": 22,
+  "total_errors": 9,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 22.91132164001465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.005844593048096,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: wrong_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.640103340148926,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "possession",
+          "error_type": "unknown",
+          "description": "Violation: give_without_having",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 11.158221006393433,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "possession",
+          "error_type": "unknown",
+          "description": "Violation: give_without_having",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 23.76213240623474,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.893204927444458,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Violation: dead_character_acting",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.95075225830078,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 14.12861943244934,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 23.04189372062683,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.17116641998291,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.428208351135254,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.89011311531067,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: wrong_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.761856079101562,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "location",
+          "error_type": "unknown",
+          "description": "Violation: wrong_location",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 13.617686033248901,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "possession",
+          "error_type": "unknown",
+          "description": "Violation: give_without_having",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.184794425964355,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "possession",
+          "error_type": "unknown",
+          "description": "Violation: give_without_having",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 24.26445960998535,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 43.745091915130615,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Violation: dead_character_acting",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 14.686460971832275,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.911020517349243,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.205278158187866,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.307201862335205,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.490936994552612,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

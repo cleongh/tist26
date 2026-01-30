@@ -1,0 +1,126 @@
+{
+  "experiment_name": "harry_potter_gemini_flash",
+  "generated_at": "2026-01-30T09:47:45.425008",
+  "step1_llm": {
+    "approach": "LLM-only",
+    "chapters_processed": 22,
+    "total_errors": 27,
+    "timestamp": "2026-01-30T09:43:23.895036"
+  },
+  "step2_logic": {
+    "approach": "Logic (ILASP + Clingo)",
+    "chapters_processed": 22,
+    "total_errors": 16,
+    "timestamp": "2026-01-30T09:44:40.550675"
+  },
+  "comparison": {
+    "per_story": [
+      {
+        "story": "Harry Potter",
+        "variant": "original",
+        "llm_errors": 13,
+        "logic_errors": 8
+      },
+      {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "llm_errors": 14,
+        "logic_errors": 8
+      }
+    ],
+    "by_category": {
+      "llm": {
+        "causality": 8,
+        "coherence": 17,
+        "temporal": 1,
+        "location": 0,
+        "emotional": 1
+      },
+      "logic": {
+        "causality": 10,
+        "coherence": 6,
+        "temporal": 0,
+        "location": 0,
+        "emotional": 0
+      }
+    }
+  },
+  "ground_truth_comparison": {
+    "Harry Potter": {
+      "story": "Harry Potter",
+      "chapters_processed": 11,
+      "ground_truth_errors_in_range": 4,
+      "total_detected_errors": 8,
+      "chapters_with_gt_errors": 4,
+      "chapters_with_detected_errors": 2,
+      "true_positive_chapters": 0,
+      "false_positive_chapters": 2,
+      "false_negative_chapters": 4,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "details": [
+        {
+          "chapter": "000.txt",
+          "ground_truth_type": null,
+          "ground_truth_category": null,
+          "ground_truth_description": null,
+          "detected_count": 5,
+          "detected_categories": [
+            "causality"
+          ],
+          "match": false,
+          "false_positive": true
+        },
+        {
+          "chapter": "001.txt",
+          "ground_truth_type": "Basic Coherence",
+          "ground_truth_category": "coherence",
+          "ground_truth_description": "Dudley's reaction doesn't fit to be pale green since he is not sick, but angry.",
+          "detected_count": 0,
+          "detected_categories": [],
+          "match": false
+        },
+        {
+          "chapter": "002.txt",
+          "ground_truth_type": "Basic Coherence",
+          "ground_truth_category": "coherence",
+          "ground_truth_description": "Bubble and squeak is a dish of vegetables and eggs, yellow and green.",
+          "detected_count": 0,
+          "detected_categories": [],
+          "match": false
+        },
+        {
+          "chapter": "005.txt",
+          "ground_truth_type": "Emotional Relations",
+          "ground_truth_category": "emotional",
+          "ground_truth_description": "The Dursleys hate harry, thay would not treat him so good.",
+          "detected_count": 0,
+          "detected_categories": [],
+          "match": false
+        },
+        {
+          "chapter": "006.txt",
+          "ground_truth_type": null,
+          "ground_truth_category": null,
+          "ground_truth_description": null,
+          "detected_count": 3,
+          "detected_categories": [
+            "coherence"
+          ],
+          "match": false,
+          "false_positive": true
+        },
+        {
+          "chapter": "007.txt",
+          "ground_truth_type": "Location correctness",
+          "ground_truth_category": "location",
+          "ground_truth_description": "Harry cannot reach his dormitory from the dungeon of the castle.",
+          "detected_count": 0,
+          "detected_categories": [],
+          "match": false
+        }
+      ]
+    }
+  }
+}

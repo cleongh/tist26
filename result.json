@@ -1,0 +1,44 @@
+{
+"characters": [
+{"id":"harry_potter","name":"Harry Potter","emotion":"sad","state":"normal","appearance":"normal"},
+{"id":"vernon_dursley","name":"Mr. Vernon Dursley","emotion":"angry","state":"normal","appearance":"purple-faced"},
+{"id":"petunia_dursley","name":"Petunia Dursley","emotion":"angry","state":"normal","appearance":"pale"},
+{"id":"dudley_dursley","name":"Dudley Dursley","emotion":"angry","state":"normal","appearance":"normal"},
+{"id":"albus_dumbledore","name":"Albus Dumbledore","emotion":"calm","state":"normal","appearance":"normal"},
+{"id":"professor_mcgonagall","name":"Professor McGonagall","emotion":"angry","state":"normal","appearance":"normal"},
+{"id":"hagrid","name":"Hagrid","emotion":"sad","state":"normal","appearance":"normal"}
+],
+"locations": [
+{"id":"privet_drive","name":"Privet Drive","connections":["number_four"],"contains":["number_four"]},
+{"id":"number_four","name":"Number Four, Privet Drive","connections":["privet_drive","kitchen","living_room","front_step"],"contains":["kitchen","living_room","front_step"]},
+{"id":"kitchen","name":"Kitchen","connections":["living_room","number_four"],"contains":[]},
+{"id":"living_room","name":"Living Room","connections":["kitchen","number_four"],"contains":[]},
+{"id":"front_step","name":"Front Step","connections":["number_four","privet_drive"],"contains":[]}
+],
+"items": [
+{"id":"put_outer","name":"Put-Outer","state":"intact"},
+{"id":"letter","name":"Letter","state":"found"},
+{"id":"motorcycle","name":"Motorcycle","state":"intact"}
+],
+"events": [
+{"id":"e1","type":"talk","agent":"vernon_dursley","patient":"harry_potter","location":"kitchen"},
+{"id":"e2","type":"talk","agent":"harry_potter","patient":"vernon_dursley","location":"kitchen","after":"e1"},
+{"id":"e3","type":"attack","agent":"vernon_dursley","patient":"harry_potter","location":"kitchen","after":"e2"},
+{"id":"e4","type":"think","agent":"harry_potter","patient":null,"location":"kitchen","after":"e3"},
+{"id":"e5","type":"arrive","agent":"albus_dumbledore","patient":null,"location":"privet_drive"},
+{"id":"e6","type":"discover","agent":"albus_dumbledore","patient":"put_outer","location":"privet_drive","after":"e5"},
+{"id":"e7","type":"meet","agent":"albus_dumbledore","patient":"professor_mcgonagall","location":"privet_drive","after":"e6"},
+{"id":"e8","type":"talk","agent":"professor_mcgonagall","patient":"albus_dumbledore","location":"privet_drive","after":"e7"},
+{"id":"e9","type":"arrive","agent":"hagrid","patient":null,"location":"privet_drive","after":"e8"},
+{"id":"e10","type":"give","agent":"hagrid","patient":"harry_potter","location":"front_step","after":"e9"},
+{"id":"e11","type":"give","agent":"albus_dumbledore","patient":"letter","location":"front_step","after":"e10"},
+{"id":"e12","type":"leave","agent":"albus_dumbledore","patient":null,"location":"privet_drive","after":"e11"}
+],
+"relationships": [
+{"from":"vernon_dursley","to":"harry_potter","type":"hostile"},
+{"from":"petunia_dursley","to":"harry_potter","type":"hostile"},
+{"from":"albus_dumbledore","to":"harry_potter","type":"friendly"},
+{"from":"professor_mcgonagall","to":"albus_dumbledore","type":"friendly"},
+{"from":"hagrid","to":"harry_potter","type":"friendly"}
+]
+}

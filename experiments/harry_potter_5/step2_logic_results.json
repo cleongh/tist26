@@ -1,0 +1,442 @@
+{
+  "step": 2,
+  "approach": "logic",
+  "timestamp": "2026-01-29T14:10:56.188374",
+  "chapters_processed": 34,
+  "total_errors": 8,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 75.59518003463745,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 77.4186782836914,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 119.06317257881165,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.976481676101685,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 84.56501173973083,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 72.21956253051758,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 94.88845896720886,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 408.4471797943115,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 87.64810419082642,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 61.39143180847168,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 48.02911305427551,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 41.71942710876465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 52.27553606033325,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.9409556388855,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 77.92642545700073,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Ron is trying to cheer Harry up, but Harry is reacting with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Ron says, 'You could look more cheerful, Harry, we\u2019ve got a week before we find out how badly we\u2019ve done, there\u2019s no need to worry yet.' Harry responds with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Harry says, 'I wish I knew what this means!' and then 'My scar keeps hurting \u2014 it\u2019s happened before, but never as', showing his pain and anger. Ron says, 'You could look more cheerful, Harry, we\u2019ve got a week before we find out how badly we\u2019ve done, there\u2019s no need to worry yet.' Harry responds with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 120.34873366355896,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 49.26758527755737,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 74.60328483581543,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.98695707321167,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 82.40063858032227,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.196552991867065,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 83.30878686904907,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Violation: unmotivated_hostility",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Violation: unmotivated_hostility",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 112.69683408737183,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 93.41381120681763,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 405.0024447441101,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 86.40361380577087,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.71832776069641,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 47.491520404815674,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 38.206947565078735,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 67.3836019039154,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.86715579032898,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 87.8505744934082,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Ron is trying to cheer Harry up, but Harry is reacting with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Ron says, 'You could look more cheerful, Harry, we\u2019ve got a week before we find out how badly we\u2019ve done, there\u2019s no need to worry yet.' Harry responds with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "015.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Harry says, 'I wish I knew what this means!' and then 'My scar keeps hurting \u2014 it\u2019s happened before, but never as', showing his pain and anger. Ron says, 'You could look more cheerful, Harry, we\u2019ve got a week before we find out how badly we\u2019ve done, there\u2019s no need to worry yet.' Harry responds with anger and pain, indicating unmotivated hostility. This is an example of emotional conflict where Ron's actions are not motivated by mutual affection or understanding, but rather by Harry's negative emotions.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 118.30821871757507,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 48.5700044631958,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

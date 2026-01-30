@@ -1,0 +1,462 @@
+{
+  "step": 1,
+  "approach": "llm",
+  "timestamp": "2026-01-30T09:43:23.895036",
+  "chapters_processed": 22,
+  "total_errors": 27,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Hagrid states that Sirius Black lent him the motorcycle, but then says he's taking Sirius's bike back to him. This implies Sirius doesn't have the bike anymore, contradicting the initial statement.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.237975597381592,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It is not explained how Harry's hair grew back overnight after Petunia cut it very short.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It is not explained how Harry ended up on the roof of the school kitchens.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.250157117843628,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text states that Uncle Vernon boarded up the cracks around the front and back doors so no one could go out, but then mentions the milkman handing Aunt Petunia eggs through the living room window. If the doors were boarded up, it would be impossible for the milkman to reach the living room window from outside.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.0486299991607666,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Uncle Vernon initially denies Harry is a wizard, then admits he knew all along.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.7390544414520264,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Hagrid says he is not supposed to use magic now that he has Harry, but he uses magic to speed up the boat.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.14880633354187,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Fred and George claim to have just met Harry on the train, but earlier in the chapter, Harry explicitly followed them and overheard their conversation with their mother at the platform barrier. This contradicts their claim of just meeting him.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.8405463695526123,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Harry recognizes Dumbledore from the Chocolate Frog card, but he also says he recognizes Professor Quirrell from the Leaky Cauldron. This is inconsistent because the Chocolate Frog cards are established as featuring famous witches and wizards, and Quirrell is not established as famous.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.6367335319519043,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text states Snape caught every word, but then says Snape spoke in barely more than a whisper. This is contradictory.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.4321980476379395,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text states that the trophy room is always unlocked, but later Harry and the others find a door locked and Hermione has to unlock it with a spell.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.841104507446289,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Harry states that the mysterious object is two inches long, but this information was never previously mentioned.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.3298532962799072,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It's not explained how Hermione knew Snape was jinxing the broom, only that she looked at the crowd and then knew it was Snape.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It's not explained how Hermione's setting Snape's robes on fire would stop him from jinxing Harry's broom.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.046132802963257,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Hagrid states that Sirius Black lent him the motorcycle, but also that he got Harry out of a house that was almost destroyed before the Muggles arrived. It is not explained how Sirius Black could have lent Hagrid the motorcycle if he was at the scene of the destroyed house.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.6378095149993896,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Harry's hair grows back overnight after Petunia cuts it very short, but there is no explanation for this event.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Harry ends up on the roof of the school kitchen while running from Dudley's gang, but the explanation that the wind caught him in mid-jump is not believable.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.5578348636627197,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text states that Uncle Vernon nailed up the mail slot, but later letters are pushed under the door and slotted through the sides.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.9348249435424805,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Uncle Vernon initially demands Hagrid leave, then tells him to sit. These are contradictory commands.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.2413296699523926,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Hagrid says he is not supposed to use magic now that he has Harry, but he uses magic to speed up the boat.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.44926118850708,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is described as having a \"warm and sad smile\" when leaving Harry at the station, and the Dursleys are described as looking \"very sad\" as they drive away. This contradicts their established dislike and mistreatment of Harry.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "005.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Fred and George claim they've never blown up a toilet, but then immediately suggest it as a 'great idea'. This contradicts their denial.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.865952968597412,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "006.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Harry recognizes Dumbledore from the Chocolate Frog card, but he also says he recognizes Professor Quirrell, whom he met at the Leaky Cauldron. This implies he remembers faces well, yet he doesn't recognize Snape, who was also at the Leaky Cauldron.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.5388309955596924,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "temporal",
+          "error_type": "unknown",
+          "description": "Harry reaches for his books and quill on his trunk in the dormitory during Potions class, which is in the dungeons. This is a location error, as he cannot be in two places at once.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.631300926208496,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text states that the trophy room is always unlocked, but later states that Hermione unlocks a door with Alohomora.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.3309600353240967,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Harry states that the mysterious object is two inches long, but this information was never previously mentioned.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 1.3302500247955322,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It's not explained how Hermione knew Snape was jinxing the broom, only that she looked at the crowd and then knew it was Snape.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "It's not explained how Hermione's setting Snape's robes on fire would stop him from jinxing Harry's broom.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 2.148526906967163,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

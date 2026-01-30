@@ -1,0 +1,289 @@
+=== Experiment Log Started: 2026-01-30T16:08:35.489954 ===
+
+[2026-01-30 16:08:35] [INFO] API Mode: openai
+[2026-01-30 16:08:35] [INFO] ============================================================
+[2026-01-30 16:08:35] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 16:08:35] [INFO] ============================================================
+[2026-01-30 16:08:35] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_openai_2/step2_logic_log.jsonl
+[2026-01-30 16:08:35] [INFO] Logging events to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_openai_2/step2_events_log.jsonl
+[2026-01-30 16:08:35] [INFO] Using OpenAI API with model: gpt-4o
+[2026-01-30 16:08:35] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 16:08:35] [INFO]   Found 11 chapters
+[2026-01-30 16:08:35] [INFO]   Chapter 0: 000.txt
+[2026-01-30 16:08:35] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:08:55] [DEBUG]   LLM response length: 4335 chars
+[2026-01-30 16:08:55] [DEBUG]     Parsing response (4324 chars after cleanup, was 4335)
+[2026-01-30 16:08:55] [DEBUG]   Extracted 4 initial rules
+[2026-01-30 16:08:55] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:08:55] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:08:55] [DEBUG]   Extracted: chars=7, locs=2, items=1, events=9, rels=5, rules=4, locs_init=3, poss=1, temp=0
+[2026-01-30 16:08:55] [DEBUG]     Assigned global IDs: e1 to e9
+[2026-01-30 16:08:55] [DEBUG]     Initial rule: uncle_vernon hates harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Initial rule: aunt_petunia hates harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Initial rule: albus_dumbledore kind true
+[2026-01-30 16:08:55] [DEBUG]     Initial rule: professor_mcgonagall kind true
+[2026-01-30 16:08:55] [DEBUG]     Relationship rule: uncle_vernon family aunt_petunia
+[2026-01-30 16:08:55] [DEBUG]     Relationship rule: uncle_vernon hates harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Relationship rule: aunt_petunia hates harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Relationship rule: albus_dumbledore friendly harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Relationship rule: professor_mcgonagall friendly harry_potter
+[2026-01-30 16:08:55] [DEBUG]     Location rule: uncle_vernon at number_four
+[2026-01-30 16:08:55] [DEBUG]     Location rule: aunt_petunia at number_four
+[2026-01-30 16:08:55] [DEBUG]     Location rule: dudley_dursley at number_four
+[2026-01-30 16:08:55] [DEBUG]     Possession rule: albus_dumbledore has letter
+[2026-01-30 16:08:55] [INFO]   Initialized 13 story rules
+[2026-01-30 16:08:55] [INFO]     -> 0 errors (20.1s)
+[2026-01-30 16:08:55] [INFO]   Chapter 1: 001.txt
+[2026-01-30 16:08:55] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:09:16] [DEBUG]   LLM response length: 4893 chars
+[2026-01-30 16:09:16] [DEBUG]     Parsing response (4882 chars after cleanup, was 4893)
+[2026-01-30 16:09:16] [DEBUG]   Extracted 5 initial rules
+[2026-01-30 16:09:16] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:09:16] [DEBUG]   Extracted: chars=6, locs=7, items=0, events=12, rels=5, rules=5, locs_init=4, poss=0, temp=0
+[2026-01-30 16:09:16] [DEBUG]     Assigned global IDs: e10 to e21
+[2026-01-30 16:09:16] [INFO]     -> 0 errors (21.1s)
+[2026-01-30 16:09:16] [INFO]   Chapter 2: 002.txt
+[2026-01-30 16:09:16] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:09:42] [DEBUG]   LLM response length: 4134 chars
+[2026-01-30 16:09:42] [DEBUG]     Parsing response (4123 chars after cleanup, was 4134)
+[2026-01-30 16:09:42] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:09:42] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:09:42] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:09:42] [DEBUG]   Extracted: chars=5, locs=5, items=2, events=10, rels=3, rules=3, locs_init=4, poss=1, temp=0
+[2026-01-30 16:09:42] [DEBUG]     Assigned global IDs: e22 to e31
+[2026-01-30 16:09:42] [INFO]     -> 0 errors (26.0s)
+[2026-01-30 16:09:42] [INFO]   Chapter 3: 003.txt
+[2026-01-30 16:09:42] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:11:03] [DEBUG]   LLM response length: 3582 chars
+[2026-01-30 16:11:03] [DEBUG]     Parsing response (3571 chars after cleanup, was 3582)
+[2026-01-30 16:11:03] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:11:03] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:11:03] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:11:03] [DEBUG]   Extracted: chars=5, locs=1, items=3, events=8, rels=3, rules=3, locs_init=4, poss=1, temp=0
+[2026-01-30 16:11:03] [DEBUG]     Assigned global IDs: e32 to e39
+[2026-01-30 16:11:03] [DEBUG]     Event e38 (attack): rubeus_hagrid → dudley_dursley now hostile
+[2026-01-30 16:11:03] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 16:11:03] [INFO]     -> 1 errors (81.2s)
+[2026-01-30 16:11:03] [INFO]   Chapter 4: 004.txt
+[2026-01-30 16:11:03] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:11:37] [DEBUG]   LLM response length: 5274 chars
+[2026-01-30 16:11:37] [DEBUG]     Parsing response (5263 chars after cleanup, was 5274)
+[2026-01-30 16:11:37] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:11:37] [DEBUG]   Extracted 2 character locations
+[2026-01-30 16:11:37] [DEBUG]   Extracted 2 character possessions
+[2026-01-30 16:11:37] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:11:37] [DEBUG]   Extracted: chars=9, locs=10, items=5, events=12, rels=2, rules=2, locs_init=2, poss=2, temp=1
+[2026-01-30 16:11:37] [DEBUG]     Assigned global IDs: e40 to e51
+[2026-01-30 16:11:37] [INFO]     -> 0 errors (33.9s)
+[2026-01-30 16:11:37] [INFO]   Chapter 5: 005.txt
+[2026-01-30 16:11:37] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:11:54] [DEBUG]   LLM response length: 6940 chars
+[2026-01-30 16:11:54] [DEBUG]     Parsing response (6929 chars after cleanup, was 6940)
+[2026-01-30 16:11:54] [DEBUG]   Extracted 5 initial rules
+[2026-01-30 16:11:54] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:11:54] [DEBUG]   Extracted 2 character possessions
+[2026-01-30 16:11:54] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:11:54] [DEBUG]   Extracted: chars=15, locs=10, items=3, events=12, rels=5, rules=5, locs_init=4, poss=2, temp=1
+[2026-01-30 16:11:54] [DEBUG]     Assigned global IDs: e52 to e63
+[2026-01-30 16:11:54] [DEBUG]     Event e61 (attack): scabbers → goyle now hostile
+[2026-01-30 16:11:54] [INFO]     -> 0 errors (17.0s)
+[2026-01-30 16:11:54] [INFO]   Chapter 6: 006.txt
+[2026-01-30 16:11:54] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:12:12] [DEBUG]   LLM response length: 5117 chars
+[2026-01-30 16:12:12] [DEBUG]     Parsing response (5106 chars after cleanup, was 5117)
+[2026-01-30 16:12:12] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:12:12] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:12:12] [DEBUG]   Extracted: chars=11, locs=5, items=1, events=12, rels=1, rules=3, locs_init=3, poss=0, temp=0
+[2026-01-30 16:12:12] [DEBUG]     Assigned global IDs: e64 to e75
+[2026-01-30 16:12:12] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 16:12:12] [INFO]     -> 3 errors (17.9s)
+[2026-01-30 16:12:12] [INFO]   Chapter 7: 007.txt
+[2026-01-30 16:12:12] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:12:29] [DEBUG]   LLM response length: 4832 chars
+[2026-01-30 16:12:29] [DEBUG]     Parsing response (4821 chars after cleanup, was 4832)
+[2026-01-30 16:12:29] [DEBUG]     Fixed unknown action as reflexive: injure agent=neville_longbottom
+[2026-01-30 16:12:29] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:12:29] [DEBUG]   Extracted 2 character locations
+[2026-01-30 16:12:29] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:12:29] [DEBUG]   Extracted: chars=15, locs=6, items=1, events=8, rels=2, rules=2, locs_init=2, poss=1, temp=0
+[2026-01-30 16:12:29] [DEBUG]     Assigned global IDs: e76 to e83
+[2026-01-30 16:12:29] [INFO]     -> 0 errors (16.6s)
+[2026-01-30 16:12:29] [INFO]   Chapter 8: 008.txt
+[2026-01-30 16:12:29] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:12:48] [DEBUG]   LLM response length: 4754 chars
+[2026-01-30 16:12:48] [DEBUG]     Parsing response (4743 chars after cleanup, was 4754)
+[2026-01-30 16:12:48] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:12:48] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:12:48] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:12:48] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:12:48] [DEBUG]   Extracted: chars=10, locs=5, items=1, events=10, rels=3, rules=3, locs_init=3, poss=1, temp=1
+[2026-01-30 16:12:48] [DEBUG]     Assigned global IDs: e84 to e93
+[2026-01-30 16:12:48] [INFO]     -> 0 errors (19.6s)
+[2026-01-30 16:12:48] [INFO]   Chapter 9: 009.txt
+[2026-01-30 16:12:48] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:13:07] [DEBUG]   LLM response length: 5845 chars
+[2026-01-30 16:13:07] [DEBUG]     Parsing response (5834 chars after cleanup, was 5845)
+[2026-01-30 16:13:07] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:13:07] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:13:07] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:13:07] [DEBUG]   Extracted: chars=10, locs=5, items=4, events=12, rels=2, rules=3, locs_init=3, poss=1, temp=0
+[2026-01-30 16:13:07] [DEBUG]     Assigned global IDs: e94 to e105
+[2026-01-30 16:13:07] [DEBUG]     Event e97 (attack): troll → hermione_granger now hostile
+[2026-01-30 16:13:07] [INFO]     -> 0 errors (18.2s)
+[2026-01-30 16:13:07] [INFO]   Chapter 10: 010.txt
+[2026-01-30 16:13:07] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:13:26] [DEBUG]   LLM response length: 5223 chars
+[2026-01-30 16:13:26] [DEBUG]     Parsing response (5212 chars after cleanup, was 5223)
+[2026-01-30 16:13:26] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:13:26] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:13:26] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:13:26] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:13:26] [DEBUG]   Extracted: chars=10, locs=4, items=2, events=12, rels=3, rules=3, locs_init=3, poss=1, temp=1
+[2026-01-30 16:13:26] [DEBUG]     Assigned global IDs: e106 to e117
+[2026-01-30 16:13:26] [DEBUG]     Event e112 (attack): marcus_flint → harry_potter now hostile
+[2026-01-30 16:13:26] [INFO]     -> 0 errors (19.0s)
+[2026-01-30 16:13:26] [INFO] 
+Processing: Harry Potter (modified)
+[2026-01-30 16:13:26] [INFO]   Found 11 chapters
+[2026-01-30 16:13:26] [INFO]   Chapter 0: 000.txt
+[2026-01-30 16:13:26] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:13:38] [DEBUG]   LLM response length: 3310 chars
+[2026-01-30 16:13:38] [DEBUG]     Parsing response (3299 chars after cleanup, was 3310)
+[2026-01-30 16:13:38] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:13:38] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:13:38] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:13:38] [DEBUG]   Extracted: chars=7, locs=2, items=1, events=7, rels=3, rules=2, locs_init=3, poss=1, temp=0
+[2026-01-30 16:13:38] [DEBUG]     Assigned global IDs: e1 to e7
+[2026-01-30 16:13:38] [DEBUG]     Initial rule: uncle_vernon hates harry_potter
+[2026-01-30 16:13:38] [DEBUG]     Initial rule: aunt_petunia hates harry_potter
+[2026-01-30 16:13:38] [DEBUG]     Relationship rule: uncle_vernon family aunt_petunia
+[2026-01-30 16:13:38] [DEBUG]     Relationship rule: aunt_petunia family harry_potter
+[2026-01-30 16:13:38] [DEBUG]     Relationship rule: uncle_vernon hates harry_potter
+[2026-01-30 16:13:38] [DEBUG]     Location rule: uncle_vernon at number_four
+[2026-01-30 16:13:38] [DEBUG]     Location rule: aunt_petunia at number_four
+[2026-01-30 16:13:38] [DEBUG]     Location rule: dudley_dursley at number_four
+[2026-01-30 16:13:38] [DEBUG]     Possession rule: albus_dumbledore has letter
+[2026-01-30 16:13:38] [INFO]   Initialized 9 story rules
+[2026-01-30 16:13:38] [INFO]     -> 0 errors (12.1s)
+[2026-01-30 16:13:38] [INFO]   Chapter 1: 001.txt
+[2026-01-30 16:13:38] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:13:54] [DEBUG]   LLM response length: 4703 chars
+[2026-01-30 16:13:54] [DEBUG]     Parsing response (4692 chars after cleanup, was 4703)
+[2026-01-30 16:13:54] [DEBUG]   Extracted 4 initial rules
+[2026-01-30 16:13:54] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:13:54] [DEBUG]   Extracted: chars=6, locs=7, items=0, events=12, rels=3, rules=4, locs_init=4, poss=0, temp=0
+[2026-01-30 16:13:54] [DEBUG]     Assigned global IDs: e8 to e19
+[2026-01-30 16:13:54] [INFO]     -> 0 errors (16.2s)
+[2026-01-30 16:13:54] [INFO]   Chapter 2: 002.txt
+[2026-01-30 16:13:54] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:14:11] [DEBUG]   LLM response length: 4253 chars
+[2026-01-30 16:14:11] [DEBUG]     Parsing response (4242 chars after cleanup, was 4253)
+[2026-01-30 16:14:11] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:14:11] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:14:11] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:14:11] [DEBUG]   Extracted: chars=5, locs=6, items=2, events=10, rels=3, rules=3, locs_init=4, poss=1, temp=0
+[2026-01-30 16:14:11] [DEBUG]     Assigned global IDs: e20 to e29
+[2026-01-30 16:14:11] [INFO]     -> 0 errors (17.0s)
+[2026-01-30 16:14:11] [INFO]   Chapter 3: 003.txt
+[2026-01-30 16:14:11] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:14:36] [DEBUG]   LLM response length: 3699 chars
+[2026-01-30 16:14:36] [DEBUG]     Parsing response (3688 chars after cleanup, was 3699)
+[2026-01-30 16:14:36] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:14:36] [DEBUG]   Extracted 4 character locations
+[2026-01-30 16:14:36] [DEBUG]   Extracted 2 character possessions
+[2026-01-30 16:14:36] [DEBUG]   Extracted: chars=5, locs=1, items=4, events=8, rels=3, rules=3, locs_init=4, poss=2, temp=0
+[2026-01-30 16:14:36] [DEBUG]     Assigned global IDs: e30 to e37
+[2026-01-30 16:14:36] [DEBUG]     Event e36 (attack): rubeus_hagrid → dudley_dursley now hostile
+[2026-01-30 16:14:36] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 16:14:36] [INFO]     -> 1 errors (24.8s)
+[2026-01-30 16:14:36] [INFO]   Chapter 4: 004.txt
+[2026-01-30 16:14:36] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:15:27] [DEBUG]   LLM response length: 5338 chars
+[2026-01-30 16:15:27] [DEBUG]     Parsing response (5327 chars after cleanup, was 5338)
+[2026-01-30 16:15:27] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:15:27] [DEBUG]   Extracted 2 character locations
+[2026-01-30 16:15:27] [DEBUG]   Extracted 2 character possessions
+[2026-01-30 16:15:27] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:15:27] [DEBUG]   Extracted: chars=7, locs=10, items=6, events=12, rels=3, rules=2, locs_init=2, poss=2, temp=1
+[2026-01-30 16:15:27] [DEBUG]     Assigned global IDs: e38 to e49
+[2026-01-30 16:15:27] [INFO]     -> 0 errors (51.6s)
+[2026-01-30 16:15:27] [INFO]   Chapter 5: 005.txt
+[2026-01-30 16:15:27] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:15:47] [DEBUG]   LLM response length: 5721 chars
+[2026-01-30 16:15:47] [DEBUG]     Parsing response (5710 chars after cleanup, was 5721)
+[2026-01-30 16:15:47] [DEBUG]   Extracted 4 initial rules
+[2026-01-30 16:15:47] [DEBUG]   Extracted 1 character locations
+[2026-01-30 16:15:47] [DEBUG]   Extracted 3 character possessions
+[2026-01-30 16:15:47] [DEBUG]   Extracted: chars=15, locs=6, items=3, events=10, rels=3, rules=4, locs_init=1, poss=3, temp=0
+[2026-01-30 16:15:47] [DEBUG]     Assigned global IDs: e50 to e59
+[2026-01-30 16:15:47] [DEBUG]     Event e58 (attack): scabbers → goyle now hostile
+[2026-01-30 16:15:47] [INFO]     -> 0 errors (19.9s)
+[2026-01-30 16:15:47] [INFO]   Chapter 6: 006.txt
+[2026-01-30 16:15:47] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:16:09] [DEBUG]   LLM response length: 5224 chars
+[2026-01-30 16:16:09] [DEBUG]     Parsing response (5213 chars after cleanup, was 5224)
+[2026-01-30 16:16:09] [DEBUG]   Extracted 4 initial rules
+[2026-01-30 16:16:09] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:16:09] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:16:09] [DEBUG]   Extracted: chars=11, locs=4, items=0, events=12, rels=4, rules=4, locs_init=3, poss=0, temp=1
+[2026-01-30 16:16:09] [DEBUG]     Assigned global IDs: e60 to e71
+[2026-01-30 16:16:09] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 16:16:09] [INFO]     -> 1 errors (22.1s)
+[2026-01-30 16:16:09] [INFO]   Chapter 7: 007.txt
+[2026-01-30 16:16:09] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:16:31] [DEBUG]   LLM response length: 5002 chars
+[2026-01-30 16:16:31] [DEBUG]     Parsing response (4991 chars after cleanup, was 5002)
+[2026-01-30 16:16:31] [DEBUG]     Fixed unknown action as reflexive: injure agent=neville_longbottom
+[2026-01-30 16:16:31] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:16:31] [DEBUG]   Extracted 2 character locations
+[2026-01-30 16:16:31] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:16:31] [DEBUG]   Extracted: chars=15, locs=6, items=2, events=9, rels=2, rules=2, locs_init=2, poss=1, temp=0
+[2026-01-30 16:16:31] [DEBUG]     Assigned global IDs: e72 to e80
+[2026-01-30 16:16:31] [INFO]     -> 0 errors (21.5s)
+[2026-01-30 16:16:31] [INFO]   Chapter 8: 008.txt
+[2026-01-30 16:16:31] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:16:48] [DEBUG]   LLM response length: 4549 chars
+[2026-01-30 16:16:48] [DEBUG]     Parsing response (4538 chars after cleanup, was 4549)
+[2026-01-30 16:16:48] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:16:48] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:16:48] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:16:48] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:16:48] [DEBUG]   Extracted: chars=12, locs=5, items=1, events=8, rels=3, rules=3, locs_init=3, poss=1, temp=1
+[2026-01-30 16:16:48] [DEBUG]     Assigned global IDs: e81 to e88
+[2026-01-30 16:16:48] [INFO]     -> 0 errors (17.6s)
+[2026-01-30 16:16:48] [INFO]   Chapter 9: 009.txt
+[2026-01-30 16:16:48] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:17:06] [DEBUG]   LLM response length: 5693 chars
+[2026-01-30 16:17:06] [DEBUG]     Parsing response (5682 chars after cleanup, was 5693)
+[2026-01-30 16:17:06] [DEBUG]   Extracted 2 initial rules
+[2026-01-30 16:17:06] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:17:06] [DEBUG]   Extracted 1 character possessions
+[2026-01-30 16:17:06] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:17:06] [DEBUG]   Extracted: chars=10, locs=5, items=4, events=12, rels=3, rules=2, locs_init=3, poss=1, temp=1
+[2026-01-30 16:17:06] [DEBUG]     Assigned global IDs: e89 to e100
+[2026-01-30 16:17:06] [DEBUG]     Event e93 (attack): troll → hermione_granger now hostile
+[2026-01-30 16:17:06] [INFO]     -> 0 errors (18.1s)
+[2026-01-30 16:17:06] [INFO]   Chapter 10: 010.txt
+[2026-01-30 16:17:06] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 16:17:29] [DEBUG]   LLM response length: 5294 chars
+[2026-01-30 16:17:29] [DEBUG]     Parsing response (5283 chars after cleanup, was 5294)
+[2026-01-30 16:17:29] [DEBUG]   Extracted 3 initial rules
+[2026-01-30 16:17:29] [DEBUG]   Extracted 3 character locations
+[2026-01-30 16:17:29] [DEBUG]   Extracted 2 character possessions
+[2026-01-30 16:17:29] [DEBUG]   Extracted 1 temporal constraints
+[2026-01-30 16:17:29] [DEBUG]   Extracted: chars=11, locs=4, items=3, events=10, rels=3, rules=3, locs_init=3, poss=2, temp=1
+[2026-01-30 16:17:29] [DEBUG]     Assigned global IDs: e101 to e110
+[2026-01-30 16:17:29] [DEBUG]     Event e104 (attack): marcus_flint → harry_potter now hostile
+[2026-01-30 16:17:29] [INFO]     -> 0 errors (22.9s)
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Hunger Games
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Hunger Games
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Lord of the Rings
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Lord of the Rings
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Twilight
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Twilight
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Goosebumps
+[2026-01-30 16:17:29] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Goosebumps
+[2026-01-30 16:17:29] [INFO] 
+Step 2 complete: 22 chapters, 6 errors
+[2026-01-30 16:17:29] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_openai_2/step2_logic_results.json

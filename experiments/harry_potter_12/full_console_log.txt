@@ -1,0 +1,41 @@
+=== Experiment Log Started: 2026-01-30T07:28:08.923919 ===
+
+[2026-01-30 07:28:08] [INFO] ============================================================
+[2026-01-30 07:28:08] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 07:28:08] [INFO] ============================================================
+[2026-01-30 07:28:08] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_12/step2_logic_log.jsonl
+[2026-01-30 07:28:08] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 07:28:08] [INFO]   Found 11 chapters
+[2026-01-30 07:28:08] [INFO]   Chapter 0: 000.txt
+[2026-01-30 07:28:08] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 07:32:09] [DEBUG]   LLM response length: 11319 chars
+[2026-01-30 07:32:09] [DEBUG]     Parsing response (11319 chars after cleanup, was 11319)
+[2026-01-30 07:32:09] [WARN]     JSON parse error: Expecting ',' delimiter: line 150 column 69 (char 11285)
+[2026-01-30 07:32:09] [DEBUG]     First 500 chars: {
+  "characters": [
+    {"id": "mr_dursley", "name": "Mr. Dursley", "emotion": "normal", "state": "normal", "appearance": null},
+    {"id": "mrs_dursley", "name": "Mrs. Dursley", "emotion": "normal", "state": "normal", "appearance": null},
+    {"id": "dudley", "name": "Dudley", "emotion": "angry", "state": "normal", "appearance": null},
+    {"id": "cat", "name": "cat", "emotion": "neutral", "state": "normal", "appearance": null},
+    {"id": "professor_mcgonagall", "name": "Professor McGonagall",
+[2026-01-30 07:32:09] [DEBUG]     Repair attempt 1: error at pos 11285: Expecting ',' delimiter: line 150 column 69 (char 
+[2026-01-30 07:32:09] [DEBUG]     Repair attempt 2: error at pos 11286: Expecting value: line 150 column 70 (char 11286)
+[2026-01-30 07:32:09] [INFO]     JSON repaired successfully!
+[2026-01-30 07:32:09] [WARN]   WARNING: Relationships (110) exceeds suggested limit (5)
+[2026-01-30 07:32:09] [DEBUG]   Extracted: chars=15, locs=2, items=1, events=12, rels=110
+[2026-01-30 07:32:13] [INFO]     -> 3 errors (245.0s)
+[2026-01-30 07:32:13] [INFO]   Chapter 1: 001.txt
+[2026-01-30 07:32:13] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 07:33:22] [DEBUG]   LLM response length: 3506 chars
+[2026-01-30 07:33:22] [DEBUG]     Parsing response (3506 chars after cleanup, was 3506)
+[2026-01-30 07:33:22] [DEBUG]   Extracted: chars=15, locs=1, items=1, events=12, rels=3
+[2026-01-30 07:33:23] [INFO]     -> 0 errors (69.1s)
+[2026-01-30 07:33:23] [INFO]   Chapter 2: 002.txt
+[2026-01-30 07:33:23] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 07:34:58] [DEBUG]   LLM response length: 4823 chars
+[2026-01-30 07:34:58] [DEBUG]     Parsing response (4823 chars after cleanup, was 4823)
+[2026-01-30 07:34:58] [DEBUG]   Extracted: chars=15, locs=9, items=10, events=12, rels=3
+[2026-01-30 07:34:58] [INFO]     -> 0 errors (95.1s)
+[2026-01-30 07:34:58] [INFO]   Chapter 3: 003.txt
+[2026-01-30 07:34:58] [DEBUG]   Calling LLM for unified extraction...

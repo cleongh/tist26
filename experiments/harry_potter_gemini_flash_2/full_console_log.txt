@@ -1,0 +1,372 @@
+=== Experiment Log Started: 2026-01-30T10:44:16.424480 ===
+
+[2026-01-30 10:44:16] [INFO] API Mode: gemini
+[2026-01-30 10:44:16] [INFO] ============================================================
+[2026-01-30 10:44:16] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 10:44:16] [INFO] ============================================================
+[2026-01-30 10:44:16] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash_2/step2_logic_log.jsonl
+[2026-01-30 10:44:16] [INFO] Using Gemini API with model: gemini-2.0-flash
+[2026-01-30 10:44:16] [INFO] Rate limit delay: 5.0s between API calls
+[2026-01-30 10:44:16] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 10:44:16] [INFO]   Found 11 chapters
+[2026-01-30 10:44:16] [INFO]   Chapter 0: 000.txt
+[2026-01-30 10:44:16] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:44:17] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:44:17] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:44:17] [INFO]     -> 0 errors (1.5s)
+[2026-01-30 10:44:17] [INFO]   Chapter 1: 001.txt
+[2026-01-30 10:44:17] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:44:25] [DEBUG]   LLM response length: 3616 chars
+[2026-01-30 10:44:25] [DEBUG]     Parsing response (3605 chars after cleanup, was 3616)
+[2026-01-30 10:44:25] [DEBUG]   Extracted: chars=7, locs=7, items=2, events=12, rels=4
+[2026-01-30 10:44:25] [INFO]     -> 0 errors (7.3s)
+[2026-01-30 10:44:25] [INFO]   Chapter 2: 002.txt
+[2026-01-30 10:44:25] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:44:36] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:44:36] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:44:36] [INFO]     -> 0 errors (11.0s)
+[2026-01-30 10:44:36] [INFO]   Chapter 3: 003.txt
+[2026-01-30 10:44:36] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:44:38] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:44:38] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:44:38] [INFO]     -> 0 errors (2.3s)
+[2026-01-30 10:44:38] [INFO]   Chapter 4: 004.txt
+[2026-01-30 10:44:38] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:44:48] [DEBUG]   LLM response length: 4286 chars
+[2026-01-30 10:44:48] [DEBUG]     Parsing response (4275 chars after cleanup, was 4286)
+[2026-01-30 10:44:48] [DEBUG]   Extracted: chars=13, locs=9, items=7, events=12, rels=2
+[2026-01-30 10:44:49] [INFO]     -> 0 errors (10.4s)
+[2026-01-30 10:44:49] [INFO]   Chapter 5: 005.txt
+[2026-01-30 10:44:49] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:45:04] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:45:04] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:45:04] [INFO]     -> 0 errors (15.6s)
+[2026-01-30 10:45:04] [INFO]   Chapter 6: 006.txt
+[2026-01-30 10:45:04] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:45:13] [DEBUG]   LLM response length: 3882 chars
+[2026-01-30 10:45:13] [DEBUG]     Parsing response (3871 chars after cleanup, was 3882)
+[2026-01-30 10:45:13] [DEBUG]   Extracted: chars=15, locs=5, items=1, events=12, rels=3
+[2026-01-30 10:45:13] [INFO]     -> 0 errors (9.1s)
+[2026-01-30 10:45:13] [INFO]   Chapter 7: 007.txt
+[2026-01-30 10:45:13] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:45:29] [DEBUG]   LLM response length: 4215 chars
+[2026-01-30 10:45:29] [DEBUG]     Parsing response (4204 chars after cleanup, was 4215)
+[2026-01-30 10:45:29] [DEBUG]   Extracted: chars=15, locs=5, items=5, events=12, rels=3
+[2026-01-30 10:45:29] [INFO]     -> 0 errors (15.4s)
+[2026-01-30 10:45:29] [INFO]   Chapter 8: 008.txt
+[2026-01-30 10:45:29] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:45:43] [DEBUG]   LLM response length: 4480 chars
+[2026-01-30 10:45:43] [DEBUG]     Parsing response (4469 chars after cleanup, was 4480)
+[2026-01-30 10:45:43] [DEBUG]   Extracted: chars=15, locs=8, items=2, events=12, rels=3
+[2026-01-30 10:45:43] [INFO]     -> 0 errors (14.4s)
+[2026-01-30 10:45:43] [INFO]   Chapter 9: 009.txt
+[2026-01-30 10:45:43] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:45:56] [DEBUG]   LLM response length: 4536 chars
+[2026-01-30 10:45:56] [DEBUG]     Parsing response (4525 chars after cleanup, was 4536)
+[2026-01-30 10:45:56] [DEBUG]   Extracted: chars=14, locs=9, items=3, events=12, rels=4
+[2026-01-30 10:45:56] [INFO]     -> 0 errors (13.3s)
+[2026-01-30 10:45:56] [INFO]   Chapter 10: 010.txt
+[2026-01-30 10:45:56] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:46:11] [DEBUG]   LLM response length: 4214 chars
+[2026-01-30 10:46:11] [DEBUG]     Parsing response (4203 chars after cleanup, was 4214)
+[2026-01-30 10:46:11] [DEBUG]   Extracted: chars=15, locs=7, items=4, events=12, rels=4
+[2026-01-30 10:46:11] [INFO]     -> 0 errors (15.1s)
+[2026-01-30 10:46:11] [INFO] 
+Processing: Harry Potter (modified)
+[2026-01-30 10:46:11] [INFO]   Found 11 chapters
+[2026-01-30 10:46:11] [INFO]   Chapter 0: 000.txt
+[2026-01-30 10:46:11] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:46:23] [DEBUG]   LLM response length: 2677 chars
+[2026-01-30 10:46:23] [DEBUG]     Parsing response (2666 chars after cleanup, was 2677)
+[2026-01-30 10:46:23] [DEBUG]   Extracted: chars=7, locs=3, items=1, events=11, rels=3
+[2026-01-30 10:46:23] [INFO]     -> 0 errors (11.4s)
+[2026-01-30 10:46:23] [INFO]   Chapter 1: 001.txt
+[2026-01-30 10:46:23] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:46:29] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:46:29] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:46:29] [INFO]     -> 0 errors (6.1s)
+[2026-01-30 10:46:29] [INFO]   Chapter 2: 002.txt
+[2026-01-30 10:46:29] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:46:36] [DEBUG]   LLM response length: 2904 chars
+[2026-01-30 10:46:36] [DEBUG]     Parsing response (2893 chars after cleanup, was 2904)
+[2026-01-30 10:46:36] [DEBUG]   Extracted: chars=5, locs=7, items=2, events=10, rels=4
+[2026-01-30 10:46:36] [INFO]     -> 0 errors (7.5s)
+[2026-01-30 10:46:36] [INFO]   Chapter 3: 003.txt
+[2026-01-30 10:46:36] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:46:49] [DEBUG]   LLM response length: 2822 chars
+[2026-01-30 10:46:49] [DEBUG]     Parsing response (2811 chars after cleanup, was 2822)
+[2026-01-30 10:46:49] [DEBUG]   Extracted: chars=7, locs=1, items=5, events=12, rels=4
+[2026-01-30 10:46:49] [INFO]     -> 0 errors (12.3s)
+[2026-01-30 10:46:49] [INFO]   Chapter 4: 004.txt
+[2026-01-30 10:46:49] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:47:03] [DEBUG]   LLM response length: 3609 chars
+[2026-01-30 10:47:03] [DEBUG]     Parsing response (3598 chars after cleanup, was 3609)
+[2026-01-30 10:47:03] [DEBUG]   Extracted: chars=10, locs=7, items=5, events=12, rels=2
+[2026-01-30 10:47:03] [INFO]     -> 0 errors (13.9s)
+[2026-01-30 10:47:03] [INFO]   Chapter 5: 005.txt
+[2026-01-30 10:47:03] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:47:18] [DEBUG]   LLM response length: 4198 chars
+[2026-01-30 10:47:18] [DEBUG]     Parsing response (4187 chars after cleanup, was 4198)
+[2026-01-30 10:47:18] [WARN]     JSON parse error: Expecting ',' delimiter: line 18 column 3 (char 1698)
+[2026-01-30 10:47:18] [DEBUG]     First 500 chars: {
+  "characters": [
+    {"id": "harry_potter", "name": "Harry Potter", "emotion": "nervous", "state": "normal", "appearance": "normal"},
+    {"id": "vernon_dursley", "name": "Uncle Vernon", "emotion": "angry", "state": "normal", "appearance": "normal"},
+    {"id": "petunia_dursley", "name": "Aunt Petunia", "emotion": "neutral", "state": "normal", "appearance": "normal"},
+    {"id": "dudley_dursley", "name": "Dudley", "emotion": "afraid", "state": "normal", "appearance": "normal"},
+    {"id": "ha
+[2026-01-30 10:47:18] [DEBUG]     Repair attempt 1: error at pos 1698: Expecting ',' delimiter: line 18 column 3 (char 16
+[2026-01-30 10:47:18] [DEBUG]     Repair attempt 2: error at pos 1699: Expecting property name enclosed in double quotes:
+[2026-01-30 10:47:18] [DEBUG]     Repair attempt 3: error at pos 1695: Expecting ',' delimiter: line 17 column 105 (char 
+[2026-01-30 10:47:18] [DEBUG]     Repair attempt 4: error at pos 1696: Expecting property name enclosed in double quotes:
+[2026-01-30 10:47:18] [DEBUG]     Repair attempt 5: error at pos 1695: Expecting ',' delimiter: line 17 column 105 (char 
+[2026-01-30 10:47:18] [DEBUG]     Repair failed: Expecting property name enclosed in double quotes: line 17 column 106 (char 1696)
+[2026-01-30 10:47:18] [WARN] First parse failed (empty result). Response preview: ```json
+{
+  "characters": [
+    {"id": "harry_potter", "name": "Harry Potter", "emotion": "nervous", "state": "normal", "appearance": "normal"},
+    {"id": "vernon_dursley", "name": "Uncle Vernon", "emotion": "angry", "state": "normal", "appearance": "normal"},
+    {"id": "petunia_dursley", "name": "Aunt Petunia", "emotion": "neutral", "state": "normal", "appearance": "normal"},
+    {"id": "dudley_dursley", "name": "Dudley", "emotion": "afraid", "state": "normal", "appearance": "normal"},
+    {"
+[2026-01-30 10:47:18] [DEBUG] Retrying LLM call...
+[2026-01-30 10:47:34] [DEBUG]   Retry response length: 4198 chars
+[2026-01-30 10:47:34] [DEBUG]     Parsing response (4187 chars after cleanup, was 4198)
+[2026-01-30 10:47:34] [WARN]     JSON parse error: Expecting ',' delimiter: line 18 column 3 (char 1698)
+[2026-01-30 10:47:34] [DEBUG]     First 500 chars: {
+  "characters": [
+    {"id": "harry_potter", "name": "Harry Potter", "emotion": "nervous", "state": "normal", "appearance": "normal"},
+    {"id": "vernon_dursley", "name": "Uncle Vernon", "emotion": "angry", "state": "normal", "appearance": "normal"},
+    {"id": "petunia_dursley", "name": "Aunt Petunia", "emotion": "neutral", "state": "normal", "appearance": "normal"},
+    {"id": "dudley_dursley", "name": "Dudley", "emotion": "afraid", "state": "normal", "appearance": "normal"},
+    {"id": "ha
+[2026-01-30 10:47:34] [DEBUG]     Repair attempt 1: error at pos 1698: Expecting ',' delimiter: line 18 column 3 (char 16
+[2026-01-30 10:47:34] [DEBUG]     Repair attempt 2: error at pos 1699: Expecting property name enclosed in double quotes:
+[2026-01-30 10:47:34] [DEBUG]     Repair attempt 3: error at pos 1695: Expecting ',' delimiter: line 17 column 105 (char 
+[2026-01-30 10:47:34] [DEBUG]     Repair attempt 4: error at pos 1696: Expecting property name enclosed in double quotes:
+[2026-01-30 10:47:34] [DEBUG]     Repair attempt 5: error at pos 1695: Expecting ',' delimiter: line 17 column 105 (char 
+[2026-01-30 10:47:34] [DEBUG]     Repair failed: Expecting property name enclosed in double quotes: line 17 column 106 (char 1696)
+[2026-01-30 10:47:34] [DEBUG]   Extracted: chars=0, locs=0, items=0, events=0, rels=0
+[2026-01-30 10:47:34] [INFO]     -> 0 errors (31.0s)
+[2026-01-30 10:47:34] [INFO]   Chapter 6: 006.txt
+[2026-01-30 10:47:34] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:47:48] [DEBUG]   LLM response length: 3882 chars
+[2026-01-30 10:47:48] [DEBUG]     Parsing response (3871 chars after cleanup, was 3882)
+[2026-01-30 10:47:48] [DEBUG]   Extracted: chars=15, locs=5, items=1, events=12, rels=3
+[2026-01-30 10:47:48] [INFO]     -> 0 errors (14.2s)
+[2026-01-30 10:47:48] [INFO]   Chapter 7: 007.txt
+[2026-01-30 10:47:48] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:48:02] [DEBUG]   LLM response length: 3692 chars
+[2026-01-30 10:48:02] [DEBUG]     Parsing response (3681 chars after cleanup, was 3692)
+[2026-01-30 10:48:02] [DEBUG]   Extracted: chars=12, locs=5, items=4, events=12, rels=4
+[2026-01-30 10:48:02] [INFO]     -> 0 errors (13.7s)
+[2026-01-30 10:48:02] [INFO]   Chapter 8: 008.txt
+[2026-01-30 10:48:02] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:48:08] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:48:08] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:48:08] [INFO]     -> 0 errors (6.2s)
+[2026-01-30 10:48:08] [INFO]   Chapter 9: 009.txt
+[2026-01-30 10:48:08] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:48:09] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:48:09] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:48:09] [INFO]     -> 0 errors (0.9s)
+[2026-01-30 10:48:09] [INFO]   Chapter 10: 010.txt
+[2026-01-30 10:48:09] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:48:21] [DEBUG]   LLM response length: 4214 chars
+[2026-01-30 10:48:21] [DEBUG]     Parsing response (4203 chars after cleanup, was 4214)
+[2026-01-30 10:48:21] [DEBUG]   Extracted: chars=15, locs=7, items=4, events=12, rels=4
+[2026-01-30 10:48:21] [INFO]     -> 0 errors (12.5s)
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Hunger Games
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Hunger Games
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Lord of the Rings
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Lord of the Rings
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Twilight
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Twilight
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Goosebumps
+[2026-01-30 10:48:21] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Goosebumps
+[2026-01-30 10:48:21] [INFO] 
+Step 2 complete: 22 chapters, 0 errors
+[2026-01-30 10:48:21] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash_2/step2_logic_results.json

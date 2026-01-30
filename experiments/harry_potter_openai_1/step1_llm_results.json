@@ -1,0 +1,351 @@
+{
+  "step": 1,
+  "approach": "llm",
+  "timestamp": "2026-01-30T12:27:17.829985",
+  "chapters_processed": 22,
+  "total_errors": 13,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.198931694030762,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.9588491916656494,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.0719454288482666,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.5834405422210693,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.095844745635986,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.763182878494263,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 8.500799894332886,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Repetition of text indicating a possible editing error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.695643424987793,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Malfay' is used instead of 'Malfoy', which is inconsistent with the established character name.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Flitwicles' is used instead of 'Flitwick', which is inconsistent with the established character name.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.428850889205933,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall takes five points from Hermione for her actions, but then awards five points each to Harry and Ron, which seems inconsistent given the severity of the situation and her initial anger.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 13.23746657371521,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Hermlone' is likely a typographical error for 'Hermione'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The word 'tent' is likely a typographical error for 'lent'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.402153253555298,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.025734663009644,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.362311363220215,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.366911888122559,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.541343450546265,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.441032648086548,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Uncle Vernon's behavior is inconsistent with his established dislike for Harry, as he shows a warm and sad smile when leaving Harry at the station.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 30.506144762039185,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 7.679028749465942,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Repeated phrase indicating a possible editing error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 7.78487229347229,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Malfay' is used instead of 'Malfoy', which is inconsistent with the established character name.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Flitwicles' is used instead of 'Flitwick', which is inconsistent with the established character name.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 21.09124255180359,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall takes five points from Hermione for her actions, but then awards five points each to Harry and Ron, which should result in a net gain of five points for Gryffindor, not ten as implied by Ron's comment.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.119027853012085,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Hermlone' is a misspelling of 'Hermione'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The word 'tent' is likely a typo for 'lent'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.15007209777832,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

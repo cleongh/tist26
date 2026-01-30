@@ -1,0 +1,1784 @@
+{
+  "step": 1,
+  "approach": "llm",
+  "timestamp": "2026-01-30T16:58:18.349750",
+  "chapters_processed": 114,
+  "total_errors": 66,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.5471713542938232,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.272050380706787,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Logical impossibility of letters being delivered in eggs by the milkman.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.729142189025879,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is described as having a rifle, but later Hagrid bends it into a knot as if it were made of rubber, which is not possible for a metal rifle.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.3053882122039795,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.607793569564819,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.287787675857544,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 14.234513282775879,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Repetition of text indicating a possible editing error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 11.467862367630005,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text contains a typographical error where 'Malfay' is used instead of 'Malfoy'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The text contains a typographical error where 'UPF' is used instead of 'UP'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 16.68977999687195,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall takes points from Hermione for her actions, but then awards points to Harry and Ron for the same incident, which seems inconsistent.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 13.824837923049927,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Hermlone' is a misspelling of 'Hermione'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The word 'tent' is likely a typo for 'lent'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.638012170791626,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.593090057373047,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.417654514312744,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "013.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter mentions that Harry and Hermione left the invisibility cloak on top of the tower, which is inconsistent with their careful planning and need for secrecy.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.97722840309143,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "014.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter title is repeated at the beginning, which is a formatting error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 36.760783672332764,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "015.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall's reaction to the mention of the Sorcerer's Stone seems inconsistent with her character's usual composure and knowledge.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.42754864692688,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.588756799697876,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "017.txt",
+      "chapter_number": 17,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 10.239680528640747,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "018.txt",
+      "chapter_number": 18,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.571144104003906,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "019.txt",
+      "chapter_number": 19,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.70974349975586,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "020.txt",
+      "chapter_number": 20,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "020.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Four, but the content suggests it should be a later chapter in the sequence, as it follows events from Chapter 20 in the previous summaries.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 28.47321319580078,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "021.txt",
+      "chapter_number": 21,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "021.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Five, but the content and events suggest it is a later chapter in the series, likely from the second book, contradicting the previous chapter summaries.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 14.850162029266357,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "022.txt",
+      "chapter_number": 22,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "022.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Six, but the previous summaries indicate that the story should be further along, suggesting a numbering inconsistency.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 16.98956561088562,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "023.txt",
+      "chapter_number": 23,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.81832218170166,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "024.txt",
+      "chapter_number": 24,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.30555248260498,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "025.txt",
+      "chapter_number": 25,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "025.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Nine, but the previous summaries indicate that the story should be further along, suggesting a numbering inconsistency.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.227356195449829,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "026.txt",
+      "chapter_number": 26,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "026.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Ten, but the previous summaries indicate that Chapter Ten has already been summarized with different content.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 36.96738886833191,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "027.txt",
+      "chapter_number": 27,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "027.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter summary for Chapter 11 provided in the previous summaries does not match the content of the current Chapter 11. The previous summary describes events related to a Quidditch match and the three-headed dog, which are not present in the current chapter.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 26.0080144405365,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "028.txt",
+      "chapter_number": 28,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.045488119125366,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "029.txt",
+      "chapter_number": 29,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "029.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions Harry having nightmares about his parents and learning about Nicolas Flamel's connection to the Sorcerer's Stone, which seems to be a mix-up with events from the first book.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 22.220749139785767,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "030.txt",
+      "chapter_number": 30,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "030.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Fourteen, but the content and events described align with a later part of the story, suggesting a mislabeling or misplacement in the sequence.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.537862300872803,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "031.txt",
+      "chapter_number": 31,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "031.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter is titled 'CAPTER FIFTEEN' instead of 'Chapter 32', which is inconsistent with the previous chapter numbering.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "031.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions Harry and Ron using the Invisibility Cloak, but in Chapter 31, it was left behind after Hagrid's arrest.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.84200382232666,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "032.txt",
+      "chapter_number": 32,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 31.535205841064453,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "033.txt",
+      "chapter_number": 33,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.211485862731934,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "034.txt",
+      "chapter_number": 34,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "034.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Eighteen, but the events described align with the conclusion of the second book, which should be Chapter Thirty-Five based on the previous chapter summaries.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.043853998184204,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "035.txt",
+      "chapter_number": 35,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 15.873063802719116,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "036.txt",
+      "chapter_number": 36,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 14.226370096206665,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "037.txt",
+      "chapter_number": 37,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 23.142974615097046,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "038.txt",
+      "chapter_number": 38,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.66646409034729,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "039.txt",
+      "chapter_number": 39,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 30.304033756256104,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "040.txt",
+      "chapter_number": 40,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "040.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Hermione mentions her Arithmancy class as if she has attended it, but earlier in the chapter, Ron notes that she hasn't been to an Arithmancy class yet.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 29.13298773765564,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "041.txt",
+      "chapter_number": 41,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "041.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Inconsistency regarding the Defense Against the Dark Arts teacher. The previous chapter summaries mention Gilderoy Lockhart as the new Defense Against the Dark Arts teacher, but this chapter introduces Professor Lupin in that role.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 17.977718114852905,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "042.txt",
+      "chapter_number": 42,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 22.629950523376465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "043.txt",
+      "chapter_number": 43,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 25.904881954193115,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "044.txt",
+      "chapter_number": 44,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 26.138974905014038,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "045.txt",
+      "chapter_number": 45,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "045.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Harry's reaction to the Firebolt is inconsistent with his previous knowledge of Sirius Black's threat.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 27.724239349365234,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "046.txt",
+      "chapter_number": 46,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "046.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Harry's Firebolt was confiscated in the previous chapter, but there is no mention of it being returned before this chapter.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.323803186416626,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "047.txt",
+      "chapter_number": 47,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "047.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Inconsistency regarding the presence of Dementors during the Quidditch match.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 5.8360512256622314,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "048.txt",
+      "chapter_number": 48,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 30.816483736038208,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "049.txt",
+      "chapter_number": 49,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "049.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Hermione's absence from Charms class is unexplained given her established character as diligent and punctual.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 26.93619966506958,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "050.txt",
+      "chapter_number": 50,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "050.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions that Hermione is attending multiple classes at once, which is not explained in previous summaries.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 23.040320873260498,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "051.txt",
+      "chapter_number": 51,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 22.32422375679016,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "052.txt",
+      "chapter_number": 52,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.9100072383880615,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "053.txt",
+      "chapter_number": 53,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 30.851337909698486,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "054.txt",
+      "chapter_number": 54,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "054.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter describes Harry's excitement about living with Sirius Black, but previous summaries do not mention any prior interaction or relationship between Harry and Sirius that would justify this excitement.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 20.862424850463867,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "055.txt",
+      "chapter_number": 55,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.4808237552642822,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "056.txt",
+      "chapter_number": 56,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 50.20389771461487,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.067251443862915,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.356164693832397,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.953400611877441,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.18495512008667,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.99209451675415,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "unknown",
+          "description": "Uncle Vernon's behavior is inconsistent with his established dislike for Harry, as he shows a warm and sad smile, which contradicts his usual demeanor.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.402979135513306,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 31.02820611000061,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "007.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Repetition of text indicating a possible editing error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.593220710754395,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Typographical error in the word 'Malfoy' as 'Malfay'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Typographical error in the word 'Flitwick's' as 'Flitwicles'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "008.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Typographical error in the word 'we're' as 'we 3 re'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 16.486027479171753,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall takes points from Hermione for her actions, but then awards points to Harry and Ron for the same incident, which seems inconsistent.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 12.697691202163696,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The name 'Hermlone' is a misspelling of 'Hermione'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "010.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The word 'tent' is likely a typo for 'lent'.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 13.414102554321289,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "011.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Harry notices a small door with a golden F painted on it, but this detail is not explained or revisited, creating a potential narrative inconsistency.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 3.4803433418273926,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 24.063790798187256,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "013.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter title 'CHAPTER FOURTEEN NORBERT THE NORWEGIAN RIDGEBACK' is repeated at the beginning of the text, which is likely a formatting error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 3.686107873916626,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "014.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter title is repeated at the beginning, which is a formatting error.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 28.570375204086304,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "015.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor McGonagall is surprised by the mention of the Sorcerer's Stone, but the trio had already discussed it with her in a previous chapter.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 23.55166006088257,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.273653984069824,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "017.txt",
+      "chapter_number": 17,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 9.221040487289429,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "018.txt",
+      "chapter_number": 18,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 12.282546997070312,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "019.txt",
+      "chapter_number": 19,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.998252153396606,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "020.txt",
+      "chapter_number": 20,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "020.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as 'Chapter Four', but the content and context suggest it should be a later chapter, possibly Chapter 21, based on the previous chapter summaries.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 22.846854209899902,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "021.txt",
+      "chapter_number": 21,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "021.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Five, but the previous summaries indicate that Chapter Five has already been summarized with different content.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 22.617817401885986,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "022.txt",
+      "chapter_number": 22,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "022.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Six, but the previous summaries indicate that the story should be further along, suggesting a numbering inconsistency.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.942839860916138,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "023.txt",
+      "chapter_number": 23,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "023.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Seven, but the previous summaries indicate that the story should be further along, suggesting a numbering inconsistency.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 27.824655771255493,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "024.txt",
+      "chapter_number": 24,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "024.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Eight, but the previous summaries indicate that Chapter Eight has already been summarized with different content.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 21.40895962715149,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "025.txt",
+      "chapter_number": 25,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "025.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions Harry's first flying lesson and becoming a Seeker, which should have been covered in a previous chapter, but the summaries provided do not include this event.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.089156627655029,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "026.txt",
+      "chapter_number": 26,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "026.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Madam Pomfrey uses a stethoscope, which is a Muggle medical tool, inconsistent with the magical setting.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 33.898985862731934,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "027.txt",
+      "chapter_number": 27,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "027.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter number is inconsistent with the previous chapter summaries, which indicate this should be Chapter 28, not Chapter Eleven.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 23.649071216583252,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "028.txt",
+      "chapter_number": 28,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "028.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter is labeled as Chapter Twelve, but the previous summaries indicate that Chapter Twelve has already been summarized with different content.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 3.4050674438476562,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "029.txt",
+      "chapter_number": 29,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "029.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Inconsistency with the previous chapter summaries regarding the sequence of events and the chapter numbering.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 37.75843143463135,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "030.txt",
+      "chapter_number": 30,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "030.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions that Harry, Ron, and Hermione had always known about Hagrid's liking for large creatures, but in Chapter 14, they are surprised by Hagrid's acquisition of a dragon egg.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.660151720046997,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "031.txt",
+      "chapter_number": 31,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "031.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "The chapter title is misspelled as 'CAPTER FIFTEEN' instead of 'CHAPTER FIFTEEN'.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "031.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions Harry and Ron using the Invisibility Cloak, but previous summaries do not mention them retrieving it after leaving it behind in Chapter 14.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 19.86525321006775,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "032.txt",
+      "chapter_number": 32,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "032.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter summary for Chapter 16 provided in the previous summaries does not match the content of the current Chapter Sixteen, indicating a possible mislabeling or inconsistency in chapter numbering.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 22.93699884414673,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "033.txt",
+      "chapter_number": 33,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.385906457901,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "034.txt",
+      "chapter_number": 34,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "034.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter number is inconsistent with the previous chapter summaries, which end at Chapter 34, while this chapter is labeled as Chapter Eighteen.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 21.5975501537323,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "035.txt",
+      "chapter_number": 35,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 13.823585987091064,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "036.txt",
+      "chapter_number": 36,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.337790966033936,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "037.txt",
+      "chapter_number": 37,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 21.188759565353394,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "038.txt",
+      "chapter_number": 38,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.377784967422485,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "039.txt",
+      "chapter_number": 39,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 31.335630178451538,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "040.txt",
+      "chapter_number": 40,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "040.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Hermione mentions her Arithmancy class as if she has already attended it, but earlier in the chapter, it is stated that they are starting new subjects that day.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 4.29762601852417,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "041.txt",
+      "chapter_number": 41,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 4.506887435913086,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "042.txt",
+      "chapter_number": 42,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 31.332685947418213,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "043.txt",
+      "chapter_number": 43,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 27.23314356803894,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "044.txt",
+      "chapter_number": 44,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 27.653151035308838,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "045.txt",
+      "chapter_number": 45,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "045.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Professor Trelawney mentions climbing stairs in the dungeons, but the dungeons are typically underground and would not have stairs leading up.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 42.08082723617554,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "046.txt",
+      "chapter_number": 46,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "046.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Inconsistency regarding the timeline of Harry's Patronus lessons. Previous summaries do not mention Harry starting these lessons, yet this chapter implies they have been ongoing for several weeks.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 10.654497146606445,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "047.txt",
+      "chapter_number": 47,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "047.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Inconsistency regarding the presence of Dementors during the Quidditch match.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 18.742008924484253,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "048.txt",
+      "chapter_number": 48,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "048.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter mentions Ron becoming an instant celebrity, but previous summaries do not indicate any event that would cause this sudden fame.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 33.17522144317627,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "049.txt",
+      "chapter_number": 49,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "049.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "Hermione's sudden disappearance and reappearance without explanation contradicts her established character of being punctual and responsible.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 29.899810075759888,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "050.txt",
+      "chapter_number": 50,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "050.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Hermione's ability to attend multiple classes at the same time is questioned but not explained, which seems logically impossible without further context.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 22.527713537216187,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "051.txt",
+      "chapter_number": 51,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 3.99310040473938,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "052.txt",
+      "chapter_number": 52,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 24.372138023376465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "053.txt",
+      "chapter_number": 53,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 10.153965950012207,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "054.txt",
+      "chapter_number": 54,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 25.986673593521118,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "055.txt",
+      "chapter_number": 55,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "055.txt",
+          "category": "temporal",
+          "error_type": "unknown",
+          "description": "The use of the Time-Turner creates a time paradox where Harry sees himself casting a Patronus, which he later realizes he must do himself, creating a loop with no clear origin.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 36.04436540603638,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "056.txt",
+      "chapter_number": 56,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "056.txt",
+          "category": "cross_chapter",
+          "error_type": "unknown",
+          "description": "The chapter suggests that Harry and Hermione were locked in the hospital wing, but they used the Time-Turner to leave and return, which should have been noticed by Madam Pomfrey.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 15.871702909469604,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

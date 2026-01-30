@@ -1,0 +1,214 @@
+=== Experiment Log Started: 2026-01-30T10:27:28.126297 ===
+
+[2026-01-30 10:27:28] [INFO] API Mode: gemini
+[2026-01-30 10:27:28] [INFO] ============================================================
+[2026-01-30 10:27:28] [INFO] STEP 2: Logic-Based Evaluation (ILASP + Clingo)
+[2026-01-30 10:27:28] [INFO] ============================================================
+[2026-01-30 10:27:28] [INFO] Logging prompts/responses to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash/step2_logic_log.jsonl
+[2026-01-30 10:27:28] [INFO] Using Gemini API with model: gemini-2.0-flash
+[2026-01-30 10:27:28] [INFO] Rate limit delay: 3.0s between API calls
+[2026-01-30 10:27:28] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-30 10:27:28] [INFO]   Found 11 chapters
+[2026-01-30 10:27:28] [INFO]   Chapter 0: 000.txt
+[2026-01-30 10:27:28] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:27:30] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:27:30] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:27:30] [INFO]     -> 0 errors (1.9s)
+[2026-01-30 10:27:30] [INFO]   Chapter 1: 001.txt
+[2026-01-30 10:27:30] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:27:37] [DEBUG]   LLM response length: 3616 chars
+[2026-01-30 10:27:37] [DEBUG]     Parsing response (3605 chars after cleanup, was 3616)
+[2026-01-30 10:27:37] [DEBUG]   Extracted: chars=7, locs=7, items=2, events=12, rels=4
+[2026-01-30 10:27:37] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 10:27:37] [INFO]     -> 2 errors (7.9s)
+[2026-01-30 10:27:37] [INFO]   Chapter 2: 002.txt
+[2026-01-30 10:27:37] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:27:49] [DEBUG]   LLM response length: 3014 chars
+[2026-01-30 10:27:49] [DEBUG]     Parsing response (3003 chars after cleanup, was 3014)
+[2026-01-30 10:27:49] [DEBUG]   Extracted: chars=5, locs=7, items=2, events=12, rels=3
+[2026-01-30 10:27:49] [INFO]     -> 0 errors (11.7s)
+[2026-01-30 10:27:49] [INFO]   Chapter 3: 003.txt
+[2026-01-30 10:27:49] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:28:00] [DEBUG]   LLM response length: 2822 chars
+[2026-01-30 10:28:00] [DEBUG]     Parsing response (2811 chars after cleanup, was 2822)
+[2026-01-30 10:28:00] [DEBUG]   Extracted: chars=7, locs=1, items=5, events=12, rels=4
+[2026-01-30 10:28:00] [INFO]     -> 0 errors (11.3s)
+[2026-01-30 10:28:00] [INFO]   Chapter 4: 004.txt
+[2026-01-30 10:28:00] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:28:16] [DEBUG]   LLM response length: 4286 chars
+[2026-01-30 10:28:16] [DEBUG]     Parsing response (4275 chars after cleanup, was 4286)
+[2026-01-30 10:28:16] [DEBUG]   Extracted: chars=13, locs=9, items=7, events=12, rels=2
+[2026-01-30 10:28:16] [INFO]     -> 0 errors (15.5s)
+[2026-01-30 10:28:16] [INFO]   Chapter 5: 005.txt
+[2026-01-30 10:28:16] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:28:29] [DEBUG]   LLM response length: 4260 chars
+[2026-01-30 10:28:29] [DEBUG]     Parsing response (4249 chars after cleanup, was 4260)
+[2026-01-30 10:28:29] [DEBUG]   Extracted: chars=15, locs=4, items=4, events=12, rels=4
+[2026-01-30 10:28:29] [INFO]     -> 0 errors (13.3s)
+[2026-01-30 10:28:29] [INFO]   Chapter 6: 006.txt
+[2026-01-30 10:28:29] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:28:41] [DEBUG]   LLM response length: 3830 chars
+[2026-01-30 10:28:41] [DEBUG]     Parsing response (3819 chars after cleanup, was 3830)
+[2026-01-30 10:28:41] [DEBUG]   Extracted: chars=14, locs=5, items=1, events=12, rels=3
+[2026-01-30 10:28:41] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 10:28:41] [INFO]     -> 1 errors (12.3s)
+[2026-01-30 10:28:41] [INFO]   Chapter 7: 007.txt
+[2026-01-30 10:28:41] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:28:54] [DEBUG]   LLM response length: 3718 chars
+[2026-01-30 10:28:54] [DEBUG]     Parsing response (3707 chars after cleanup, was 3718)
+[2026-01-30 10:28:54] [DEBUG]   Extracted: chars=12, locs=5, items=4, events=12, rels=3
+[2026-01-30 10:28:54] [INFO]     -> 0 errors (12.4s)
+[2026-01-30 10:28:54] [INFO]   Chapter 8: 008.txt
+[2026-01-30 10:28:54] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:29:06] [DEBUG]   LLM response length: 4480 chars
+[2026-01-30 10:29:06] [DEBUG]     Parsing response (4469 chars after cleanup, was 4480)
+[2026-01-30 10:29:06] [DEBUG]   Extracted: chars=15, locs=8, items=2, events=12, rels=3
+[2026-01-30 10:29:06] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 10:29:06] [INFO]     -> 1 errors (11.8s)
+[2026-01-30 10:29:06] [INFO]   Chapter 9: 009.txt
+[2026-01-30 10:29:06] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:29:18] [DEBUG]   LLM response length: 4399 chars
+[2026-01-30 10:29:18] [DEBUG]     Parsing response (4388 chars after cleanup, was 4399)
+[2026-01-30 10:29:18] [DEBUG]   Extracted: chars=14, locs=7, items=5, events=12, rels=4
+[2026-01-30 10:29:18] [INFO]     -> 0 errors (12.0s)
+[2026-01-30 10:29:18] [INFO]   Chapter 10: 010.txt
+[2026-01-30 10:29:18] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:29:30] [DEBUG]   LLM response length: 4185 chars
+[2026-01-30 10:29:30] [DEBUG]     Parsing response (4174 chars after cleanup, was 4185)
+[2026-01-30 10:29:30] [DEBUG]   Extracted: chars=14, locs=7, items=4, events=12, rels=4
+[2026-01-30 10:29:30] [INFO]     -> 0 errors (12.6s)
+[2026-01-30 10:29:30] [INFO] 
+Processing: Harry Potter (modified)
+[2026-01-30 10:29:30] [INFO]   Found 11 chapters
+[2026-01-30 10:29:30] [INFO]   Chapter 0: 000.txt
+[2026-01-30 10:29:30] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:29:40] [DEBUG]   LLM response length: 2677 chars
+[2026-01-30 10:29:40] [DEBUG]     Parsing response (2666 chars after cleanup, was 2677)
+[2026-01-30 10:29:40] [DEBUG]   Extracted: chars=7, locs=3, items=1, events=11, rels=3
+[2026-01-30 10:29:40] [INFO]     -> 0 errors (9.6s)
+[2026-01-30 10:29:40] [INFO]   Chapter 1: 001.txt
+[2026-01-30 10:29:40] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:29:51] [DEBUG]   LLM response length: 3629 chars
+[2026-01-30 10:29:51] [DEBUG]     Parsing response (3618 chars after cleanup, was 3629)
+[2026-01-30 10:29:51] [DEBUG]   Extracted: chars=7, locs=7, items=1, events=12, rels=5
+[2026-01-30 10:29:51] [INFO]     -> 0 errors (10.9s)
+[2026-01-30 10:29:51] [INFO]   Chapter 2: 002.txt
+[2026-01-30 10:29:51] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:30:01] [DEBUG]   LLM response length: 3209 chars
+[2026-01-30 10:30:01] [DEBUG]     Parsing response (3198 chars after cleanup, was 3209)
+[2026-01-30 10:30:01] [DEBUG]     Fixed reflexive action: discover agent=null
+[2026-01-30 10:30:01] [DEBUG]   Extracted: chars=5, locs=7, items=2, events=12, rels=3
+[2026-01-30 10:30:02] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 10:30:02] [INFO]     -> 3 errors (10.8s)
+[2026-01-30 10:30:02] [INFO]   Chapter 3: 003.txt
+[2026-01-30 10:30:02] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:30:13] [DEBUG]   LLM response length: 2843 chars
+[2026-01-30 10:30:13] [DEBUG]     Parsing response (2832 chars after cleanup, was 2843)
+[2026-01-30 10:30:13] [DEBUG]   Extracted: chars=9, locs=1, items=4, events=10, rels=5
+[2026-01-30 10:30:13] [INFO]     -> 0 errors (11.1s)
+[2026-01-30 10:30:13] [INFO]   Chapter 4: 004.txt
+[2026-01-30 10:30:13] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:30:24] [DEBUG]   LLM response length: 3609 chars
+[2026-01-30 10:30:24] [DEBUG]     Parsing response (3598 chars after cleanup, was 3609)
+[2026-01-30 10:30:24] [DEBUG]   Extracted: chars=10, locs=7, items=5, events=12, rels=2
+[2026-01-30 10:30:24] [INFO]     -> 0 errors (11.8s)
+[2026-01-30 10:30:24] [INFO]   Chapter 5: 005.txt
+[2026-01-30 10:30:24] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:30:39] [DEBUG]   LLM response length: 3927 chars
+[2026-01-30 10:30:39] [DEBUG]     Parsing response (3916 chars after cleanup, was 3927)
+[2026-01-30 10:30:39] [DEBUG]   Extracted: chars=15, locs=4, items=4, events=12, rels=3
+[2026-01-30 10:30:39] [INFO]     -> 0 errors (15.1s)
+[2026-01-30 10:30:39] [INFO]   Chapter 6: 006.txt
+[2026-01-30 10:30:39] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:30:52] [DEBUG]   LLM response length: 3882 chars
+[2026-01-30 10:30:52] [DEBUG]     Parsing response (3871 chars after cleanup, was 3882)
+[2026-01-30 10:30:52] [DEBUG]   Extracted: chars=15, locs=5, items=1, events=12, rels=3
+[2026-01-30 10:30:52] [WARN] Interpretation failed: <urlopen error [Errno 111] Connection refused>
+[2026-01-30 10:30:52] [INFO]     -> 1 errors (12.1s)
+[2026-01-30 10:30:52] [INFO]   Chapter 7: 007.txt
+[2026-01-30 10:30:52] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:31:05] [DEBUG]   LLM response length: 3833 chars
+[2026-01-30 10:31:05] [DEBUG]     Parsing response (3822 chars after cleanup, was 3833)
+[2026-01-30 10:31:05] [DEBUG]   Extracted: chars=14, locs=5, items=3, events=12, rels=3
+[2026-01-30 10:31:05] [INFO]     -> 0 errors (13.2s)
+[2026-01-30 10:31:05] [INFO]   Chapter 8: 008.txt
+[2026-01-30 10:31:05] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:31:17] [DEBUG]   LLM response length: 4368 chars
+[2026-01-30 10:31:17] [DEBUG]     Parsing response (4357 chars after cleanup, was 4368)
+[2026-01-30 10:31:17] [DEBUG]   Extracted: chars=14, locs=8, items=2, events=12, rels=3
+[2026-01-30 10:31:17] [INFO]     -> 0 errors (12.2s)
+[2026-01-30 10:31:17] [INFO]   Chapter 9: 009.txt
+[2026-01-30 10:31:17] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:31:23] [ERROR] Unified extraction failed: ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+[2026-01-30 10:31:23] [DEBUG] Traceback: Traceback (most recent call last):
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 1333, in _structure_chapter
+    response = self._llm_extract(unified_prompt, max_tokens=4096, timeout=300)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 868, in _llm_extract
+    return self.api_client.extract(prompt, max_tokens=max_tokens, timeout=timeout)
+  File "/home/mrcorner/Workspace/Repos/tist26/scripts/run_narrative_experiment.py", line 422, in extract
+    response = client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 835, in generate_content
+    response = rpc(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/mrcorner/miniconda3/envs/tist26/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.
+
+[2026-01-30 10:31:23] [INFO]     -> 0 errors (5.6s)
+[2026-01-30 10:31:23] [INFO]   Chapter 10: 010.txt
+[2026-01-30 10:31:23] [DEBUG]   Calling LLM for unified extraction...
+[2026-01-30 10:31:32] [DEBUG]   LLM response length: 4214 chars
+[2026-01-30 10:31:32] [DEBUG]     Parsing response (4203 chars after cleanup, was 4214)
+[2026-01-30 10:31:32] [DEBUG]   Extracted: chars=15, locs=7, items=4, events=12, rels=4
+[2026-01-30 10:31:32] [INFO]     -> 0 errors (9.8s)
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Hunger Games
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Hunger Games
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/The Lord of the Rings
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/The Lord of the Rings
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Twilight
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Twilight
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/original_books/Goosebumps
+[2026-01-30 10:31:32] [WARN] Story not found: /home/mrcorner/Workspace/Repos/tist26/modified_books/Goosebumps
+[2026-01-30 10:31:32] [INFO] 
+Step 2 complete: 22 chapters, 8 errors
+[2026-01-30 10:31:32] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_gemini_flash/step2_logic_results.json

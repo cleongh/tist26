@@ -1,0 +1,19 @@
+Phase 1: Stabilize Extraction (1-2 days)
+
+Debug Chapter 7 timeout issue
+Add more event type guidance in prompt to reduce fight/talk misclassification
+Run experiment again to establish baseline
+Phase 2: Expand Rule Coverage (3-5 days)
+
+Temporal rules: Add sequence checking (event A must precede event B)
+Location rules: Add spatial constraints (can't reach X from Y directly)
+Coherence rules: Physical state consistency (color, size, condition)
+Phase 3: Cross-Chapter Tracking (5-7 days)
+
+Implement persistent state across chapters
+Track character deaths, item possession, location changes
+Detect "door that never appears again" type errors
+Phase 4: Error Type Matching (2-3 days)
+
+Improve ground truth comparison to match by error category, not just chapter
+Add confusion matrix: which GT types map to which detected categories

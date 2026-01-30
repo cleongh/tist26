@@ -11,11 +11,12 @@ A hybrid LLM + Logic Programming system for detecting narrative inconsistencies.
 3. [Environment Setup](#environment-setup)
 4. [Folder Structure](#folder-structure)
 5. [LLM Server Setup](#llm-server-setup)
-6. [Running the Experiment](#running-the-experiment)
-7. [Long-Running Execution](#long-running-execution)
-8. [Output Structure](#output-structure)
-9. [Interpreting Results](#interpreting-results)
-10. [Troubleshooting](#troubleshooting)
+6. [Cloud API Setup (Optional)](#cloud-api-setup-optional)
+7. [Running the Experiment](#running-the-experiment)
+8. [Long-Running Execution](#long-running-execution)
+9. [Output Structure](#output-structure)
+10. [Interpreting Results](#interpreting-results)
+11. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -264,6 +265,86 @@ You should see a JSON response with model information.
 
 ---
 
+## Cloud API Setup (Optional)
+
+Instead of running a local LLM, you can use cloud APIs from Google (Gemini) or OpenAI.
+
+### API Keys Configuration
+
+Set your API keys as environment variables:
+
+```bash
+# For Google Gemini API
+export GEMINI_API_KEY="your-gemini-api-key"
+
+# For OpenAI API
+export OPENAI_API_KEY="your-openai-api-key"
+```
+
+**To make these permanent**, add them to your shell profile:
+
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+echo 'export GEMINI_API_KEY="your-gemini-api-key"' >> ~/.bashrc
+echo 'export OPENAI_API_KEY="your-openai-api-key"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Getting API Keys
+
+| Provider | Get Key From | Free Tier |
+|----------|--------------|-----------|
+| **Google Gemini** | [Google AI Studio](https://aistudio.google.com/apikey) | ✅ Yes (generous limits) |
+| **OpenAI** | [OpenAI Platform](https://platform.openai.com/api-keys) | ❌ No (pay-as-you-go) |
+
+### Default Models
+
+| API Mode | Default Model | Cost (Full Experiment) |
+|----------|---------------|------------------------|
+| `local` | auto (llamafile) | Free (electricity only) |
+| `gemini` | gemini-2.0-flash | ~$0.67 |
+| `openai` | gpt-4o | ~$17 |
+
+### Usage Examples
+
+```bash
+# Use Gemini 2.0 Flash (recommended for quality/cost)
+python scripts/run_narrative_experiment.py --step 2 \
+    --experiment-name "hp_gemini" \
+    --stories "Harry Potter" \
+    --api-mode gemini
+
+# Use a specific Gemini model
+python scripts/run_narrative_experiment.py --step 2 \
+    --experiment-name "hp_gemini_pro" \
+    --api-mode gemini \
+    --api-model "gemini-2.5-pro"
+
+# Use OpenAI GPT-4o
+python scripts/run_narrative_experiment.py --step 2 \
+    --experiment-name "hp_openai" \
+    --stories "Harry Potter" \
+    --api-mode openai
+
+# Use a cheaper OpenAI model
+python scripts/run_narrative_experiment.py --step 2 \
+    --experiment-name "hp_gpt5mini" \
+    --api-mode openai \
+    --api-model "gpt-5-mini"
+```
+
+### Cost Estimation
+
+See [API_COST_ESTIMATION.md](API_COST_ESTIMATION.md) for detailed pricing breakdown.
+
+| Model | Harry Potter Only | Full Experiment (704 ch) |
+|-------|-------------------|--------------------------|
+| Gemini 2.0 Flash | ~$0.11 | ~$0.67 |
+| GPT-4o-mini | ~$0.16 | ~$1.00 |
+| GPT-5.2 | ~$2.50 | ~$15.41 |
+
+---
+
 ## Running the Experiment
 
 There are **two experiment scripts** available:
@@ -399,8 +480,11 @@ This will:
 | `--step 2` | Run Step 2 (Logic-based evaluation) | - |
 | `--summarize` | Generate comparison summary | - |
 | `--experiment-name NAME` | Name for experiment directory | `narrative_experiment` |
-| `--llm-url URL` | LLM server endpoint | `http://localhost:8080/v1` |
+| `--llm-url URL` | LLM server endpoint (for local mode) | `http://localhost:8080/v1` |
 | `--stories S1 S2 ...` | Specific stories to process | All 5 stories |
+| `--max-chapters N` | Limit number of chapters (for testing) | All chapters |
+| `--api-mode MODE` | API backend: `local`, `gemini`, or `openai` | `local` |
+| `--api-model MODEL` | Override default model for API | Auto-selected |
 
 ---
 

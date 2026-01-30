@@ -1,0 +1,352 @@
+{
+  "step": 2,
+  "approach": "logic",
+  "timestamp": "2026-01-29T23:40:48.390360",
+  "chapters_processed": 22,
+  "total_errors": 14,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 59.2492516040802,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.92180109024048,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 7,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is acting as if he is dead, which is logically impossible.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 66.75501489639282,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.333006143569946,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 71.89918208122253,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Uncle Vernon's response to Harry's request for a lift to King's Cross is unclear and abrupt, making it hard to determine if he understood or agreed to Harry's request.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 60.629653453826904,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 157.40287470817566,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 59.3158700466156,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 241.5983190536499,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 81.54860138893127,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 68.98312616348267,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.24473714828491,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 56.78696942329407,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 6,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "unknown",
+          "description": "Uncle Vernon is interacting with Dudley, who is described as dead in the violations.",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 65.74495720863342,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 62.135003328323364,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 70.2278904914856,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.37009119987488,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 155.26720333099365,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.51242542266846,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 241.52957463264465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 81.58636665344238,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 68.50424981117249,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}
