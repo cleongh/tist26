@@ -274,5 +274,135 @@ class TestCrossChapterState:
         assert ee.state_manager.get_current_state() is not None
 
 
+class TestCharacterAliases:
+    """
+    Tests for ASP-based character alias resolution.
+    
+    Per LOGIC_DESIGN.md: Python is orchestration only, ASP handles logic.
+    Aliases are injected as alias/2 facts for ASP resolution.
+    """
+    
+    def test_generate_alias_facts(self):
+        """generate_alias_facts() produces valid ASP facts."""
+        from engine.event_executor import generate_alias_facts, CHARACTER_ALIASES
+        
+        asp_facts = generate_alias_facts()
+        
+        # Should contain header comment
+        assert "% Character alias facts" in asp_facts
+        
+        # Should contain alias facts
+        assert "alias(" in asp_facts
+        
+        # Check specific aliases from CHARACTER_ALIASES
+        for alias_id, canonical_id in CHARACTER_ALIASES.items():
+            if alias_id != canonical_id:
+                expected = f"alias({alias_id}, {canonical_id})."
+                assert expected in asp_facts, f"Missing alias: {expected}"
+    
+    def test_alias_facts_no_self_aliases(self):
+        """Self-aliases (X -> X) should not be generated."""
+        from engine.event_executor import generate_alias_facts
+        
+        asp_facts = generate_alias_facts()
+        
+        # Self-aliases should not appear (e.g., alias(hagrid, hagrid).)
+        # The CHARACTER_ALIASES has hagrid -> hagrid, but we skip those
+        assert "alias(hagrid, hagrid)." not in asp_facts
+        assert "alias(voldemort, voldemort)." not in asp_facts
+    
+    def test_to_asp_includes_alias_facts(self):
+        """to_asp() includes alias facts in output."""
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {
+                "characters": [{"id": "harry_potter"}]
+            },
+            "events": []
+        }
+        
+        asp_output = ee.to_asp(data, chapter_num=1)
+        
+        # Should contain alias section
+        assert "% Character alias facts" in asp_output
+        assert "alias(harry_potter, harry)." in asp_output
+    
+    def test_normalize_character_id_uses_aliases(self):
+        """normalize_character_id() resolves aliases to canonical IDs."""
+        from engine.event_executor import normalize_character_id
+        
+        # Test Harry Potter aliases
+        assert normalize_character_id("harry_potter") == "harry"
+        assert normalize_character_id("potter") == "harry"
+        assert normalize_character_id("HARRY_POTTER") == "harry"  # case insensitive
+        
+        # Test Voldemort aliases
+        assert normalize_character_id("lord_voldemort") == "voldemort"
+        assert normalize_character_id("tom_riddle") == "voldemort"
+        assert normalize_character_id("the_dark_lord") == "voldemort"
+        
+        # Unknown characters pass through unchanged
+        assert normalize_character_id("dobby") == "dobby"
+        assert normalize_character_id("ginny") == "ginny"
+    
+    def test_sanitize_char_normalizes(self):
+        """_sanitize_char() normalizes character IDs."""
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        # Should sanitize AND normalize
+        assert ee._sanitize_char("Harry Potter") == "harry"
+        assert ee._sanitize_char("Lord Voldemort") == "voldemort"
+        assert ee._sanitize_char("Dobby") == "dobby"  # Unknown passes through
+    
+    def test_state_manager_includes_aliases(self):
+        """StateManager.get_asp_facts_for_clingo() includes alias facts."""
+        sm = StateManager()
+        sm.add_entity("harry", "character")
+        
+        asp_output = sm.get_asp_facts_for_clingo()
+        
+        # Should contain alias section
+        assert "% Character aliases" in asp_output
+        assert "alias(harry_potter, harry)." in asp_output
+
+
+class TestASPAliasRulesIntegration:
+    """
+    Integration tests verifying ASP alias resolution rules work correctly.
+    
+    These tests verify that:
+    1. alias/2 facts are properly generated
+    2. canonical/2 resolution works
+    3. Normalized predicates (_normalized) work
+    """
+    
+    def test_asp_alias_rules_syntax(self):
+        """Verify core.lp contains valid alias resolution rules."""
+        rules_path = Path(__file__).parent.parent / "rules" / "core.lp"
+        with open(rules_path) as f:
+            content = f.read()
+        
+        # Check alias resolution section exists
+        assert "PART 2.5: CHARACTER ALIAS RESOLUTION" in content
+        
+        # Check canonical resolution rules
+        assert "canonical(X, C) :- alias(X, C)." in content
+        assert "canonical(X, X) :- entity(X), not alias(X, _)." in content
+        
+        # Check transitive resolution
+        assert "canonical(X, C) :- alias(X, Y), canonical(Y, C)" in content
+        
+        # Check normalized predicates
+        assert "present_normalized" in content
+        assert "carries_normalized" in content
+        assert "relationship_normalized" in content
+        assert "trait_normalized" in content
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

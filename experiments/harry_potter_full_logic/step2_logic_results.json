@@ -1,9 +1,9 @@
 {
   "step": 2,
   "approach": "logic",
-  "timestamp": "2026-01-30T17:33:43.448539",
-  "chapters_processed": 114,
-  "total_errors": 41,
+  "timestamp": "2026-01-31T00:21:40.252652",
+  "chapters_processed": 34,
+  "total_errors": 6,
   "results": [
     {
       "story_name": "Harry Potter",
@@ -20,7 +20,7 @@
           "story_fragment": ""
         }
       ],
-      "duration_seconds": 38.43932223320007,
+      "duration_seconds": 26.76965832710266,
       "success": true,
       "error_message": ""
     },
@@ -31,7 +31,7 @@
       "chapter_number": 1,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 20.65701174736023,
+      "duration_seconds": 41.46735858917236,
       "success": true,
       "error_message": ""
     },
@@ -42,7 +42,7 @@
       "chapter_number": 2,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 15.97240424156189,
+      "duration_seconds": 27.478311777114868,
       "success": true,
       "error_message": ""
     },
@@ -51,9 +51,17 @@
       "variant": "original",
       "chapter_file": "003.txt",
       "chapter_number": 3,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 21.32586169242859,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "possession",
+          "error_type": "unknown",
+          "description": "Violation: give_without_having - \"An\u2019 I reckon it\u2019s abou\u2019 time yeh read yer letter.\"",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 20.029053926467896,
       "success": true,
       "error_message": ""
     },
@@ -64,7 +72,7 @@
       "chapter_number": 4,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 62.442503929138184,
+      "duration_seconds": 23.86799931526184,
       "success": true,
       "error_message": ""
     },
@@ -75,7 +83,7 @@
       "chapter_number": 5,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 46.07122349739075,
+      "duration_seconds": 38.40082335472107,
       "success": true,
       "error_message": ""
     },
@@ -86,7 +94,7 @@
       "chapter_number": 6,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 63.59963631629944,
+      "duration_seconds": 26.61859917640686,
       "success": true,
       "error_message": ""
     },
@@ -97,7 +105,7 @@
       "chapter_number": 7,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 24.881135940551758,
+      "duration_seconds": 29.189253091812134,
       "success": true,
       "error_message": ""
     },
@@ -108,7 +116,7 @@
       "chapter_number": 8,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 29.714500904083252,
+      "duration_seconds": 34.71425271034241,
       "success": true,
       "error_message": ""
     },
@@ -119,7 +127,7 @@
       "chapter_number": 9,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 32.820385456085205,
+      "duration_seconds": 41.678953886032104,
       "success": true,
       "error_message": ""
     },
@@ -130,7 +138,7 @@
       "chapter_number": 10,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 18.873152017593384,
+      "duration_seconds": 25.7981960773468,
       "success": true,
       "error_message": ""
     },
@@ -141,7 +149,7 @@
       "chapter_number": 11,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 49.352174282073975,
+      "duration_seconds": 44.25502800941467,
       "success": true,
       "error_message": ""
     },
@@ -152,7 +160,7 @@
       "chapter_number": 12,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 32.46654224395752,
+      "duration_seconds": 24.668322801589966,
       "success": true,
       "error_message": ""
     },
@@ -167,11 +175,11 @@
           "chapter_file": "013.txt",
           "category": "possession",
           "error_type": "unknown",
-          "description": "Violation: give_without_having - \"Dear Ron, How are you? Thanks for the letter \u2014 I\u2019d be glad to take the Norwegian\"",
+          "description": "Violation: give_without_having - \"Won it, said Hagrid.\"",
           "story_fragment": ""
         }
       ],
-      "duration_seconds": 24.784461975097656,
+      "duration_seconds": 32.563292264938354,
       "success": true,
       "error_message": ""
     },
@@ -182,7 +190,7 @@
       "chapter_number": 14,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 28.464092016220093,
+      "duration_seconds": 31.348240613937378,
       "success": true,
       "error_message": ""
     },
@@ -191,24 +199,9 @@
       "variant": "original",
       "chapter_file": "015.txt",
       "chapter_number": 15,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "015.txt",
-          "category": "emotional",
-          "error_type": "unknown",
-          "description": "Violation: harm_loved_one - \"Petrificus Totalus! she cried, pointing it at Neville\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "015.txt",
-          "category": "emotional",
-          "error_type": "unknown",
-          "description": "Violation: unmotivated_hostility - \"Petrificus Totalus! she cried, pointing it at Neville\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 41.57610297203064,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 136.08350014686584,
       "success": true,
       "error_message": ""
     },
@@ -219,575 +212,7 @@
       "chapter_number": 16,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 54.57946038246155,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "017.txt",
-      "chapter_number": 17,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 36.3516526222229,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "018.txt",
-      "chapter_number": 18,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 17.614067792892456,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "019.txt",
-      "chapter_number": 19,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 33.894428730010986,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "020.txt",
-      "chapter_number": 20,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 55.8058648109436,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "021.txt",
-      "chapter_number": 21,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 56.14447474479675,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "022.txt",
-      "chapter_number": 22,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 69.73953652381897,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "023.txt",
-      "chapter_number": 23,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 26.189127922058105,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "024.txt",
-      "chapter_number": 24,
-      "error_count": 6,
-      "errors": [
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"\u201cHello, Nick,\u201d said Harry.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"\u201cOY! MYRTLE!\u201d\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cYou look troubled, young Potter,\u201d said Nick.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cBut there is something you could do for me,\u201d said Nick excitedly.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cI\u2019m holding a party down in one of the roomier dungeons.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"Moaning Myrtle burst into anguished sobs and fled from the dungeon.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 36.55370044708252,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "025.txt",
-      "chapter_number": 25,
-      "error_count": 3,
-      "errors": [
-        {
-          "chapter_file": "025.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"I was wondering if you could tell us anything about the Chamber of Secrets\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "025.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"I do have feelings, you know, even if I am dead\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "025.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"The story goes that Slytherin had built a hidden chamber\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 30.314698696136475,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "026.txt",
-      "chapter_number": 26,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 26.621546745300293,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "027.txt",
-      "chapter_number": 27,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "027.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"And that wasn\u2019t all. Next to him was another figure, the strangest sight Harry h\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 34.81973171234131,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "028.txt",
-      "chapter_number": 28,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 44.2374849319458,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "029.txt",
-      "chapter_number": 29,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "029.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"What\u2019s up, Myrtle?\u201d said Harry.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 26.00907826423645,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "030.txt",
-      "chapter_number": 30,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 24.575926065444946,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "031.txt",
-      "chapter_number": 31,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 28.877381086349487,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "032.txt",
-      "chapter_number": 32,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 20.600820541381836,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "033.txt",
-      "chapter_number": 33,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "033.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cYou\u2019re alive,\u201d she said blankly to Harry.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 24.25468158721924,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "034.txt",
-      "chapter_number": 34,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 33.17594528198242,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "035.txt",
-      "chapter_number": 35,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 17.305639505386353,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "036.txt",
-      "chapter_number": 36,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 26.623496532440186,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "037.txt",
-      "chapter_number": 37,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 15.14975118637085,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "038.txt",
-      "chapter_number": 38,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 40.761860370635986,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "039.txt",
-      "chapter_number": 39,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 54.990894079208374,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "040.txt",
-      "chapter_number": 40,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 45.671180725097656,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "041.txt",
-      "chapter_number": 41,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "041.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018Settle down, settle down,\u2019 said Professor Snape idly.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "041.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018Good afternoon,\u2019 he said.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 48.264556646347046,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "042.txt",
-      "chapter_number": 42,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 36.747557640075684,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "043.txt",
-      "chapter_number": 43,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 35.918986558914185,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "044.txt",
-      "chapter_number": 44,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 85.30523419380188,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "045.txt",
-      "chapter_number": 45,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 137.3235912322998,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "046.txt",
-      "chapter_number": 46,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 48.46177792549133,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "047.txt",
-      "chapter_number": 47,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 42.975497245788574,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "048.txt",
-      "chapter_number": 48,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 51.40953469276428,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "049.txt",
-      "chapter_number": 49,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "049.txt",
-          "category": "possession",
-          "error_type": "unknown",
-          "description": "Violation: give_without_having - \"\u2018He \u2013 he sent me this,\u2019 Hermione said, holding out the letter.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 38.91371703147888,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "050.txt",
-      "chapter_number": 50,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 22.938019514083862,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "051.txt",
-      "chapter_number": 51,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 33.793514251708984,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "052.txt",
-      "chapter_number": 52,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "052.txt",
-          "category": "emotional",
-          "error_type": "unknown",
-          "description": "Violation: relationship_flip",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 37.99137854576111,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "053.txt",
-      "chapter_number": 53,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 34.20003128051758,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "054.txt",
-      "chapter_number": 54,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 33.07171058654785,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "055.txt",
-      "chapter_number": 55,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "055.txt",
-          "category": "temporal",
-          "error_type": "unknown",
-          "description": "Violation: missing_prerequisite - \"Hermione turned the hourglass over three times.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 30.21733856201172,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "056.txt",
-      "chapter_number": 56,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 19.04308795928955,
+      "duration_seconds": 20.095208168029785,
       "success": true,
       "error_message": ""
     },
@@ -796,9 +221,17 @@
       "variant": "modified",
       "chapter_file": "000.txt",
       "chapter_number": 0,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 15.760637998580933,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "coherence",
+          "error_type": "unknown",
+          "description": "Violation: solo_communication - \"\u201cShoo!\u201d said Mr. Dursley loudly.\"",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 15.833664655685425,
       "success": true,
       "error_message": ""
     },
@@ -809,7 +242,7 @@
       "chapter_number": 1,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 22.217825651168823,
+      "duration_seconds": 19.56432819366455,
       "success": true,
       "error_message": ""
     },
@@ -820,7 +253,7 @@
       "chapter_number": 2,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 10.852714538574219,
+      "duration_seconds": 21.29946208000183,
       "success": true,
       "error_message": ""
     },
@@ -829,17 +262,9 @@
       "variant": "modified",
       "chapter_file": "003.txt",
       "chapter_number": 3,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "003.txt",
-          "category": "possession",
-          "error_type": "unknown",
-          "description": "Violation: give_without_having - \"An\u2019 I reckon it\u2019s abou\u2019 time yeh read yer letter.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 20.69038224220276,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 14.024016618728638,
       "success": true,
       "error_message": ""
     },
@@ -850,7 +275,7 @@
       "chapter_number": 4,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 24.270147800445557,
+      "duration_seconds": 164.97556948661804,
       "success": true,
       "error_message": ""
     },
@@ -865,11 +290,11 @@
           "chapter_file": "005.txt",
           "category": "rule_contradiction",
           "error_type": "unknown",
-          "description": "Violation: relationship_action_mismatch - \"Have a good term my boy\"",
+          "description": "Violation: relationship_action_mismatch - \"\u201cHave a good term my boy,\u201d said Uncle Vernon with a warm and sad smile.\"",
           "story_fragment": ""
         }
       ],
-      "duration_seconds": 32.86558699607849,
+      "duration_seconds": 33.27965235710144,
       "success": true,
       "error_message": ""
     },
@@ -880,7 +305,7 @@
       "chapter_number": 6,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 52.639172077178955,
+      "duration_seconds": 18.12366247177124,
       "success": true,
       "error_message": ""
     },
@@ -891,7 +316,7 @@
       "chapter_number": 7,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 50.99781084060669,
+      "duration_seconds": 16.693304300308228,
       "success": true,
       "error_message": ""
     },
@@ -902,7 +327,7 @@
       "chapter_number": 8,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 30.411290168762207,
+      "duration_seconds": 18.19068479537964,
       "success": true,
       "error_message": ""
     },
@@ -913,7 +338,7 @@
       "chapter_number": 9,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 41.68098521232605,
+      "duration_seconds": 23.59038281440735,
       "success": true,
       "error_message": ""
     },
@@ -924,7 +349,7 @@
       "chapter_number": 10,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 28.878165245056152,
+      "duration_seconds": 22.218204021453857,
       "success": true,
       "error_message": ""
     },
@@ -935,7 +360,7 @@
       "chapter_number": 11,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 50.885799169540405,
+      "duration_seconds": 29.39111828804016,
       "success": true,
       "error_message": ""
     },
@@ -946,7 +371,7 @@
       "chapter_number": 12,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 26.32085347175598,
+      "duration_seconds": 20.685306310653687,
       "success": true,
       "error_message": ""
     },
@@ -961,11 +386,11 @@
           "chapter_file": "013.txt",
           "category": "possession",
           "error_type": "unknown",
-          "description": "Violation: give_without_having - \"Won it, said Hagrid. Las\u2019 night.\"",
+          "description": "Violation: give_without_having - \"Won it, said Hagrid. Las\u2019 night. I was down in the village havin\u2019 a few drinks a\"",
           "story_fragment": ""
         }
       ],
-      "duration_seconds": 22.324174642562866,
+      "duration_seconds": 19.353816509246826,
       "success": true,
       "error_message": ""
     },
@@ -976,7 +401,7 @@
       "chapter_number": 14,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 21.194495916366577,
+      "duration_seconds": 45.97876214981079,
       "success": true,
       "error_message": ""
     },
@@ -987,7 +412,7 @@
       "chapter_number": 15,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 28.368143796920776,
+      "duration_seconds": 24.16298222541809,
       "success": true,
       "error_message": ""
     },
@@ -998,576 +423,7 @@
       "chapter_number": 16,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 30.129456281661987,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "017.txt",
-      "chapter_number": 17,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 17.903324127197266,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "018.txt",
-      "chapter_number": 18,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "018.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: impossible_self_action - \"Dobby bounded off the bed, seized Harry\u2019s desk lamp, and started beating himself\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 15.967777252197266,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "019.txt",
-      "chapter_number": 19,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 29.69586420059204,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "020.txt",
-      "chapter_number": 20,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 29.190966367721558,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "021.txt",
-      "chapter_number": 21,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 153.74497866630554,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "022.txt",
-      "chapter_number": 22,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 38.15914535522461,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "023.txt",
-      "chapter_number": 23,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 36.963483810424805,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "024.txt",
-      "chapter_number": 24,
-      "error_count": 5,
-      "errors": [
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"\u201cHello, Nick,\u201d said Harry.\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"\u201cHarry! Harry! Did it work?\u201d Nearly Headless Nick came gliding out of a classroo\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"\u201cOY! MYRTLE!\u201d\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cIt would be such an honor if you would attend.\u201d\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "024.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"Moaning Myrtle burst into anguished sobs and fled from the dungeon.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 26.52754807472229,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "025.txt",
-      "chapter_number": 25,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "025.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"\u201cThis is a girls\u2019 bathroom,\u201d she said, eyeing Ron and Harry suspiciously.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 44.750715494155884,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "026.txt",
-      "chapter_number": 26,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 16.07633352279663,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "027.txt",
-      "chapter_number": 27,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "027.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"Next to him was another figure, the strangest sight Harry had ever seen.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 39.84385347366333,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "028.txt",
-      "chapter_number": 28,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "028.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"Standing on a golden perch behind the door was a decrepit-looking bird that rese\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "028.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"'Ooooooh, wait till you see,' she said. 'It\u2019s awful \u2014'\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 40.23973989486694,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "029.txt",
-      "chapter_number": 29,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "029.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: interacting_with_dead - \"What\u2019s up, Myrtle? said Harry.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 58.98706674575806,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "030.txt",
-      "chapter_number": 30,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 29.07815647125244,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "031.txt",
-      "chapter_number": 31,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 20.1747829914093,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "032.txt",
-      "chapter_number": 32,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 39.321239948272705,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "033.txt",
-      "chapter_number": 33,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "033.txt",
-          "category": "causality",
-          "error_type": "unknown",
-          "description": "Violation: dead_character_acting - \"You\u2019re alive,\u201d she said blankly to Harry.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 20.37997317314148,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "034.txt",
-      "chapter_number": 34,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 22.62955927848816,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "035.txt",
-      "chapter_number": 35,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 18.943779230117798,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "036.txt",
-      "chapter_number": 36,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 72.19501781463623,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "037.txt",
-      "chapter_number": 37,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 34.3049898147583,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "038.txt",
-      "chapter_number": 38,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 59.43893122673035,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "039.txt",
-      "chapter_number": 39,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 48.7001428604126,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "040.txt",
-      "chapter_number": 40,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 52.94187140464783,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "041.txt",
-      "chapter_number": 41,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "041.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018Settle down, settle down,\u2019 said Professor Snape idly.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 55.91336369514465,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "042.txt",
-      "chapter_number": 42,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 45.772804260253906,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "043.txt",
-      "chapter_number": 43,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 132.02521395683289,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "044.txt",
-      "chapter_number": 44,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 37.4507372379303,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "045.txt",
-      "chapter_number": 45,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 35.53900766372681,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "046.txt",
-      "chapter_number": 46,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 32.148011684417725,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "047.txt",
-      "chapter_number": 47,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 43.84363651275635,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "048.txt",
-      "chapter_number": 48,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 26.60960865020752,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "049.txt",
-      "chapter_number": 49,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "049.txt",
-          "category": "possession",
-          "error_type": "unknown",
-          "description": "Violation: give_without_having - \"\u2018He \u2013 he sent me this,\u2019 Hermione said, holding out the letter.\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 64.82289481163025,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "050.txt",
-      "chapter_number": 50,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 34.40446186065674,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "051.txt",
-      "chapter_number": 51,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 53.04780435562134,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "052.txt",
-      "chapter_number": 52,
-      "error_count": 3,
-      "errors": [
-        {
-          "chapter_file": "052.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018You\u2019re both mental.\u2019\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "052.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018They\u2019ve \u2013 got \u2013 a \u2013 right \u2013 to \u2013 know \u2013 everything!\u2019\"",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "052.txt",
-          "category": "coherence",
-          "error_type": "unknown",
-          "description": "Violation: solo_communication - \"\u2018But Professor Lupin \u2026 Scabbers can\u2019t be Pettigrew \u2026\u2019\"",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 14.634763717651367,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "053.txt",
-      "chapter_number": 53,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 22.841371536254883,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "054.txt",
-      "chapter_number": 54,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 28.57342529296875,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "055.txt",
-      "chapter_number": 55,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 44.95258617401123,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "056.txt",
-      "chapter_number": 56,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 32.25610136985779,
+      "duration_seconds": 23.968091011047363,
       "success": true,
       "error_message": ""
     }

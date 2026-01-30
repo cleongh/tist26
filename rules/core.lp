@@ -78,6 +78,62 @@ location(L) :- event_location(_, L), L != unknown.
 
 
 % =============================================================================
+% PART 2.5: CHARACTER ALIAS RESOLUTION
+% =============================================================================
+%
+% Per LOGIC_DESIGN.md:
+%     "Python must not encode story logic"
+%     Alias resolution happens in ASP, not Python.
+%
+% Alias facts are injected by Python as: alias(AliasID, CanonicalID).
+% Examples:
+%     alias(harry_potter, harry).
+%     alias(uncle_vernon, vernon_dursley).
+%
+% All downstream predicates should use canonical IDs.
+% =============================================================================
+
+% --- Canonical ID Resolution ---
+% If X is an alias, resolve to canonical; otherwise, X is its own canonical
+canonical(X, C) :- alias(X, C).
+canonical(X, X) :- entity(X), not alias(X, _).
+
+% Transitive alias resolution (for chains like "potter" -> "harry_potter" -> "harry")
+canonical(X, C) :- alias(X, Y), canonical(Y, C), X != Y.
+
+% --- Entity Normalization ---
+% Derive canonical character set (no duplicates from aliases)
+character_canonical(C) :- character(X), canonical(X, C).
+location_canonical(L) :- location(X), canonical(X, L).
+item_canonical(I) :- item(X), canonical(X, I).
+
+% --- Predicate Normalization Helpers ---
+% These allow queries to work with canonical IDs even when facts use aliases.
+
+% Normalize presence: present_normalized(Canonical, Location, Time)
+present_normalized(C_Canon, L, T) :- 
+    present(E, L, T), 
+    canonical(E, C_Canon).
+
+% Normalize carries: carries_normalized(CharCanon, ItemCanon, Time)
+carries_normalized(C_Canon, I_Canon, T) :- 
+    carries(C, I, T), 
+    canonical(C, C_Canon),
+    canonical(I, I_Canon).
+
+% Normalize relationship: relationship_normalized(C1_Canon, C2_Canon, Type, Time)
+relationship_normalized(C1_Canon, C2_Canon, Type, T) :- 
+    holds(relationship(C1, C2, Type), T),
+    canonical(C1, C1_Canon),
+    canonical(C2, C2_Canon).
+
+% Normalize traits
+trait_normalized(E_Canon, Trait) :- 
+    trait(E, Trait), 
+    canonical(E, E_Canon).
+
+
+% =============================================================================
 % PART 3: FLUENTS AND STATE (Step 2.1 - State Transitions)
 % =============================================================================
 %

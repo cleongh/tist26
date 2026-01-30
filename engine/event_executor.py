@@ -213,6 +213,25 @@ def normalize_character_id(char_id: str) -> str:
     return CHARACTER_ALIASES.get(normalized, normalized)
 
 
+def generate_alias_facts() -> str:
+    """
+    Generate ASP alias facts from CHARACTER_ALIASES.
+    
+    Per LOGIC_DESIGN.md: Python is orchestration only, all logic in ASP.
+    This function generates alias/2 facts that ASP uses for alias resolution.
+    
+    Returns:
+        ASP facts as a string, e.g.:
+            alias(harry_potter, harry).
+            alias(potter, harry).
+    """
+    lines = ["% Character alias facts (generated from CHARACTER_ALIASES)"]
+    for alias_id, canonical_id in CHARACTER_ALIASES.items():
+        if alias_id != canonical_id:  # Don't create self-aliases
+            lines.append(f"alias({alias_id}, {canonical_id}).")
+    return "\n".join(lines)
+
+
 @dataclass
 class Event:
     """
@@ -332,6 +351,12 @@ class EventExecutor:
             ASP facts as a string
         """
         lines = [f"% Chapter {chapter_num} facts"]
+        
+        # Inject alias facts for ASP-based alias resolution
+        # Per LOGIC_DESIGN.md: Python orchestrates, ASP handles logic
+        lines.append("")
+        lines.append(generate_alias_facts())
+        lines.append("")
         
         # Track all character/location/item IDs
         char_ids = set()
