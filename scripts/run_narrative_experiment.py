@@ -71,8 +71,9 @@ EXPERIMENTS_DIR = REPO_ROOT / "experiments"
 RULES_DIR = REPO_ROOT / "rules"
 ERRORS_CHECKLIST_DIR = REPO_ROOT / "errors_checklist"
 
-# Add script dir to path for imports
+# Add script dir and repo root to path for imports
 sys.path.insert(0, str(SCRIPT_DIR))
+sys.path.insert(0, str(REPO_ROOT))  # For engine module imports
 
 # =============================================================================
 # API CONFIGURATION
