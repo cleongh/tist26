@@ -511,6 +511,7 @@ relationship(C1, C2, Type) :-
     not relationship_changed_after(C1, C2, T).
 
 relationship_changed_after(C1, C2, T) :-
+    relationship(C1, C2, _, T),
     relationship(C1, C2, _, T2),
     T2 > T.
 
