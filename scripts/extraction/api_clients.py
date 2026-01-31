@@ -16,9 +16,12 @@ from ..state.logging import log
 class GeminiAPIClient:
     """Client for Google Gemini API."""
     
-    def __init__(self, model: str = "gemini-2.0-flash", temperature: float = 0.0, api_delay: float = 0.0):
+    def __init__(self, model: str = "gemini-2.0-flash", temperature: float = 0.2, 
+                 top_p: float = 0.9, top_k: int = 0, api_delay: float = 0.0):
         self.model = model
         self.temperature = temperature
+        self.top_p = top_p
+        self.top_k = top_k
         self.api_delay = api_delay
         self._client = None
         self._last_call_time = 0
@@ -53,6 +56,8 @@ class GeminiAPIClient:
         
         generation_config = genai.GenerationConfig(
             temperature=self.temperature,
+            top_p=self.top_p,
+            top_k=self.top_k,
             max_output_tokens=max_tokens,
         )
         
@@ -77,9 +82,13 @@ class GeminiAPIClient:
 class OpenAIAPIClient:
     """Client for OpenAI API."""
     
-    def __init__(self, model: str = "gpt-4o", temperature: float = 0.0):
+    def __init__(self, model: str = "gpt-4o", temperature: float = 0.2,
+                 top_p: float = 0.9, presence_penalty: float = 0.0, frequency_penalty: float = 0.0):
         self.model = model
         self.temperature = temperature
+        self.top_p = top_p
+        self.presence_penalty = presence_penalty
+        self.frequency_penalty = frequency_penalty
         self._client = None
         
     def _get_client(self):
@@ -105,6 +114,9 @@ class OpenAIAPIClient:
                 {"role": "user", "content": prompt}
             ],
             temperature=self.temperature,
+            top_p=self.top_p,
+            presence_penalty=self.presence_penalty,
+            frequency_penalty=self.frequency_penalty,
             max_tokens=max_tokens,
         )
         
@@ -123,9 +135,16 @@ class OpenAIAPIClient:
 class LocalLLMClient:
     """Client for local LLM server (llamafile, llama.cpp, etc.)."""
     
-    def __init__(self, base_url: str = "http://localhost:8080/v1", temperature: float = 0.0):
+    def __init__(self, base_url: str = "http://localhost:8080/v1", temperature: float = 0.2,
+                 top_p: float = 0.9, top_k: int = 0, repeat_penalty: float = 1.0,
+                 presence_penalty: float = 0.0, frequency_penalty: float = 0.0):
         self.base_url = base_url.rstrip("/")
         self.temperature = temperature
+        self.top_p = top_p
+        self.top_k = top_k
+        self.repeat_penalty = repeat_penalty
+        self.presence_penalty = presence_penalty
+        self.frequency_penalty = frequency_penalty
     
     def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 120) -> str:
         """Make a local LLM call and return the response text."""
@@ -136,8 +155,12 @@ class LocalLLMClient:
                 {"role": "user", "content": prompt}
             ],
             "temperature": self.temperature,
+            "top_p": self.top_p,
+            "top_k": self.top_k,
             "max_tokens": max_tokens,
-            "repetition_penalty": 1.1,
+            "repetition_penalty": self.repeat_penalty,
+            "presence_penalty": self.presence_penalty,
+            "frequency_penalty": self.frequency_penalty,
         }
         
         req = urllib.request.Request(
