@@ -96,6 +96,24 @@ DEFAULT_MODELS = {
 API_MODE = "local"
 
 # =============================================================================
+# TIMEOUT CONFIGURATION
+# =============================================================================
+# These can be overridden via command line arguments
+# Set DISABLE_TIMEOUTS to True to remove all timeouts (use None)
+
+DISABLE_TIMEOUTS = False
+TIMEOUT_LLM = 120          # Default timeout for LLM API calls
+TIMEOUT_LLM_LONG = 300     # Longer timeout for complex LLM operations
+TIMEOUT_ILASP = 60         # Timeout for ILASP subprocess
+TIMEOUT_SERVER_CHECK = 10  # Timeout for server availability checks
+
+def get_timeout(base_timeout: int) -> Optional[int]:
+    """Return timeout value, or None if timeouts are disabled."""
+    if DISABLE_TIMEOUTS:
+        return None
+    return base_timeout
+
+# =============================================================================
 # CHARACTER ID NORMALIZATION
 # =============================================================================
 # Map character aliases to canonical IDs to ensure consistency across chapters.
@@ -571,7 +589,7 @@ class LocalLLMClient:
         """Check if local LLM server is available."""
         import urllib.request
         try:
-            with urllib.request.urlopen(f"{self.base_url}/models", timeout=10) as resp:
+            with urllib.request.urlopen(f"{self.base_url}/models", timeout=get_timeout(TIMEOUT_SERVER_CHECK)) as resp:
                 return resp.status == 200
         except Exception:
             return False
@@ -675,7 +693,7 @@ class LLMClient:
         try:
             # Prepend system message to prompt for API clients
             full_prompt = f"{LLM_SYSTEM_MESSAGE}\n\n{prompt}"
-            response_text = self.api_client.extract(full_prompt, max_tokens=1500, timeout=180)
+            response_text = self.api_client.extract(full_prompt, max_tokens=1500, timeout=get_timeout(TIMEOUT_LLM_LONG) or 180)
         except Exception as e:
             log(f"LLM request failed: {e}", "ERROR")
             return [], time.time() - start_time, prompt, str(e), ""
@@ -1956,7 +1974,7 @@ Return ONLY this JSON structure, nothing else:
             # Single LLM call with generous token limit for full extraction
             # Using 8192 tokens for comprehensive extraction without limits
             log(f"  Calling LLM for unified extraction...", "DEBUG")
-            response = self._llm_extract(unified_prompt, max_tokens=8192, timeout=300)
+            response = self._llm_extract(unified_prompt, max_tokens=8192, timeout=get_timeout(TIMEOUT_LLM_LONG) or 300)
             log(f"  LLM response length: {len(response)} chars", "DEBUG")
             if len(response) < 100:
                 log(f"  Short response content: {response}", "WARN")
@@ -1965,7 +1983,7 @@ Return ONLY this JSON structure, nothing else:
             if not parsed:
                 log(f"First parse failed (empty result). Response preview: {response[:500] if response else 'EMPTY'}", "WARN")
                 log("Retrying LLM call...", "DEBUG")
-                response = self._llm_extract(unified_prompt, max_tokens=12288, timeout=300)
+                response = self._llm_extract(unified_prompt, max_tokens=12288, timeout=get_timeout(TIMEOUT_LLM_LONG) or 300)
                 log(f"  Retry response length: {len(response)} chars", "DEBUG")
                 parsed = self._parse_json_object(response)
             
@@ -2357,7 +2375,7 @@ Return ONLY this JSON structure, nothing else:
                 ["ILASP", task_path],
                 capture_output=True,
                 text=True,
-                timeout=60,
+                timeout=get_timeout(TIMEOUT_ILASP),
             )
             
             if result.returncode == 0 and result.stdout.strip():
@@ -2440,7 +2458,7 @@ Return ONLY the JSON array, nothing else."""
                 headers={"Content-Type": "application/json"},
             )
             
-            with urllib.request.urlopen(req, timeout=300) as resp:
+            with urllib.request.urlopen(req, timeout=get_timeout(TIMEOUT_LLM_LONG)) as resp:
                 data = json.loads(resp.read().decode())
                 response_text = data["choices"][0]["message"]["content"]
             
@@ -3551,7 +3569,7 @@ CRITICAL RULES:
 Return ONLY valid JSON, no markdown or explanations."""
 
     try:
-        response = api_client.extract(prompt, max_tokens=8192, timeout=180)
+        response = api_client.extract(prompt, max_tokens=8192, timeout=get_timeout(TIMEOUT_LLM_LONG) or 180)
         
         # Parse JSON response
         import re
@@ -3951,8 +3969,41 @@ def main():
         action="store_true",
         help="Use Phase 5 engine modules (StateManager, EventExecutor, etc.) with final analysis",
     )
+    parser.add_argument(
+        "--disable-timeouts",
+        action="store_true",
+        help="Disable all timeouts (useful for debugging or slow systems)",
+    )
+    parser.add_argument(
+        "--timeout-llm",
+        type=int,
+        default=120,
+        help="Timeout in seconds for LLM API calls (default: 120)",
+    )
+    parser.add_argument(
+        "--timeout-llm-long",
+        type=int,
+        default=300,
+        help="Timeout in seconds for complex LLM operations (default: 300)",
+    )
+    parser.add_argument(
+        "--timeout-ilasp",
+        type=int,
+        default=60,
+        help="Timeout in seconds for ILASP subprocess (default: 60)",
+    )
     
     args = parser.parse_args()
+    
+    # Apply timeout configuration from arguments
+    global DISABLE_TIMEOUTS, TIMEOUT_LLM, TIMEOUT_LLM_LONG, TIMEOUT_ILASP
+    DISABLE_TIMEOUTS = args.disable_timeouts
+    TIMEOUT_LLM = args.timeout_llm
+    TIMEOUT_LLM_LONG = args.timeout_llm_long
+    TIMEOUT_ILASP = args.timeout_ilasp
+    
+    if DISABLE_TIMEOUTS:
+        log("All timeouts DISABLED", "WARN")
     
     # Validate API keys if using cloud APIs
     if args.api_mode == "gemini" and not GEMINI_API_KEY:
