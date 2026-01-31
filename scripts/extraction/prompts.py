@@ -573,58 +573,78 @@ EXTRACT_RELATIONSHIPS_PROMPT = """Extract RELATIONSHIPS and INITIAL RULES from t
 TEXT:
 {chapter_text}
 
-=== CHARACTER BEHAVIOR ANALYSIS (VERY IMPORTANT) ===
-Pay SPECIAL ATTENTION to character behavior and emotional interactions:
-- If a character who is normally HOSTILE shows WARMTH, KINDNESS, or AFFECTION → this is significant, extract it!
-- If an enemy gives a farewell, hug, encouragement, or praise → ALWAYS extract this
-- Look for CONTRADICTIONS between established relationships and current actions
-- Warm farewells, sad smiles, unexpected kindness from hostile characters are CRITICAL to capture
+=== GLOBAL CONSTRAINTS (CRITICAL) ===
+- ONLY use character IDs that were already extracted in previous phases.
+- DO NOT invent new characters.
+- DO NOT infer abstract or thematic relationships.
+- Extract ONLY relationships involving named characters.
 
-=== RELATIONSHIPS ===
-Relationship dynamics established or shown IN THIS CHAPTER.
+=== GROUP & IMPLIED RELATIONSHIPS (CRITICAL) ===
+If the text describes a relationship (hostility, affection, fear, alliance) applying to a GROUP
+(e.g., "the family", "his relatives", "the guards"):
+
+- Apply the relationship to EACH named individual in that group.
+- Do NOT collapse group behavior into a single representative character.
+
+Example:
+"The family despised Alex" →
+  member_1 -> alex (hostile)
+  member_2 -> alex (hostile)
+
+=== CHARACTER BEHAVIOR ANALYSIS (VERY IMPORTANT) ===
+Pay special attention to behavior that REVEALS or CONTRADICTS relationships:
+
+- Hostile characters showing warmth, kindness, concern, praise, or farewell
+- Enemies helping, protecting, or comforting each other
+- Family members acting against expected loyalties
+- Fear, distrust, or avoidance shown through dialogue or actions
+
+These behaviors MUST be extracted as relationships or changes in relationships.
+
+=== RELATIONSHIPS (CHAPTER-SPECIFIC) ===
+Relationships that are SHOWN, ACTED UPON, or CHALLENGED in THIS CHAPTER.
 
 INCLUDE:
-- Key alliances or enmities driving the plot
-- Family bonds that affect character actions
-- Relationships that CHANGE in this chapter
-- Hostile relationships (these are important for detecting contradictory behavior later)
+- Explicit hostility, friendliness, fear, love, or family bonds
+- Relationships demonstrated through dialogue or actions
+- Relationship changes or contradictions (even if temporary)
 
 DO NOT INCLUDE:
+- Background-only facts (those go in INITIAL RULES)
+- Weakly implied relationships without evidence
 - Every possible character pair
-- Relationships only implied, not shown
-- If no strong relationships shown, leave empty: []
 
 Format:
-- from: character id (lowercase_with_underscores)
-- to: character id (lowercase_with_underscores)
+- from: character id (snake_case)
+- to: character id (snake_case)
 - type: hostile | friendly | family | love | fear
 
-=== INITIAL RULES (for establishing story baseline) ===
-Extract rules that are ESTABLISHED FACTS from the story's background/context.
-These are relationships or traits that exist BEFORE the events of this chapter.
-Only include rules that are EXPLICITLY stated or clearly implied by the narrative context.
+=== INITIAL RULES (STORY BASELINE FACTS) ===
+Extract relationships or traits that are ESTABLISHED BEFORE this chapter.
 
-CRITICAL: Extract CHARACTER-TO-CHARACTER relationships, NOT abstract concepts.
-- CORRECT: "uncle_vernon hates harry_potter" (specific character)
-- WRONG: "uncle_vernon hates magic" (abstract concept)
+INCLUDE ONLY IF:
+- Explicitly stated as long-standing
+- Clearly implied as pre-existing background
+- Necessary to understand later contradictions
 
-INCLUDE:
-- Pre-existing hostility/hatred between SPECIFIC characters
-- Family relationships between characters
-- Established character traits ("cruel", "kind", "cowardly")
+CRITICAL:
+- Subject MUST be a character
+- Object MUST be a character OR "true" (for traits)
+- Do NOT include abstract concepts
 
-Format:
-- subject: character id
-- predicate: hates | loves | fears | trusts | hostile | friendly | cruel | kind | brave | cowardly
-- object: character id (for relationships) OR "true" (for traits)
+Allowed predicates:
+- hates | loves | fears | trusts
+- hostile | friendly
+- cruel | kind | brave | cowardly
 
-EXAMPLES:
-- "The Dursleys had always hated their nephew" → {{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}}
-- "He despised his sister's son" → {{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}}
-- "The cruel headmaster ruled with an iron fist" → {{"subject": "headmaster", "predicate": "cruel", "object": "true"}}
+Examples:
+- "They had always hated their nephew" →
+  {{"subject": "relative_1", "predicate": "hates", "object": "nephew"}}
+- "He was a cruel man" →
+  {{"subject": "character", "predicate": "cruel", "object": "true"}}
 
 === OUTPUT FORMAT ===
-Return ONLY this JSON structure, nothing else:
+Return ONLY this JSON structure:
 
 {{
   "relationships": [
@@ -635,7 +655,7 @@ Return ONLY this JSON structure, nothing else:
   ]
 }}
 
-Return ONLY valid JSON, no markdown or explanations."""
+Return ONLY valid JSON. No markdown. No explanations."""
 
 
 EXTRACT_EVENTS_PROMPT = """Extract EVENTS from the text below.
@@ -643,68 +663,90 @@ EXTRACT_EVENTS_PROMPT = """Extract EVENTS from the text below.
 TEXT:
 {chapter_text}
 
+=== GLOBAL CONSTRAINTS (CRITICAL) ===
+- ONLY use character, item, and location IDs that were already extracted in previous phases.
+- DO NOT invent new entities.
+- DO NOT repeat the same event multiple times.
+- If an event clearly happens once, extract it ONCE.
+
 === CRITICAL INSTRUCTIONS ===
-- DO NOT INVENT EVENTS: Only extract what EXPLICITLY happens in the text
-- DO NOT HALLUCINATE DEATHS: Use "die" event ONLY if someone explicitly dies in this chapter
+- DO NOT INVENT EVENTS: Only extract what EXPLICITLY happens in the text.
+- DO NOT HALLUCINATE DEATHS: Use "die" ONLY if a character explicitly dies in THIS chapter.
+- Prefer UNDER-extraction to over-extraction if unsure.
 
 === CHARACTER BEHAVIOR ANALYSIS (VERY IMPORTANT) ===
-Pay SPECIAL ATTENTION to character behavior and emotional interactions:
-- If a character who is normally HOSTILE shows WARMTH, KINDNESS, or AFFECTION → this is significant, extract it!
-- If an enemy gives a farewell, hug, encouragement, or praise → ALWAYS extract this as an event
-- Look for CONTRADICTIONS between established relationships and current actions
+Pay special attention to behavior that is EMOTIONALLY or NARRATIVELY SIGNIFICANT:
 
-EXAMPLES OF CRITICAL BEHAVIOR TO CAPTURE:
-- "Uncle Vernon gave Harry a warm smile" → extract as "smile" event (Vernon hates Harry, so this is unusual)
-- "Have a good term," said the usually cold teacher warmly → extract as "farewell" or "encourage"
-- An enemy wishing someone well → extract as "farewell" with source_text
+- Hostile characters showing warmth, kindness, praise, encouragement, or farewell
+- Enemies helping, comforting, or protecting each other
+- Unexpected emotional reactions (smiles, hugs, waves, encouragement)
+- Actions that CONTRADICT established relationships
+
+These events are CRITICAL for narrative consistency checks.
 
 === EVENTS ===
-Extract ALL significant plot actions in chronological order. Be thorough - do not skip events.
+Extract ALL SIGNIFICANT plot actions in CHRONOLOGICAL ORDER.
 
-INCLUDE (HIGH PRIORITY):
-- ★ UNUSUAL CHARACTER BEHAVIOR: hostile person being kind, enemy showing affection, unexpected warmth
-- ★ FAREWELLS AND DEPARTURES: especially if they involve unusual emotion (warm goodbye from cold person)
-- ★ EMOTIONAL INTERACTIONS: hugs, praise, encouragement, smiles, waves
-- Key confrontations and conversations
-- Arrivals and departures
-- Discoveries and revelations
-- Attacks, rescues, deaths
-- Giving, taking, or exchanging items
+HIGH PRIORITY EVENTS (DO NOT SKIP):
+- ★ OUT-OF-CHARACTER BEHAVIOR:
+  - hostile → kind
+  - enemy → supportive
+  - cold → affectionate
+- ★ EMOTIONAL INTERACTIONS:
+  hug, smile, wave, praise, encourage, farewell
+- ★ ARRIVALS AND DEPARTURES:
+  arrive, leave, escape
+- ★ MAJOR ACTIONS:
+  attack, help, discover, die
+- ★ ITEM INTERACTIONS:
+  give, take (ONLY if narratively relevant)
 
-CRITICAL - OUT-OF-CHARACTER BEHAVIOR (NEVER SKIP THESE):
-- If a hostile character says something warm/kind → extract as "farewell", "praise", or "encourage"
-- If someone who hates another character shows affection → extract as "hug", "smile", or "wave"
-- If an enemy wishes someone well → extract as "farewell" with the exact source_text
-- These events are ESSENTIAL for detecting narrative inconsistencies!
+LOW PRIORITY (INCLUDE ONLY IF PLOT-RELEVANT):
+- Routine dialogue ("talk") — do NOT extract every line of conversation
+- Repeated or redundant dialogue — summarize as a SINGLE event
 
 DO NOT INCLUDE:
-- Routine actions with no narrative significance (generic eating, sleeping)
-- Identical repeated events - summarize as one
+- Repeated dialogue or actions already captured earlier
+- Long back-and-forth conversations unless they change the story state
+- Mundane actions with no narrative consequence
 
-Format:
-- id: e1, e2, e3... (sequential)
+=== EVENT DEDUPLICATION RULE (CRITICAL) ===
+If the same action is described multiple times or repeated later in the text:
+- Extract it ONCE
+- Use the FIRST occurrence as source_text
+
+=== EVENT FORMAT ===
+- id: e1, e2, e3... (strictly sequential, no gaps)
 - type: meet | talk | think | give | take | attack | help | discover | escape | arrive | leave | die | hug | praise | farewell | encourage | smile | wave
-- agent: character id (lowercase_with_underscores)
+- agent: character id
 - patient: character id OR item id OR null
 - location: location id OR null
-- after: event id that MUST happen before this one (optional, only if explicit causal dependency)
-- source_text: REQUIRED - The exact sentence or short phrase (max 80 chars) from the chapter where this event happens. Quote the text directly.
+- after: event id ONLY if there is an explicit causal dependency
+- source_text: REQUIRED — exact quote from the chapter (≤ 80 chars)
 
-EVENT RULES:
-- agent != patient (no self-actions)
-- Both agent and patient should be valid IDs
-- If you run out of character/item IDs, use null for patient
-- "die" event: ONLY if a character EXPLICITLY dies in THIS chapter (not mentioned as already dead, not implied - actual death scene)
-- DO NOT invent events that didn't happen in the text
-- source_text MUST be an actual quote from the chapter, not a summary
+=== EVENT RULES ===
+- agent MUST be a character
+- agent ≠ patient
+- patient may be null if unclear
+- location may be null if not explicit
+- NEVER invent agents, patients, or locations
+- source_text MUST be copied verbatim from the chapter (no paraphrasing)
 
 === OUTPUT FORMAT ===
-Return ONLY this JSON structure, nothing else:
+Return ONLY this JSON structure:
 
 {{
   "events": [
-    {{"id": "e1", "type": "...", "agent": "...", "patient": "...", "location": "...", "after": null, "source_text": "exact quote from chapter"}}
+    {{
+      "id": "e1",
+      "type": "...",
+      "agent": "...",
+      "patient": "...",
+      "location": "...",
+      "after": null,
+      "source_text": "exact quote from chapter"
+    }}
   ]
 }}
 
-Return ONLY valid JSON, no markdown or explanations."""
+Return ONLY valid JSON. No markdown. No explanations."""

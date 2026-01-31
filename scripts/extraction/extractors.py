@@ -153,7 +153,7 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=8000, timeout=300)
+        response = api_client.extract(prompt, max_tokens=6024, timeout=300)
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
         return default

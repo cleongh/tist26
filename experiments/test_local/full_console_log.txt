@@ -1,20 +1,29 @@
-=== Experiment Log Started: 2026-01-31T13:32:50.462837 ===
+=== Experiment Log Started: 2026-01-31T13:52:19.398492 ===
 
-[2026-01-31 13:32:50] [INFO] API Mode: local
-[2026-01-31 13:32:50] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
-[2026-01-31 13:32:50] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
-[2026-01-31 13:32:50] [INFO] ============================================================
-[2026-01-31 13:32:50] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
-[2026-01-31 13:32:50] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
-[2026-01-31 13:32:50] [INFO] ============================================================
-[2026-01-31 13:32:50] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_engine_log.jsonl
-[2026-01-31 13:32:50] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_extractions.jsonl
-[2026-01-31 13:32:50] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_events_log.jsonl
-[2026-01-31 13:32:50] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_alias_conflicts.jsonl
-[2026-01-31 13:32:50] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_item_stats.jsonl
-[2026-01-31 13:32:50] [INFO] Using local LLM at: http://localhost:8080/v1
-[2026-01-31 13:32:50] [INFO] 
+[2026-01-31 13:52:19] [INFO] API Mode: local
+[2026-01-31 13:52:19] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-01-31 13:52:19] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-01-31 13:52:19] [INFO] ============================================================
+[2026-01-31 13:52:19] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-01-31 13:52:19] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-01-31 13:52:19] [INFO] ============================================================
+[2026-01-31 13:52:19] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_engine_log.jsonl
+[2026-01-31 13:52:19] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_extractions.jsonl
+[2026-01-31 13:52:19] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_events_log.jsonl
+[2026-01-31 13:52:19] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_alias_conflicts.jsonl
+[2026-01-31 13:52:19] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_item_stats.jsonl
+[2026-01-31 13:52:19] [INFO] Using local LLM at: http://localhost:8080/v1
+[2026-01-31 13:52:19] [INFO] 
 Processing: Harry Potter (original)
-[2026-01-31 13:32:50] [INFO]   Found 17 chapters
-[2026-01-31 13:32:50] [INFO]   Chapter 0: 000.txt
-[2026-01-31 13:32:50] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-01-31 13:52:19] [INFO]   Found 17 chapters
+[2026-01-31 13:52:19] [INFO]   Chapter 0: 000.txt
+[2026-01-31 13:52:19] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-01-31 13:53:04] [INFO]     -> 10 characters, 4 locations
+[2026-01-31 13:53:04] [INFO]   [Phase 2] Extracting items...
+[2026-01-31 13:53:33] [INFO]     -> 6 items
+[2026-01-31 13:53:33] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-01-31 13:53:33] [INFO]     -> 10 characters, 4 locations, 6 items registered
+[2026-01-31 13:53:33] [INFO]     -> 10 character aliases, 4 location aliases, 11 item aliases
+[2026-01-31 13:53:33] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-01-31 13:53:33] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-01-31 13:53:33] [INFO]   [Phase 2] Extracting relationships...
