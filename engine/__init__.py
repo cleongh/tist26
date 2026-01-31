@@ -67,7 +67,7 @@ from .final_analysis import (
     LooseEnd,
     LongRangeInconsistency,
 )
-from .alias_resolver import AliasResolver, AliasConflict
+from .alias_resolver import AliasResolver, AliasConflict, CanonicalPromotion, PromotionReason
 from .continuity_context import (
     ContinuityContextBuilder,
     ContinuityContext,
@@ -104,6 +104,8 @@ __all__ = [
     # Alias resolution (Phase 2)
     'AliasResolver',
     'AliasConflict',
+    'CanonicalPromotion',
+    'PromotionReason',
     # Continuity context (Phase 3)
     'ContinuityContextBuilder',
     'ContinuityContext',

@@ -499,6 +499,26 @@ LOCATION EXAMPLES:
 - A room inside a building: the building's "contains" should list this room
 - Distant locations (another city): should NOT be in connections unless travel happens
 
+=== KNOWN ENTITIES CONTEXT (IMPORTANT) ===
+The following characters and locations are ALREADY KNOWN from previous chapters.
+
+KNOWN CHARACTERS (authoritative IDs):
+{known_characters_list}
+
+KNOWN LOCATIONS (authoritative IDs):
+{known_locations_list}
+
+INSTRUCTIONS:
+- Prefer reusing these existing IDs when a character or location appears in this chapter.
+- If a name, title, or alias clearly refers to an existing character/location, USE the existing ID.
+- Only introduce a NEW character or location if the text clearly introduces someone/somewhere not in the known lists.
+- If no characters or locations act in this chapter, return empty lists.
+
+DO NOT:
+- Rename existing entities
+- Create duplicates for aliases (titles, nicknames, honorifics)
+- Invent new entities when an existing one fits
+
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure, nothing else:
 
@@ -552,6 +572,26 @@ DO NOT extract items that are:
 - Mentioned only as scenery or setting flavor
 - Not interacted with by any character
 - Immediately irrelevant and never referred to again in the chapter
+
+=== KNOWN ITEMS CONTEXT (IMPORTANT) ===
+The following items are ALREADY KNOWN from previous chapters.
+
+KNOWN ITEMS (authoritative IDs and states):
+{known_items_with_states}
+
+INSTRUCTIONS:
+- Prefer reusing these existing item IDs when an item appears in this chapter.
+- Update item relevance ONLY if the item is used, exchanged, referenced emotionally, or affects events.
+- Introduce a NEW item ONLY if it is clearly distinct and narratively relevant in this chapter.
+
+ITEM RELEVANCE RULES:
+- Do NOT extract background objects (furniture, food, clothing) unless they matter to the plot.
+- Items briefly mentioned without narrative impact should NOT be extracted.
+- If unsure whether an item is relevant, DO NOT include it.
+
+DO NOT:
+- Duplicate existing items with slightly different names
+- Promote an item to relevant without evidence in the text
 
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure, nothing else:
@@ -643,6 +683,23 @@ Examples:
 - "He was a cruel man" →
   {{"subject": "character", "predicate": "cruel", "object": "true"}}
 
+  === CHAPTER ENTITY CONTEXT (CRITICAL) ===
+The following characters are CONFIRMED to appear or act in this chapter.
+
+CHARACTERS IN THIS CHAPTER:
+{chapter_character_ids}
+
+INSTRUCTIONS:
+- Extract relationships ONLY between characters listed above.
+- Use ONLY these character IDs.
+- If a relationship is described for a GROUP (family, relatives, guards):
+  apply it to EACH relevant named character from this list.
+
+RELATIONSHIP SCOPE RULE:
+- If a relationship is long-standing or background → INITIAL RULE
+- If a relationship is shown, challenged, or contradicted in this chapter → RELATIONSHIP
+- If unsure, prefer INITIAL RULE only when clearly pre-existing
+
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure:
 
@@ -709,6 +766,28 @@ DO NOT INCLUDE:
 - Repeated dialogue or actions already captured earlier
 - Long back-and-forth conversations unless they change the story state
 - Mundane actions with no narrative consequence
+
+=== CHAPTER ENTITY CONTEXT (CRITICAL) ===
+The following entities are the ONLY valid references for events in this chapter.
+
+VALID CHARACTERS (agents/patients):
+{chapter_character_ids}
+
+VALID ITEMS (patients only):
+{chapter_item_ids}
+
+VALID LOCATIONS:
+{chapter_location_ids}
+
+INSTRUCTIONS:
+- Use ONLY these IDs for agent, patient, and location fields.
+- agent MUST be a character from the valid character list.
+- patient MUST be a character, item, or null.
+- location MUST be from the valid location list or null.
+- If an action involves an unknown or unclear entity, use null instead of inventing an ID.
+
+EVENT CONSTRAINT:
+- If you cannot express an event using ONLY these IDs, DO NOT extract that event.
 
 === EVENT DEDUPLICATION RULE (CRITICAL) ===
 If the same action is described multiple times or repeated later in the text:

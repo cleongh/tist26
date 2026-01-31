@@ -45,7 +45,95 @@ def _parse_json_response(response: str) -> Dict[str, Any]:
     return {}
 
 
-def extract_characters_and_locations(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
+def format_chapter_character_ids(characters: List[Dict[str, Any]]) -> str:
+    """
+    Format chapter character IDs for injection into the relationships prompt.
+    
+    Args:
+        characters: List of character dicts from extraction (must have 'id' field)
+        
+    Returns:
+        Formatted string with one character ID per line, or placeholder if empty.
+    """
+    # Extract and normalize IDs
+    ids = []
+    for char in characters:
+        char_id = char.get("id", "")
+        if char_id:
+            # Normalize to snake_case
+            normalized = re.sub(r'[^a-z0-9_]', '_', char_id.lower())
+            normalized = re.sub(r'_+', '_', normalized).strip('_')
+            if normalized:
+                ids.append(normalized)
+    
+    if not ids:
+        return "(No characters in this chapter)"
+    
+    # Sort for determinism
+    return "\n".join(f"- {cid}" for cid in sorted(set(ids)))
+
+
+def format_chapter_item_ids(items: List[Dict[str, Any]]) -> str:
+    """
+    Format chapter item IDs for injection into the events prompt.
+    
+    Args:
+        items: List of item dicts from extraction (must have 'id' field)
+        
+    Returns:
+        Formatted string with one item ID per line, or placeholder if empty.
+    """
+    ids = []
+    for item in items:
+        item_id = item.get("id", "")
+        if item_id:
+            # Normalize to snake_case
+            normalized = re.sub(r'[^a-z0-9_]', '_', item_id.lower())
+            normalized = re.sub(r'_+', '_', normalized).strip('_')
+            if normalized:
+                ids.append(normalized)
+    
+    if not ids:
+        return "(No items in this chapter)"
+    
+    # Sort for determinism
+    return "\n".join(f"- {iid}" for iid in sorted(set(ids)))
+
+
+def format_chapter_location_ids(locations: List[Dict[str, Any]]) -> str:
+    """
+    Format chapter location IDs for injection into the events prompt.
+    
+    Args:
+        locations: List of location dicts from extraction (must have 'id' field)
+        
+    Returns:
+        Formatted string with one location ID per line, or placeholder if empty.
+    """
+    ids = []
+    for loc in locations:
+        loc_id = loc.get("id", "")
+        if loc_id:
+            # Normalize to snake_case
+            normalized = re.sub(r'[^a-z0-9_]', '_', loc_id.lower())
+            normalized = re.sub(r'_+', '_', normalized).strip('_')
+            if normalized:
+                ids.append(normalized)
+    
+    if not ids:
+        return "(No locations in this chapter)"
+    
+    # Sort for determinism
+    return "\n".join(f"- {lid}" for lid in sorted(set(ids)))
+
+
+def extract_characters_and_locations(
+    chapter_text: str, 
+    api_client, 
+    timeout: int = 300,
+    known_characters_list: str = "(No characters established yet)",
+    known_locations_list: str = "(No locations established yet)",
+) -> Dict[str, Any]:
     """
     Extract characters and locations from chapter text.
     
@@ -53,12 +141,18 @@ def extract_characters_and_locations(chapter_text: str, api_client, timeout: int
         chapter_text: The full chapter text
         api_client: API client for LLM calls
         timeout: Timeout for LLM API call in seconds
+        known_characters_list: Formatted string of known character IDs from previous chapters
+        known_locations_list: Formatted string of known location IDs from previous chapters
         
     Returns:
         Dict with "characters" and "locations" lists
     """
     default = {"characters": [], "locations": []}
-    prompt = EXTRACT_CHARACTERS_AND_LOCATIONS_PROMPT.format(chapter_text=chapter_text)
+    prompt = EXTRACT_CHARACTERS_AND_LOCATIONS_PROMPT.format(
+        chapter_text=chapter_text,
+        known_characters_list=known_characters_list,
+        known_locations_list=known_locations_list,
+    )
     
     try:
         response = api_client.extract(prompt, max_tokens=4096, timeout=timeout)
@@ -76,7 +170,12 @@ def extract_characters_and_locations(chapter_text: str, api_client, timeout: int
     }
 
 
-def extract_items(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
+def extract_items(
+    chapter_text: str, 
+    api_client, 
+    timeout: int = 300,
+    known_items_with_states: str = "(No items established yet)",
+) -> Dict[str, Any]:
     """
     Extract items from chapter text.
     
@@ -84,12 +183,16 @@ def extract_items(chapter_text: str, api_client, timeout: int = 300) -> Dict[str
         chapter_text: The full chapter text
         api_client: API client for LLM calls
         timeout: Timeout for LLM API call in seconds
+        known_items_with_states: Formatted string of known item IDs and states from previous chapters
         
     Returns:
         Dict with "items" list
     """
     default = {"items": []}
-    prompt = EXTRACT_ITEMS_PROMPT.format(chapter_text=chapter_text)
+    prompt = EXTRACT_ITEMS_PROMPT.format(
+        chapter_text=chapter_text,
+        known_items_with_states=known_items_with_states,
+    )
     
     try:
         response = api_client.extract(prompt, max_tokens=2048, timeout=timeout)
@@ -106,7 +209,12 @@ def extract_items(chapter_text: str, api_client, timeout: int = 300) -> Dict[str
     }
 
 
-def extract_relationships(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
+def extract_relationships(
+    chapter_text: str, 
+    api_client, 
+    timeout: int = 300,
+    chapter_character_ids: str = "(No characters in this chapter)",
+) -> Dict[str, Any]:
     """
     Extract relationships and initial rules from chapter text.
     
@@ -114,12 +222,16 @@ def extract_relationships(chapter_text: str, api_client, timeout: int = 300) -> 
         chapter_text: The full chapter text
         api_client: API client for LLM calls
         timeout: Timeout for LLM API call in seconds
+        chapter_character_ids: Formatted string of character IDs that appear in this chapter
         
     Returns:
         Dict with "relationships" and "initial_rules" lists
     """
     default = {"relationships": [], "initial_rules": []}
-    prompt = EXTRACT_RELATIONSHIPS_PROMPT.format(chapter_text=chapter_text)
+    prompt = EXTRACT_RELATIONSHIPS_PROMPT.format(
+        chapter_text=chapter_text,
+        chapter_character_ids=chapter_character_ids,
+    )
     
     try:
         response = api_client.extract(prompt, max_tokens=2048, timeout=timeout)
@@ -137,7 +249,14 @@ def extract_relationships(chapter_text: str, api_client, timeout: int = 300) -> 
     }
 
 
-def extract_events(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
+def extract_events(
+    chapter_text: str, 
+    api_client, 
+    timeout: int = 300,
+    chapter_character_ids: str = "(No characters in this chapter)",
+    chapter_item_ids: str = "(No items in this chapter)",
+    chapter_location_ids: str = "(No locations in this chapter)",
+) -> Dict[str, Any]:
     """
     Extract events from chapter text.
     
@@ -149,12 +268,20 @@ def extract_events(chapter_text: str, api_client, timeout: int = 300) -> Dict[st
         chapter_text: The full chapter text
         api_client: API client for LLM calls
         timeout: Timeout for LLM API call in seconds
+        chapter_character_ids: Formatted string of character IDs in this chapter (for agent/patient)
+        chapter_item_ids: Formatted string of item IDs in this chapter (for patient)
+        chapter_location_ids: Formatted string of location IDs in this chapter
         
     Returns:
         Dict with "events" list
     """
     default = {"events": []}
-    prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
+    prompt = EXTRACT_EVENTS_PROMPT.format(
+        chapter_text=chapter_text,
+        chapter_character_ids=chapter_character_ids,
+        chapter_item_ids=chapter_item_ids,
+        chapter_location_ids=chapter_location_ids,
+    )
     
     try:
         response = api_client.extract(prompt, max_tokens=6024, timeout=timeout)
@@ -298,6 +425,9 @@ def extract_chapter_split(
     use_relationship_normalizer: bool = True,
     use_event_normalizer: bool = True,
     timeout: int = 300,
+    known_characters_list: str = "(No characters established yet)",
+    known_locations_list: str = "(No locations established yet)",
+    known_items_with_states: str = "(No items established yet)",
 ) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
     """
     Extract structured data using the four-function pipeline.
@@ -321,6 +451,9 @@ def extract_chapter_split(
         use_relationship_normalizer: If True, build and use RelationshipNormalizer
         use_event_normalizer: If True, build and use EventNormalizer
         timeout: Timeout for LLM API calls in seconds
+        known_characters_list: Formatted string of known character IDs from previous chapters
+        known_locations_list: Formatted string of known location IDs from previous chapters
+        known_items_with_states: Formatted string of known item IDs and states from previous chapters
         
     Returns:
         Tuple of (merged extraction, EntityRegistry, RelationshipNormalizer, EventNormalizer)
@@ -328,12 +461,23 @@ def extract_chapter_split(
     """
     # Phase 1: Extract characters and locations
     log("  [Phase 2] Extracting characters and locations...")
-    chars_locs = extract_characters_and_locations(chapter_text, api_client, timeout=timeout)
+    chars_locs = extract_characters_and_locations(
+        chapter_text, 
+        api_client, 
+        timeout=timeout,
+        known_characters_list=known_characters_list,
+        known_locations_list=known_locations_list,
+    )
     log(f"    -> {len(chars_locs.get('characters', []))} characters, {len(chars_locs.get('locations', []))} locations")
     
     # Phase 2: Extract items
     log("  [Phase 2] Extracting items...")
-    items = extract_items(chapter_text, api_client, timeout=timeout)
+    items = extract_items(
+        chapter_text, 
+        api_client, 
+        timeout=timeout,
+        known_items_with_states=known_items_with_states,
+    )
     log(f"    -> {len(items.get('items', []))} items")
     
     # Phase 3: Build EntityRegistry (if enabled)
@@ -366,13 +510,30 @@ def extract_chapter_split(
             event_normalizer = EventNormalizer(registry)
     
     # Phase 3 (extraction): Extract relationships
+    # Use character IDs from this chapter's extraction (not global registry)
+    chapter_character_ids = format_chapter_character_ids(chars_locs.get("characters", []))
     log("  [Phase 2] Extracting relationships...")
-    relationships = extract_relationships(chapter_text, api_client, timeout=timeout)
+    relationships = extract_relationships(
+        chapter_text, 
+        api_client, 
+        timeout=timeout,
+        chapter_character_ids=chapter_character_ids,
+    )
     log(f"    -> {len(relationships.get('relationships', []))} relationships, {len(relationships.get('initial_rules', []))} initial rules")
     
     # Phase 4 (extraction): Extract events
+    # Use entity IDs from this chapter's extraction for fully grounded events
+    chapter_item_ids = format_chapter_item_ids(items.get("items", []))
+    chapter_location_ids = format_chapter_location_ids(chars_locs.get("locations", []))
     log("  [Phase 2] Extracting events...")
-    events = extract_events(chapter_text, api_client, timeout=timeout)
+    events = extract_events(
+        chapter_text, 
+        api_client, 
+        timeout=timeout,
+        chapter_character_ids=chapter_character_ids,
+        chapter_item_ids=chapter_item_ids,
+        chapter_location_ids=chapter_location_ids,
+    )
     log(f"    -> {len(events.get('events', []))} events")
     
     # Merge with validation and normalization

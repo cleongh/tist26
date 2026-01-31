@@ -528,6 +528,35 @@ class ItemTracker:
             if item.was_promoted_from_latent()
         ]
     
+    def format_known_items_with_states(self) -> str:
+        """
+        Format known items with their states for injection into the extraction prompt.
+        
+        Returns a compact, deterministic string with one item per line in the format:
+            - item_id (lifecycle_state)
+        
+        If no items are known yet, returns a placeholder message.
+        
+        Per LOGIC_DESIGN.md Section 3.2: item(X) is a core entity type that
+        should be tracked across chapters.
+        """
+        # Get all non-suppressed items, sorted for determinism
+        active_items = sorted(
+            [item for item in self._items.values() if not item.suppressed],
+            key=lambda x: x.item_id
+        )
+        
+        if not active_items:
+            return "(No items established yet)"
+        
+        lines = []
+        for item in active_items:
+            # Format: - item_id (lifecycle_state)
+            state = item.lifecycle_state.value
+            lines.append(f"- {item.item_id} ({state})")
+        
+        return "\n".join(lines)
+    
     def to_asp_facts(self) -> List[str]:
         """Generate ASP facts for tracked items."""
         facts = []

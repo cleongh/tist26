@@ -1,0 +1,2318 @@
+{
+  "step": 2,
+  "approach": "logic_engine",
+  "timestamp": "2026-01-31T18:19:51.467042",
+  "chapters_processed": 10,
+  "total_errors": 313,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 265.12231159210205,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Dudley punched Harry on the nose."
+        }
+      ],
+      "duration_seconds": 172.00397086143494,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 5,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Aunt Petunia shredded the letters in her food processor"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "help_enemy",
+          "description": "emotional/help_enemy: help_enemy",
+          "story_fragment": "Aunt Petunia shredded the letters in her food processor"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Dudley tried to grab the letter to read it"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Uncle Vernon threw Harry into the hall"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 237.9687683582306,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "temporal",
+          "error_type": "missing_prerequisite",
+          "description": "temporal/missing_prerequisite: missing_prerequisite",
+          "story_fragment": "He pulled out the letter and read\u2026"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 234.56119585037231,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 263,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "location",
+          "error_type": "invalid_remote",
+          "description": "location/invalid_remote: invalid_remote",
+          "story_fragment": "\u2018You don\u2019t have to \u2014\u2019 \u2018Tell yeh what, I\u2019ll get yer animal. Not a toad, toads wen"
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 288.7658588886261,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 378.0363085269928,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 12,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 173.18782210350037,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 4,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Uncle Vernon took both Harry and Dudley by the scruffs of their necks and threw "
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Harry heard something creak outside"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "help_enemy",
+          "description": "emotional/help_enemy: help_enemy",
+          "story_fragment": "Uncle Vernon took both Harry and Dudley by the scruffs of their necks and threw "
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 220.09527587890625,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "temporal",
+          "error_type": "missing_prerequisite",
+          "description": "temporal/missing_prerequisite: missing_prerequisite",
+          "story_fragment": "Harry pulled out the letter and read:"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "temporal",
+          "error_type": "missing_prerequisite",
+          "description": "temporal/missing_prerequisite: missing_prerequisite",
+          "story_fragment": "HOGWARTS SCHOOL of WITCHCRAFT and WIZARDRY Headmaster: ALBUS DUMBLEDORE"
+        }
+      ],
+      "duration_seconds": 204.3600823879242,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 24,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 205.6606960296631,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

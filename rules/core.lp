@@ -254,6 +254,48 @@ item_present(Item, Loc, T) :- holds(item_at(Item, Loc), T).
 
 
 % =============================================================================
+% PART 5.5: LOCATION CONTAINMENT (Phase 2 - Travel Coherence)
+% =============================================================================
+%
+% Locations can have containment relationships:
+%     contains(Parent, Child) - Child is inside Parent
+%
+% Examples:
+%     contains(house, kitchen).
+%     contains(house, hallway).
+%     contains(diagon_alley, ollivanders).
+%
+% This enables coherent travel within the same container without triggering
+% time_travel violations.
+% =============================================================================
+
+% --- Presence Propagation ---
+% Presence in a sub-location implies presence in its container.
+% If Harry is in the kitchen, Harry is also in the house.
+present_in_container(E, Parent, T) :-
+    present(E, Child, T),
+    contains(Parent, Child).
+
+% --- Container-based Connectivity ---
+% Locations within the same container are implicitly connected.
+same_container(L1, L2) :-
+    contains(Parent, L1),
+    contains(Parent, L2),
+    L1 != L2.
+
+% A location and its container are connected
+same_container(Child, Parent) :- contains(Parent, Child).
+same_container(Parent, Child) :- contains(Parent, Child).
+
+% Container connectivity is symmetric
+same_container(L2, L1) :- same_container(L1, L2).
+
+% --- Helper: Check if travel is within same container ---
+% Used to suppress time_travel violations for coherent movement
+travel_within_container(L1, L2) :- same_container(L1, L2).
+
+
+% =============================================================================
 % PART 6: EVENT EFFECTS (Step 2.1 - State Transitions)
 % =============================================================================
 %
@@ -285,18 +327,38 @@ terminates(E, present(C, OldL)) :-
     event_location(E, NewL),
     OldL != NewL.
 
+% --- Refined Movement Event Types (Phase 3) ---
+% These provide more precise semantics for spatial reasoning:
+%   enter  - entering a container/building/room (implies presence inside)
+%   exit   - exiting a container/building/room (terminates presence inside)
+%   travel - movement between distant/unconnected locations
+%   arrive - generic arrival at a location (legacy, mapped to enter where possible)
+%   leave  - generic departure (legacy, mapped to exit where possible)
+
 is_movement_event(E) :- event_type(E, travel).
 is_movement_event(E) :- event_type(E, move).
 is_movement_event(E) :- event_type(E, go).
 is_movement_event(E) :- event_type(E, walk).
 is_movement_event(E) :- event_type(E, run).
 is_movement_event(E) :- event_type(E, enter).
+is_movement_event(E) :- event_type(E, exit).
 is_movement_event(E) :- event_type(E, leave).
 is_movement_event(E) :- event_type(E, arrive).
 is_movement_event(E) :- event_type(E, depart).
 is_movement_event(E) :- event_type(E, fly).
 is_movement_event(E) :- event_type(E, apparate).
 is_movement_event(E) :- event_type(E, teleport).
+
+% Refined movement type classification
+is_enter_event(E) :- event_type(E, enter).
+is_enter_event(E) :- event_type(E, arrive).  % Legacy mapping
+is_exit_event(E) :- event_type(E, exit).
+is_exit_event(E) :- event_type(E, leave).    % Legacy mapping
+is_exit_event(E) :- event_type(E, depart).   % Legacy mapping
+is_travel_event(E) :- event_type(E, travel).
+is_travel_event(E) :- event_type(E, fly).
+is_travel_event(E) :- event_type(E, apparate).
+is_travel_event(E) :- event_type(E, teleport).
 
 % --- Death Events ---
 % Death terminates alive status
@@ -369,6 +431,200 @@ terminates(E, relationship(C1, C2, OldType)) :-
 
 
 % =============================================================================
+% PART 6.5: CHARACTER STATES (Phase 3 - Explicit State Modeling)
+% =============================================================================
+%
+% Per Phase 3 requirements:
+%     - Track explicit character states: seated, lying, standing, asleep, awake
+%     - States persist until changed by an event
+%     - Contradictions arise only when states truly conflict
+%
+% State fluents:
+%     posture(C, seated)   - Character is seated
+%     posture(C, lying)    - Character is lying down
+%     posture(C, standing) - Character is standing (default)
+%     consciousness(C, asleep) - Character is asleep
+%     consciousness(C, awake)  - Character is awake (default)
+%
+% =============================================================================
+
+% --- Posture States ---
+% Postures: seated, lying, standing (mutually exclusive)
+
+% Sitting initiates seated posture, terminates other postures
+initiates(E, posture(C, seated)) :-
+    event(E),
+    is_sit_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, standing)) :-
+    event(E),
+    is_sit_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, lying)) :-
+    event(E),
+    is_sit_event(E),
+    agent(E, C).
+
+is_sit_event(E) :- event_type(E, sit).
+is_sit_event(E) :- event_type(E, sit_down).
+is_sit_event(E) :- event_type(E, seat).
+
+% Standing initiates standing posture, terminates other postures
+initiates(E, posture(C, standing)) :-
+    event(E),
+    is_stand_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, seated)) :-
+    event(E),
+    is_stand_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, lying)) :-
+    event(E),
+    is_stand_event(E),
+    agent(E, C).
+
+is_stand_event(E) :- event_type(E, stand).
+is_stand_event(E) :- event_type(E, stand_up).
+is_stand_event(E) :- event_type(E, get_up).
+is_stand_event(E) :- event_type(E, rise).
+
+% Lying down initiates lying posture, terminates other postures
+initiates(E, posture(C, lying)) :-
+    event(E),
+    is_lie_down_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, standing)) :-
+    event(E),
+    is_lie_down_event(E),
+    agent(E, C).
+
+terminates(E, posture(C, seated)) :-
+    event(E),
+    is_lie_down_event(E),
+    agent(E, C).
+
+is_lie_down_event(E) :- event_type(E, lie_down).
+is_lie_down_event(E) :- event_type(E, lie).
+is_lie_down_event(E) :- event_type(E, recline).
+is_lie_down_event(E) :- event_type(E, collapse).
+is_lie_down_event(E) :- event_type(E, fall).
+is_lie_down_event(E) :- event_type(E, faint).
+
+% --- Consciousness States ---
+% Consciousness: asleep, awake (mutually exclusive)
+
+% Sleeping initiates asleep state, terminates awake
+initiates(E, consciousness(C, asleep)) :-
+    event(E),
+    is_sleep_event(E),
+    agent(E, C).
+
+terminates(E, consciousness(C, awake)) :-
+    event(E),
+    is_sleep_event(E),
+    agent(E, C).
+
+is_sleep_event(E) :- event_type(E, sleep).
+is_sleep_event(E) :- event_type(E, fall_asleep).
+is_sleep_event(E) :- event_type(E, doze).
+is_sleep_event(E) :- event_type(E, nap).
+is_sleep_event(E) :- event_type(E, faint).
+is_sleep_event(E) :- event_type(E, pass_out).
+
+% Waking up initiates awake state, terminates asleep
+initiates(E, consciousness(C, awake)) :-
+    event(E),
+    is_wake_event(E),
+    agent(E, C).
+
+terminates(E, consciousness(C, asleep)) :-
+    event(E),
+    is_wake_event(E),
+    agent(E, C).
+
+is_wake_event(E) :- event_type(E, wake_up).
+is_wake_event(E) :- event_type(E, wake).
+is_wake_event(E) :- event_type(E, awaken).
+is_wake_event(E) :- event_type(E, rouse).
+
+% --- State Convenience Predicates ---
+% Derive readable state predicates from holds/2
+
+posture(C, Posture, T) :- holds(posture(C, Posture), T).
+consciousness(C, State, T) :- holds(consciousness(C, State), T).
+
+% Atemporal shortcuts (latest state)
+is_seated(C) :- posture(C, seated, T), not posture_changed_after(C, T).
+is_lying(C) :- posture(C, lying, T), not posture_changed_after(C, T).
+is_standing(C) :- posture(C, standing, T), not posture_changed_after(C, T).
+is_asleep(C) :- consciousness(C, asleep, T), not consciousness_changed_after(C, T).
+is_awake(C) :- consciousness(C, awake, T), not consciousness_changed_after(C, T).
+
+posture_changed_after(C, T) :-
+    posture(C, _, T),
+    posture(C, _, T2),
+    T2 > T.
+
+consciousness_changed_after(C, T) :-
+    consciousness(C, _, T),
+    consciousness(C, _, T2),
+    T2 > T.
+
+% --- Default Initial States ---
+% Characters default to standing and awake unless specified otherwise
+initially(posture(C, standing)) :- 
+    character(C), 
+    not initially_seated(C),
+    not initially_lying(C).
+
+initially(consciousness(C, awake)) :- 
+    character(C), 
+    not initially_asleep(C).
+
+% --- State Conflict Detection ---
+% Conflicting postures at the same time
+violation(coherence, posture_conflict, C, pair(P1, P2)) :-
+    character(C),
+    posture(C, P1, T),
+    posture(C, P2, T),
+    P1 != P2.
+
+% Conflicting consciousness at the same time
+violation(coherence, consciousness_conflict, C, pair(S1, S2)) :-
+    character(C),
+    consciousness(C, S1, T),
+    consciousness(C, S2, T),
+    S1 != S2.
+
+% --- State-Action Constraints ---
+% Certain actions require specific states
+
+% Sleeping character cannot perform most actions
+violation(coherence, action_while_asleep, E, C) :-
+    event(E),
+    agent(E, C),
+    event_time(E, T),
+    consciousness(C, asleep, T),
+    not is_wake_event(E),
+    not is_sleep_related_event(E),
+    not is_passive_event(E).
+
+is_sleep_related_event(E) :- event_type(E, dream).
+is_sleep_related_event(E) :- event_type(E, nightmare).
+is_sleep_related_event(E) :- event_type(E, snore).
+
+% Passive events can happen to sleeping characters
+is_passive_event(E) :- not agent(E, _).
+is_passive_event(E) :- event_type(E, receive).
+is_passive_event(E) :- event_type(E, hear).  % Might hear in sleep
+
+
+% =============================================================================
 % PART 7: GLOBAL CONSTRAINTS (Step 2.3)
 % =============================================================================
 %
@@ -383,6 +639,10 @@ terminates(E, relationship(C1, C2, OldType)) :-
 % --- NON-UBIQUITY CONSTRAINT ---
 % An entity cannot be present in more than one location at the same time.
 % This is a SOFT constraint (detected as violation, not rejected).
+%
+% EXCEPTION: Being in a sub-location AND its container is NOT ubiquity.
+% e.g., present(harry, kitchen, T) and present_in_container(harry, house, T)
+% are consistent because kitchen ⊂ house.
 
 violation(location, ubiquity, E, pair(L1, L2)) :-
     entity(E),
@@ -391,7 +651,20 @@ violation(location, ubiquity, E, pair(L1, L2)) :-
     L1 != L2,
     L1 != unknown,
     L2 != unknown,
-    not ubiquity_allowed(E).
+    not ubiquity_allowed(E),
+    not containment_explains_presence(E, L1, L2, T).
+
+% Containment explains apparent ubiquity
+% If L1 contains L2, presence in both is coherent (not a violation)
+containment_explains_presence(E, L1, L2, T) :-
+    present(E, L1, T),
+    present(E, L2, T),
+    contains(L1, L2).
+
+containment_explains_presence(E, L1, L2, T) :-
+    present(E, L1, T),
+    present(E, L2, T),
+    contains(L2, L1).
 
 % Story rules can allow ubiquity for specific entities (e.g., teleportation)
 % ubiquity_allowed(Entity) :- ...

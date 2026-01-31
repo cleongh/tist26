@@ -174,6 +174,23 @@ is_reflexive_action(E) :- event_type(E, faint).
 is_reflexive_action(E) :- event_type(E, collapse).
 is_reflexive_action(E) :- event_type(E, fall).
 is_reflexive_action(E) :- event_type(E, stumble).
+% Phase 3: Refined event types - posture and consciousness changes are reflexive
+is_reflexive_action(E) :- event_type(E, sit).
+is_reflexive_action(E) :- event_type(E, sit_down).
+is_reflexive_action(E) :- event_type(E, stand).
+is_reflexive_action(E) :- event_type(E, stand_up).
+is_reflexive_action(E) :- event_type(E, lie_down).
+is_reflexive_action(E) :- event_type(E, lie).
+is_reflexive_action(E) :- event_type(E, recline).
+is_reflexive_action(E) :- event_type(E, wake_up).
+is_reflexive_action(E) :- event_type(E, awaken).
+is_reflexive_action(E) :- event_type(E, fall_asleep).
+is_reflexive_action(E) :- event_type(E, doze).
+is_reflexive_action(E) :- event_type(E, nap).
+is_reflexive_action(E) :- event_type(E, rise).
+% Phase 3: Refined movement types are reflexive
+is_reflexive_action(E) :- event_type(E, enter).
+is_reflexive_action(E) :- event_type(E, exit).
 
 % --- Communication requires two parties (except internal thoughts and public speeches) ---
 violation(coherence, solo_communication, E, Type) :-
@@ -245,6 +262,10 @@ is_authority_figure(harry).
 % NOTE: This rule should only trigger for facts from current chapter, not cross-chapter.
 % States like present/absent are chapter-specific and reset each chapter.
 % Only truly persistent states (dead/alive) should be tracked cross-chapter.
+%
+% Phase 3 Update: Posture and consciousness state conflicts are now handled 
+% in core.lp via posture_conflict and consciousness_conflict violations.
+% This rule is kept for backward compatibility with legacy state facts.
 violation(coherence, contradictory_state, C, pair(S1, S2)) :-
     current_chapter_state(C, S1),
     current_chapter_state(C, S2),
@@ -264,12 +285,28 @@ violation(coherence, contradictory_state, C, pair(S1, S2)) :-
 are_persistent_contradictory_states(alive, dead).
 are_persistent_contradictory_states(dead, alive).
 
-are_contradictory_states(alive, dead).
-are_contradictory_states(dead, alive).
+% Phase 3: Refined contradictory states
+% Posture conflicts (seated vs lying vs standing)
+are_contradictory_states(seated, lying).
+are_contradictory_states(lying, seated).
+are_contradictory_states(seated, standing).
+are_contradictory_states(standing, seated).
+are_contradictory_states(lying, standing).
+are_contradictory_states(standing, lying).
+
+% Consciousness conflicts
 are_contradictory_states(asleep, awake).
 are_contradictory_states(awake, asleep).
+
+% Life/death conflicts
+are_contradictory_states(alive, dead).
+are_contradictory_states(dead, alive).
+
+% Presence conflicts (legacy)
 are_contradictory_states(present, absent).
 are_contradictory_states(absent, present).
+
+% Visibility conflicts
 are_contradictory_states(visible, invisible).
 are_contradictory_states(invisible, visible).
 
@@ -364,6 +401,7 @@ is_remote_action(E) :- event_type(E, telekinesis).
 is_remote_action(E) :- event_type(E, curse).
 
 % Track travel events for location change analysis
+% Phase 3: Include refined movement event types
 is_travel_event(E) :- event_type(E, travel).
 is_travel_event(E) :- event_type(E, walk).
 is_travel_event(E) :- event_type(E, run).
@@ -372,6 +410,9 @@ is_travel_event(E) :- event_type(E, move).
 is_travel_event(E) :- event_type(E, fly).
 is_travel_event(E) :- event_type(E, drive).
 is_travel_event(E) :- event_type(E, apparate).
+is_travel_event(E) :- event_type(E, enter).    % Phase 3: entering a location
+is_travel_event(E) :- event_type(E, exit).     % Phase 3: exiting a location
+is_travel_event(E) :- event_type(E, teleport). % Phase 3: teleportation
 
 % --- Unreachable location detection ---
 % Track reachability through connected locations
@@ -434,6 +475,15 @@ is_travel_exempt(E) :- event_type(E, journey).
 % "arrive" at a new area implies travel happened (car trip, walk, etc.)
 is_travel_exempt(E) :- event_type(E, arrive).
 is_travel_exempt(E) :- event_type(E, leave).  % Leaving for another area
+
+% Movement within the same container is coherent (not teleportation)
+% e.g., kitchen → hallway within "house" is exempt from reachability checks
+is_travel_exempt(E) :-
+    event(E),
+    location(E, CurrentLoc),
+    previous_event_location(E, PrevLoc),
+    CurrentLoc != PrevLoc,
+    travel_within_container(PrevLoc, CurrentLoc).
 
 
 % =============================================================================

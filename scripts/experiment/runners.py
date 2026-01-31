@@ -640,6 +640,11 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     state_manager, alias_resolver, i
                 )
                 
+                # Collect known entities from AliasResolver and ItemTracker for prompt injection
+                known_characters_list = alias_resolver.format_known_characters_list()
+                known_locations_list = alias_resolver.format_known_locations_list()
+                known_items_with_states = item_tracker.format_known_items_with_states()
+                
                 structured, entity_registry, rel_normalizer, event_normalizer = structure_chapter_standalone(
                     chapter_text, 
                     api_client,
@@ -651,6 +656,9 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     use_relationship_normalizer=use_split_extraction,  # Enable normalizer when using split extraction
                     use_event_normalizer=use_split_extraction,  # Enable event normalizer when using split extraction
                     timeout=llm_timeout,
+                    known_characters_list=known_characters_list,
+                    known_locations_list=known_locations_list,
+                    known_items_with_states=known_items_with_states,
                 )
                 
                 # Log EntityRegistry warnings if present

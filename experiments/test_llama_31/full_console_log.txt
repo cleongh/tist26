@@ -1,0 +1,20 @@
+=== Experiment Log Started: 2026-01-31T18:19:11.286488 ===
+
+[2026-01-31 18:19:11] [INFO] API Mode: local
+[2026-01-31 18:19:11] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-01-31 18:19:11] [INFO] LLM Timeout: 600s, ILASP Timeout: 60s
+[2026-01-31 18:19:11] [INFO] ============================================================
+[2026-01-31 18:19:11] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-01-31 18:19:11] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-01-31 18:19:11] [INFO] ============================================================
+[2026-01-31 18:19:11] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/test_llama_31/step2_engine_log.jsonl
+[2026-01-31 18:19:11] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_llama_31/step2_extractions.jsonl
+[2026-01-31 18:19:11] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_llama_31/step2_events_log.jsonl
+[2026-01-31 18:19:11] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_llama_31/step2_alias_conflicts.jsonl
+[2026-01-31 18:19:11] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_llama_31/step2_item_stats.jsonl
+[2026-01-31 18:19:11] [INFO] Using local LLM at: http://localhost:8080/v1
+[2026-01-31 18:19:11] [INFO] 
+Processing: Harry Potter (original)
+[2026-01-31 18:19:11] [INFO]   Found 5 chapters (limited to 5)
+[2026-01-31 18:19:11] [INFO]   Chapter 0: 000.txt
+[2026-01-31 18:19:11] [INFO]   [Phase 2] Extracting characters and locations...

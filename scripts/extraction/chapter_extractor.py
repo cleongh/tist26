@@ -27,6 +27,9 @@ def structure_chapter_standalone(
     use_relationship_normalizer: bool = True,
     use_event_normalizer: bool = True,
     timeout: int = 300,
+    known_characters_list: str = "(No characters established yet)",
+    known_locations_list: str = "(No locations established yet)",
+    known_items_with_states: str = "(No items established yet)",
 ) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
     """
     Structure a chapter using LLM extraction.
@@ -51,6 +54,9 @@ def structure_chapter_standalone(
         use_relationship_normalizer: If True, build and use RelationshipNormalizer
         use_event_normalizer: If True, build and use EventNormalizer
         timeout: Timeout for LLM API calls in seconds
+        known_characters_list: Formatted string of known character IDs from previous chapters
+        known_locations_list: Formatted string of known location IDs from previous chapters
+        known_items_with_states: Formatted string of known item IDs and states from previous chapters
         
     Returns:
         Tuple of (extracted data, EntityRegistry, RelationshipNormalizer, EventNormalizer)
@@ -65,6 +71,9 @@ def structure_chapter_standalone(
             use_relationship_normalizer,
             use_event_normalizer,
             timeout=timeout,
+            known_characters_list=known_characters_list,
+            known_locations_list=known_locations_list,
+            known_items_with_states=known_items_with_states,
         )
     
     # Original single-call extraction (no EntityRegistry or normalizers)
