@@ -39,7 +39,7 @@ class GeminiAPIClient:
                 raise ImportError("google-generativeai package not installed. Run: pip install google-generativeai")
         return self._client
     
-    def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 120) -> str:
+    def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 300) -> str:
         """Make a Gemini API call and return the response text."""
         import google.generativeai as genai
         
@@ -146,7 +146,7 @@ class LocalLLMClient:
         self.presence_penalty = presence_penalty
         self.frequency_penalty = frequency_penalty
     
-    def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 120) -> str:
+    def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 300) -> str:
         """Make a local LLM call and return the response text."""
         payload = {
             "model": "auto",

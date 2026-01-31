@@ -656,7 +656,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     if registry_warnings:
                         log(f"    [EntityRegistry] {len(registry_warnings)} warnings generated")
                         for warning in registry_warnings[:5]:  # Show first 5
-                            log(f"      - {warning.phase}: {warning.message}", "WARN")
+                            log(f"      - {warning.phase}: {warning.context}", "WARN")
                         if len(registry_warnings) > 5:
                             log(f"      ... and {len(registry_warnings) - 5} more", "WARN")
                 

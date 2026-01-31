@@ -85,7 +85,7 @@ def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_ITEMS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=2048, timeout=60)
+        response = api_client.extract(prompt, max_tokens=2048, timeout=120)
         result = _parse_json_response(response)
         
         return {
@@ -110,7 +110,7 @@ def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_RELATIONSHIPS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=2048, timeout=60)
+        response = api_client.extract(prompt, max_tokens=2048, timeout=120)
         result = _parse_json_response(response)
         
         return {
@@ -136,7 +136,7 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=4096, timeout=120)
+        response = api_client.extract(prompt, max_tokens=4096, timeout=300)
         result = _parse_json_response(response)
         
         return {
