@@ -55,6 +55,14 @@ from .lifecycle_tracker import (
     FinalAnalysisResult,
 )
 
+# JSON utilities for deterministic LLM output parsing
+from .json_utils import (
+    parse_llm_json,
+    parse_llm_json_strict,
+    repair_json,
+    JSONParseError,
+)
+
 __all__ = [
     "GeminiAPIClient",
     "OpenAIAPIClient",
@@ -93,4 +101,9 @@ __all__ = [
     "LooseEnd",
     "BackAnnotation",
     "FinalAnalysisResult",
+    # JSON utilities
+    "parse_llm_json",
+    "parse_llm_json_strict",
+    "repair_json",
+    "JSONParseError",
 ]

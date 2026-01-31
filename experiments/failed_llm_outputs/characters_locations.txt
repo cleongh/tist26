@@ -1,0 +1,9 @@
+=== JSON Parse Failure ===
+Phase: characters_locations
+Error: Expecting value: line 1 column 1 (char 0)
+
+=== Raw LLM Output ===
+invalid
+
+=== After Repair Attempt ===
+invalid

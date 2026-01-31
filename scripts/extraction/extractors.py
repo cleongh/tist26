@@ -21,6 +21,7 @@ from .prompts import (
 from .entity_registry import EntityRegistry, ValidationWarning
 from .relationship_normalizer import RelationshipNormalizer, NormalizationResult
 from .event_normalizer import EventNormalizer, EventNormalizationResult
+from .json_utils import parse_llm_json
 from ..state.logging import log
 
 
@@ -55,20 +56,23 @@ def extract_characters_and_locations(chapter_text: str, api_client) -> Dict[str,
     Returns:
         Dict with "characters" and "locations" lists
     """
+    default = {"characters": [], "locations": []}
     prompt = EXTRACT_CHARACTERS_AND_LOCATIONS_PROMPT.format(chapter_text=chapter_text)
     
     try:
         response = api_client.extract(prompt, max_tokens=4096, timeout=120)
-        result = _parse_json_response(response)
-        
-        # Ensure expected structure
-        return {
-            "characters": result.get("characters", []),
-            "locations": result.get("locations", []),
-        }
     except Exception as e:
         log(f"Character/location extraction failed: {e}", "WARN")
-        return {"characters": [], "locations": []}
+        return default
+    
+    result, success = parse_llm_json(response, "characters_locations", default)
+    if not success:
+        return default
+    
+    return {
+        "characters": result.get("characters", []),
+        "locations": result.get("locations", []),
+    }
 
 
 def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
@@ -82,18 +86,22 @@ def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
     Returns:
         Dict with "items" list
     """
+    default = {"items": []}
     prompt = EXTRACT_ITEMS_PROMPT.format(chapter_text=chapter_text)
     
     try:
         response = api_client.extract(prompt, max_tokens=2048, timeout=120)
-        result = _parse_json_response(response)
-        
-        return {
-            "items": result.get("items", []),
-        }
     except Exception as e:
         log(f"Item extraction failed: {e}", "WARN")
-        return {"items": []}
+        return default
+    
+    result, success = parse_llm_json(response, "items", default)
+    if not success:
+        return default
+    
+    return {
+        "items": result.get("items", []),
+    }
 
 
 def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
@@ -107,19 +115,23 @@ def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
     Returns:
         Dict with "relationships" and "initial_rules" lists
     """
+    default = {"relationships": [], "initial_rules": []}
     prompt = EXTRACT_RELATIONSHIPS_PROMPT.format(chapter_text=chapter_text)
     
     try:
         response = api_client.extract(prompt, max_tokens=2048, timeout=120)
-        result = _parse_json_response(response)
-        
-        return {
-            "relationships": result.get("relationships", []),
-            "initial_rules": result.get("initial_rules", []),
-        }
     except Exception as e:
         log(f"Relationship extraction failed: {e}", "WARN")
-        return {"relationships": [], "initial_rules": []}
+        return default
+    
+    result, success = parse_llm_json(response, "relationships", default)
+    if not success:
+        return default
+    
+    return {
+        "relationships": result.get("relationships", []),
+        "initial_rules": result.get("initial_rules", []),
+    }
 
 
 def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
@@ -133,18 +145,22 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     Returns:
         Dict with "events" list
     """
+    default = {"events": []}
     prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
     
     try:
         response = api_client.extract(prompt, max_tokens=4096, timeout=300)
-        result = _parse_json_response(response)
-        
-        return {
-            "events": result.get("events", []),
-        }
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
-        return {"events": []}
+        return default
+    
+    result, success = parse_llm_json(response, "events", default)
+    if not success:
+        return default
+    
+    return {
+        "events": result.get("events", []),
+    }
 
 
 def merge_extractions(

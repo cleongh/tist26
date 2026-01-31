@@ -1,0 +1,9 @@
+=== JSON Parse Failure ===
+Phase: test
+Error: Expecting value: line 1 column 1 (char 0)
+
+=== Raw LLM Output ===
+not json
+
+=== After Repair Attempt ===
+not json

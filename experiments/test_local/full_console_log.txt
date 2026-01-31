@@ -1,47 +1,20 @@
-=== Experiment Log Started: 2026-01-31T12:45:53.834357 ===
+=== Experiment Log Started: 2026-01-31T13:14:50.541403 ===
 
-[2026-01-31 12:45:53] [INFO] API Mode: local
-[2026-01-31 12:45:53] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
-[2026-01-31 12:45:53] [INFO] ============================================================
-[2026-01-31 12:45:53] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
-[2026-01-31 12:45:53] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
-[2026-01-31 12:45:53] [INFO] ============================================================
-[2026-01-31 12:45:53] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_engine_log.jsonl
-[2026-01-31 12:45:53] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_extractions.jsonl
-[2026-01-31 12:45:53] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_events_log.jsonl
-[2026-01-31 12:45:53] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_alias_conflicts.jsonl
-[2026-01-31 12:45:53] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_item_stats.jsonl
-[2026-01-31 12:45:53] [INFO] Using local LLM at: http://localhost:8080/v1
-[2026-01-31 12:45:53] [INFO] 
+[2026-01-31 13:14:50] [INFO] API Mode: local
+[2026-01-31 13:14:50] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-01-31 13:14:50] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-01-31 13:14:50] [INFO] ============================================================
+[2026-01-31 13:14:50] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-01-31 13:14:50] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-01-31 13:14:50] [INFO] ============================================================
+[2026-01-31 13:14:50] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_engine_log.jsonl
+[2026-01-31 13:14:50] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_extractions.jsonl
+[2026-01-31 13:14:50] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_events_log.jsonl
+[2026-01-31 13:14:50] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_alias_conflicts.jsonl
+[2026-01-31 13:14:50] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/test_local/step2_item_stats.jsonl
+[2026-01-31 13:14:50] [INFO] Using local LLM at: http://localhost:8080/v1
+[2026-01-31 13:14:50] [INFO] 
 Processing: Harry Potter (original)
-[2026-01-31 12:45:53] [INFO]   Found 17 chapters
-[2026-01-31 12:45:53] [INFO]   Chapter 0: 000.txt
-[2026-01-31 12:45:53] [INFO]   [Phase 2] Extracting characters and locations...
-[2026-01-31 12:46:38] [INFO]     -> 8 characters, 5 locations
-[2026-01-31 12:46:38] [INFO]   [Phase 2] Extracting items...
-[2026-01-31 12:47:13] [INFO]     -> 8 items
-[2026-01-31 12:47:13] [INFO]   [Phase 3] Building EntityRegistry...
-[2026-01-31 12:47:13] [WARN]     [EntityRegistry] Skipping location with empty ID: {'id:': 'parking_lot', 'name': 'Grunnings parking lot', 'connections': ['street'], 'contains': ['office']}
-[2026-01-31 12:47:13] [INFO]     -> 8 characters, 4 locations, 8 items registered
-[2026-01-31 12:47:13] [INFO]     -> 9 character aliases, 4 location aliases, 10 item aliases
-[2026-01-31 12:47:13] [INFO]   [Phase 4] Building RelationshipNormalizer...
-[2026-01-31 12:47:13] [INFO]   [Phase 5] Building EventNormalizer...
-[2026-01-31 12:47:13] [INFO]   [Phase 2] Extracting relationships...
-[2026-01-31 12:47:57] [INFO]     -> 11 relationships, 8 initial rules
-[2026-01-31 12:47:57] [INFO]   [Phase 2] Extracting events...
-[2026-01-31 12:49:57] [WARN] Event extraction failed: timed out
-[2026-01-31 12:49:57] [INFO]     -> 0 events
-[2026-01-31 12:49:57] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
-[2026-01-31 12:49:57] [INFO]     [RelationshipNormalizer] Normalized: 2 relationships, 1 conflicts, 9 dropped, 0 merged, 0 expanded
-[2026-01-31 12:49:57] [INFO]     -> 2 relationships after normalization
-[2026-01-31 12:49:57] [INFO]     -> 1 relationship conflicts detected (preserved for logic)
-[2026-01-31 12:49:57] [WARN]       - hagrid → professor_mcgonagall: ['friendly', 'trust']
-[2026-01-31 12:49:57] [INFO]   [Phase 4] Normalizing initial rules...
-[2026-01-31 12:49:57] [INFO]     -> 2 initial rules after normalization
-[2026-01-31 12:49:57] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
-[2026-01-31 12:49:57] [INFO]     [EventNormalizer] Validated: 0 events, 0 dropped
-[2026-01-31 12:49:57] [INFO]     [EventNormalizer] Items: 0 causal, 8 latent
-[2026-01-31 12:49:57] [INFO]     -> 0 events validated, 0 dropped
-[2026-01-31 12:49:57] [INFO]     -> Items: 0 causal, 8 latent
-[2026-01-31 12:49:57] [INFO]   [Phase 3/4/5] 15 validation warnings generated
-[2026-01-31 12:49:57] [INFO]     [EntityRegistry] 15 warnings generated
+[2026-01-31 13:14:50] [INFO]   Found 17 chapters
+[2026-01-31 13:14:50] [INFO]   Chapter 0: 000.txt
+[2026-01-31 13:14:50] [INFO]   [Phase 2] Extracting characters and locations...
