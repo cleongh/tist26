@@ -115,8 +115,30 @@ def main():
         action="store_true",
         help="Use Phase 2 split extraction (four independent LLM calls for characters, items, relationships, events)",
     )
+    parser.add_argument(
+        "--llm-timeout",
+        type=int,
+        default=300,
+        help="Timeout for LLM API calls in seconds (default: 300)",
+    )
+    parser.add_argument(
+        "--ilasp-timeout",
+        type=int,
+        default=60,
+        help="Timeout for ILASP learning in seconds (default: 60)",
+    )
+    parser.add_argument(
+        "--disable-timeouts",
+        action="store_true",
+        help="Disable all timeouts (set to None)",
+    )
     
     args = parser.parse_args()
+    
+    # Handle disable-timeouts flag
+    if args.disable_timeouts:
+        args.llm_timeout = None
+        args.ilasp_timeout = None
     
     # Validate API keys if using cloud APIs
     if args.api_mode == "gemini" and not GEMINI_API_KEY:
@@ -145,6 +167,10 @@ def main():
         log(f"API Model: {args.api_model}", "INFO")
     if getattr(args, 'split_extraction', False):
         log("Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)", "INFO")
+    if args.disable_timeouts:
+        log("Timeouts: DISABLED", "INFO")
+    else:
+        log(f"LLM Timeout: {args.llm_timeout}s, ILASP Timeout: {args.ilasp_timeout}s", "INFO")
     
     if args.summarize:
         generate_summary(experiment_dir)
