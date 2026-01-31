@@ -515,7 +515,23 @@ class EventExecutor:
             to_char = self._sanitize_char(rel.get("to", ""))
             rel_type = self._sanitize_id(rel.get("type", "neutral"))
             if from_char != "unknown" and to_char != "unknown" and rel_type != "neutral":
+                # Use initial_relationship for EC to derive time-indexed relationship/4
+                lines.append(f"initial_relationship({from_char}, {to_char}, {rel_type}).")
+                # Also keep relationship/3 for backward compatibility with simpler rules
                 lines.append(f"relationship({from_char}, {to_char}, {rel_type}).")
+        
+        # Process initial_rules - convert relationship predicates to relationship facts
+        # This handles rules like {"subject": "mr_dursley", "predicate": "hostile", "object": "harry_potter"}
+        for rule in data.get("initial_rules", []):
+            subject = self._sanitize_char(rule.get("subject", ""))
+            predicate = self._sanitize_id(rule.get("predicate", ""))
+            obj = self._sanitize_char(rule.get("object", ""))
+            
+            if subject != "unknown" and obj != "unknown" and predicate not in ("unknown", ""):
+                # Map predicate to relationship type (hostile, friendly, hates, loves, etc.)
+                rel_type = predicate  # The predicate IS the relationship type
+                lines.append(f"initial_relationship({subject}, {obj}, {rel_type}).")
+                lines.append(f"relationship({subject}, {obj}, {rel_type}).")
         
         # Process events
         event_ids = []
@@ -528,10 +544,14 @@ class EventExecutor:
             lines.append(f"event_type({eid}, {etype}).")
             lines.append(f"event_global({eid}, {etype}, {chapter_num}).")
             
-            # Event order
+            # Event order and time
             if eid.startswith('e') and eid[1:].isdigit():
                 event_num = int(eid[1:])
                 lines.append(f"event_order({eid}, {event_num}).")
+                # event_time is required by ASP rules (emotional.lp, etc.)
+                lines.append(f"event_time({eid}, {event_num}).")
+                # time/1 fact for EC framework
+                lines.append(f"time({event_num}).")
             
             # Event source text
             source_text = event.get('source_text', '')

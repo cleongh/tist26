@@ -1,9 +1,9 @@
 {
   "step": 2,
   "approach": "logic_engine",
-  "timestamp": "2026-01-31T01:18:28.144728",
+  "timestamp": "2026-01-31T03:05:13.012513",
   "chapters_processed": 34,
-  "total_errors": 16,
+  "total_errors": 4,
   "results": [
     {
       "story_name": "Harry Potter",
@@ -12,7 +12,7 @@
       "chapter_number": 0,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 18.59810495376587,
+      "duration_seconds": 30.533446550369263,
       "success": true,
       "error_message": ""
     },
@@ -23,7 +23,7 @@
       "chapter_number": 1,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 22.83080220222473,
+      "duration_seconds": 6.536694049835205,
       "success": true,
       "error_message": ""
     },
@@ -34,7 +34,7 @@
       "chapter_number": 2,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 11.468010187149048,
+      "duration_seconds": 13.004902601242065,
       "success": true,
       "error_message": ""
     },
@@ -45,7 +45,7 @@
       "chapter_number": 3,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 10.137485265731812,
+      "duration_seconds": 9.03042483329773,
       "success": true,
       "error_message": ""
     },
@@ -56,7 +56,7 @@
       "chapter_number": 4,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 17.101603984832764,
+      "duration_seconds": 11.14321255683899,
       "success": true,
       "error_message": ""
     },
@@ -65,17 +65,9 @@
       "variant": "original",
       "chapter_file": "005.txt",
       "chapter_number": 5,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "005.txt",
-          "category": "emotional",
-          "error_type": "relationship_action_mismatch",
-          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
-          "story_fragment": "Have a good term"
-        }
-      ],
-      "duration_seconds": 11.16598892211914,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 24.06552767753601,
       "success": true,
       "error_message": ""
     },
@@ -86,7 +78,7 @@
       "chapter_number": 6,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 18.120464086532593,
+      "duration_seconds": 17.98865580558777,
       "success": true,
       "error_message": ""
     },
@@ -97,7 +89,7 @@
       "chapter_number": 7,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 13.61950397491455,
+      "duration_seconds": 8.840477228164673,
       "success": true,
       "error_message": ""
     },
@@ -108,7 +100,7 @@
       "chapter_number": 8,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 19.866130352020264,
+      "duration_seconds": 18.663217067718506,
       "success": true,
       "error_message": ""
     },
@@ -117,24 +109,9 @@
       "variant": "original",
       "chapter_file": "009.txt",
       "chapter_number": 9,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "009.txt",
-          "category": "emotional",
-          "error_type": "relationship_action_mismatch",
-          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
-          "story_fragment": "Ron knocked it out with its own club."
-        },
-        {
-          "chapter_file": "009.txt",
-          "category": "emotional",
-          "error_type": "help_enemy",
-          "description": "emotional/help_enemy: help_enemy",
-          "story_fragment": "Ron knocked it out with its own club."
-        }
-      ],
-      "duration_seconds": 13.007220029830933,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 8.678271532058716,
       "success": true,
       "error_message": ""
     },
@@ -145,7 +122,7 @@
       "chapter_number": 10,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 10.238105535507202,
+      "duration_seconds": 4.530394077301025,
       "success": true,
       "error_message": ""
     },
@@ -154,17 +131,9 @@
       "variant": "original",
       "chapter_file": "011.txt",
       "chapter_number": 11,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "011.txt",
-          "category": "emotional",
-          "error_type": "relationship_flip",
-          "description": "emotional/relationship_flip: relationship_flip",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 16.078962326049805,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 15.950752019882202,
       "success": true,
       "error_message": ""
     },
@@ -175,7 +144,7 @@
       "chapter_number": 12,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 14.938689947128296,
+      "duration_seconds": 21.809432983398438,
       "success": true,
       "error_message": ""
     },
@@ -186,7 +155,7 @@
       "chapter_number": 13,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 13.320200204849243,
+      "duration_seconds": 14.85253357887268,
       "success": true,
       "error_message": ""
     },
@@ -197,7 +166,7 @@
       "chapter_number": 14,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 13.10751986503601,
+      "duration_seconds": 23.446520566940308,
       "success": true,
       "error_message": ""
     },
@@ -208,7 +177,7 @@
       "chapter_number": 15,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 42.79827284812927,
+      "duration_seconds": 36.353755474090576,
       "success": true,
       "error_message": ""
     },
@@ -217,7 +186,7 @@
       "variant": "original",
       "chapter_file": "016.txt",
       "chapter_number": 16,
-      "error_count": 3,
+      "error_count": 2,
       "errors": [
         {
           "chapter_file": "016.txt",
@@ -228,20 +197,13 @@
         },
         {
           "chapter_file": "016.txt",
-          "category": "emotional",
-          "error_type": "relationship_action_mismatch",
-          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
-          "story_fragment": "Hurry up, boy, we haven\u2019t got all day."
-        },
-        {
-          "chapter_file": "016.txt",
           "category": "causality",
           "error_type": "interacting_with_dead",
           "description": "causality/interacting_with_dead: interacting_with_dead",
           "story_fragment": "It was Quirrell. \u201cYou!\u201d gasped Harry."
         }
       ],
-      "duration_seconds": 20.693795919418335,
+      "duration_seconds": 14.13576054573059,
       "success": true,
       "error_message": ""
     },
@@ -252,7 +214,7 @@
       "chapter_number": 0,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 17.402915716171265,
+      "duration_seconds": 23.95548105239868,
       "success": true,
       "error_message": ""
     },
@@ -263,7 +225,7 @@
       "chapter_number": 1,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 13.619299411773682,
+      "duration_seconds": 6.9643330574035645,
       "success": true,
       "error_message": ""
     },
@@ -274,7 +236,7 @@
       "chapter_number": 2,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 11.468953609466553,
+      "duration_seconds": 10.543105840682983,
       "success": true,
       "error_message": ""
     },
@@ -285,7 +247,7 @@
       "chapter_number": 3,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 20.787395238876343,
+      "duration_seconds": 13.519335269927979,
       "success": true,
       "error_message": ""
     },
@@ -296,7 +258,7 @@
       "chapter_number": 4,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 16.583332061767578,
+      "duration_seconds": 29.1848886013031,
       "success": true,
       "error_message": ""
     },
@@ -305,17 +267,9 @@
       "variant": "modified",
       "chapter_file": "005.txt",
       "chapter_number": 5,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "005.txt",
-          "category": "emotional",
-          "error_type": "relationship_action_mismatch",
-          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
-          "story_fragment": "\u201cHave a good term my boy,\u201d said Uncle Vernon with a warm and sad smile."
-        }
-      ],
-      "duration_seconds": 14.95522403717041,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 22.552616834640503,
       "success": true,
       "error_message": ""
     },
@@ -326,7 +280,7 @@
       "chapter_number": 6,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 17.244710683822632,
+      "duration_seconds": 17.597995281219482,
       "success": true,
       "error_message": ""
     },
@@ -337,7 +291,7 @@
       "chapter_number": 7,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 38.66194772720337,
+      "duration_seconds": 12.995639324188232,
       "success": true,
       "error_message": ""
     },
@@ -346,17 +300,9 @@
       "variant": "modified",
       "chapter_file": "008.txt",
       "chapter_number": 8,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "008.txt",
-          "category": "emotional",
-          "error_type": "help_enemy",
-          "description": "emotional/help_enemy: help_enemy",
-          "story_fragment": "Malfoy threw the glass ball high into the air"
-        }
-      ],
-      "duration_seconds": 12.9063241481781,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.585425853729248,
       "success": true,
       "error_message": ""
     },
@@ -365,24 +311,9 @@
       "variant": "modified",
       "chapter_file": "009.txt",
       "chapter_number": 9,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "009.txt",
-          "category": "emotional",
-          "error_type": "relationship_action_mismatch",
-          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
-          "story_fragment": "Ron knocked it out with its own club"
-        },
-        {
-          "chapter_file": "009.txt",
-          "category": "emotional",
-          "error_type": "help_enemy",
-          "description": "emotional/help_enemy: help_enemy",
-          "story_fragment": "Ron knocked it out with its own club"
-        }
-      ],
-      "duration_seconds": 23.66017198562622,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.21971583366394,
       "success": true,
       "error_message": ""
     },
@@ -393,7 +324,7 @@
       "chapter_number": 10,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 18.529512405395508,
+      "duration_seconds": 7.404333591461182,
       "success": true,
       "error_message": ""
     },
@@ -402,17 +333,9 @@
       "variant": "modified",
       "chapter_file": "011.txt",
       "chapter_number": 11,
-      "error_count": 1,
-      "errors": [
-        {
-          "chapter_file": "011.txt",
-          "category": "emotional",
-          "error_type": "relationship_flip",
-          "description": "emotional/relationship_flip: relationship_flip",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 9.73183560371399,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.358105897903442,
       "success": true,
       "error_message": ""
     },
@@ -423,7 +346,7 @@
       "chapter_number": 12,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 24.367368698120117,
+      "duration_seconds": 16.585565328598022,
       "success": true,
       "error_message": ""
     },
@@ -434,7 +357,7 @@
       "chapter_number": 13,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 15.874764919281006,
+      "duration_seconds": 16.38780689239502,
       "success": true,
       "error_message": ""
     },
@@ -445,7 +368,7 @@
       "chapter_number": 14,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 20.580254793167114,
+      "duration_seconds": 24.372328996658325,
       "success": true,
       "error_message": ""
     },
@@ -454,24 +377,9 @@
       "variant": "modified",
       "chapter_file": "015.txt",
       "chapter_number": 15,
-      "error_count": 2,
-      "errors": [
-        {
-          "chapter_file": "015.txt",
-          "category": "emotional",
-          "error_type": "relationship_flip",
-          "description": "emotional/relationship_flip: relationship_flip",
-          "story_fragment": ""
-        },
-        {
-          "chapter_file": "015.txt",
-          "category": "emotional",
-          "error_type": "relationship_flip",
-          "description": "emotional/relationship_flip: relationship_flip",
-          "story_fragment": ""
-        }
-      ],
-      "duration_seconds": 14.138302564620972,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 25.19089961051941,
       "success": true,
       "error_message": ""
     },
@@ -487,17 +395,17 @@
           "category": "causality",
           "error_type": "dead_character_acting",
           "description": "causality/dead_character_acting: dead_character_acting",
-          "story_fragment": "Quirrell snapped his fingers. Ropes sprang out of thin air"
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
         },
         {
           "chapter_file": "016.txt",
-          "category": "causality",
-          "error_type": "interacting_with_dead",
-          "description": "causality/interacting_with_dead: interacting_with_dead",
-          "story_fragment": "It was Quirrell. \u201cYou!\u201d gasped Harry."
+          "category": "emotional",
+          "error_type": "relationship_flip",
+          "description": "emotional/relationship_flip: relationship_flip",
+          "story_fragment": ""
         }
       ],
-      "duration_seconds": 23.031185388565063,
+      "duration_seconds": 22.121634006500244,
       "success": true,
       "error_message": ""
     }

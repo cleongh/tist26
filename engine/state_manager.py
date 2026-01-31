@@ -479,6 +479,8 @@ class StateManager:
         # Relationships
         for (char1, char2), rel_type in self.persistent_relationships.items():
             facts.append(f"previous_relationship({char1}, {char2}, {rel_type}).")
+            # Also generate initial_relationship for EC to derive relationship/4
+            facts.append(f"initial_relationship({char1}, {char2}, {rel_type}).")
         
         return facts
     

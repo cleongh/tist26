@@ -191,17 +191,6 @@ Responsibilities:
 * Rule evaluation
 * Derived fact inference
 
-Suggested structure:
-
-```
-logic/
-  universal_rules.lp     # Default world rules
-  story_rules.lp         # Story-specific overrides
-  learned_rules.lp       # ILASP output
-  constraints.lp         # Global constraints
-  events.lp              # Event-to-state transitions
-```
-
 ASP is the **single source of truth** for reasoning.
 
 ---

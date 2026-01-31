@@ -1,35 +1,2158 @@
-[{"story": "Harry Potter", "variant": "original", "chapter": 0, "chapter_file": "000.txt", "timestamp": "2026-01-31T01:18:46.736613", "extraction": {"entities": {"characters": [{"id": "mr_dursley", "name": "Mr. Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "mrs_dursley", "name": "Mrs. Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "unknown", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "calm", "appearance": "unusual"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "irritated", "appearance": "unusual"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "sad", "appearance": "unusual"}, {"id": "lily_potter", "name": "Lily Potter", "state": "dead", "emotion": "unknown", "appearance": "normal"}, {"id": "james_potter", "name": "James Potter", "state": "dead", "emotion": "unknown", "appearance": "normal"}, {"id": "voldemort", "name": "Voldemort", "state": "unknown", "emotion": "unknown", "appearance": "unusual"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "number_four", "name": "Number Four", "connections": ["privet_drive"]}], "items": [{"id": "put_outer", "name": "Put-Outer", "state": "intact"}, {"id": "motorcycle", "name": "Motorcycle", "state": "intact"}, {"id": "letter", "name": "Letter", "state": "intact"}], "relationships": [{"from": "mr_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "mrs_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "mr_dursley", "to": "mrs_dursley", "type": "family"}, {"from": "mrs_dursley", "to": "mr_dursley", "type": "family"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "albus_dumbledore", "to": "harry_potter", "type": "friendly"}, {"from": "professor_mcgonagall", "to": "harry_potter", "type": "friendly"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "lily_potter", "to": "harry_potter", "type": "family"}, {"from": "james_potter", "to": "harry_potter", "type": "family"}, {"from": "voldemort", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "albus_dumbledore", "patient": null, "location": "privet_drive", "source_text": "A man appeared on the corner the cat had been watching"}, {"id": "e2", "type": "talk", "agent": "albus_dumbledore", "patient": "professor_mcgonagall", "location": "privet_drive", "source_text": "Fancy seeing you here, Professor McGonagall."}, {"id": "e3", "type": "give", "agent": "hagrid", "patient": "albus_dumbledore", "location": "privet_drive", "source_text": "I've got him, sir."}, {"id": "e4", "type": "hug", "agent": "hagrid", "patient": "harry_potter", "location": "privet_drive", "source_text": "Hagrid let out a howl like a wounded dog."}, {"id": "e5", "type": "leave", "agent": "hagrid", "patient": null, "location": "privet_drive", "source_text": "Hagrid swung himself onto the motorcycle and kicked the engine into life"}, {"id": "e6", "type": "leave", "agent": "albus_dumbledore", "patient": null, "location": "privet_drive", "source_text": "He turned on his heel and with a swish of his cloak, he was gone."}], "initial_rules": [{"subject": "mr_dursley", "predicate": "hostile", "object": "harry_potter"}, {"subject": "mrs_dursley", "predicate": "hostile", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hostile", "object": "harry_potter"}, {"subject": "voldemort", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 1, "chapter_file": "001.txt", "timestamp": "2026-01-31T01:19:09.569219", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "piers_polkiss", "name": "Piers Polkiss", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "mrs_figg", "name": "Mrs. Figg", "state": "normal", "emotion": "normal", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "zoo", "name": "Zoo", "connections": []}, {"id": "reptile_house", "name": "Reptile House", "connections": []}], "items": [{"id": "cupboard", "name": "Cupboard", "state": "intact"}, {"id": "bacon", "name": "Bacon", "state": "intact"}, {"id": "racing_bike", "name": "Racing Bike", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "piers_polkiss", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "dudley_dursley", "type": "family"}, {"from": "uncle_vernon", "to": "dudley_dursley", "type": "family"}, {"from": "harry_potter", "to": "dudley_dursley", "type": "fear"}]}, "events": [{"id": "e1", "type": "talk", "agent": "aunt_petunia", "patient": "harry_potter", "location": "privet_drive", "source_text": "\"Up! Get up! Now!\""}, {"id": "e2", "type": "talk", "agent": "uncle_vernon", "patient": "harry_potter", "location": "privet_drive", "source_text": "\"Comb your hair!\""}, {"id": "e3", "type": "talk", "agent": "dudley_dursley", "patient": "harry_potter", "location": "reptile_house", "source_text": "\"Out of the way, you,\""}, {"id": "e4", "type": "discover", "agent": "harry_potter", "patient": null, "location": "reptile_house", "source_text": "the glass front of the boa constrictor\u2019s tank had vanished"}, {"id": "e5", "type": "talk", "agent": "piers_polkiss", "patient": "uncle_vernon", "location": "privet_drive", "source_text": "\"Harry was talking to it, weren\u2019t you, Harry?\""}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hostile", "object": "harry_potter"}, {"subject": "piers_polkiss", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 2, "chapter_file": "002.txt", "timestamp": "2026-01-31T01:19:21.037284", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "mrs_figg", "name": "Mrs. Figg", "state": "normal", "emotion": "normal", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "cupboard_under_stairs", "name": "The Cupboard under the Stairs", "connections": []}, {"id": "smallest_bedroom", "name": "The Smallest Bedroom", "connections": []}, {"id": "railview_hotel", "name": "Railview Hotel", "connections": []}, {"id": "shack_on_rock", "name": "Shack on the Rock", "connections": []}], "items": [{"id": "letter", "name": "Letter", "state": "intact"}, {"id": "smelting_stick", "name": "Smelting Stick", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "harry_potter", "to": "dudley_dursley", "type": "hostile"}]}, "events": [{"id": "e1", "type": "take", "agent": "uncle_vernon", "patient": "harry_potter", "location": "privet_drive", "source_text": "it was jerked sharply out of his hand by Uncle Vernon"}, {"id": "e2", "type": "move", "agent": "harry_potter", "patient": null, "location": "smallest_bedroom", "source_text": "we think it might be nice if you moved into Dudley\u2019s second bedroom"}, {"id": "e3", "type": "attack", "agent": "dudley_dursley", "patient": "uncle_vernon", "location": "privet_drive", "source_text": "He gave his father a sharp tap on the head with his Smelting stick"}, {"id": "e4", "type": "discover", "agent": "harry_potter", "patient": null, "location": "privet_drive", "source_text": "Harry picked it up and stared at it, his heart twanging like a giant elastic band"}, {"id": "e5", "type": "leave", "agent": "uncle_vernon", "patient": null, "location": "privet_drive", "source_text": "We\u2019re going away. Just pack some clothes. No arguments!"}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 3, "chapter_file": "003.txt", "timestamp": "2026-01-31T01:19:31.174749", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "confused", "appearance": "normal"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "warm", "appearance": "unusual"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "fearful", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "fearful", "appearance": "normal"}], "locations": [{"id": "hut_on_the_rock", "name": "Hut-on-the-Rock", "connections": []}], "items": [{"id": "rifle", "name": "Rifle", "state": "intact"}, {"id": "chocolate_cake", "name": "Chocolate Cake", "state": "intact"}, {"id": "umbrella", "name": "Umbrella", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "rubeus_hagrid", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "rubeus_hagrid", "patient": null, "location": "hut_on_the_rock", "source_text": "A giant of a man was standing in the doorway."}, {"id": "e2", "type": "give", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "hut_on_the_rock", "source_text": "Got summat fer yeh here \u2014 I mighta sat on it at some point"}, {"id": "e3", "type": "talk", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "hut_on_the_rock", "source_text": "Harry \u2014 yet a wizard."}, {"id": "e4", "type": "attack", "agent": "rubeus_hagrid", "patient": "dudley_dursley", "location": "hut_on_the_rock", "source_text": "there was a flash of violet light, a sound like a firecracker"}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 4, "chapter_file": "004.txt", "timestamp": "2026-01-31T01:19:48.276005", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "friendly", "appearance": "unusual"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "professor_quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "dedalus_diggle", "name": "Dedalus Diggle", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "doris_crockford", "name": "Doris Crockford", "state": "normal", "emotion": "proud", "appearance": "normal"}, {"id": "mr_ollivander", "name": "Mr. Ollivander", "state": "normal", "emotion": "curious", "appearance": "normal"}], "locations": [{"id": "diagon_alley", "name": "Diagon Alley", "connections": []}, {"id": "leaky_cauldron", "name": "The Leaky Cauldron", "connections": []}, {"id": "gringotts", "name": "Gringotts", "connections": []}, {"id": "madam_malkins", "name": "Madam Malkin's Robes for All Occasions", "connections": []}, {"id": "ollivanders", "name": "Ollivanders", "connections": []}], "items": [{"id": "harrys_wand", "name": "Harry's Wand", "state": "intact"}, {"id": "hagrids_umbrella", "name": "Hagrid's Umbrella", "state": "intact"}, {"id": "snowy_owl", "name": "Snowy Owl", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "professor_quirrell", "to": "harry_potter", "type": "fear"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": null, "location": "diagon_alley", "source_text": "Welcome to Diagon Alley."}, {"id": "e2", "type": "meet", "agent": "harry_potter", "patient": "professor_quirrell", "location": "leaky_cauldron", "source_text": "Professor Quirrell will be one of your teachers at Hogwarts."}, {"id": "e3", "type": "give", "agent": "hagrid", "patient": "harry_potter", "location": "diagon_alley", "source_text": "I'll get yer an owl."}, {"id": "e4", "type": "praise", "agent": "mr_ollivander", "patient": "harry_potter", "location": "ollivanders", "source_text": "Oh, bravo! Yes, indeed, oh, very good."}, {"id": "e5", "type": "encourage", "agent": "hagrid", "patient": "harry_potter", "location": null, "source_text": "Yeh\u2019ll have a great time at Hogwarts."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 5, "chapter_file": "005.txt", "timestamp": "2026-01-31T01:19:59.438227", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "fearful", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "fred_weasley", "name": "Fred Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "george_weasley", "name": "George Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "molly_weasley", "name": "Molly Weasley", "state": "normal", "emotion": "kind", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "inquisitive", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "anxious", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "kings_cross", "name": "King's Cross Station", "connections": []}, {"id": "platform_nine_and_three_quarters", "name": "Platform Nine and Three-Quarters", "connections": []}, {"id": "hogwarts_express", "name": "Hogwarts Express", "connections": []}, {"id": "hogwarts", "name": "Hogwarts", "connections": []}], "items": [{"id": "hedwig", "name": "Hedwig", "state": "intact"}, {"id": "harrys_trunk", "name": "Harry's Trunk", "state": "intact"}, {"id": "scabbers", "name": "Scabbers", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "fear"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "farewell", "agent": "uncle_vernon", "patient": "harry_potter", "location": "kings_cross", "source_text": "Have a good term"}, {"id": "e2", "type": "meet", "agent": "harry_potter", "patient": "ron_weasley", "location": "hogwarts_express", "source_text": "Anyone sitting there?"}, {"id": "e3", "type": "meet", "agent": "harry_potter", "patient": "hermione_granger", "location": "hogwarts_express", "source_text": "I'm Hermione Granger, by the way, who are you?"}, {"id": "e4", "type": "meet", "agent": "harry_potter", "patient": "draco_malfoy", "location": "hogwarts_express", "source_text": "So it's you, is it?"}, {"id": "e5", "type": "help", "agent": "fred_weasley", "patient": "harry_potter", "location": "hogwarts_express", "source_text": "Want a hand?"}, {"id": "e6", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "platform_nine_and_three_quarters", "source_text": "He had done it."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 6, "chapter_file": "006.txt", "timestamp": "2026-01-31T01:20:17.562371", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "eager", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "nearly_headless_nick", "name": "Sir Nicholas de Mimsy-Porpington", "state": "normal", "emotion": "miffed", "appearance": "unusual"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "severus_snape", "name": "Professor Snape", "state": "normal", "emotion": "dislike", "appearance": "normal"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "unusual"}, {"id": "bloody_baron", "name": "Bloody Baron", "state": "normal", "emotion": "unpleasant", "appearance": "unusual"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}], "locations": [{"id": "entrance_hall", "name": "Entrance Hall", "connections": ["small_chamber", "great_hall"]}, {"id": "small_chamber", "name": "Small Chamber", "connections": ["entrance_hall"]}, {"id": "great_hall", "name": "Great Hall", "connections": ["entrance_hall"]}, {"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}], "items": [{"id": "sorting_hat", "name": "Sorting Hat", "state": "intact"}, {"id": "four_legged_stool", "name": "Four-legged Stool", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "fear"}, {"from": "severus_snape", "to": "harry_potter", "type": "hostile"}, {"from": "nearly_headless_nick", "to": "gryffindor_students", "type": "friendly"}, {"from": "bloody_baron", "to": "slytherin_students", "type": "friendly"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "entrance_hall", "source_text": "The door swung open at once."}, {"id": "e2", "type": "talk", "agent": "professor_mcgonagall", "patient": "first_years", "location": "small_chamber", "source_text": "Welcome to Hogwarts"}, {"id": "e3", "type": "encourage", "agent": "fat_friar", "patient": "first_years", "location": "small_chamber", "source_text": "Hope to see you in Hufflepuff!"}, {"id": "e4", "type": "discover", "agent": "harry_potter", "patient": "sorting_hat", "location": "great_hall", "source_text": "The hat twitched. A rip near the brim opened wide"}, {"id": "e5", "type": "praise", "agent": "weasley_twins", "patient": "harry_potter", "location": "great_hall", "source_text": "We got Potter! We got Potter!"}, {"id": "e6", "type": "talk", "agent": "albus_dumbledore", "patient": "students", "location": "great_hall", "source_text": "Welcome to a new year at Hogwarts!"}, {"id": "e7", "type": "talk", "agent": "nearly_headless_nick", "patient": "gryffindor_students", "location": "great_hall", "source_text": "So \u2014 new Gryffindors!"}, {"id": "e8", "type": "talk", "agent": "peeves", "patient": "first_years", "location": "corridor", "source_text": "Ickle Firsties! What fun!"}], "initial_rules": [{"subject": "severus_snape", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 7, "chapter_file": "007.txt", "timestamp": "2026-01-31T01:20:31.181912", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "eager", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "argus_filch", "name": "Argus Filch", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "mrs_norris", "name": "Mrs. Norris", "state": "normal", "emotion": "hostile", "appearance": "unusual"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "distressed", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "dungeon", "name": "Dungeon", "connections": []}, {"id": "hagrid_house", "name": "Hagrid's House", "connections": []}], "items": [{"id": "hedwig", "name": "Hedwig", "state": "intact"}, {"id": "rock_cake", "name": "Rock Cake", "state": "intact"}], "relationships": [{"from": "severus_snape", "to": "harry_potter", "type": "hostile"}, {"from": "argus_filch", "to": "students", "type": "hostile"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "talk", "agent": "hagrid", "patient": "harry_potter", "location": "hagrid_house", "source_text": "I want to hear all about your first week."}, {"id": "e2", "type": "praise", "agent": "professor_mcgonagall", "patient": "hermione_granger", "location": "hogwarts", "source_text": "gave Hermione a rare smile."}, {"id": "e3", "type": "hostile", "agent": "severus_snape", "patient": "harry_potter", "location": "dungeon", "source_text": "Snape didn\u2019t dislike Harry \u2014 he hated him."}, {"id": "e4", "type": "help", "agent": "professor_quirrell", "patient": "harry_potter", "location": "hogwarts", "source_text": "rescued by Professor Quirrell, who was passing."}], "initial_rules": [{"subject": "severus_snape", "predicate": "hates", "object": "harry_potter"}, {"subject": "argus_filch", "predicate": "hostile", "object": "students"}, {"subject": "hagrid", "predicate": "friendly", "object": "harry_potter"}, {"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 8, "chapter_file": "008.txt", "timestamp": "2026-01-31T01:20:51.048293", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "concerned", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "madam_hooch", "name": "Madam Hooch", "state": "normal", "emotion": "instructive", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "crabbe", "name": "Crabbe", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "goyle", "name": "Goyle", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "pansy_parkinson", "name": "Pansy Parkinson", "state": "normal", "emotion": "mocking", "appearance": "normal"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "normal"}, {"id": "filch", "name": "Filch", "state": "normal", "emotion": "suspicious", "appearance": "normal"}], "locations": [{"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "flying_lesson_ground", "name": "Flying Lesson Ground", "connections": []}, {"id": "trophy_room", "name": "Trophy Room", "connections": []}, {"id": "third_floor_corridor", "name": "Third Floor Corridor", "connections": []}], "items": [{"id": "remembrall", "name": "Remembrall", "state": "intact"}, {"id": "broomstick", "name": "Broomstick", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}, {"from": "hermione_granger", "to": "harry_potter", "type": "concerned"}, {"from": "neville_longbottom", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "take", "agent": "draco_malfoy", "patient": "neville_longbottom", "location": "gryffindor_common_room", "source_text": "Malfoy, who was passing the Gryffindor table, snatched the Remembrall"}, {"id": "e2", "type": "give", "agent": "draco_malfoy", "patient": "neville_longbottom", "location": "flying_lesson_ground", "source_text": "Malfoy quickly dropped the Remembrall back on the table"}, {"id": "e3", "type": "discover", "agent": "harry_potter", "patient": null, "location": "third_floor_corridor", "source_text": "They were looking straight into the eyes of a monstrous dog"}, {"id": "e4", "type": "praise", "agent": "professor_mcgonagall", "patient": "harry_potter", "location": null, "source_text": "Your father would have been proud"}, {"id": "e5", "type": "encourage", "agent": "oliver_wood", "patient": "harry_potter", "location": null, "source_text": "Wood was now looking as though all his dreams had come true"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hates", "object": "draco_malfoy"}, {"subject": "draco_malfoy", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 9, "chapter_file": "009.txt", "timestamp": "2026-01-31T01:21:04.052322", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "disapproving", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "jealous", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "professor_flitwick", "name": "Professor Flitwick", "state": "normal", "emotion": "beaming", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "glinting", "appearance": "normal"}, {"id": "professor_snape", "name": "Professor Snape", "state": "normal", "emotion": "piercing", "appearance": "normal"}, {"id": "professor_quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "terrified", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "fearful", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "quidditch_field", "name": "Quidditch Field", "connections": []}, {"id": "girls_bathroom", "name": "Girls' Bathroom", "connections": []}], "items": [{"id": "nimbus_two_thousand", "name": "Nimbus Two Thousand", "state": "intact"}, {"id": "troll_club", "name": "Troll's Club", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "hostile"}, {"from": "hermione_granger", "to": "ron_weasley", "type": "hostile"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": null, "location": "quidditch_field", "source_text": "Harry mounted his broomstick and kicked off from the ground."}, {"id": "e2", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "girls_bathroom", "source_text": "Hermione Granger, telling a downright lie to a teacher?"}, {"id": "e3", "type": "attack", "agent": "troll", "patient": "hermione_granger", "location": "girls_bathroom", "source_text": "The troll was advancing on her, knocking the sinks off the walls."}, {"id": "e4", "type": "help", "agent": "ron_weasley", "patient": "hermione_granger", "location": "girls_bathroom", "source_text": "Ron knocked it out with its own club."}, {"id": "e5", "type": "help", "agent": "harry_potter", "patient": "hermione_granger", "location": "girls_bathroom", "source_text": "Harry stuck his wand up its nose."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "hermione_granger"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "ron_weasley"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 10, "chapter_file": "010.txt", "timestamp": "2026-01-31T01:21:14.293874", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "bitter", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "angry", "appearance": "unusual"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "marcus_flint", "name": "Marcus Flint", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "lee_jordan", "name": "Lee Jordan", "state": "normal", "emotion": "biased", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "scared", "appearance": "normal"}, {"id": "dean_thomas", "name": "Dean Thomas", "state": "normal", "emotion": "angry", "appearance": "normal"}], "locations": [{"id": "quidditch_pitch", "name": "Quidditch Pitch", "connections": []}, {"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "staffroom", "name": "Staffroom", "connections": []}], "items": [{"id": "quidditch_through_the_ages", "name": "Quidditch Through the Ages", "state": "intact"}, {"id": "nimbus_two_thousand", "name": "Nimbus Two Thousand", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "ron_weasley", "to": "severus_snape", "type": "hostile"}, {"from": "hermione_granger", "to": "severus_snape", "type": "hostile"}, {"from": "marcus_flint", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": "null", "location": "staffroom", "source_text": "Snape was holding his robes above his knees."}, {"id": "e2", "type": "attack", "agent": "marcus_flint", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Marcus Flint had blocked Harry on purpose."}, {"id": "e3", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Bright blue flames shot from her wand onto the hem of Snape\u2019s robes."}, {"id": "e4", "type": "discover", "agent": "harry_potter", "patient": "null", "location": "null", "source_text": "He tried to get past that three-headed dog on Halloween."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "severus_snape"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "severus_snape"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "severus_snape"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 11, "chapter_file": "011.txt", "timestamp": "2026-01-31T01:21:30.369250", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "jealous", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "calm", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "fred_weasley", "name": "Fred Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "george_weasley", "name": "George Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "percy_weasley", "name": "Percy Weasley", "state": "normal", "emotion": "disapproving", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Minerva McGonagall", "state": "normal", "emotion": "amused", "appearance": "normal"}, {"id": "professor_flitwick", "name": "Filius Flitwick", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "madam_pince", "name": "Madam Pince", "state": "normal", "emotion": "strict", "appearance": "normal"}, {"id": "fat_lady", "name": "The Fat Lady", "state": "normal", "emotion": "curious", "appearance": "normal"}], "locations": [{"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "library", "name": "Library", "connections": []}, {"id": "restricted_section", "name": "Restricted Section", "connections": []}, {"id": "mirror_room", "name": "Mirror Room", "connections": []}, {"id": "hogwarts_corridors", "name": "Hogwarts Corridors", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "weasley_sweater", "name": "Weasley Sweater", "state": "intact"}, {"id": "chocolate_frogs", "name": "Chocolate Frogs", "state": "intact"}, {"id": "wooden_flute", "name": "Wooden Flute", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "friendly"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}, {"from": "draco_malfoy", "to": "ron_weasley", "type": "hostile"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "hagrid", "to": "ron_weasley", "type": "friendly"}, {"from": "hagrid", "to": "hermione_granger", "type": "friendly"}, {"from": "albus_dumbledore", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "give", "agent": "hagrid", "patient": "harry_potter", "location": null, "source_text": "To Harry, from Hagrid. Inside was a roughly cut wooden flute."}, {"id": "e2", "type": "give", "agent": "ron_weasley", "patient": "harry_potter", "location": null, "source_text": "I told her you didn\u2019t expect any presents and \u2014 oh, no"}, {"id": "e3", "type": "discover", "agent": "harry_potter", "patient": null, "location": "mirror_room", "source_text": "He had seen not only himself in the mirror, but a whole crowd"}, {"id": "e4", "type": "talk", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "mirror_room", "source_text": "So \u2014 back again, Harry?"}, {"id": "e5", "type": "praise", "agent": "hagrid", "patient": "ron_weasley", "location": null, "source_text": "He was provoked, Professor Snape"}], "initial_rules": [{"subject": "draco_malfoy", "predicate": "hates", "object": "harry_potter"}, {"subject": "harry_potter", "predicate": "hates", "object": "draco_malfoy"}, {"subject": "harry_potter", "predicate": "hates", "object": "severus_snape"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 12, "chapter_file": "012.txt", "timestamp": "2026-01-31T01:21:45.311304", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "anxious", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "trembling", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "mocking", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "smiling", "appearance": "normal"}, {"id": "quirrell", "name": "Quirrell", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "determined", "appearance": "normal"}], "locations": [{"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "quidditch_pitch", "name": "Quidditch Pitch", "connections": []}, {"id": "forbidden_forest", "name": "Forbidden Forest", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "chocolate_frog", "name": "Chocolate Frog", "state": "intact"}, {"id": "sorcerers_stone", "name": "Sorcerer's Stone", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "neville_longbottom", "to": "draco_malfoy", "type": "hostile"}, {"from": "severus_snape", "to": "quirrell", "type": "hostile"}, {"from": "albus_dumbledore", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "give", "agent": "harry_potter", "patient": "neville_longbottom", "location": "gryffindor_common_room", "source_text": "He gave it to Neville, who looked as though he might cry."}, {"id": "e2", "type": "discover", "agent": "harry_potter", "patient": null, "location": "gryffindor_common_room", "source_text": "I\u2019ve found him!\u201d he whispered. \u201cI\u2019ve found Flamel!"}, {"id": "e3", "type": "attack", "agent": "ron_weasley", "patient": "draco_malfoy", "location": "quidditch_pitch", "source_text": "Ron was on top of him, wrestling him to the ground."}, {"id": "e4", "type": "praise", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Well done,\u201d said Dumbledore quietly, so that only Harry could hear."}, {"id": "e5", "type": "talk", "agent": "severus_snape", "patient": "quirrell", "location": "forbidden_forest", "source_text": "You don\u2019t want me as your enemy, Quirrell."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "severus_snape"}, {"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "neville_longbottom", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "severus_snape", "predicate": "hostile", "object": "quirrell"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 13, "chapter_file": "013.txt", "timestamp": "2026-01-31T01:21:58.631059", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "severus_snape", "name": "Professor Snape", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "minerva_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "normal", "appearance": "normal"}], "locations": [{"id": "library", "name": "Library", "connections": []}, {"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "tallest_tower", "name": "Tallest Tower", "connections": []}], "items": [{"id": "norwegian_ridgeback_egg", "name": "Norwegian Ridgeback Egg", "state": "intact"}, {"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "hermione_granger", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "quirrell", "type": "friendly"}, {"from": "ron_weasley", "to": "quirrell", "type": "friendly"}]}, "events": [{"id": "e1", "type": "smile", "agent": "harry_potter", "patient": "quirrell", "location": null, "source_text": "Whenever Harry passed Quirrell these days he gave him an"}, {"id": "e2", "type": "talk", "agent": "harry_potter", "patient": "hagrid", "location": "library", "source_text": "There are a few things we wanted to ask you, as a matter"}, {"id": "e3", "type": "discover", "agent": "ron_weasley", "patient": null, "location": "library", "source_text": "Dragons! he whispered. Hagrid was looking up stuff about"}, {"id": "e4", "type": "talk", "agent": "hermione_granger", "patient": "hagrid", "location": "hagrids_hut", "source_text": "Oh, come on, Hagrid, you might not want to tell us, but"}, {"id": "e5", "type": "discover", "agent": "harry_potter", "patient": null, "location": "hagrids_hut", "source_text": "Hagrid \u2014 what\u2019s that? But he already knew what it was."}, {"id": "e6", "type": "farewell", "agent": "hagrid", "patient": "norbert", "location": "hagrids_hut", "source_text": "Bye-bye, Norbert! Hagrid sobbed, as Harry and Hermione"}, {"id": "e7", "type": "detention", "agent": "minerva_mcgonagall", "patient": "draco_malfoy", "location": "tallest_tower", "source_text": "Detention! she shouted. And twenty points from Slytherin!"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "draco_malfoy"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 14, "chapter_file": "014.txt", "timestamp": "2026-01-31T01:22:11.739113", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "miserable", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "timid", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "stunned", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "fearful", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "disgusted", "appearance": "normal"}, {"id": "filch", "name": "Filch", "state": "normal", "emotion": "gleeful", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "irritated", "appearance": "normal"}, {"id": "quirrell", "name": "Quirrell", "state": "normal", "emotion": "scared", "appearance": "pale"}, {"id": "snape", "name": "Snape", "state": "normal", "emotion": "unknown", "appearance": "normal"}, {"id": "firenze", "name": "Firenze", "state": "normal", "emotion": "concerned", "appearance": "unusual"}, {"id": "ronan", "name": "Ronan", "state": "normal", "emotion": "sorrowful", "appearance": "unusual"}, {"id": "bane", "name": "Bane", "state": "normal", "emotion": "angry", "appearance": "unusual"}], "locations": [{"id": "forbidden_forest", "name": "Forbidden Forest", "connections": []}, {"id": "astronomy_tower", "name": "Astronomy Tower", "connections": []}, {"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "professor_mcgonagalls_study", "name": "Professor McGonagall's Study", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "unicorn_blood", "name": "Unicorn Blood", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "snape", "type": "hostile"}, {"from": "bane", "to": "firenze", "type": "hostile"}, {"from": "bane", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "meet", "agent": "professor_mcgonagall", "patient": "harry_potter", "location": "professor_mcgonagalls_study", "source_text": "When Professor McGonagall appeared, she was leading Neville."}, {"id": "e2", "type": "talk", "agent": "professor_mcgonagall", "patient": "harry_potter", "location": "professor_mcgonagalls_study", "source_text": "Explain yourselves."}, {"id": "e3", "type": "talk", "agent": "firenze", "patient": "harry_potter", "location": "forbidden_forest", "source_text": "You are the Potter boy."}, {"id": "e4", "type": "help", "agent": "firenze", "patient": "harry_potter", "location": "forbidden_forest", "source_text": "Firenze saved me, but he shouldn\u2019t have done so\u2026."}, {"id": "e5", "type": "discover", "agent": "harry_potter", "patient": null, "location": "forbidden_forest", "source_text": "It was the unicorn all right, and it was dead."}, {"id": "e6", "type": "attack", "agent": "unknown_figure", "patient": "unicorn", "location": "forbidden_forest", "source_text": "The cloaked figure reached the unicorn, lowered its head over the wound."}, {"id": "e7", "type": "farewell", "agent": "firenze", "patient": "harry_potter", "location": "forbidden_forest", "source_text": "Good luck, Harry Potter."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "harry_potter", "predicate": "hostile", "object": "snape"}, {"subject": "bane", "predicate": "hostile", "object": "firenze"}, {"subject": "bane", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 15, "chapter_file": "015.txt", "timestamp": "2026-01-31T01:22:54.537590", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "brave", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "casual", "appearance": "normal"}, {"id": "snape", "name": "Severus Snape", "state": "normal", "emotion": "suspicious", "appearance": "normal"}, {"id": "mcgonagall", "name": "Minerva McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "third_floor_corridor", "name": "Third Floor Corridor", "connections": []}, {"id": "chess_room", "name": "Chess Room", "connections": []}, {"id": "trapdoor", "name": "Trapdoor", "connections": []}], "items": [{"id": "flute", "name": "Flute", "state": "intact"}, {"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "snape", "type": "hostile"}, {"from": "harry_potter", "to": "voldemort", "type": "hostile"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "harry_potter", "to": "hagrid", "type": "friendly"}, {"from": "harry_potter", "to": "mcgonagall", "type": "respect"}, {"from": "harry_potter", "to": "neville_longbottom", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": null, "location": "hagrids_hut", "source_text": "Hagrid told that stranger how to get past Fluffy"}, {"id": "e2", "type": "talk", "agent": "harry_potter", "patient": "mcgonagall", "location": "hogwarts", "source_text": "We want to see Professor Dumbledore"}, {"id": "e3", "type": "encourage", "agent": "hermione_granger", "patient": "harry_potter", "location": null, "source_text": "Harry \u2014 you\u2019re a great wizard, you know."}, {"id": "e4", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "trapdoor", "source_text": "The smallest bottle will get us through the black fire"}, {"id": "e5", "type": "attack", "agent": "hermione_granger", "patient": "neville_longbottom", "location": "hogwarts", "source_text": "Petrificus Totalus!"}, {"id": "e6", "type": "help", "agent": "ron_weasley", "patient": "harry_potter", "location": "chess_room", "source_text": "You\u2019ve got to make some sacrifices!"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "snape"}, {"subject": "harry_potter", "predicate": "hostile", "object": "voldemort"}]}}
-,{"story": "Harry Potter", "variant": "original", "chapter": 16, "chapter_file": "016.txt", "timestamp": "2026-01-31T01:23:15.227920", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "quirrell", "name": "Professor Quirrell", "state": "dead", "emotion": "fearful", "appearance": "unusual"}, {"id": "voldemort", "name": "Lord Voldemort", "state": "normal", "emotion": "hostile", "appearance": "unusual"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "calm", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "remorseful", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}], "locations": [{"id": "mirror_of_erised", "name": "Mirror of Erised", "connections": []}, {"id": "hospital_wing", "name": "Hospital Wing", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "kings_cross_station", "name": "King's Cross Station", "connections": []}], "items": [{"id": "sorcerers_stone", "name": "Sorcerer's Stone", "state": "intact"}, {"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "voldemort", "type": "hostile"}, {"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "harry_potter", "to": "uncle_vernon", "type": "hostile"}, {"from": "voldemort", "to": "quirrell", "type": "fear"}, {"from": "severus_snape", "to": "harry_potter", "type": "hostile"}, {"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": "quirrell", "location": "mirror_of_erised", "source_text": "It was Quirrell. \u201cYou!\u201d gasped Harry."}, {"id": "e2", "type": "attack", "agent": "quirrell", "patient": "harry_potter", "location": "mirror_of_erised", "source_text": "Quirrell snapped his fingers. Ropes sprang out of thin air"}, {"id": "e3", "type": "help", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "mirror_of_erised", "source_text": "I arrived just in time to pull Quirrell off you."}, {"id": "e4", "type": "praise", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "hospital_wing", "source_text": "you were doing very well on your own, I must say."}, {"id": "e5", "type": "farewell", "agent": "uncle_vernon", "patient": "harry_potter", "location": "kings_cross_station", "source_text": "Hurry up, boy, we haven\u2019t got all day."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "voldemort"}, {"subject": "harry_potter", "predicate": "hostile", "object": "severus_snape"}, {"subject": "harry_potter", "predicate": "hostile", "object": "uncle_vernon"}, {"subject": "voldemort", "predicate": "fear", "object": "quirrell"}, {"subject": "severus_snape", "predicate": "hostile", "object": "harry_potter"}, {"subject": "uncle_vernon", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 0, "chapter_file": "000.txt", "timestamp": "2026-01-31T01:23:32.635976", "extraction": {"entities": {"characters": [{"id": "mr_dursley", "name": "Mr. Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "mrs_dursley", "name": "Mrs. Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "lily_potter", "name": "Lily Potter", "state": "dead", "emotion": "normal", "appearance": "normal"}, {"id": "james_potter", "name": "James Potter", "state": "dead", "emotion": "normal", "appearance": "normal"}, {"id": "sirius_black", "name": "Sirius Black", "state": "normal", "emotion": "normal", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "number_four", "name": "Number Four", "connections": ["privet_drive"]}], "items": [{"id": "put_outer", "name": "Put-Outer", "state": "intact"}, {"id": "motorcycle", "name": "Motorcycle", "state": "intact"}, {"id": "letter", "name": "Letter", "state": "intact"}], "relationships": [{"from": "mr_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "mrs_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "albus_dumbledore", "to": "harry_potter", "type": "friendly"}, {"from": "professor_mcgonagall", "to": "harry_potter", "type": "friendly"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "lily_potter", "to": "harry_potter", "type": "family"}, {"from": "james_potter", "to": "harry_potter", "type": "family"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "albus_dumbledore", "patient": null, "location": "privet_drive", "source_text": "A man appeared on the corner the cat had been watching"}, {"id": "e2", "type": "talk", "agent": "albus_dumbledore", "patient": "professor_mcgonagall", "location": "privet_drive", "source_text": "Fancy seeing you here, Professor McGonagall."}, {"id": "e3", "type": "give", "agent": "hagrid", "patient": "albus_dumbledore", "location": "privet_drive", "source_text": "I've got him, sir."}, {"id": "e4", "type": "hug", "agent": "hagrid", "patient": "harry_potter", "location": "privet_drive", "source_text": "Hagrid bent his great, shaggy head over Harry"}, {"id": "e5", "type": "leave", "agent": "hagrid", "patient": null, "location": "privet_drive", "source_text": "Hagrid swung himself onto the motorcycle"}, {"id": "e6", "type": "leave", "agent": "albus_dumbledore", "patient": null, "location": "privet_drive", "source_text": "Dumbledore turned and walked back down the street."}], "initial_rules": [{"subject": "mr_dursley", "predicate": "hates", "object": "harry_potter"}, {"subject": "mrs_dursley", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 1, "chapter_file": "001.txt", "timestamp": "2026-01-31T01:23:46.255110", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "piers_polkiss", "name": "Piers Polkiss", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "mrs_figg", "name": "Mrs. Figg", "state": "normal", "emotion": "neutral", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "zoo", "name": "Zoo", "connections": []}, {"id": "reptile_house", "name": "Reptile House", "connections": []}], "items": [{"id": "cupboard", "name": "Cupboard", "state": "intact"}, {"id": "bacon", "name": "Bacon", "state": "intact"}, {"id": "glass", "name": "Glass", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "piers_polkiss", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "piers_polkiss", "type": "friendly"}]}, "events": [{"id": "e1", "type": "talk", "agent": "aunt_petunia", "patient": "harry_potter", "location": "privet_drive", "source_text": "\"Up! Get up! Now!\""}, {"id": "e2", "type": "talk", "agent": "uncle_vernon", "patient": "harry_potter", "location": "privet_drive", "source_text": "\"Comb your hair!\""}, {"id": "e3", "type": "talk", "agent": "dudley_dursley", "patient": "aunt_petunia", "location": "privet_drive", "source_text": "\"Thirty-six,\" he said, looking up at his mother"}, {"id": "e4", "type": "talk", "agent": "aunt_petunia", "patient": "dudley_dursley", "location": "privet_drive", "source_text": "\"And we\u2019ll buy you another two presents while we\u2019re out today.\""}, {"id": "e5", "type": "talk", "agent": "uncle_vernon", "patient": "harry_potter", "location": "privet_drive", "source_text": "\"I\u2019m warning you now, boy \u2014 any funny business, anything at all \u2014 and you\u2019ll be in that cupboard from now until Christmas.\""}, {"id": "e6", "type": "discover", "agent": "harry_potter", "patient": null, "location": "reptile_house", "source_text": "The snake suddenly opened its beady eyes."}, {"id": "e7", "type": "talk", "agent": "harry_potter", "patient": "snake", "location": "reptile_house", "source_text": "\"Where do you come from, anyway?\""}, {"id": "e8", "type": "discover", "agent": "harry_potter", "patient": null, "location": "reptile_house", "source_text": "The glass front of the boa constrictor\u2019s tank had vanished."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hates", "object": "harry_potter"}, {"subject": "piers_polkiss", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 2, "chapter_file": "002.txt", "timestamp": "2026-01-31T01:23:57.724349", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "frustrated", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "annoyed", "appearance": "normal"}, {"id": "mrs_figg", "name": "Mrs. Figg", "state": "normal", "emotion": "neutral", "appearance": "normal"}], "locations": [{"id": "privet_drive", "name": "Privet Drive", "connections": []}, {"id": "cupboard_under_stairs", "name": "The Cupboard under the Stairs", "connections": []}, {"id": "smallest_bedroom", "name": "The Smallest Bedroom", "connections": []}, {"id": "railview_hotel", "name": "Railview Hotel", "connections": []}, {"id": "shack_on_rock", "name": "Shack on the Rock", "connections": []}], "items": [{"id": "letter", "name": "Letter", "state": "intact"}, {"id": "smelting_stick", "name": "Smelting Stick", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "harry_potter", "to": "dudley_dursley", "type": "hostile"}]}, "events": [{"id": "e1", "type": "take", "agent": "uncle_vernon", "patient": "harry_potter", "location": "privet_drive", "source_text": "it was jerked sharply out of his hand by Uncle Vernon"}, {"id": "e2", "type": "move", "agent": "harry_potter", "patient": null, "location": "smallest_bedroom", "source_text": "we think it might be nice if you moved into Dudley\u2019s second bedroom"}, {"id": "e3", "type": "attack", "agent": "dudley_dursley", "patient": "uncle_vernon", "location": "privet_drive", "source_text": "He gave his father a sharp tap on the head with his Smelting stick"}, {"id": "e4", "type": "leave", "agent": "uncle_vernon", "patient": null, "location": "privet_drive", "source_text": "I want you all back here in five minutes ready to leave"}, {"id": "e5", "type": "arrive", "agent": "uncle_vernon", "patient": null, "location": "shack_on_rock", "source_text": "Uncle Vernon was pointing at what looked like a large rock way out at sea"}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 3, "chapter_file": "003.txt", "timestamp": "2026-01-31T01:24:18.511642", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "confused", "appearance": "normal"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "warm", "appearance": "unusual"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "fearful", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "fearful", "appearance": "normal"}], "locations": [{"id": "hut_on_the_rock", "name": "Hut-on-the-Rock", "connections": []}], "items": [{"id": "rifle", "name": "Rifle", "state": "intact"}, {"id": "chocolate_cake", "name": "Chocolate Cake", "state": "intact"}, {"id": "umbrella", "name": "Umbrella", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "hostile"}, {"from": "rubeus_hagrid", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "rubeus_hagrid", "patient": null, "location": "hut_on_the_rock", "source_text": "A giant of a man was standing in the doorway."}, {"id": "e2", "type": "give", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "hut_on_the_rock", "source_text": "Got summat fer yeh here \u2014 I mighta sat on it at some point..."}, {"id": "e3", "type": "talk", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "hut_on_the_rock", "source_text": "Harry \u2014 yet a wizard."}, {"id": "e4", "type": "attack", "agent": "rubeus_hagrid", "patient": "dudley_dursley", "location": "hut_on_the_rock", "source_text": "there was a flash of violet light, a sound like a firecracker..."}, {"id": "e5", "type": "praise", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "hut_on_the_rock", "source_text": "Harry Potter, not a wizard \u2014 you wait, you\u2019ll be right famous at Hogwarts."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 4, "chapter_file": "004.txt", "timestamp": "2026-01-31T01:24:35.095246", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "friendly", "appearance": "unusual"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "professor_quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "dedalus_diggle", "name": "Dedalus Diggle", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "doris_crockford", "name": "Doris Crockford", "state": "normal", "emotion": "proud", "appearance": "normal"}, {"id": "tom_bartender", "name": "Tom the Bartender", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "mr_ollivander", "name": "Mr. Ollivander", "state": "normal", "emotion": "curious", "appearance": "normal"}], "locations": [{"id": "diagon_alley", "name": "Diagon Alley", "connections": []}, {"id": "leaky_cauldron", "name": "The Leaky Cauldron", "connections": []}, {"id": "gringotts", "name": "Gringotts", "connections": []}, {"id": "madam_malkins", "name": "Madam Malkin's Robes for All Occasions", "connections": []}, {"id": "ollivanders", "name": "Ollivanders", "connections": []}], "items": [{"id": "harrys_wand", "name": "Harry's Wand", "state": "intact"}, {"id": "hagrids_umbrella", "name": "Hagrid's Umbrella", "state": "intact"}, {"id": "snowy_owl", "name": "Snowy Owl", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "rubeus_hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "professor_quirrell", "to": "harry_potter", "type": "fear"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "diagon_alley", "source_text": "Welcome to Diagon Alley."}, {"id": "e2", "type": "meet", "agent": "harry_potter", "patient": "dedalus_diggle", "location": "leaky_cauldron", "source_text": "Delighted, Mr. Potter, just can\u2019t tell you, Diggle\u2019s the name"}, {"id": "e3", "type": "meet", "agent": "harry_potter", "patient": "doris_crockford", "location": "leaky_cauldron", "source_text": "Doris Crockford, Mr. Potter, can\u2019t believe I\u2019m meeting you at last."}, {"id": "e4", "type": "meet", "agent": "harry_potter", "patient": "professor_quirrell", "location": "leaky_cauldron", "source_text": "P-P-Potter, stammered Professor Quirrell"}, {"id": "e5", "type": "give", "agent": "rubeus_hagrid", "patient": "harry_potter", "location": "diagon_alley", "source_text": "I\u2019ll get yer an owl."}, {"id": "e6", "type": "discover", "agent": "harry_potter", "patient": null, "location": "gringotts", "source_text": "All yours, smiled Hagrid."}, {"id": "e7", "type": "give", "agent": "mr_ollivander", "patient": "harry_potter", "location": "ollivanders", "source_text": "The wand chooses the wizard, remember."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 5, "chapter_file": "005.txt", "timestamp": "2026-01-31T01:24:50.046888", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "half_terrified_half_furious", "appearance": "normal"}, {"id": "aunt_petunia", "name": "Aunt Petunia", "state": "normal", "emotion": "half_terrified_half_furious", "appearance": "normal"}, {"id": "dudley_dursley", "name": "Dudley Dursley", "state": "normal", "emotion": "scared", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "gloomy", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "bossy", "appearance": "unusual"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "sneering", "appearance": "normal"}, {"id": "fred_weasley", "name": "Fred Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "george_weasley", "name": "George Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "tearful", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}], "locations": [{"id": "dursleys_house", "name": "Dursleys' House", "connections": []}, {"id": "kings_cross_station", "name": "King's Cross Station", "connections": []}, {"id": "platform_nine_and_three_quarters", "name": "Platform Nine and Three-Quarters", "connections": []}, {"id": "hogwarts_express", "name": "Hogwarts Express", "connections": []}, {"id": "hogwarts", "name": "Hogwarts", "connections": []}], "items": [{"id": "hedwig", "name": "Hedwig", "state": "intact"}, {"id": "harrys_trunk", "name": "Harry's Trunk", "state": "intact"}, {"id": "scabbers", "name": "Scabbers", "state": "intact"}], "relationships": [{"from": "uncle_vernon", "to": "harry_potter", "type": "hostile"}, {"from": "aunt_petunia", "to": "harry_potter", "type": "hostile"}, {"from": "dudley_dursley", "to": "harry_potter", "type": "fear"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "farewell", "agent": "uncle_vernon", "patient": "harry_potter", "location": "kings_cross_station", "source_text": "\u201cHave a good term my boy,\u201d said Uncle Vernon with a warm and sad smile."}, {"id": "e2", "type": "meet", "agent": "harry_potter", "patient": "ron_weasley", "location": "hogwarts_express", "source_text": "\u201cAre you really Harry Potter?\u201d Ron blurted out."}, {"id": "e3", "type": "meet", "agent": "harry_potter", "patient": "hermione_granger", "location": "hogwarts_express", "source_text": "\u201cI\u2019m Hermione Granger, by the way, who are you.\u201d"}, {"id": "e4", "type": "meet", "agent": "harry_potter", "patient": "draco_malfoy", "location": "hogwarts_express", "source_text": "\u201cSo it\u2019s you, is it?\u201d"}, {"id": "e5", "type": "help", "agent": "fred_weasley", "patient": "harry_potter", "location": "platform_nine_and_three_quarters", "source_text": "With the twins\u2019 help, Harry\u2019s trunk was at last tucked away."}, {"id": "e6", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "platform_nine_and_three_quarters", "source_text": "He had done it. Smoke from the engine drifted over the heads."}, {"id": "e7", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "hogwarts", "source_text": "\u201cYe\u2019 all get yer firs\u2019 sight o\u2019 Hogwarts in a sec,\u201d Hagrid called."}], "initial_rules": [{"subject": "uncle_vernon", "predicate": "hates", "object": "harry_potter"}, {"subject": "aunt_petunia", "predicate": "hates", "object": "harry_potter"}, {"subject": "dudley_dursley", "predicate": "fears", "object": "harry_potter"}, {"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 6, "chapter_file": "006.txt", "timestamp": "2026-01-31T01:25:07.294689", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "eager", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "cheerful", "appearance": "unusual"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "nearly_headless_nick", "name": "Nearly Headless Nick", "state": "normal", "emotion": "miffed", "appearance": "unusual"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "unusual"}, {"id": "fat_friar", "name": "Fat Friar", "state": "normal", "emotion": "friendly", "appearance": "unusual"}], "locations": [{"id": "entrance_hall", "name": "Entrance Hall", "connections": ["small_chamber", "great_hall"]}, {"id": "small_chamber", "name": "Small Chamber", "connections": ["entrance_hall"]}, {"id": "great_hall", "name": "Great Hall", "connections": ["entrance_hall"]}, {"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}], "items": [{"id": "sorting_hat", "name": "Sorting Hat", "state": "intact"}, {"id": "four_legged_stool", "name": "Four-legged Stool", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "nearly_headless_nick", "to": "gryffindor_students", "type": "friendly"}, {"from": "peeves", "to": "students", "type": "hostile"}]}, "events": [{"id": "e1", "type": "arrive", "agent": "harry_potter", "patient": null, "location": "entrance_hall", "source_text": "The door swung open at once."}, {"id": "e2", "type": "talk", "agent": "professor_mcgonagall", "patient": "first_years", "location": "small_chamber", "source_text": "Welcome to Hogwarts"}, {"id": "e3", "type": "encourage", "agent": "fat_friar", "patient": "first_years", "location": "small_chamber", "source_text": "Hope to see you in Hufflepuff!"}, {"id": "e4", "type": "arrive", "agent": "ghosts", "patient": null, "location": "small_chamber", "source_text": "About twenty ghosts had just streamed through the back wall."}, {"id": "e5", "type": "praise", "agent": "weasley_twins", "patient": "harry_potter", "location": "great_hall", "source_text": "We got Potter! We got Potter!"}, {"id": "e6", "type": "talk", "agent": "albus_dumbledore", "patient": "students", "location": "great_hall", "source_text": "Welcome to a new year at Hogwarts!"}, {"id": "e7", "type": "talk", "agent": "nearly_headless_nick", "patient": "gryffindor_students", "location": "great_hall", "source_text": "I hope you\u2019re going to help us win the house championship"}, {"id": "e8", "type": "attack", "agent": "peeves", "patient": "first_years", "location": "corridor", "source_text": "They started throwing themselves at him."}], "initial_rules": [{"subject": "severus_snape", "predicate": "hostile", "object": "harry_potter"}, {"subject": "peeves", "predicate": "hostile", "object": "students"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 7, "chapter_file": "007.txt", "timestamp": "2026-01-31T01:25:45.956859", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "eager", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "argus_filch", "name": "Argus Filch", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "mrs_norris", "name": "Mrs. Norris", "state": "normal", "emotion": "hostile", "appearance": "unusual"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "distressed", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "dungeon", "name": "Dungeon", "connections": []}, {"id": "hagrid_hut", "name": "Hagrid's Hut", "connections": []}], "items": [{"id": "hedwig", "name": "Hedwig", "state": "intact"}, {"id": "rock_cakes", "name": "Rock Cakes", "state": "intact"}, {"id": "gringotts_cutting", "name": "Gringotts Cutting", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "severus_snape", "to": "harry_potter", "type": "hostile"}, {"from": "hagrid", "to": "harry_potter", "type": "friendly"}, {"from": "argus_filch", "to": "students", "type": "hostile"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}]}, "events": [{"id": "e1", "type": "talk", "agent": "harry_potter", "patient": "ron_weasley", "location": "great_hall", "source_text": "\"What have we got today?\" Harry asked Ron"}, {"id": "e2", "type": "talk", "agent": "hagrid", "patient": "harry_potter", "location": "hagrid_hut", "source_text": "\"Make yerselves at home,\" said Hagrid"}, {"id": "e3", "type": "praise", "agent": "professor_mcgonagall", "patient": "hermione_granger", "location": "hogwarts", "source_text": "gave Hermione a rare smile"}, {"id": "e4", "type": "talk", "agent": "severus_snape", "patient": "harry_potter", "location": "dungeon", "source_text": "\"Potter!\" said Snape suddenly"}, {"id": "e5", "type": "discover", "agent": "harry_potter", "patient": null, "location": "hagrid_hut", "source_text": "It was a cutting from the Daily Prophet"}], "initial_rules": [{"subject": "severus_snape", "predicate": "hates", "object": "harry_potter"}, {"subject": "argus_filch", "predicate": "hostile", "object": "students"}, {"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 8, "chapter_file": "008.txt", "timestamp": "2026-01-31T01:25:58.860132", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "concerned", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "madam_hooch", "name": "Madam Hooch", "state": "normal", "emotion": "instructive", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "crabbe", "name": "Crabbe", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "goyle", "name": "Goyle", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "pansy_parkinson", "name": "Pansy Parkinson", "state": "normal", "emotion": "mocking", "appearance": "normal"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "normal"}, {"id": "filch", "name": "Filch", "state": "normal", "emotion": "suspicious", "appearance": "normal"}], "locations": [{"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "flying_lesson_ground", "name": "Flying Lesson Ground", "connections": []}, {"id": "trophy_room", "name": "Trophy Room", "connections": []}, {"id": "third_floor_corridor", "name": "Third Floor Corridor", "connections": []}], "items": [{"id": "remembrall", "name": "Remembrall", "state": "intact"}, {"id": "broomstick", "name": "Broomstick", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "draco_malfoy", "to": "harry_potter", "type": "hostile"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}, {"from": "hermione_granger", "to": "harry_potter", "type": "concerned"}, {"from": "neville_longbottom", "to": "harry_potter", "type": "friendly"}, {"from": "professor_mcgonagall", "to": "harry_potter", "type": "stern"}, {"from": "oliver_wood", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "take", "agent": "draco_malfoy", "patient": "neville_longbottom", "location": "gryffindor_common_room", "source_text": "Malfoy, who was passing the Gryffindor table, snatched the Remembrall"}, {"id": "e2", "type": "give", "agent": "draco_malfoy", "patient": "harry_potter", "location": "flying_lesson_ground", "source_text": "Malfoy threw the glass ball high into the air"}, {"id": "e3", "type": "discover", "agent": "harry_potter", "patient": null, "location": "third_floor_corridor", "source_text": "They were looking straight into the eyes of a monstrous dog"}, {"id": "e4", "type": "praise", "agent": "professor_mcgonagall", "patient": "harry_potter", "location": null, "source_text": "Your father would have been proud"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hates", "object": "draco_malfoy"}, {"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 9, "chapter_file": "009.txt", "timestamp": "2026-01-31T01:26:22.519791", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "disapproving", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "jealous", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "professor_flitwick", "name": "Professor Flitwick", "state": "normal", "emotion": "cheerful", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "delighted", "appearance": "normal"}, {"id": "professor_snape", "name": "Professor Snape", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "professor_quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "terrified", "appearance": "unusual"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "fearful", "appearance": "normal"}], "locations": [{"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "quidditch_field", "name": "Quidditch Field", "connections": []}, {"id": "girls_bathroom", "name": "Girls' Bathroom", "connections": []}, {"id": "gryffindor_tower", "name": "Gryffindor Tower", "connections": []}], "items": [{"id": "nimbus_two_thousand", "name": "Nimbus Two Thousand", "state": "intact"}, {"id": "golden_snitch", "name": "Golden Snitch", "state": "intact"}, {"id": "quaffle", "name": "Quaffle", "state": "intact"}, {"id": "bludger", "name": "Bludger", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "hostile"}, {"from": "hermione_granger", "to": "ron_weasley", "type": "hostile"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": null, "location": "great_hall", "source_text": "It contains your new Nimbus Two Thousand"}, {"id": "e2", "type": "talk", "agent": "hermione_granger", "patient": "ron_weasley", "location": null, "source_text": "You\u2019re saying it wrong"}, {"id": "e3", "type": "help", "agent": "harry_potter", "patient": "hermione_granger", "location": "girls_bathroom", "source_text": "Harry stuck his wand up its nose"}, {"id": "e4", "type": "help", "agent": "ron_weasley", "patient": "hermione_granger", "location": "girls_bathroom", "source_text": "Ron knocked it out with its own club"}, {"id": "e5", "type": "praise", "agent": "professor_flitwick", "patient": "hermione_granger", "location": null, "source_text": "Oh, well done!"}, {"id": "e6", "type": "praise", "agent": "oliver_wood", "patient": "harry_potter", "location": "quidditch_field", "source_text": "you really are a natural"}, {"id": "e7", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "girls_bathroom", "source_text": "If they hadn\u2019t found me, I\u2019d be dead now"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "hermione_granger"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "ron_weasley"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 10, "chapter_file": "010.txt", "timestamp": "2026-01-31T01:26:41.053730", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "bitter", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "angry", "appearance": "unusual"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "neutral", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "marcus_flint", "name": "Marcus Flint", "state": "normal", "emotion": "aggressive", "appearance": "normal"}, {"id": "lee_jordan", "name": "Lee Jordan", "state": "normal", "emotion": "biased", "appearance": "normal"}], "locations": [{"id": "quidditch_pitch", "name": "Quidditch Pitch", "connections": []}, {"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "staffroom", "name": "Staffroom", "connections": []}], "items": [{"id": "quidditch_through_the_ages", "name": "Quidditch Through the Ages", "state": "intact"}, {"id": "nimbus_two_thousand", "name": "Nimbus Two Thousand", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "ron_weasley", "to": "severus_snape", "type": "hostile"}, {"from": "hermione_granger", "to": "severus_snape", "type": "hostile"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": "severus_snape", "location": "staffroom", "source_text": "Snape was holding his robes above his knees. One of his legs was bloody"}, {"id": "e2", "type": "attack", "agent": "marcus_flint", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Marcus Flint had blocked Harry on purpose"}, {"id": "e3", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Bright blue flames shot from her wand onto the hem of Snape\u2019s robes"}, {"id": "e4", "type": "discover", "agent": "harry_potter", "patient": "null", "location": "null", "source_text": "I found out something about him... He tried to get past that three-headed dog"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "severus_snape"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "severus_snape"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "severus_snape"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 11, "chapter_file": "011.txt", "timestamp": "2026-01-31T01:26:50.782245", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "curious", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "jealous", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "calm", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "friendly", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "fred_weasley", "name": "Fred Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "george_weasley", "name": "George Weasley", "state": "normal", "emotion": "playful", "appearance": "normal"}, {"id": "percy_weasley", "name": "Percy Weasley", "state": "normal", "emotion": "disapproving", "appearance": "normal"}, {"id": "madam_pince", "name": "Madam Pince", "state": "normal", "emotion": "strict", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "library", "name": "Library", "connections": []}, {"id": "restricted_section", "name": "Restricted Section", "connections": []}, {"id": "mirror_room", "name": "Mirror Room", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "mirror_of_erised", "name": "Mirror of Erised", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "friendly"}, {"from": "fred_weasley", "to": "george_weasley", "type": "friendly"}, {"from": "fred_weasley", "to": "percy_weasley", "type": "family"}, {"from": "george_weasley", "to": "percy_weasley", "type": "family"}]}, "events": [{"id": "e1", "type": "give", "agent": "hagrid", "patient": "harry_potter", "location": "gryffindor_common_room", "source_text": "To Harry, from Hagrid."}, {"id": "e2", "type": "discover", "agent": "harry_potter", "patient": null, "location": "mirror_room", "source_text": "He had seen not only himself in the mirror, but a whole crowd of people."}, {"id": "e3", "type": "talk", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "mirror_room", "source_text": "So \u2014 back again, Harry?"}, {"id": "e4", "type": "praise", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "mirror_room", "source_text": "Now, why don\u2019t you put that admirable cloak back on and get off to bed?"}], "initial_rules": [{"subject": "draco_malfoy", "predicate": "hostile", "object": "harry_potter"}, {"subject": "severus_snape", "predicate": "hostile", "object": "harry_potter"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 12, "chapter_file": "012.txt", "timestamp": "2026-01-31T01:27:15.153681", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "anxious", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "excited", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "trembling", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "mocking", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "smiling", "appearance": "normal"}, {"id": "quirrell", "name": "Quirrell", "state": "normal", "emotion": "nervous", "appearance": "normal"}, {"id": "oliver_wood", "name": "Oliver Wood", "state": "normal", "emotion": "determined", "appearance": "normal"}], "locations": [{"id": "gryffindor_common_room", "name": "Gryffindor Common Room", "connections": []}, {"id": "quidditch_pitch", "name": "Quidditch Pitch", "connections": []}, {"id": "forbidden_forest", "name": "Forbidden Forest", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "chocolate_frog", "name": "Chocolate Frog", "state": "intact"}, {"id": "sorcerers_stone", "name": "Sorcerer's Stone", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "neville_longbottom", "to": "draco_malfoy", "type": "hostile"}, {"from": "severus_snape", "to": "quirrell", "type": "hostile"}]}, "events": [{"id": "e1", "type": "give", "agent": "harry_potter", "patient": "neville_longbottom", "location": "gryffindor_common_room", "source_text": "He gave it to Neville, who looked as though he might cry."}, {"id": "e2", "type": "discover", "agent": "harry_potter", "patient": null, "location": "gryffindor_common_room", "source_text": "I\u2019ve found him!\u201d he whispered. \u201cI\u2019ve found Flamel!"}, {"id": "e3", "type": "attack", "agent": "ron_weasley", "patient": "draco_malfoy", "location": "quidditch_pitch", "source_text": "Ron was on top of him, wrestling him to the ground."}, {"id": "e4", "type": "praise", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "quidditch_pitch", "source_text": "Well done,\u201d said Dumbledore quietly, so that only Harry could hear."}, {"id": "e5", "type": "talk", "agent": "severus_snape", "patient": "quirrell", "location": "forbidden_forest", "source_text": "You don\u2019t want me as your enemy, Quirrell."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "severus_snape"}, {"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "neville_longbottom", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "severus_snape", "predicate": "hostile", "object": "quirrell"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 13, "chapter_file": "013.txt", "timestamp": "2026-01-31T01:27:31.027523", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "rubeus_hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "quirrell", "name": "Professor Quirrell", "state": "normal", "emotion": "normal", "appearance": "unusual"}, {"id": "severus_snape", "name": "Professor Snape", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "charlie_weasley", "name": "Charlie Weasley", "state": "normal", "emotion": "normal", "appearance": "normal"}, {"id": "norbert", "name": "Norbert the Norwegian Ridgeback", "state": "normal", "emotion": "normal", "appearance": "unusual"}], "locations": [{"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "library", "name": "Library", "connections": []}, {"id": "tallest_tower", "name": "Tallest Tower", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "dragon_egg", "name": "Dragon Egg", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "ron_weasley", "to": "draco_malfoy", "type": "hostile"}, {"from": "hermione_granger", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "quirrell", "type": "friendly"}, {"from": "ron_weasley", "to": "quirrell", "type": "friendly"}, {"from": "hagrid", "to": "norbert", "type": "love"}]}, "events": [{"id": "e1", "type": "smile", "agent": "harry_potter", "patient": "quirrell", "location": null, "source_text": "Whenever Harry passed Quirrell these days he gave him an encoura"}, {"id": "e2", "type": "discover", "agent": "ron_weasley", "patient": null, "location": "library", "source_text": "Dragons! he whispered. Hagrid was looking up stuff about dragons!"}, {"id": "e3", "type": "talk", "agent": "harry_potter", "patient": "hagrid", "location": "hagrids_hut", "source_text": "We were wondering if you could tell us what\u2019s guarding the Sorcer"}, {"id": "e4", "type": "give", "agent": "charlie_weasley", "patient": "harry_potter", "location": null, "source_text": "I\u2019d be glad to take the Norwegian Ridgeback, but it won\u2019t be easy"}, {"id": "e5", "type": "farewell", "agent": "hagrid", "patient": "norbert", "location": "hagrids_hut", "source_text": "Bye-bye, Norbert! Hagrid sobbed, as Harry and Hermione covered the"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "ron_weasley", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "hermione_granger", "predicate": "hostile", "object": "draco_malfoy"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 14, "chapter_file": "014.txt", "timestamp": "2026-01-31T01:27:51.607999", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "miserable", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "trembling", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "stunned", "appearance": "normal"}, {"id": "draco_malfoy", "name": "Draco Malfoy", "state": "normal", "emotion": "fearful", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "professor_mcgonagall", "name": "Professor McGonagall", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "filch", "name": "Filch", "state": "normal", "emotion": "gleeful", "appearance": "normal"}, {"id": "hagrid", "name": "Hagrid", "state": "normal", "emotion": "irritated", "appearance": "normal"}, {"id": "quirrell", "name": "Quirrell", "state": "normal", "emotion": "scared", "appearance": "pale"}, {"id": "snape", "name": "Snape", "state": "normal", "emotion": "unknown", "appearance": "normal"}, {"id": "firenze", "name": "Firenze", "state": "normal", "emotion": "concerned", "appearance": "unusual"}, {"id": "bane", "name": "Bane", "state": "normal", "emotion": "angry", "appearance": "normal"}, {"id": "ronan", "name": "Ronan", "state": "normal", "emotion": "sorrowful", "appearance": "normal"}], "locations": [{"id": "forbidden_forest", "name": "Forbidden Forest", "connections": []}, {"id": "astronomy_tower", "name": "Astronomy Tower", "connections": []}, {"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "professor_mcgonagalls_study", "name": "Professor McGonagall's Study", "connections": []}], "items": [{"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}, {"id": "unicorn", "name": "Unicorn", "state": "dead"}], "relationships": [{"from": "harry_potter", "to": "draco_malfoy", "type": "hostile"}, {"from": "harry_potter", "to": "snape", "type": "hostile"}, {"from": "bane", "to": "firenze", "type": "hostile"}, {"from": "harry_potter", "to": "neville_longbottom", "type": "friendly"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "meet", "agent": "professor_mcgonagall", "patient": "harry_potter", "location": "professor_mcgonagalls_study", "source_text": "When Professor McGonagall appeared, she was leading Neville."}, {"id": "e2", "type": "talk", "agent": "neville_longbottom", "patient": "harry_potter", "location": "professor_mcgonagalls_study", "source_text": "I knew you were up to something, I heard Draco saying something..."}, {"id": "e3", "type": "discover", "agent": "harry_potter", "patient": "unicorn", "location": "forbidden_forest", "source_text": "It was the unicorn all right, and it was dead."}, {"id": "e4", "type": "help", "agent": "firenze", "patient": "harry_potter", "location": "forbidden_forest", "source_text": "Are you all right? said the centaur, pulling Harry to his feet."}, {"id": "e5", "type": "farewell", "agent": "firenze", "patient": "harry_potter", "location": "forbidden_forest", "source_text": "Good luck, Harry Potter, said Firenze."}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "draco_malfoy"}, {"subject": "harry_potter", "predicate": "hostile", "object": "snape"}, {"subject": "bane", "predicate": "hostile", "object": "firenze"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 15, "chapter_file": "015.txt", "timestamp": "2026-01-31T01:28:05.740372", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "anxious", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "casual", "appearance": "normal"}, {"id": "snape", "name": "Severus Snape", "state": "normal", "emotion": "suspicious", "appearance": "normal"}, {"id": "mcgonagall", "name": "Minerva McGonagall", "state": "normal", "emotion": "stern", "appearance": "normal"}, {"id": "neville_longbottom", "name": "Neville Longbottom", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "peeves", "name": "Peeves", "state": "normal", "emotion": "mischievous", "appearance": "normal"}], "locations": [{"id": "hogwarts", "name": "Hogwarts", "connections": []}, {"id": "hagrids_hut", "name": "Hagrid's Hut", "connections": []}, {"id": "third_floor_corridor", "name": "Third Floor Corridor", "connections": []}, {"id": "chess_room", "name": "Chess Room", "connections": []}], "items": [{"id": "flute", "name": "Flute", "state": "intact"}, {"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "snape", "type": "hostile"}, {"from": "harry_potter", "to": "voldemort", "type": "hostile"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}, {"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "harry_potter", "to": "hagrid", "type": "friendly"}, {"from": "hermione_granger", "to": "ron_weasley", "type": "friendly"}, {"from": "hermione_granger", "to": "harry_potter", "type": "friendly"}, {"from": "ron_weasley", "to": "hermione_granger", "type": "friendly"}, {"from": "ron_weasley", "to": "harry_potter", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": null, "location": "hagrids_hut", "source_text": "Hagrid told that stranger how to get past Fluffy"}, {"id": "e2", "type": "talk", "agent": "harry_potter", "patient": "mcgonagall", "location": "hogwarts", "source_text": "We want to see Professor Dumbledore"}, {"id": "e3", "type": "encourage", "agent": "hermione_granger", "patient": "harry_potter", "location": null, "source_text": "Harry \u2014 you\u2019re a great wizard, you know."}, {"id": "e4", "type": "help", "agent": "hermione_granger", "patient": "harry_potter", "location": "chess_room", "source_text": "Lucky you pay attention in Herbology, Hermione"}, {"id": "e5", "type": "attack", "agent": "white_queen", "patient": "ron_weasley", "location": "chess_room", "source_text": "She struck Ron hard across the head"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hostile", "object": "snape"}, {"subject": "harry_potter", "predicate": "hostile", "object": "voldemort"}]}}
-,{"story": "Harry Potter", "variant": "modified", "chapter": 16, "chapter_file": "016.txt", "timestamp": "2026-01-31T01:28:28.774489", "extraction": {"entities": {"characters": [{"id": "harry_potter", "name": "Harry Potter", "state": "normal", "emotion": "determined", "appearance": "normal"}, {"id": "quirrell", "name": "Professor Quirrell", "state": "dead", "emotion": "fearful", "appearance": "unusual"}, {"id": "voldemort", "name": "Lord Voldemort", "state": "normal", "emotion": "hostile", "appearance": "unusual"}, {"id": "albus_dumbledore", "name": "Albus Dumbledore", "state": "normal", "emotion": "calm", "appearance": "normal"}, {"id": "ron_weasley", "name": "Ron Weasley", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "hermione_granger", "name": "Hermione Granger", "state": "normal", "emotion": "supportive", "appearance": "normal"}, {"id": "severus_snape", "name": "Severus Snape", "state": "normal", "emotion": "hostile", "appearance": "normal"}, {"id": "hagrid", "name": "Rubeus Hagrid", "state": "normal", "emotion": "remorseful", "appearance": "normal"}, {"id": "uncle_vernon", "name": "Uncle Vernon", "state": "normal", "emotion": "hostile", "appearance": "normal"}], "locations": [{"id": "mirror_of_erised", "name": "Mirror of Erised", "connections": []}, {"id": "hospital_wing", "name": "Hospital Wing", "connections": []}, {"id": "great_hall", "name": "Great Hall", "connections": []}, {"id": "kings_cross_station", "name": "King's Cross Station", "connections": []}], "items": [{"id": "sorcerers_stone", "name": "Sorcerer's Stone", "state": "intact"}, {"id": "invisibility_cloak", "name": "Invisibility Cloak", "state": "intact"}], "relationships": [{"from": "harry_potter", "to": "voldemort", "type": "hostile"}, {"from": "harry_potter", "to": "severus_snape", "type": "hostile"}, {"from": "harry_potter", "to": "uncle_vernon", "type": "hostile"}, {"from": "voldemort", "to": "quirrell", "type": "fear"}, {"from": "harry_potter", "to": "ron_weasley", "type": "friendly"}, {"from": "harry_potter", "to": "hermione_granger", "type": "friendly"}]}, "events": [{"id": "e1", "type": "discover", "agent": "harry_potter", "patient": "quirrell", "location": "mirror_of_erised", "source_text": "It was Quirrell. \u201cYou!\u201d gasped Harry."}, {"id": "e2", "type": "attack", "agent": "quirrell", "patient": "harry_potter", "location": "mirror_of_erised", "source_text": "Quirrell snapped his fingers. Ropes sprang out of thin air"}, {"id": "e3", "type": "help", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "hospital_wing", "source_text": "I arrived just in time to pull Quirrell off you."}, {"id": "e4", "type": "praise", "agent": "albus_dumbledore", "patient": "harry_potter", "location": "hospital_wing", "source_text": "you were doing very well on your own, I must say."}, {"id": "e5", "type": "farewell", "agent": "ron_weasley", "patient": "harry_potter", "location": "kings_cross_station", "source_text": "\u201cSee you over the summer, then.\u201d"}, {"id": "e6", "type": "farewell", "agent": "hermione_granger", "patient": "harry_potter", "location": "kings_cross_station", "source_text": "\u201cHope you have \u2014 er \u2014 a good holiday,\u201d"}], "initial_rules": [{"subject": "harry_potter", "predicate": "hates", "object": "voldemort"}, {"subject": "harry_potter", "predicate": "hates", "object": "severus_snape"}, {"subject": "harry_potter", "predicate": "hates", "object": "uncle_vernon"}]}}
+[
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "albus_dumbledore",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "A man appeared on the corner the cat had been watching"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "albus_dumbledore",
+            "patient": "professor_mcgonagall",
+            "location": "privet_drive",
+            "source_text": "Fancy seeing you here, Professor McGonagall."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e3",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "albus_dumbledore",
+            "location": "privet_drive",
+            "source_text": "I've got him, sir."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e4",
+            "type": "leave",
+            "agent": "hagrid",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "Hagrid swung himself onto the motorcycle and kicked the engine into life"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e5",
+            "type": "leave",
+            "agent": "albus_dumbledore",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "He turned on his heel and with a swish of his cloak, he was gone."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e1",
+            "type": "talk",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "zoo",
+            "source_text": "\"I know,\" Harry murmured through the glass"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "zoo",
+            "source_text": "the glass front of the boa constrictor\u2019s tank had vanished"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e3",
+            "type": "attack",
+            "agent": "dudley_dursley",
+            "patient": "harry_potter",
+            "location": "zoo",
+            "source_text": "punching Harry in the ribs"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e1",
+            "type": "take",
+            "agent": "mr_dursley",
+            "patient": "harry_potter",
+            "location": "privet_drive",
+            "source_text": "Uncle Vernon ripped open the bill"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e2",
+            "type": "take",
+            "agent": "mr_dursley",
+            "patient": "harry_potter",
+            "location": "privet_drive",
+            "source_text": "Uncle Vernon had to wrestle Dudley to the ground"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "Harry picked it up and stared at it"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e4",
+            "type": "leave",
+            "agent": "mr_dursley",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "We\u2019re going away. Just pack some clothes."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e5",
+            "type": "arrive",
+            "agent": "mr_dursley",
+            "patient": null,
+            "location": "sea_shack",
+            "source_text": "Uncle Vernon was pointing at what looked like a large rock"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "hagrid",
+            "patient": null,
+            "location": "hut_on_the_rock",
+            "source_text": "A giant of a man was standing in the doorway."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e2",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hut_on_the_rock",
+            "source_text": "Got summat fer yeh here \u2014 I mighta sat on it..."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hut_on_the_rock",
+            "source_text": "Harry \u2014 yet a wizard."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e4",
+            "type": "attack",
+            "agent": "hagrid",
+            "patient": "dudley_dursley",
+            "location": "hut_on_the_rock",
+            "source_text": "there was a flash of violet light, a sound like a firecracker..."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "gringotts",
+            "source_text": "Inside were mounds of gold coins."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e2",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "professor_quirrell",
+            "location": "leaky_cauldron",
+            "source_text": "Professor Quirrell will be one of your teachers at Hogwarts."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e3",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "eeylops_owl_emporium",
+            "source_text": "I'll get yer an owl."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e4",
+            "type": "take",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "ollivanders",
+            "source_text": "Harry took the wand."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e5",
+            "type": "encourage",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Yeh\u2019ll have a great time at Hogwarts."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e1",
+            "type": "talk",
+            "agent": "harry_potter",
+            "patient": "mr_dursley",
+            "location": "dursley_home",
+            "source_text": "Er \u2014 Uncle Vernon?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e2",
+            "type": "farewell",
+            "agent": "mr_dursley",
+            "patient": "harry_potter",
+            "location": "kings_cross_station",
+            "source_text": "Have a good term"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e3",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "ron_weasley",
+            "location": "hogwarts_express",
+            "source_text": "Are you really Harry Potter?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e4",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "hermione_granger",
+            "location": "hogwarts_express",
+            "source_text": "I'm Hermione Granger, by the way"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e5",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "draco_malfoy",
+            "location": "hogwarts_express",
+            "source_text": "My name's Malfoy, Draco Malfoy."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e6",
+            "type": "arrive",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "platform_nine_and_three_quarters",
+            "source_text": "He had done it."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e7",
+            "type": "arrive",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hogwarts",
+            "source_text": "Ye' all get yer firs' sight o' Hogwarts"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "professor_mcgonagall",
+            "patient": null,
+            "location": "hogwarts_entrance_hall",
+            "source_text": "The door swung open at once."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "professor_mcgonagall",
+            "patient": "first_years",
+            "location": "small_chamber",
+            "source_text": "Welcome to Hogwarts"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "first_years",
+            "patient": "ghosts",
+            "location": "small_chamber",
+            "source_text": "About twenty ghosts had just streamed through"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e4",
+            "type": "arrive",
+            "agent": "professor_mcgonagall",
+            "patient": null,
+            "location": "great_hall",
+            "source_text": "Professor McGonagall led the first years up here"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e5",
+            "type": "talk",
+            "agent": "sorting_hat",
+            "patient": "first_years",
+            "location": "great_hall",
+            "source_text": "The hat began to sing"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e6",
+            "type": "praise",
+            "agent": "weasley_twins",
+            "patient": "harry_potter",
+            "location": "great_hall",
+            "source_text": "We got Potter! We got Potter!"
+        }
+    },
+    {
+        ",story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e7",
+            "type": "encourage",
+            "agent": "nearly_headless_nick",
+            "patient": "gryffindors",
+            "location": "great_hall",
+            "source_text": "I hope you\u2019re going to help us win the house championship"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e8",
+            "type": "talk",
+            "agent": "dumbledore",
+            "patient": "students",
+            "location": "great_hall",
+            "source_text": "Welcome to a new year at Hogwarts!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e9",
+            "type": "talk",
+            "agent": "dumbledore",
+            "patient": "students",
+            "location": "great_hall",
+            "source_text": "And now, before we go to bed, let us sing the school song!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e1",
+            "type": "talk",
+            "agent": "snape",
+            "patient": "harry_potter",
+            "location": "potions_dungeon",
+            "source_text": "Ah, Yes, Harry Potter. Our new \u2014 celebrity."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hagrid_hut",
+            "source_text": "Rubbish! Why should he?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hagrid_hut",
+            "source_text": "GRINGOTTS BREAKIN LATEST"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e1",
+            "type": "take",
+            "agent": "draco_malfoy",
+            "patient": "neville_longbottom",
+            "location": "gryffindor_common_room",
+            "source_text": "Malfoy, who was passing the Gryffindor table, snatched the Remembrall"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e2",
+            "type": "give",
+            "agent": "draco_malfoy",
+            "patient": "neville_longbottom",
+            "location": "gryffindor_common_room",
+            "source_text": "Scowling, Malfoy quickly dropped the Remembrall back on the table"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "third_floor_corridor",
+            "source_text": "They were looking straight into the eyes of a monstrous dog"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e4",
+            "type": "encourage",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Your father would have been proud"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "great_hall",
+            "source_text": "It contains your new Nimbus Two Thousand"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e2",
+            "type": "attack",
+            "agent": "troll",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "The troll was advancing on her"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e3",
+            "type": "help",
+            "agent": "harry_potter",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "Harry stuck his wand up its nose"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e4",
+            "type": "help",
+            "agent": "ron_weasley",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "Ron knocked it out with its own club"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e5",
+            "type": "praise",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "girls_bathroom",
+            "source_text": "You each win Gryffindor five points"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e1",
+            "type": "give",
+            "agent": "unknown",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Your father left this in my possession before he died."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "mirror_room",
+            "source_text": "He had seen not only himself in the mirror, but a whole crowd of people."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "mirror_room",
+            "source_text": "So \u2014 back again, Harry?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e1",
+            "type": "encourage",
+            "agent": "harry_potter",
+            "patient": "neville_longbottom",
+            "location": "gryffindor_common_room",
+            "source_text": "You're worth twelve of Malfoy"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "gryffindor_common_room",
+            "source_text": "I've found Flamel!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "snape",
+            "patient": "professor_quirrell",
+            "location": "forbidden_forest",
+            "source_text": "You don't want me as your enemy, Quirrell"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e4",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "quidditch_pitch",
+            "source_text": "Well done"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e1",
+            "type": "smile",
+            "agent": "harry_potter",
+            "patient": "professor_quirrell",
+            "location": null,
+            "source_text": "Harry passed Quirrell these days he gave him an encouraging sort of smile"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "ron_weasley",
+            "patient": "hagrid",
+            "location": "library",
+            "source_text": "Hagrid was looking up stuff about dragons"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": "hagrid",
+            "location": "hagrids_hut",
+            "source_text": "In the very heart of the fire, underneath the kettle, was a huge, black egg"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e4",
+            "type": "give",
+            "agent": "charlie_weasley",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Hedwig brought Harry another note from Hagrid"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e5",
+            "type": "farewell",
+            "agent": "hagrid",
+            "patient": "norbert",
+            "location": "tallest_tower",
+            "source_text": "Bye-bye, Norbert! Hagrid sobbed"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e1",
+            "type": "meet",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "astronomy_tower",
+            "source_text": "When Professor McGonagall appeared, she was leading Neville."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e2",
+            "type": "help",
+            "agent": "firenze",
+            "patient": "harry_potter",
+            "location": "forbidden_forest",
+            "source_text": "Firenze saved me, but he shouldn\u2019t have done so\u2026."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "forbidden_forest",
+            "source_text": "It was the unicorn all right, and it was dead."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e4",
+            "type": "talk",
+            "agent": "firenze",
+            "patient": "harry_potter",
+            "location": "forbidden_forest",
+            "source_text": "You are the Potter boy."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hagrids_hut",
+            "source_text": "Hagrid told that stranger how to get past Fluffy"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "harry_potter",
+            "patient": "professor_mcgonagall",
+            "location": "hogwarts",
+            "source_text": "We want to see Professor Dumbledore"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e3",
+            "type": "help",
+            "agent": "hermione_granger",
+            "patient": "harry_potter",
+            "location": "third_floor_corridor",
+            "source_text": "Hermione stepped forward. 'Petrificus Totalus!'"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e4",
+            "type": "encourage",
+            "agent": "hermione_granger",
+            "patient": "harry_potter",
+            "location": "chess_room",
+            "source_text": "Harry \u2014 you\u2019re a great wizard, you know."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e5",
+            "type": "help",
+            "agent": "ron_weasley",
+            "patient": "harry_potter",
+            "location": "chess_room",
+            "source_text": "Ron started to direct the black pieces."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": "professor_quirrell",
+            "location": null,
+            "source_text": "It was Quirrell. \u201cYou!\u201d gasped Harry."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e2",
+            "type": "attack",
+            "agent": "professor_quirrell",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Quirrell snapped his fingers. Ropes sprang out of thin air"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e3",
+            "type": "help",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "hospital_wing",
+            "source_text": "I arrived just in time to pull Quirrell off you."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e4",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "I\u2019ve got yeh a present."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "original",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e5",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "great_hall",
+            "source_text": "for pure nerve and outstanding courage, I award Gryffindor house sixty points."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "albus_dumbledore",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "A man appeared on the corner the cat had been watching"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "albus_dumbledore",
+            "patient": "professor_mcgonagall",
+            "location": "privet_drive",
+            "source_text": "Fancy seeing you here, Professor McGonagall."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e3",
+            "type": "arrive",
+            "agent": "hagrid",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "a huge motorcycle fell out of the air and landed on the road"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e4",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "albus_dumbledore",
+            "location": "privet_drive",
+            "source_text": "I've got him, sir."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e5",
+            "type": "leave",
+            "agent": "hagrid",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "Hagrid swung himself onto the motorcycle and kicked the engine into life"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 0,
+        "chapter_file": "000.txt",
+        "event": {
+            "id": "e6",
+            "type": "leave",
+            "agent": "albus_dumbledore",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "He turned on his heel and with a swish of his cloak, he was gone."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e1",
+            "type": "talk",
+            "agent": "mrs_dursley",
+            "patient": "harry_potter",
+            "location": "privet_drive",
+            "source_text": "\"Up! Get up! Now!\""
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "harry_potter",
+            "patient": "snake",
+            "location": "zoo",
+            "source_text": "\"Where do you come from, anyway?\""
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": "glass",
+            "location": "zoo",
+            "source_text": "the glass front of the boa constrictor\u2019s tank had vanished"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 1,
+        "chapter_file": "001.txt",
+        "event": {
+            "id": "e4",
+            "type": "attack",
+            "agent": "dudley_dursley",
+            "patient": "harry_potter",
+            "location": "zoo",
+            "source_text": "\"Out of the way, you,\" he said, punching Harry in the ribs."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e1",
+            "type": "take",
+            "agent": "mr_dursley",
+            "patient": "harry_potter",
+            "location": "privet_drive",
+            "source_text": "it was jerked sharply out of his hand by Uncle Vernon"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e2",
+            "type": "move",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "we think it might be nice if you moved into Dudley\u2019s second bedroom"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e3",
+            "type": "leave",
+            "agent": "mr_dursley",
+            "patient": null,
+            "location": "privet_drive",
+            "source_text": "I want you all back here in five minutes ready to leave"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 2,
+        "chapter_file": "002.txt",
+        "event": {
+            "id": "e4",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "railview_hotel",
+            "source_text": "I got about an \u2018undred of these at the front desk"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "hagrid",
+            "patient": null,
+            "location": "hut_on_the_rock",
+            "source_text": "A giant of a man was standing in the doorway."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e2",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hut_on_the_rock",
+            "source_text": "Got summat fer yeh here \u2014 I mighta sat on it at some point..."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hut_on_the_rock",
+            "source_text": "Harry \u2014 yet a wizard."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 3,
+        "chapter_file": "003.txt",
+        "event": {
+            "id": "e4",
+            "type": "attack",
+            "agent": "hagrid",
+            "patient": "dudley_dursley",
+            "location": "hut_on_the_rock",
+            "source_text": "there was a flash of violet light, a sound like a firecracker..."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "gringotts",
+            "source_text": "Inside were mounds of gold coins."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e2",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "professor_quirrell",
+            "location": "leaky_cauldron",
+            "source_text": "Professor Quirrell will be one of your teachers at Hogwarts."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e3",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "diagon_alley",
+            "source_text": "I'll get yer an owl."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e4",
+            "type": "take",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "ollivanders",
+            "source_text": "Harry took the wand."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 4,
+        "chapter_file": "004.txt",
+        "event": {
+            "id": "e5",
+            "type": "praise",
+            "agent": "mr_ollivander",
+            "patient": "harry_potter",
+            "location": "ollivanders",
+            "source_text": "Oh, bravo! Yes, indeed, oh, very good."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e1",
+            "type": "farewell",
+            "agent": "mr_dursley",
+            "patient": "harry_potter",
+            "location": "kings_cross_station",
+            "source_text": "Have a good term my boy"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e2",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "ron_weasley",
+            "location": "hogwarts_express",
+            "source_text": "Are you really Harry Potter?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e3",
+            "type": "meet",
+            "agent": "harry_potter",
+            "patient": "hermione_granger",
+            "location": "hogwarts_express",
+            "source_text": "I'm Hermione Granger, by the way"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 5,
+        "chapter_file": "005.txt",
+        "event": {
+            "id": "e4",
+            "type": "attack",
+            "agent": "scabbers",
+            "patient": "goyle",
+            "location": "hogwarts_express",
+            "source_text": "Scabbers the rat was hanging off his finger"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e1",
+            "type": "arrive",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hogwarts_entrance_hall",
+            "source_text": "The door swung open at once."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "professor_mcgonagall",
+            "patient": "first_years",
+            "location": "hogwarts_entrance_hall",
+            "source_text": "Welcome to Hogwarts"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "sorting_hat",
+            "patient": "first_years",
+            "location": "great_hall",
+            "source_text": "Oh, you may not think I\u2019m pretty"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e4",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "students",
+            "location": "great_hall",
+            "source_text": "Welcome to a new year at Hogwarts!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 6,
+        "chapter_file": "006.txt",
+        "event": {
+            "id": "e5",
+            "type": "hostile",
+            "agent": "severus_snape",
+            "patient": "harry_potter",
+            "location": "great_hall",
+            "source_text": "a feeling that he didn\u2019t like Harry at all"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e1",
+            "type": "talk",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hagrids_hut",
+            "source_text": "I want to hear all about your first week."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e2",
+            "type": "help",
+            "agent": "professor_quirrell",
+            "patient": "harry_potter",
+            "location": "hogwarts",
+            "source_text": "rescued by Professor Quirrell, who was passing."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 7,
+        "chapter_file": "007.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hagrids_hut",
+            "source_text": "It was a cutting from the Daily Prophet: GRINGOTTS BREAKIN LATEST"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e1",
+            "type": "take",
+            "agent": "draco_malfoy",
+            "patient": "neville_longbottom",
+            "location": "gryffindor_common_room",
+            "source_text": "Malfoy, who was passing the Gryffindor table, snatched the Remembrall"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e2",
+            "type": "give",
+            "agent": "draco_malfoy",
+            "patient": "harry_potter",
+            "location": "flying_lesson_ground",
+            "source_text": "Malfoy threw the glass ball high into the air"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "forbidden_corridor",
+            "source_text": "They were looking straight into the eyes of a monstrous dog"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 8,
+        "chapter_file": "008.txt",
+        "event": {
+            "id": "e4",
+            "type": "praise",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Your father would have been proud"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "great_hall",
+            "source_text": "Harry was amazed when the owls soared down"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e2",
+            "type": "give",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "great_hall",
+            "source_text": "It contains your new Nimbus Two Thousand"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e3",
+            "type": "attack",
+            "agent": "troll",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "The troll was advancing on her"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e4",
+            "type": "help",
+            "agent": "harry_potter",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "Harry stuck his wand up its nose"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e5",
+            "type": "help",
+            "agent": "ron_weasley",
+            "patient": "hermione_granger",
+            "location": "girls_bathroom",
+            "source_text": "Ron knocked it out with its own club"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 9,
+        "chapter_file": "009.txt",
+        "event": {
+            "id": "e6",
+            "type": "praise",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "girls_bathroom",
+            "source_text": "You each win Gryffindor five points"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e1",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "To Harry, from Hagrid."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "mirror_room",
+            "source_text": "It was a magnificent mirror..."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 11,
+        "chapter_file": "011.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "mirror_room",
+            "source_text": "So \u2014 back again, Harry?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e1",
+            "type": "give",
+            "agent": "harry_potter",
+            "patient": "neville_longbottom",
+            "location": "gryffindor_common_room",
+            "source_text": "He gave it to Neville, who looked as though he might cry."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "gryffindor_common_room",
+            "source_text": "I\u2019ve found him! I\u2019ve found Flamel!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "severus_snape",
+            "patient": "professor_quirrell",
+            "location": "forbidden_forest",
+            "source_text": "You don\u2019t want me as your enemy, Quirrell."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e4",
+            "type": "attack",
+            "agent": "ron_weasley",
+            "patient": "draco_malfoy",
+            "location": "quidditch_pitch",
+            "source_text": "Ron was on top of him, wrestling him to the ground."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 12,
+        "chapter_file": "012.txt",
+        "event": {
+            "id": "e5",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "quidditch_pitch",
+            "source_text": "Well done, said Dumbledore quietly."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e1",
+            "type": "smile",
+            "agent": "harry_potter",
+            "patient": "professor_quirrell",
+            "location": null,
+            "source_text": "Harry passed Quirrell these days he gave him an encouraging sort of smile"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e2",
+            "type": "discover",
+            "agent": "ron_weasley",
+            "patient": null,
+            "location": "library",
+            "source_text": "Hagrid was looking up stuff about dragons"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e3",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hagrids_hut",
+            "source_text": "In the very heart of the fire, underneath the kettle, was a huge, black egg"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e4",
+            "type": "give",
+            "agent": "charlie_weasley",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Hedwig brought Harry another note from Hagrid"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 13,
+        "chapter_file": "013.txt",
+        "event": {
+            "id": "e5",
+            "type": "farewell",
+            "agent": "hagrid",
+            "patient": "norbert",
+            "location": "hagrids_hut",
+            "source_text": "Bye-bye, Norbert! Hagrid sobbed"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e1",
+            "type": "meet",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "astronomy_tower",
+            "source_text": "When Professor McGonagall appeared, she was leading Neville."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "neville_longbottom",
+            "patient": "harry_potter",
+            "location": "astronomy_tower",
+            "source_text": "I knew you were up to something, I heard Draco saying something about you"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e3",
+            "type": "talk",
+            "agent": "professor_mcgonagall",
+            "patient": "harry_potter",
+            "location": "astronomy_tower",
+            "source_text": "I\u2019m disgusted, said Professor McGonagall."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e4",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": "unicorn_blood",
+            "location": "forbidden_forest",
+            "source_text": "Look there, said Hagrid, see that stuff shinin\u2019 on the ground?"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e5",
+            "type": "help",
+            "agent": "firenze",
+            "patient": "harry_potter",
+            "location": "forbidden_forest",
+            "source_text": "Are you all right? said the centaur, pulling Harry to his feet."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e6",
+            "type": "talk",
+            "agent": "firenze",
+            "patient": "harry_potter",
+            "location": "forbidden_forest",
+            "source_text": "You are the Potter boy, he said."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 14,
+        "chapter_file": "014.txt",
+        "event": {
+            "id": "e7",
+            "type": "talk",
+            "agent": "bane",
+            "patient": "firenze",
+            "location": "forbidden_forest",
+            "source_text": "What are you doing? You have a human on your back!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": null,
+            "location": "hagrids_hut",
+            "source_text": "Hagrid told that stranger how to get past Fluffy"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e2",
+            "type": "talk",
+            "agent": "harry_potter",
+            "patient": "professor_mcgonagall",
+            "location": "hogwarts",
+            "source_text": "We want to see Professor Dumbledore"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e3",
+            "type": "help",
+            "agent": "hermione_granger",
+            "patient": "neville_longbottom",
+            "location": "hogwarts",
+            "source_text": "Petrificus Totalus!"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 15,
+        "chapter_file": "015.txt",
+        "event": {
+            "id": "e4",
+            "type": "encourage",
+            "agent": "hermione_granger",
+            "patient": "harry_potter",
+            "location": null,
+            "source_text": "Harry \u2014 you\u2019re a great wizard, you know."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e1",
+            "type": "discover",
+            "agent": "harry_potter",
+            "patient": "sorcerers_stone",
+            "location": "mirror_of_erised",
+            "source_text": "Somehow \u2014 incredibly \u2014 he\u2019d gotten the Stone."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e2",
+            "type": "attack",
+            "agent": "professor_quirrell",
+            "patient": "harry_potter",
+            "location": "mirror_of_erised",
+            "source_text": "Quirrell lunged, knocking Harry clean off his feet"
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e3",
+            "type": "help",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "mirror_of_erised",
+            "source_text": "I arrived just in time to pull Quirrell off you."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e4",
+            "type": "give",
+            "agent": "hagrid",
+            "patient": "harry_potter",
+            "location": "hospital_wing",
+            "source_text": "It seemed to be a handsome, leather-covered book."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e5",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "hospital_wing",
+            "source_text": "You were doing very well on your own, I must say."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e6",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "ron_weasley",
+            "location": "great_hall",
+            "source_text": "I award Gryffindor house fifty points."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e7",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "hermione_granger",
+            "location": "great_hall",
+            "source_text": "I award Gryffindor house fifty points."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e8",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "harry_potter",
+            "location": "great_hall",
+            "source_text": "I award Gryffindor house sixty points."
+        }
+    },
+    {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "chapter": 16,
+        "chapter_file": "016.txt",
+        "event": {
+            "id": "e9",
+            "type": "praise",
+            "agent": "albus_dumbledore",
+            "patient": "neville_longbottom",
+            "location": "great_hall",
+            "source_text": "I therefore award ten points to Mr. Neville Longbottom."
+        }
+    }
 ]

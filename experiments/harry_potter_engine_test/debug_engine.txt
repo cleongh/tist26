@@ -1,0 +1,2308 @@
+DEBUG ENGINE LOG - 2026-01-31T10:07:32.946814
+================================================================================
+
+
+============================================================
+PROCESSING: Harry Potter (original)
+============================================================
+
+--- Chapter 0: 000.txt ---
+  Input: {'characters': 7, 'locations': 2, 'items': 2, 'relationships': 5, 'events': 5, 'initial_rules': 1}
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['Petunia']
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: hagrid (Hagrid) aliases=[]
+    Item: put_outer (Put-Outer) relevance=causal
+    Item: letter (Letter) relevance=causal
+    Relationship: mrs_dursley -> harry_potter (family)
+    Relationship: mrs_dursley -> mr_dursley (family)
+    Relationship: mr_dursley -> harry_potter (family)
+    Relationship: dudley_dursley -> harry_potter (family)
+    Relationship: mrs_dursley -> mrs_potter (hostile)
+    Event: e1 arrive agent=albus_dumbledore patient=None
+           source: A man appeared on the corner the cat had been watching...
+    Event: e2 talk agent=albus_dumbledore patient=professor_mcgonagall
+           source: Fancy seeing you here, Professor McGonagall....
+    Event: e3 give agent=hagrid patient=albus_dumbledore
+           source: I've got him, sir....
+    Event: e4 leave agent=hagrid patient=None
+           source: Hagrid swung himself onto the motorcycle and kicked the engi...
+    Event: e5 leave agent=albus_dumbledore patient=None
+           source: He turned on his heel and with a swish of his cloak, he was ...
+  Item Tracker: 3 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e1 (was e1): arrive
+    Event e2 (was e2): talk
+    Event e3 (was e3): give
+    Event e4 (was e4): leave
+    Event e5 (was e5): leave
+
+  ASP Facts Generated (112 lines):
+    % Chapter 0 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(mr_dursley).
+    ... and 92 more facts
+
+  Violations Detected: 0
+
+  State after chapter 0:
+    Characters known: 7
+
+
+--- Chapter 1: 001.txt ---
+  Input: {'characters': 5, 'locations': 2, 'items': 1, 'relationships': 1, 'events': 3, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['petunia']
+    Character: piers_polkiss (Piers Polkiss) aliases=[]
+    Item: boa_constrictor_tank (Boa Constrictor Tank) relevance=causal
+    Relationship: piers_polkiss -> dudley_dursley (friendly)
+    Event: e1 talk agent=harry_potter patient=None
+           source: "I know," Harry murmured through the glass...
+    Event: e2 discover agent=harry_potter patient=None
+           source: the glass front of the boa constrictor’s tank had vanished...
+    Event: e3 attack agent=dudley_dursley patient=harry_potter
+           source: punching Harry in the ribs...
+  Item Tracker: 4 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e6 (was e1): talk
+    Event e7 (was e2): discover
+    Event e8 (was e3): attack
+
+  ASP Facts Generated (76 lines):
+    % Chapter 1 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 56 more facts
+
+  Violations Detected: 3
+    [VIOLATION] emotional/relationship_action_mismatch: emotional/relationship_action_mismatch
+                entities: ['pair(dudley_dursley,harry)']
+                event: e8
+                source: punching Harry in the ribs
+    [VIOLATION] emotional/harm_loved_one: emotional/harm_loved_one
+                entities: ['pair(dudley_dursley,harry)']
+                event: e8
+                source: punching Harry in the ribs
+    [VIOLATION] emotional/unmotivated_hostility: emotional/unmotivated_hostility
+                entities: ['pair(dudley_dursley,harry)']
+                event: e8
+                source: punching Harry in the ribs
+
+  State after chapter 1:
+    Characters known: 8
+
+
+--- Chapter 2: 002.txt ---
+  Input: {'characters': 4, 'locations': 3, 'items': 2, 'relationships': 3, 'events': 5, 'initial_rules': 3}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['petunia']
+    Item: letter_harry (Letter for Harry) relevance=causal
+    Item: smelting_stick (Smelting Stick) relevance=latent
+    Relationship: dudley_dursley -> harry_potter (hostile)
+    Relationship: mr_dursley -> harry_potter (hostile)
+    Relationship: mrs_dursley -> harry_potter (hostile)
+    Event: e1 take agent=mr_dursley patient=harry_potter
+           source: Uncle Vernon ripped open the bill...
+    Event: e2 take agent=mr_dursley patient=harry_potter
+           source: Uncle Vernon had to wrestle Dudley to the ground...
+    Event: e3 discover agent=harry_potter patient=None
+           source: Harry picked it up and stared at it...
+    Event: e4 leave agent=mr_dursley patient=None
+           source: We’re going away. Just pack some clothes....
+    Event: e5 arrive agent=mr_dursley patient=None
+           source: Uncle Vernon was pointing at what looked like a large rock...
+  Item Tracker: 7 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e9 (was e1): take
+    Event e10 (was e2): take
+    Event e11 (was e3): discover
+    Event e12 (was e4): leave
+    Event e13 (was e5): arrive
+
+  ASP Facts Generated (106 lines):
+    % Chapter 2 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 86 more facts
+
+  Violations Detected: 0
+
+  State after chapter 2:
+    Characters known: 8
+
+
+--- Chapter 3: 003.txt ---
+  Input: {'characters': 5, 'locations': 1, 'items': 3, 'relationships': 1, 'events': 4, 'initial_rules': 1}
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: mr_dursley (Vernon Dursley) aliases=[]
+    Character: mrs_dursley (Petunia Dursley) aliases=['petunia']
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Item: hagrid_umbrella (Hagrid's Umbrella) relevance=causal
+    Item: harry_letter (Harry's Hogwarts Letter) relevance=causal
+    Item: chocolate_cake (Chocolate Cake) relevance=causal
+    Relationship: hagrid -> harry_potter (friendly)
+    Event: e1 arrive agent=hagrid patient=None
+           source: A giant of a man was standing in the doorway....
+    Event: e2 give agent=hagrid patient=harry_potter
+           source: Got summat fer yeh here — I mighta sat on it......
+    Event: e3 talk agent=hagrid patient=harry_potter
+           source: Harry — yet a wizard....
+    Event: e4 attack agent=hagrid patient=dudley_dursley
+           source: there was a flash of violet light, a sound like a firecracke...
+  Item Tracker: 10 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e14 (was e1): arrive
+    Event e15 (was e2): give
+    Event e16 (was e3): talk
+    Event e17 (was e4): attack
+
+  ASP Facts Generated (95 lines):
+    % Chapter 3 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(hagrid).
+    ... and 75 more facts
+
+  Violations Detected: 0
+
+  State after chapter 3:
+    Characters known: 8
+
+
+--- Chapter 4: 004.txt ---
+  Input: {'characters': 4, 'locations': 5, 'items': 5, 'relationships': 1, 'events': 5, 'initial_rules': 0}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: dedalus_diggle (Dedalus Diggle) aliases=[]
+    Item: harrys_wand (Harry's Wand) relevance=causal
+    Item: hagrids_umbrella (Hagrid's Pink Umbrella) relevance=causal
+    Item: gringotts_key (Gringotts Key) relevance=causal
+    Item: vault_713_package (Vault 713 Package) relevance=latent
+    Item: snowy_owl (Snowy Owl) relevance=causal
+    Relationship: hagrid -> harry_potter (friendly)
+    Event: e1 discover agent=harry_potter patient=None
+           source: Inside were mounds of gold coins....
+    Event: e2 meet agent=harry_potter patient=professor_quirrell
+           source: Professor Quirrell will be one of your teachers at Hogwarts....
+    Event: e3 give agent=hagrid patient=harry_potter
+           source: I'll get yer an owl....
+    Event: e4 take agent=harry_potter patient=None
+           source: Harry took the wand....
+    Event: e5 encourage agent=hagrid patient=harry_potter
+           source: Yeh’ll have a great time at Hogwarts....
+  Item Tracker: 15 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e18 (was e1): discover
+    Event e19 (was e2): meet
+    Event e20 (was e3): give
+    Event e21 (was e4): take
+    Event e22 (was e5): encourage
+
+  ASP Facts Generated (107 lines):
+    % Chapter 4 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 87 more facts
+
+  Violations Detected: 0
+
+  State after chapter 4:
+    Characters known: 10
+
+
+--- Chapter 5: 005.txt ---
+  Input: {'characters': 8, 'locations': 4, 'items': 3, 'relationships': 3, 'events': 7, 'initial_rules': 3}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: mr_dursley (Vernon Dursley) aliases=[]
+    Character: mrs_dursley (Petunia Dursley) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Item: hedwig (Hedwig) relevance=latent
+    Item: hogwarts_ticket (Hogwarts Ticket) relevance=causal
+    Item: scabbers (Scabbers) relevance=causal
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Event: e1 talk agent=harry_potter patient=mr_dursley
+           source: Er — Uncle Vernon?...
+    Event: e2 farewell agent=mr_dursley patient=harry_potter
+           source: Have a good term...
+    Event: e3 meet agent=harry_potter patient=ron_weasley
+           source: Are you really Harry Potter?...
+    Event: e4 meet agent=harry_potter patient=hermione_granger
+           source: I'm Hermione Granger, by the way...
+    Event: e5 meet agent=harry_potter patient=draco_malfoy
+           source: My name's Malfoy, Draco Malfoy....
+    Event: e6 arrive agent=harry_potter patient=None
+           source: He had done it....
+    Event: e7 arrive agent=harry_potter patient=None
+           source: Ye' all get yer firs' sight o' Hogwarts...
+  Item Tracker: 18 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e23 (was e1): talk
+    Event e24 (was e2): farewell
+    Event e25 (was e3): meet
+    Event e26 (was e4): meet
+    Event e27 (was e5): meet
+    Event e28 (was e6): arrive
+    Event e29 (was e7): arrive
+
+  ASP Facts Generated (145 lines):
+    % Chapter 5 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 125 more facts
+
+  Violations Detected: 1
+    [VIOLATION] emotional/relationship_action_mismatch: emotional/relationship_action_mismatch
+                entities: ['pair(mr_dursley,harry)']
+                event: e24
+                source: Have a good term
+
+  State after chapter 5:
+    Characters known: 13
+
+
+--- Chapter 6: 006.txt ---
+  Input: {'characters': 5, 'locations': 4, 'items': 1, 'relationships': 1, 'events': 9, 'initial_rules': 1}
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: nearly_headless_nick (Sir Nicholas de Mimsy-Porpington) aliases=['Nearly Headless Nick']
+    Character: bloody_baron (Bloody Baron) aliases=[]
+    Character: peeves (Peeves) aliases=[]
+    Character: snape (Professor Snape) aliases=[]
+    Item: sorting_hat (Sorting Hat) relevance=causal
+    Relationship: harry_potter -> snape (hostile)
+    Event: e1 arrive agent=professor_mcgonagall patient=None
+           source: The door swung open at once....
+    Event: e2 talk agent=professor_mcgonagall patient=first_years
+           source: Welcome to Hogwarts...
+    Event: e3 discover agent=first_years patient=ghosts
+           source: About twenty ghosts had just streamed through...
+    Event: e4 arrive agent=professor_mcgonagall patient=None
+           source: Professor McGonagall led the first years up here...
+    Event: e5 talk agent=sorting_hat patient=first_years
+           source: The hat began to sing...
+    Event: e6 praise agent=weasley_twins patient=harry_potter
+           source: We got Potter! We got Potter!...
+    Event: e7 encourage agent=nearly_headless_nick patient=gryffindors
+           source: I hope you’re going to help us win the house championship...
+    Event: e8 talk agent=dumbledore patient=students
+           source: Welcome to a new year at Hogwarts!...
+    Event: e9 talk agent=dumbledore patient=students
+           source: And now, before we go to bed, let us sing the school song!...
+  Item Tracker: 20 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e30 (was e1): arrive
+    Event e31 (was e2): talk
+    Event e32 (was e3): discover
+    Event e33 (was e4): arrive
+    Event e34 (was e5): talk
+    Event e35 (was e6): praise
+    Event e36 (was e7): encourage
+    Event e37 (was e8): talk
+    Event e38 (was e9): talk
+
+  ASP Facts Generated (159 lines):
+    % Chapter 6 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(professor_mcgonagall).
+    ... and 139 more facts
+
+  Violations Detected: 15
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,34,31)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,34,32)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,34,33)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,35,31)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,35,32)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,35,33)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,36,31)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,36,32)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,36,33)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,37,31)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,37,32)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,37,33)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,38,31)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,38,32)']
+                event: none
+                source: 
+    [VIOLATION] temporal/time_travel: temporal/time_travel
+                entities: ['triple(professor_mcgonagall,38,33)']
+                event: none
+                source: 
+
+  State after chapter 6:
+    Characters known: 17
+
+
+--- Chapter 7: 007.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 2, 'relationships': 1, 'events': 3, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: snape (Severus Snape) aliases=['professor_snape']
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: peeves (Peeves) aliases=[]
+    Character: nearly_headless_nick (Nearly Headless Nick) aliases=['sir_nicholas_de_mimsy_porpington']
+    Item: hedwig_note (Note from Hagrid) relevance=causal
+    Item: gringotts_article (Gringotts Break-in Article) relevance=latent
+    Relationship: snape -> harry_potter (hostile)
+    Event: e1 talk agent=snape patient=harry_potter
+           source: Ah, Yes, Harry Potter. Our new — celebrity....
+    Event: e2 talk agent=hagrid patient=harry_potter
+           source: Rubbish! Why should he?...
+    Event: e3 discover agent=harry_potter patient=None
+           source: GRINGOTTS BREAKIN LATEST...
+  Item Tracker: 22 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e39 (was e1): talk
+    Event e40 (was e2): talk
+    Event e41 (was e3): discover
+
+  ASP Facts Generated (91 lines):
+    % Chapter 7 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 71 more facts
+
+  Violations Detected: 0
+
+  State after chapter 7:
+    Characters known: 17
+
+
+--- Chapter 8: 008.txt ---
+  Input: {'characters': 7, 'locations': 3, 'items': 1, 'relationships': 3, 'events': 4, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: peeves (Peeves) aliases=[]
+    Item: remembrall (Remembrall) relevance=causal
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Event: e1 take agent=draco_malfoy patient=neville_longbottom
+           source: Malfoy, who was passing the Gryffindor table, snatched the R...
+    Event: e2 give agent=draco_malfoy patient=neville_longbottom
+           source: Scowling, Malfoy quickly dropped the Remembrall back on the ...
+    Event: e3 discover agent=harry_potter patient=None
+           source: They were looking straight into the eyes of a monstrous dog...
+    Event: e4 encourage agent=professor_mcgonagall patient=harry_potter
+           source: Your father would have been proud...
+  Item Tracker: 24 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e42 (was e1): take
+    Event e43 (was e2): give
+    Event e44 (was e3): discover
+    Event e45 (was e4): encourage
+
+  ASP Facts Generated (96 lines):
+    % Chapter 8 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 76 more facts
+
+  Violations Detected: 0
+
+  State after chapter 8:
+    Characters known: 18
+
+
+--- Chapter 9: 009.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 3, 'relationships': 1, 'events': 5, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: snape (Severus Snape) aliases=[]
+    Character: oliver_wood (Oliver Wood) aliases=[]
+    Item: nimbus_two_thousand (Nimbus Two Thousand) relevance=causal
+    Item: golden_snitch (Golden Snitch) relevance=latent
+    Item: troll_club (Troll's Club) relevance=causal
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Event: e1 discover agent=harry_potter patient=None
+           source: It contains your new Nimbus Two Thousand...
+    Event: e2 attack agent=troll patient=hermione_granger
+           source: The troll was advancing on her...
+    Event: e3 help agent=harry_potter patient=hermione_granger
+           source: Harry stuck his wand up its nose...
+    Event: e4 help agent=ron_weasley patient=hermione_granger
+           source: Ron knocked it out with its own club...
+    Event: e5 praise agent=professor_mcgonagall patient=harry_potter
+           source: You each win Gryffindor five points...
+  Item Tracker: 27 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e46 (was e1): discover
+    Event e47 (was e2): attack
+    Event e48 (was e3): help
+    Event e49 (was e4): help
+    Event e50 (was e5): praise
+
+  ASP Facts Generated (113 lines):
+    % Chapter 9 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 93 more facts
+
+  Violations Detected: 0
+
+  State after chapter 9:
+    Characters known: 19
+
+
+--- Chapter 10: 010.txt ---
+  Input: {'characters': 0, 'locations': 0, 'items': 0, 'relationships': 0, 'events': 0, 'initial_rules': 0}
+  Item Tracker: 27 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+
+  ASP Facts Generated (21 lines):
+    % Chapter 10 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    % Story rules (dynamic, established by events)
+    ... and 1 more facts
+
+  Violations Detected: 0
+
+  State after chapter 10:
+    Characters known: 19
+
+
+--- Chapter 11: 011.txt ---
+  Input: {'characters': 7, 'locations': 6, 'items': 2, 'relationships': 3, 'events': 3, 'initial_rules': 0}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: snape (Severus Snape) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: mirror_of_erised (Mirror of Erised) relevance=causal
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Relationship: harry_potter -> snape (hostile)
+    Event: e1 give agent=unknown patient=harry_potter
+           source: Your father left this in my possession before he died....
+    Event: e2 discover agent=harry_potter patient=None
+           source: He had seen not only himself in the mirror, but a whole crow...
+    Event: e3 talk agent=albus_dumbledore patient=harry_potter
+           source: So — back again, Harry?...
+  Item Tracker: 29 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e51 (was e1): give
+    Event e52 (was e2): discover
+    Event e53 (was e3): talk
+
+  ASP Facts Generated (88 lines):
+    % Chapter 11 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 68 more facts
+
+  Violations Detected: 1
+    [VIOLATION] causality/dead_character_acting: causality/dead_character_acting
+                entities: []
+                event: e51
+                source: Your father left this in my possession before he died.
+
+  State after chapter 11:
+    Characters known: 19
+
+
+--- Chapter 12: 012.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 3, 'relationships': 2, 'events': 4, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: snape (Severus Snape) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: chocolate_frog (Chocolate Frog) relevance=causal
+    Item: sorcerers_stone (Sorcerer's Stone) relevance=latent
+    Relationship: harry_potter -> neville_longbottom (encourage)
+    Relationship: snape -> professor_quirrell (hostile)
+    Event: e1 encourage agent=harry_potter patient=neville_longbottom
+           source: You're worth twelve of Malfoy...
+    Event: e2 discover agent=harry_potter patient=None
+           source: I've found Flamel!...
+    Event: e3 talk agent=snape patient=professor_quirrell
+           source: You don't want me as your enemy, Quirrell...
+    Event: e4 praise agent=albus_dumbledore patient=harry_potter
+           source: Well done...
+  Item Tracker: 31 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e54 (was e1): encourage
+    Event e55 (was e2): discover
+    Event e56 (was e3): talk
+    Event e57 (was e4): praise
+
+  ASP Facts Generated (103 lines):
+    % Chapter 12 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 83 more facts
+
+  Violations Detected: 0
+
+  State after chapter 12:
+    Characters known: 19
+
+
+--- Chapter 13: 013.txt ---
+  Input: {'characters': 3, 'locations': 2, 'items': 3, 'relationships': 1, 'events': 5, 'initial_rules': 1}
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: norbert (Norbert the Norwegian Ridgeback) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: dragon_egg (Dragon Egg) relevance=causal
+    Item: charlies_letter (Charlie's Letter) relevance=causal
+    Relationship: harry_potter -> professor_quirrell (encourage)
+    Event: e1 smile agent=harry_potter patient=professor_quirrell
+           source: Harry passed Quirrell these days he gave him an encouraging ...
+    Event: e2 discover agent=ron_weasley patient=hagrid
+           source: Hagrid was looking up stuff about dragons...
+    Event: e3 discover agent=harry_potter patient=hagrid
+           source: In the very heart of the fire, underneath the kettle, was a ...
+    Event: e4 give agent=charlie_weasley patient=harry_potter
+           source: Hedwig brought Harry another note from Hagrid...
+    Event: e5 farewell agent=hagrid patient=norbert
+           source: Bye-bye, Norbert! Hagrid sobbed...
+  Item Tracker: 34 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e58 (was e1): smile
+    Event e59 (was e2): discover
+    Event e60 (was e3): discover
+    Event e61 (was e4): give
+    Event e62 (was e5): farewell
+
+  ASP Facts Generated (103 lines):
+    % Chapter 13 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(professor_quirrell).
+    ... and 83 more facts
+
+  Violations Detected: 0
+
+  State after chapter 13:
+    Characters known: 20
+
+
+--- Chapter 14: 014.txt ---
+  Input: {'characters': 11, 'locations': 3, 'items': 2, 'relationships': 2, 'events': 4, 'initial_rules': 2}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: snape (Severus Snape) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: firenze (Firenze) aliases=[]
+    Character: ronan (Ronan) aliases=[]
+    Character: bane (Bane) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: unicorn_blood (Unicorn Blood) relevance=causal
+    Relationship: firenze -> harry_potter (help)
+    Relationship: bane -> firenze (hostile)
+    Event: e1 meet agent=professor_mcgonagall patient=harry_potter
+           source: When Professor McGonagall appeared, she was leading Neville....
+    Event: e2 help agent=firenze patient=harry_potter
+           source: Firenze saved me, but he shouldn’t have done so…....
+    Event: e3 discover agent=harry_potter patient=None
+           source: It was the unicorn all right, and it was dead....
+    Event: e4 talk agent=firenze patient=harry_potter
+           source: You are the Potter boy....
+  Item Tracker: 35 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e63 (was e1): meet
+    Event e64 (was e2): help
+    Event e65 (was e3): discover
+    Event e66 (was e4): talk
+
+  ASP Facts Generated (116 lines):
+    % Chapter 14 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 96 more facts
+
+  Violations Detected: 0
+
+  State after chapter 14:
+    Characters known: 23
+
+
+--- Chapter 15: 015.txt ---
+  Input: {'characters': 8, 'locations': 4, 'items': 6, 'relationships': 3, 'events': 5, 'initial_rules': 3}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: snape (Severus Snape) aliases=['professor_snape']
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: peeves (Peeves) aliases=[]
+    Item: flute (Flute) relevance=causal
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: devils_snare (Devil's Snare) relevance=causal
+    Item: winged_keys (Winged Keys) relevance=causal
+    Item: chess_pieces (Chess Pieces) relevance=causal
+    Item: bottles (Bottles) relevance=causal
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> snape (hostile)
+    Event: e1 discover agent=harry_potter patient=None
+           source: Hagrid told that stranger how to get past Fluffy...
+    Event: e2 talk agent=harry_potter patient=professor_mcgonagall
+           source: We want to see Professor Dumbledore...
+    Event: e3 help agent=hermione_granger patient=harry_potter
+           source: Hermione stepped forward. 'Petrificus Totalus!'...
+    Event: e4 encourage agent=hermione_granger patient=harry_potter
+           source: Harry — you’re a great wizard, you know....
+    Event: e5 help agent=ron_weasley patient=harry_potter
+           source: Ron started to direct the black pieces....
+  Item Tracker: 40 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e67 (was e1): discover
+    Event e68 (was e2): talk
+    Event e69 (was e3): help
+    Event e70 (was e4): encourage
+    Event e71 (was e5): help
+
+  ASP Facts Generated (128 lines):
+    % Chapter 15 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 108 more facts
+
+  Violations Detected: 0
+
+  State after chapter 15:
+    Characters known: 23
+
+
+--- Chapter 16: 016.txt ---
+  Input: {'characters': 7, 'locations': 2, 'items': 4, 'relationships': 3, 'events': 5, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: snape (Severus Snape) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Item: sorcerers_stone (Sorcerer's Stone) relevance=causal
+    Item: mirror_of_erised (Mirror of Erised) relevance=causal
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: photo_album (Photo Album) relevance=latent
+    Relationship: harry_potter -> snape (hostile)
+    Relationship: harry_potter -> professor_quirrell (hostile)
+    Relationship: hagrid -> harry_potter (friendly)
+    Event: e1 discover agent=harry_potter patient=professor_quirrell
+           source: It was Quirrell. “You!” gasped Harry....
+    Event: e2 attack agent=professor_quirrell patient=harry_potter
+           source: Quirrell snapped his fingers. Ropes sprang out of thin air...
+    Event: e3 help agent=albus_dumbledore patient=harry_potter
+           source: I arrived just in time to pull Quirrell off you....
+    Event: e4 give agent=hagrid patient=harry_potter
+           source: I’ve got yeh a present....
+    Event: e5 praise agent=albus_dumbledore patient=harry_potter
+           source: for pure nerve and outstanding courage, I award Gryffindor h...
+  Item Tracker: 42 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e72 (was e1): discover
+    Event e73 (was e2): attack
+    Event e74 (was e3): help
+    Event e75 (was e4): give
+    Event e76 (was e5): praise
+
+  ASP Facts Generated (115 lines):
+    % Chapter 16 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 95 more facts
+
+  Violations Detected: 2
+    [VIOLATION] causality/dead_character_acting: causality/dead_character_acting
+                entities: ['professor_quirrell']
+                event: e73
+                source: Quirrell snapped his fingers. Ropes sprang out of thin air
+    [VIOLATION] causality/interacting_with_dead: causality/interacting_with_dead
+                entities: ['professor_quirrell']
+                event: e72
+                source: It was Quirrell. “You!” gasped Harry.
+
+  State after chapter 16:
+    Characters known: 23
+
+
+========================================
+FINAL ANALYSIS: Harry Potter (original)
+========================================
+
+Total events processed: 76
+Total violations: 22
+Loose ends: 50
+Long-range inconsistencies: 0
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'put_outer', 'entity_type': 'item', 'introduced_chapter': 0, 'introduced_event': None, 'last_referenced_chapter': 0, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'letter', 'entity_type': 'item', 'introduced_chapter': 0, 'introduced_event': None, 'last_referenced_chapter': 0, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'piers_polkiss', 'entity_type': 'character', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'boa_constrictor_tank', 'entity_type': 'item', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'letter_harry', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'smelting_stick', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrid_umbrella', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'harry_letter', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chocolate_cake', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'dedalus_diggle', 'entity_type': 'character', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'harrys_wand', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrids_umbrella', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'gringotts_key', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'vault_713_package', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'snowy_owl', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hedwig', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hogwarts_ticket', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'scabbers', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'bloody_baron', 'entity_type': 'character', 'introduced_chapter': 6, 'introduced_event': None, 'last_referenced_chapter': 6, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'sorting_hat', 'entity_type': 'item', 'introduced_chapter': 6, 'introduced_event': None, 'last_referenced_chapter': 6, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hedwig_note', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'gringotts_article', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'remembrall', 'entity_type': 'item', 'introduced_chapter': 8, 'introduced_event': None, 'last_referenced_chapter': 8, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'oliver_wood', 'entity_type': 'character', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'nimbus_two_thousand', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'golden_snitch', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'troll_club', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'mirror_of_erised', 'entity_type': 'item', 'introduced_chapter': 11, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chocolate_frog', 'entity_type': 'item', 'introduced_chapter': 12, 'introduced_event': None, 'last_referenced_chapter': 12, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'sorcerers_stone', 'entity_type': 'item', 'introduced_chapter': 12, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'norbert', 'entity_type': 'character', 'introduced_chapter': 13, 'introduced_event': None, 'last_referenced_chapter': 13, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'dragon_egg', 'entity_type': 'item', 'introduced_chapter': 13, 'introduced_event': None, 'last_referenced_chapter': 13, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'charlies_letter', 'entity_type': 'item', 'introduced_chapter': 13, 'introduced_event': None, 'last_referenced_chapter': 13, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'firenze', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'ronan', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'bane', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'unicorn_blood', 'entity_type': 'item', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'flute', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'devils_snare', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'winged_keys', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chess_pieces', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'bottles', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'photo_album', 'entity_type': 'item', 'introduced_chapter': 16, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'smelting_stick', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': "Latent item 'smelting_stick' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'vault_713_package', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': "Latent item 'vault_713_package' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'hedwig', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': "Latent item 'hedwig' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'gringotts_article', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': "Latent item 'gringotts_article' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'golden_snitch', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': "Latent item 'golden_snitch' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'sorcerers_stone', 'entity_type': 'item', 'introduced_chapter': 12, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': "Latent item 'sorcerers_stone' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'photo_album', 'entity_type': 'item', 'introduced_chapter': 16, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': "Latent item 'photo_album' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+
+--- All Violations Summary ---
+  unknown: 22
+    - ch?: emotional/relationship_action_mismatch
+    - ch?: emotional/harm_loved_one
+    - ch?: emotional/unmotivated_hostility
+    - ch?: emotional/relationship_action_mismatch
+    - ch?: temporal/time_travel
+    ... and 17 more
+
+
+Alias Resolver: 23 characters, 31 aliases, 0 conflicts
+Item Tracker: 42 total, 42 active, 0 suppressed, 35 causal, 7 latent
+
+============================================================
+PROCESSING: Harry Potter (modified)
+============================================================
+
+--- Chapter 0: 000.txt ---
+  Input: {'characters': 7, 'locations': 2, 'items': 2, 'relationships': 5, 'events': 6, 'initial_rules': 1}
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['Petunia']
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: hagrid (Hagrid) aliases=[]
+    Item: put_outer (Put-Outer) relevance=causal
+    Item: letter (Letter) relevance=causal
+    Relationship: mrs_dursley -> harry_potter (family)
+    Relationship: mrs_dursley -> mr_dursley (family)
+    Relationship: mr_dursley -> harry_potter (family)
+    Relationship: dudley_dursley -> harry_potter (family)
+    Relationship: mrs_dursley -> mrs_potter (hostile)
+    Event: e1 arrive agent=albus_dumbledore patient=None
+           source: A man appeared on the corner the cat had been watching...
+    Event: e2 talk agent=albus_dumbledore patient=professor_mcgonagall
+           source: Fancy seeing you here, Professor McGonagall....
+    Event: e3 arrive agent=hagrid patient=None
+           source: a huge motorcycle fell out of the air and landed on the road...
+    Event: e4 give agent=hagrid patient=albus_dumbledore
+           source: I've got him, sir....
+    Event: e5 leave agent=hagrid patient=None
+           source: Hagrid swung himself onto the motorcycle and kicked the engi...
+    Event: e6 leave agent=albus_dumbledore patient=None
+           source: He turned on his heel and with a swish of his cloak, he was ...
+  Item Tracker: 3 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e1 (was e1): arrive
+    Event e2 (was e2): talk
+    Event e3 (was e3): arrive
+    Event e4 (was e4): give
+    Event e5 (was e5): leave
+    Event e6 (was e6): leave
+
+  ASP Facts Generated (122 lines):
+    % Chapter 0 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(mr_dursley).
+    ... and 102 more facts
+
+  Violations Detected: 0
+
+  State after chapter 0:
+    Characters known: 7
+
+
+--- Chapter 1: 001.txt ---
+  Input: {'characters': 5, 'locations': 2, 'items': 3, 'relationships': 1, 'events': 4, 'initial_rules': 0}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['petunia']
+    Character: piers_polkiss (Piers Polkiss) aliases=[]
+    Item: cupboard (Cupboard) relevance=latent
+    Item: bacon (Bacon) relevance=causal
+    Item: glass (Glass) relevance=causal
+    Relationship: dudley_dursley -> piers_polkiss (friendly)
+    Event: e1 talk agent=mrs_dursley patient=harry_potter
+           source: "Up! Get up! Now!"...
+    Event: e2 talk agent=harry_potter patient=snake
+           source: "Where do you come from, anyway?"...
+    Event: e3 discover agent=harry_potter patient=glass
+           source: the glass front of the boa constrictor’s tank had vanished...
+    Event: e4 attack agent=dudley_dursley patient=harry_potter
+           source: "Out of the way, you," he said, punching Harry in the ribs....
+  Item Tracker: 6 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e7 (was e1): talk
+    Event e8 (was e2): talk
+    Event e9 (was e3): discover
+    Event e10 (was e4): attack
+
+  ASP Facts Generated (86 lines):
+    % Chapter 1 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 66 more facts
+
+  Violations Detected: 3
+    [VIOLATION] emotional/relationship_action_mismatch: emotional/relationship_action_mismatch
+                entities: ['pair(dudley_dursley,harry)']
+                event: e10
+                source: \"Out of the way, you,\" he said, punching Harry in the ribs.
+    [VIOLATION] emotional/harm_loved_one: emotional/harm_loved_one
+                entities: ['pair(dudley_dursley,harry)']
+                event: e10
+                source: \"Out of the way, you,\" he said, punching Harry in the ribs.
+    [VIOLATION] emotional/unmotivated_hostility: emotional/unmotivated_hostility
+                entities: ['pair(dudley_dursley,harry)']
+                event: e10
+                source: \"Out of the way, you,\" he said, punching Harry in the ribs.
+
+  State after chapter 1:
+    Characters known: 8
+
+
+--- Chapter 2: 002.txt ---
+  Input: {'characters': 5, 'locations': 2, 'items': 2, 'relationships': 1, 'events': 4, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: mr_dursley (Mr. Dursley) aliases=[]
+    Character: mrs_dursley (Mrs. Dursley) aliases=['petunia']
+    Character: piers_polkiss (Piers Polkiss) aliases=[]
+    Item: letter_harry (Letter for Harry) relevance=causal
+    Item: smelting_stick (Smelting Stick) relevance=latent
+    Relationship: dudley_dursley -> harry_potter (hostile)
+    Event: e1 take agent=mr_dursley patient=harry_potter
+           source: it was jerked sharply out of his hand by Uncle Vernon...
+    Event: e2 move agent=harry_potter patient=None
+           source: we think it might be nice if you moved into Dudley’s second ...
+    Event: e3 leave agent=mr_dursley patient=None
+           source: I want you all back here in five minutes ready to leave...
+    Event: e4 discover agent=harry_potter patient=None
+           source: I got about an ‘undred of these at the front desk...
+  Item Tracker: 9 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e11 (was e1): take
+    Event e12 (was e2): move
+    Event e13 (was e3): leave
+    Event e14 (was e4): discover
+
+  ASP Facts Generated (88 lines):
+    % Chapter 2 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 68 more facts
+
+  Violations Detected: 0
+
+  State after chapter 2:
+    Characters known: 8
+
+
+--- Chapter 3: 003.txt ---
+  Input: {'characters': 5, 'locations': 1, 'items': 3, 'relationships': 1, 'events': 4, 'initial_rules': 1}
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: mr_dursley (Vernon Dursley) aliases=[]
+    Character: mrs_dursley (Petunia Dursley) aliases=['petunia']
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Item: hagrid_cake (Chocolate Cake) relevance=causal
+    Item: hagrid_letter (Hogwarts Acceptance Letter) relevance=causal
+    Item: hagrid_umbrella (Pink Umbrella) relevance=causal
+    Relationship: hagrid -> harry_potter (friendly)
+    Event: e1 arrive agent=hagrid patient=None
+           source: A giant of a man was standing in the doorway....
+    Event: e2 give agent=hagrid patient=harry_potter
+           source: Got summat fer yeh here — I mighta sat on it at some point.....
+    Event: e3 talk agent=hagrid patient=harry_potter
+           source: Harry — yet a wizard....
+    Event: e4 attack agent=hagrid patient=dudley_dursley
+           source: there was a flash of violet light, a sound like a firecracke...
+  Item Tracker: 12 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e15 (was e1): arrive
+    Event e16 (was e2): give
+    Event e17 (was e3): talk
+    Event e18 (was e4): attack
+
+  ASP Facts Generated (96 lines):
+    % Chapter 3 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(hagrid).
+    ... and 76 more facts
+
+  Violations Detected: 0
+
+  State after chapter 3:
+    Characters known: 8
+
+
+--- Chapter 4: 004.txt ---
+  Input: {'characters': 4, 'locations': 5, 'items': 4, 'relationships': 2, 'events': 5, 'initial_rules': 0}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: dedalus_diggle (Dedalus Diggle) aliases=[]
+    Item: harrys_wand (Harry's Wand) relevance=causal
+    Item: hagrids_umbrella (Hagrid's Pink Umbrella) relevance=causal
+    Item: gringotts_key (Gringotts Key) relevance=causal
+    Item: snowy_owl (Snowy Owl) relevance=causal
+    Relationship: hagrid -> harry_potter (friendly)
+    Relationship: professor_quirrell -> harry_potter (friendly)
+    Event: e1 discover agent=harry_potter patient=None
+           source: Inside were mounds of gold coins....
+    Event: e2 meet agent=harry_potter patient=professor_quirrell
+           source: Professor Quirrell will be one of your teachers at Hogwarts....
+    Event: e3 give agent=hagrid patient=harry_potter
+           source: I'll get yer an owl....
+    Event: e4 take agent=harry_potter patient=None
+           source: Harry took the wand....
+    Event: e5 praise agent=mr_ollivander patient=harry_potter
+           source: Oh, bravo! Yes, indeed, oh, very good....
+  Item Tracker: 16 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e19 (was e1): discover
+    Event e20 (was e2): meet
+    Event e21 (was e3): give
+    Event e22 (was e4): take
+    Event e23 (was e5): praise
+
+  ASP Facts Generated (116 lines):
+    % Chapter 4 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 96 more facts
+
+  Violations Detected: 0
+
+  State after chapter 4:
+    Characters known: 10
+
+
+--- Chapter 5: 005.txt ---
+  Input: {'characters': 10, 'locations': 4, 'items': 4, 'relationships': 3, 'events': 4, 'initial_rules': 3}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: mr_dursley (Vernon Dursley) aliases=[]
+    Character: mrs_dursley (Petunia Dursley) aliases=[]
+    Character: dudley_dursley (Dudley Dursley) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: fred_weasley (Fred Weasley) aliases=[]
+    Character: george_weasley (George Weasley) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Item: hedwig (Hedwig) relevance=latent
+    Item: hogwarts_ticket (Hogwarts Ticket) relevance=causal
+    Item: scabbers (Scabbers) relevance=causal
+    Item: chocolate_frogs (Chocolate Frogs) relevance=causal
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Event: e1 farewell agent=mr_dursley patient=harry_potter
+           source: Have a good term my boy...
+    Event: e2 meet agent=harry_potter patient=ron_weasley
+           source: Are you really Harry Potter?...
+    Event: e3 meet agent=harry_potter patient=hermione_granger
+           source: I'm Hermione Granger, by the way...
+    Event: e4 attack agent=scabbers patient=goyle
+           source: Scabbers the rat was hanging off his finger...
+  Item Tracker: 20 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e24 (was e1): farewell
+    Event e25 (was e2): meet
+    Event e26 (was e3): meet
+    Event e27 (was e4): attack
+
+  ASP Facts Generated (123 lines):
+    % Chapter 5 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 103 more facts
+
+  Violations Detected: 0
+
+  State after chapter 5:
+    Characters known: 16
+
+
+--- Chapter 6: 006.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 1, 'relationships': 1, 'events': 5, 'initial_rules': 1}
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Item: sorting_hat (Sorting Hat) relevance=causal
+    Relationship: harry_potter -> severus_snape (hostile)
+    Event: e1 arrive agent=harry_potter patient=None
+           source: The door swung open at once....
+    Event: e2 talk agent=professor_mcgonagall patient=first_years
+           source: Welcome to Hogwarts...
+    Event: e3 talk agent=sorting_hat patient=first_years
+           source: Oh, you may not think I’m pretty...
+    Event: e4 praise agent=albus_dumbledore patient=students
+           source: Welcome to a new year at Hogwarts!...
+    Event: e5 hostile agent=severus_snape patient=harry_potter
+           source: a feeling that he didn’t like Harry at all...
+  Item Tracker: 21 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e28 (was e1): arrive
+    Event e29 (was e2): talk
+    Event e30 (was e3): talk
+    Event e31 (was e4): praise
+    Event e32 (was e5): hostile
+
+  ASP Facts Generated (114 lines):
+    % Chapter 6 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(professor_mcgonagall).
+    ... and 94 more facts
+
+  Violations Detected: 0
+
+  State after chapter 6:
+    Characters known: 17
+
+
+--- Chapter 7: 007.txt ---
+  Input: {'characters': 7, 'locations': 3, 'items': 2, 'relationships': 1, 'events': 3, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Item: hedwig_note (Note from Hagrid) relevance=causal
+    Item: gringotts_article (Gringotts Break-in Article) relevance=latent
+    Relationship: severus_snape -> harry_potter (hostile)
+    Event: e1 talk agent=hagrid patient=harry_potter
+           source: I want to hear all about your first week....
+    Event: e2 help agent=professor_quirrell patient=harry_potter
+           source: rescued by Professor Quirrell, who was passing....
+    Event: e3 discover agent=harry_potter patient=None
+           source: It was a cutting from the Daily Prophet: GRINGOTTS BREAKIN L...
+  Item Tracker: 23 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e33 (was e1): talk
+    Event e34 (was e2): help
+    Event e35 (was e3): discover
+
+  ASP Facts Generated (88 lines):
+    % Chapter 7 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 68 more facts
+
+  Violations Detected: 0
+
+  State after chapter 7:
+    Characters known: 17
+
+
+--- Chapter 8: 008.txt ---
+  Input: {'characters': 7, 'locations': 4, 'items': 2, 'relationships': 3, 'events': 4, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: oliver_wood (Oliver Wood) aliases=[]
+    Item: remembrall (Remembrall) relevance=causal
+    Item: broomstick (Broomstick) relevance=causal
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Event: e1 take agent=draco_malfoy patient=neville_longbottom
+           source: Malfoy, who was passing the Gryffindor table, snatched the R...
+    Event: e2 give agent=draco_malfoy patient=harry_potter
+           source: Malfoy threw the glass ball high into the air...
+    Event: e3 discover agent=harry_potter patient=None
+           source: They were looking straight into the eyes of a monstrous dog...
+    Event: e4 praise agent=professor_mcgonagall patient=harry_potter
+           source: Your father would have been proud...
+  Item Tracker: 26 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e36 (was e1): take
+    Event e37 (was e2): give
+    Event e38 (was e3): discover
+    Event e39 (was e4): praise
+
+  ASP Facts Generated (99 lines):
+    % Chapter 8 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 79 more facts
+
+  Violations Detected: 0
+
+  State after chapter 8:
+    Characters known: 18
+
+
+--- Chapter 9: 009.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 3, 'relationships': 1, 'events': 6, 'initial_rules': 1}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: oliver_wood (Oliver Wood) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Item: nimbus_two_thousand (Nimbus Two Thousand) relevance=causal
+    Item: golden_snitch (Golden Snitch) relevance=latent
+    Item: troll_club (Troll's Club) relevance=causal
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Event: e1 discover agent=harry_potter patient=None
+           source: Harry was amazed when the owls soared down...
+    Event: e2 give agent=professor_mcgonagall patient=harry_potter
+           source: It contains your new Nimbus Two Thousand...
+    Event: e3 attack agent=troll patient=hermione_granger
+           source: The troll was advancing on her...
+    Event: e4 help agent=harry_potter patient=hermione_granger
+           source: Harry stuck his wand up its nose...
+    Event: e5 help agent=ron_weasley patient=hermione_granger
+           source: Ron knocked it out with its own club...
+    Event: e6 praise agent=professor_mcgonagall patient=harry_potter
+           source: You each win Gryffindor five points...
+  Item Tracker: 29 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e40 (was e1): discover
+    Event e41 (was e2): give
+    Event e42 (was e3): attack
+    Event e43 (was e4): help
+    Event e44 (was e5): help
+    Event e45 (was e6): praise
+
+  ASP Facts Generated (124 lines):
+    % Chapter 9 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 104 more facts
+
+  Violations Detected: 0
+
+  State after chapter 9:
+    Characters known: 18
+
+
+--- Chapter 10: 010.txt ---
+  Input: {'characters': 0, 'locations': 0, 'items': 0, 'relationships': 0, 'events': 0, 'initial_rules': 0}
+  Item Tracker: 29 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+
+  ASP Facts Generated (21 lines):
+    % Chapter 10 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    % Story rules (dynamic, established by events)
+    ... and 1 more facts
+
+  Violations Detected: 0
+
+  State after chapter 10:
+    Characters known: 18
+
+
+--- Chapter 11: 011.txt ---
+  Input: {'characters': 7, 'locations': 6, 'items': 2, 'relationships': 3, 'events': 3, 'initial_rules': 2}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=['hagrid']
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: mirror_of_erised (Mirror of Erised) relevance=latent
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Relationship: harry_potter -> severus_snape (hostile)
+    Event: e1 give agent=hagrid patient=harry_potter
+           source: To Harry, from Hagrid....
+    Event: e2 discover agent=harry_potter patient=None
+           source: It was a magnificent mirror......
+    Event: e3 talk agent=albus_dumbledore patient=harry_potter
+           source: So — back again, Harry?...
+  Item Tracker: 31 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e46 (was e1): give
+    Event e47 (was e2): discover
+    Event e48 (was e3): talk
+
+  ASP Facts Generated (92 lines):
+    % Chapter 11 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 72 more facts
+
+  Violations Detected: 0
+
+  State after chapter 11:
+    Characters known: 18
+
+
+--- Chapter 12: 012.txt ---
+  Input: {'characters': 8, 'locations': 3, 'items': 3, 'relationships': 2, 'events': 5, 'initial_rules': 2}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: chocolate_frog (Chocolate Frog) relevance=causal
+    Item: sorcerers_stone (Sorcerer's Stone) relevance=latent
+    Relationship: harry_potter -> neville_longbottom (friendly)
+    Relationship: ron_weasley -> neville_longbottom (friendly)
+    Event: e1 give agent=harry_potter patient=neville_longbottom
+           source: He gave it to Neville, who looked as though he might cry....
+    Event: e2 discover agent=harry_potter patient=None
+           source: I’ve found him! I’ve found Flamel!...
+    Event: e3 talk agent=severus_snape patient=professor_quirrell
+           source: You don’t want me as your enemy, Quirrell....
+    Event: e4 attack agent=ron_weasley patient=draco_malfoy
+           source: Ron was on top of him, wrestling him to the ground....
+    Event: e5 praise agent=albus_dumbledore patient=harry_potter
+           source: Well done, said Dumbledore quietly....
+  Item Tracker: 33 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e49 (was e1): give
+    Event e50 (was e2): discover
+    Event e51 (was e3): talk
+    Event e52 (was e4): attack
+    Event e53 (was e5): praise
+
+  ASP Facts Generated (116 lines):
+    % Chapter 12 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 96 more facts
+
+  Violations Detected: 0
+
+  State after chapter 12:
+    Characters known: 18
+
+
+--- Chapter 13: 013.txt ---
+  Input: {'characters': 6, 'locations': 3, 'items': 3, 'relationships': 1, 'events': 5, 'initial_rules': 1}
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Item: norwegian_ridgeback_egg (Norwegian Ridgeback Egg) relevance=causal
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: charlies_letter (Charlie's Letter) relevance=causal
+    Relationship: harry_potter -> professor_quirrell (friendly)
+    Event: e1 smile agent=harry_potter patient=professor_quirrell
+           source: Harry passed Quirrell these days he gave him an encouraging ...
+    Event: e2 discover agent=ron_weasley patient=None
+           source: Hagrid was looking up stuff about dragons...
+    Event: e3 discover agent=harry_potter patient=None
+           source: In the very heart of the fire, underneath the kettle, was a ...
+    Event: e4 give agent=charlie_weasley patient=harry_potter
+           source: Hedwig brought Harry another note from Hagrid...
+    Event: e5 farewell agent=hagrid patient=norbert
+           source: Bye-bye, Norbert! Hagrid sobbed...
+  Item Tracker: 35 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e54 (was e1): smile
+    Event e55 (was e2): discover
+    Event e56 (was e3): discover
+    Event e57 (was e4): give
+    Event e58 (was e5): farewell
+
+  ASP Facts Generated (106 lines):
+    % Chapter 13 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(professor_quirrell).
+    ... and 86 more facts
+
+  Violations Detected: 0
+
+  State after chapter 13:
+    Characters known: 18
+
+
+--- Chapter 14: 014.txt ---
+  Input: {'characters': 12, 'locations': 3, 'items': 2, 'relationships': 5, 'events': 7, 'initial_rules': 2}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: draco_malfoy (Draco Malfoy) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=['hagrid']
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: firenze (Firenze) aliases=[]
+    Character: bane (Bane) aliases=[]
+    Character: ronan (Ronan) aliases=[]
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: unicorn_blood (Unicorn Blood) relevance=causal
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: harry_potter -> draco_malfoy (hostile)
+    Relationship: harry_potter -> neville_longbottom (friendly)
+    Relationship: firenze -> harry_potter (friendly)
+    Relationship: bane -> firenze (hostile)
+    Event: e1 meet agent=professor_mcgonagall patient=harry_potter
+           source: When Professor McGonagall appeared, she was leading Neville....
+    Event: e2 talk agent=neville_longbottom patient=harry_potter
+           source: I knew you were up to something, I heard Draco saying someth...
+    Event: e3 talk agent=professor_mcgonagall patient=harry_potter
+           source: I’m disgusted, said Professor McGonagall....
+    Event: e4 discover agent=harry_potter patient=unicorn_blood
+           source: Look there, said Hagrid, see that stuff shinin’ on the groun...
+    Event: e5 help agent=firenze patient=harry_potter
+           source: Are you all right? said the centaur, pulling Harry to his fe...
+    Event: e6 talk agent=firenze patient=harry_potter
+           source: You are the Potter boy, he said....
+    Event: e7 talk agent=bane patient=firenze
+           source: What are you doing? You have a human on your back!...
+  Item Tracker: 36 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e59 (was e1): meet
+    Event e60 (was e2): talk
+    Event e61 (was e3): talk
+    Event e62 (was e4): discover
+    Event e63 (was e5): help
+    Event e64 (was e6): talk
+    Event e65 (was e7): talk
+
+  ASP Facts Generated (159 lines):
+    % Chapter 14 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 139 more facts
+
+  Violations Detected: 0
+
+  State after chapter 14:
+    Characters known: 21
+
+
+--- Chapter 15: 015.txt ---
+  Input: {'characters': 7, 'locations': 3, 'items': 6, 'relationships': 3, 'events': 4, 'initial_rules': 3}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: neville_longbottom (Neville Longbottom) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: hagrid (Rubeus Hagrid) aliases=[]
+    Character: professor_mcgonagall (Professor McGonagall) aliases=[]
+    Item: flute (Flute) relevance=causal
+    Item: invisibility_cloak (Invisibility Cloak) relevance=causal
+    Item: devils_snare (Devil's Snare) relevance=causal
+    Item: winged_keys (Winged Keys) relevance=causal
+    Item: chess_pieces (Chess Pieces) relevance=causal
+    Item: bottles (Bottles) relevance=causal
+    Relationship: harry_potter -> hermione_granger (friendly)
+    Relationship: harry_potter -> ron_weasley (friendly)
+    Relationship: hermione_granger -> ron_weasley (friendly)
+    Event: e1 discover agent=harry_potter patient=None
+           source: Hagrid told that stranger how to get past Fluffy...
+    Event: e2 talk agent=harry_potter patient=professor_mcgonagall
+           source: We want to see Professor Dumbledore...
+    Event: e3 help agent=hermione_granger patient=neville_longbottom
+           source: Petrificus Totalus!...
+    Event: e4 encourage agent=hermione_granger patient=harry_potter
+           source: Harry — you’re a great wizard, you know....
+  Item Tracker: 41 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e66 (was e1): discover
+    Event e67 (was e2): talk
+    Event e68 (was e3): help
+    Event e69 (was e4): encourage
+
+  ASP Facts Generated (112 lines):
+    % Chapter 15 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 92 more facts
+
+  Violations Detected: 0
+
+  State after chapter 15:
+    Characters known: 21
+
+
+--- Chapter 16: 016.txt ---
+  Input: {'characters': 7, 'locations': 3, 'items': 3, 'relationships': 2, 'events': 9, 'initial_rules': 2}
+    Character: harry_potter (Harry Potter) aliases=[]
+    Character: professor_quirrell (Professor Quirrell) aliases=[]
+    Character: albus_dumbledore (Albus Dumbledore) aliases=[]
+    Character: severus_snape (Severus Snape) aliases=[]
+    Character: ron_weasley (Ron Weasley) aliases=[]
+    Character: hermione_granger (Hermione Granger) aliases=[]
+    Character: hagrid (Hagrid) aliases=['rubeus_hagrid']
+    Item: sorcerers_stone (Sorcerer's Stone) relevance=causal
+    Item: invisibility_cloak (Invisibility Cloak) relevance=latent
+    Item: photo_album (Photo Album) relevance=causal
+    Relationship: harry_potter -> severus_snape (friendly)
+    Relationship: harry_potter -> professor_quirrell (hostile)
+    Event: e1 discover agent=harry_potter patient=sorcerers_stone
+           source: Somehow — incredibly — he’d gotten the Stone....
+    Event: e2 attack agent=professor_quirrell patient=harry_potter
+           source: Quirrell lunged, knocking Harry clean off his feet...
+    Event: e3 help agent=albus_dumbledore patient=harry_potter
+           source: I arrived just in time to pull Quirrell off you....
+    Event: e4 give agent=hagrid patient=harry_potter
+           source: It seemed to be a handsome, leather-covered book....
+    Event: e5 praise agent=albus_dumbledore patient=harry_potter
+           source: You were doing very well on your own, I must say....
+    Event: e6 praise agent=albus_dumbledore patient=ron_weasley
+           source: I award Gryffindor house fifty points....
+    Event: e7 praise agent=albus_dumbledore patient=hermione_granger
+           source: I award Gryffindor house fifty points....
+    Event: e8 praise agent=albus_dumbledore patient=harry_potter
+           source: I award Gryffindor house sixty points....
+    Event: e9 praise agent=albus_dumbledore patient=neville_longbottom
+           source: I therefore award ten points to Mr. Neville Longbottom....
+  Item Tracker: 42 active, 0 suppressed
+
+  Running EventExecutor.evaluate_chapter_structured()...
+    Event e70 (was e1): discover
+    Event e71 (was e2): attack
+    Event e72 (was e3): help
+    Event e73 (was e4): give
+    Event e74 (was e5): praise
+    Event e75 (was e6): praise
+    Event e76 (was e7): praise
+    Event e77 (was e8): praise
+    Event e78 (was e9): praise
+
+  ASP Facts Generated (161 lines):
+    % Chapter 16 facts
+    % Character alias facts (generated from CHARACTER_ALIASES)
+    alias(harry_potter, harry).
+    alias(potter, harry).
+    alias(ron_weasley, ron).
+    alias(weasley, ron).
+    alias(hermione_granger, hermione).
+    alias(granger, hermione).
+    alias(albus_dumbledore, dumbledore).
+    alias(professor_dumbledore, dumbledore).
+    alias(severus_snape, snape).
+    alias(professor_snape, snape).
+    alias(draco_malfoy, malfoy).
+    alias(rubeus_hagrid, hagrid).
+    alias(lord_voldemort, voldemort).
+    alias(tom_riddle, voldemort).
+    alias(he_who_must_not_be_named, voldemort).
+    alias(you_know_who, voldemort).
+    alias(the_dark_lord, voldemort).
+    character(harry).
+    ... and 141 more facts
+
+  Violations Detected: 5
+    [VIOLATION] causality/dead_character_acting: causality/dead_character_acting
+                entities: ['professor_quirrell']
+                event: e71
+                source: Quirrell lunged, knocking Harry clean off his feet
+    [VIOLATION] emotional/relationship_action_mismatch: emotional/relationship_action_mismatch
+                entities: ['pair(professor_quirrell,harry)']
+                event: e71
+                source: Quirrell lunged, knocking Harry clean off his feet
+    [VIOLATION] emotional/relationship_flip: emotional/relationship_flip
+                entities: ['pair(hostile,friendly)']
+                event: pair(harry,snape)
+                source: 
+    [VIOLATION] emotional/harm_loved_one: emotional/harm_loved_one
+                entities: ['pair(professor_quirrell,harry)']
+                event: e71
+                source: Quirrell lunged, knocking Harry clean off his feet
+    [VIOLATION] emotional/unmotivated_hostility: emotional/unmotivated_hostility
+                entities: ['pair(professor_quirrell,harry)']
+                event: e71
+                source: Quirrell lunged, knocking Harry clean off his feet
+
+  State after chapter 16:
+    Characters known: 21
+
+
+========================================
+FINAL ANALYSIS: Harry Potter (modified)
+========================================
+
+Total events processed: 78
+Total violations: 8
+Loose ends: 50
+Long-range inconsistencies: 0
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'put_outer', 'entity_type': 'item', 'introduced_chapter': 0, 'introduced_event': None, 'last_referenced_chapter': 0, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'letter', 'entity_type': 'item', 'introduced_chapter': 0, 'introduced_event': None, 'last_referenced_chapter': 0, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'cupboard', 'entity_type': 'item', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'bacon', 'entity_type': 'item', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'glass', 'entity_type': 'item', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'letter_harry', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'smelting_stick', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrid_cake', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrid_letter', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrid_umbrella', 'entity_type': 'item', 'introduced_chapter': 3, 'introduced_event': None, 'last_referenced_chapter': 3, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'dedalus_diggle', 'entity_type': 'character', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'harrys_wand', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hagrids_umbrella', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'gringotts_key', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'snowy_owl', 'entity_type': 'item', 'introduced_chapter': 4, 'introduced_event': None, 'last_referenced_chapter': 4, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'fred_weasley', 'entity_type': 'character', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'george_weasley', 'entity_type': 'character', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hedwig', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hogwarts_ticket', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'scabbers', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chocolate_frogs', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'sorting_hat', 'entity_type': 'item', 'introduced_chapter': 6, 'introduced_event': None, 'last_referenced_chapter': 6, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'hedwig_note', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'gringotts_article', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'remembrall', 'entity_type': 'item', 'introduced_chapter': 8, 'introduced_event': None, 'last_referenced_chapter': 8, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'broomstick', 'entity_type': 'item', 'introduced_chapter': 8, 'introduced_event': None, 'last_referenced_chapter': 8, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'nimbus_two_thousand', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'golden_snitch', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'troll_club', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'mirror_of_erised', 'entity_type': 'item', 'introduced_chapter': 11, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chocolate_frog', 'entity_type': 'item', 'introduced_chapter': 12, 'introduced_event': None, 'last_referenced_chapter': 12, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'sorcerers_stone', 'entity_type': 'item', 'introduced_chapter': 12, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'norwegian_ridgeback_egg', 'entity_type': 'item', 'introduced_chapter': 13, 'introduced_event': None, 'last_referenced_chapter': 13, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'charlies_letter', 'entity_type': 'item', 'introduced_chapter': 13, 'introduced_event': None, 'last_referenced_chapter': 13, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'firenze', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'bane', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unused_entity', 'entity_id': 'ronan', 'entity_type': 'character', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Character introduced but never used'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'unicorn_blood', 'entity_type': 'item', 'introduced_chapter': 14, 'introduced_event': None, 'last_referenced_chapter': 14, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'flute', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'devils_snare', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'winged_keys', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'chess_pieces', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'bottles', 'entity_type': 'item', 'introduced_chapter': 15, 'introduced_event': None, 'last_referenced_chapter': 15, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'unresolved_item', 'entity_id': 'photo_album', 'entity_type': 'item', 'introduced_chapter': 16, 'introduced_event': None, 'last_referenced_chapter': 16, 'expected_resolution': 'Item should be used or resolved'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'cupboard', 'entity_type': 'item', 'introduced_chapter': 1, 'introduced_event': None, 'last_referenced_chapter': 1, 'expected_resolution': "Latent item 'cupboard' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'smelting_stick', 'entity_type': 'item', 'introduced_chapter': 2, 'introduced_event': None, 'last_referenced_chapter': 2, 'expected_resolution': "Latent item 'smelting_stick' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'hedwig', 'entity_type': 'item', 'introduced_chapter': 5, 'introduced_event': None, 'last_referenced_chapter': 5, 'expected_resolution': "Latent item 'hedwig' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'gringotts_article', 'entity_type': 'item', 'introduced_chapter': 7, 'introduced_event': None, 'last_referenced_chapter': 7, 'expected_resolution': "Latent item 'gringotts_article' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'golden_snitch', 'entity_type': 'item', 'introduced_chapter': 9, 'introduced_event': None, 'last_referenced_chapter': 9, 'expected_resolution': "Latent item 'golden_snitch' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+  [LOOSE END] {'type': 'chekhov_latent', 'entity_id': 'mirror_of_erised', 'entity_type': 'item', 'introduced_chapter': 11, 'introduced_event': None, 'last_referenced_chapter': 11, 'expected_resolution': "Latent item 'mirror_of_erised' was introduced but never used (Chekhov's Gun violation)", 'item_relevance': 'latent', 'item_lifecycle': 'introduced', 'item_original_relevance': 'latent'}
+
+--- All Violations Summary ---
+  unknown: 8
+    - ch?: emotional/relationship_action_mismatch
+    - ch?: emotional/harm_loved_one
+    - ch?: emotional/unmotivated_hostility
+    - ch?: causality/dead_character_acting
+    - ch?: emotional/relationship_action_mismatch
+    ... and 3 more
+
+
+Alias Resolver: 21 characters, 25 aliases, 0 conflicts
+Item Tracker: 42 total, 42 active, 0 suppressed, 36 causal, 6 latent
+
+============================================================
+DEBUG MODE COMPLETE
+============================================================
+Debug JSONL output: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/debug_engine.jsonl
+Debug text output: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/debug_engine.txt

@@ -2812,6 +2812,336 @@ def run_step2_logic(experiment_dir: Path, stories: List[str], llm_url: str, max_
 
 
 # =============================================================================
+# DEBUG MODE: Use existing extractions without LLM calls
+# =============================================================================
+
+def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
+    """
+    Debug mode: Load existing extractions from step2_extractions.jsonl and run
+    them through the Logic Engine without calling any LLM.
+    
+    This mode is for debugging and analyzing how the engine processes
+    previously extracted data. It logs detailed debug information to console
+    and to debug_engine.jsonl.
+    
+    No LLM calls are made. All data comes from existing step2_extractions.jsonl.
+    
+    Args:
+        experiment_dir: Path to the experiment directory with existing extractions
+        stories: List of story names to process
+    """
+    from engine import (
+        StateManager, 
+        RuleRegistry, 
+        EventExecutor, 
+        FinalAnalyzer,
+        AliasResolver,
+        ItemTracker,
+    )
+    
+    log("=" * 60)
+    log("DEBUG MODE: Logic Engine Analysis (No LLM)")
+    log("=" * 60)
+    log("This mode loads existing extractions and runs them through the engine")
+    log("for detailed debugging. No LLM calls will be made.")
+    log("=" * 60)
+    
+    # Check for existing extractions file
+    extraction_file = experiment_dir / "step2_extractions.jsonl"
+    if not extraction_file.exists():
+        log(f"ERROR: No extractions file found at {extraction_file}", "ERROR")
+        log("Run step 2 with an LLM first to generate extractions.")
+        return
+    
+    # Load all extractions
+    log(f"\nLoading extractions from: {extraction_file}")
+    extractions = []
+    with open(extraction_file, "r") as f:
+        for line in f:
+            if line.strip():
+                extractions.append(json.loads(line))
+    
+    log(f"Loaded {len(extractions)} chapter extractions")
+    
+    # Group by story/variant
+    extraction_groups: Dict[Tuple[str, str], List[Dict]] = {}
+    for ext in extractions:
+        key = (ext["story"], ext["variant"])
+        if key not in extraction_groups:
+            extraction_groups[key] = []
+        extraction_groups[key].append(ext)
+    
+    # Sort each group by chapter number
+    for key in extraction_groups:
+        extraction_groups[key].sort(key=lambda x: x["chapter"])
+    
+    log(f"Found {len(extraction_groups)} story/variant combinations")
+    
+    # Create debug output file
+    debug_file = experiment_dir / "debug_engine.jsonl"
+    debug_txt_file = experiment_dir / "debug_engine.txt"
+    
+    # Initialize output files
+    with open(debug_file, "w") as f:
+        f.write("")
+    with open(debug_txt_file, "w") as f:
+        f.write(f"DEBUG ENGINE LOG - {datetime.now().isoformat()}\n")
+        f.write("=" * 80 + "\n\n")
+    
+    def debug_log(message: str, entry: Dict = None):
+        """Log to console and files."""
+        log(message)
+        with open(debug_txt_file, "a") as f:
+            f.write(message + "\n")
+        if entry:
+            with open(debug_file, "a") as f:
+                f.write(json.dumps(entry) + "\n")
+    
+    # Filter by requested stories
+    for (story_name, variant), chapter_extractions in extraction_groups.items():
+        if stories and story_name not in stories:
+            debug_log(f"Skipping {story_name} ({variant}) - not in requested stories")
+            continue
+        
+        debug_log(f"\n{'='*60}")
+        debug_log(f"PROCESSING: {story_name} ({variant})")
+        debug_log(f"{'='*60}")
+        
+        # Initialize engine modules for this story
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(RULES_DIR)
+        rule_registry.load_legacy_rules()
+        
+        alias_resolver = AliasResolver()
+        item_tracker = ItemTracker()
+        event_executor = EventExecutor(state_manager, rule_registry)
+        final_analyzer = FinalAnalyzer(state_manager, rule_registry, item_tracker, alias_resolver)
+        
+        story_violations = []
+        all_events = []
+        
+        for ext in chapter_extractions:
+            chapter_num = ext["chapter"]
+            chapter_file = ext["chapter_file"]
+            structured = ext.get("extraction", {})
+            
+            debug_log(f"\n--- Chapter {chapter_num}: {chapter_file} ---")
+            
+            # Log what we're feeding to the engine
+            entities = structured.get("entities", {})
+            events = structured.get("events", [])
+            initial_rules = structured.get("initial_rules", [])
+            
+            debug_entry = {
+                "type": "chapter_input",
+                "story": story_name,
+                "variant": variant,
+                "chapter": chapter_num,
+                "chapter_file": chapter_file,
+                "timestamp": datetime.now().isoformat(),
+                "input": {
+                    "characters": len(entities.get("characters", [])),
+                    "locations": len(entities.get("locations", [])),
+                    "items": len(entities.get("items", [])),
+                    "relationships": len(entities.get("relationships", [])),
+                    "events": len(events),
+                    "initial_rules": len(initial_rules),
+                },
+                "entities": entities,
+                "events": events,
+                "initial_rules": initial_rules,
+            }
+            debug_log(f"  Input: {debug_entry['input']}", debug_entry)
+            
+            # Log characters
+            for char in entities.get("characters", []):
+                debug_log(f"    Character: {char.get('id')} ({char.get('name')}) aliases={char.get('aliases', [])}")
+            
+            # Log items with relevance
+            for item in entities.get("items", []):
+                debug_log(f"    Item: {item.get('id')} ({item.get('name')}) relevance={item.get('relevance', 'unknown')}")
+            
+            # Log relationships
+            for rel in entities.get("relationships", []):
+                debug_log(f"    Relationship: {rel.get('from')} -> {rel.get('to')} ({rel.get('type')})")
+            
+            # Log events
+            for event in events:
+                debug_log(f"    Event: {event.get('id')} {event.get('type')} agent={event.get('agent')} patient={event.get('patient')}")
+                debug_log(f"           source: {event.get('source_text', '')[:60]}...")
+            
+            # Normalize aliases
+            structured, alias_conflicts = alias_resolver.normalize_extraction(structured, chapter_num)
+            
+            if alias_conflicts:
+                for conflict in alias_conflicts:
+                    conflict_entry = {
+                        "type": "alias_conflict",
+                        "story": story_name,
+                        "variant": variant,
+                        "chapter": chapter_num,
+                        "conflict": conflict.to_dict(),
+                    }
+                    debug_log(f"  [ALIAS CONFLICT] {conflict.alias} -> {conflict.canonical_ids}", conflict_entry)
+            
+            # Process items
+            structured = item_tracker.process_extraction(structured, chapter_num)
+            
+            # Log item tracker state
+            item_stats = item_tracker.get_statistics()
+            debug_log(f"  Item Tracker: {item_stats['active_items']} active, {item_stats['suppressed_items']} suppressed")
+            
+            # Run the engine evaluation
+            debug_log(f"\n  Running EventExecutor.evaluate_chapter_structured()...")
+            eval_result = event_executor.evaluate_chapter_structured(structured, chapter_num)
+            
+            # Log events with global IDs
+            for event in structured.get("events", []):
+                all_events.append({
+                    "chapter": chapter_num,
+                    "global_id": event.get("global_id"),
+                    "local_id": event.get("id"),
+                    "type": event.get("type"),
+                    "agent": event.get("agent"),
+                    "patient": event.get("patient"),
+                    "location": event.get("location"),
+                })
+                debug_log(f"    Event {event.get('global_id')} (was {event.get('id')}): {event.get('type')}")
+            
+            # Log ASP facts generated
+            asp_lines = [line for line in eval_result.asp_facts.split('\n') if line.strip()]
+            debug_log(f"\n  ASP Facts Generated ({len(asp_lines)} lines):")
+            for fact in asp_lines[:20]:  # First 20 facts
+                debug_log(f"    {fact}")
+            if len(asp_lines) > 20:
+                debug_log(f"    ... and {len(asp_lines) - 20} more facts")
+            
+            # Log violations
+            debug_log(f"\n  Violations Detected: {len(eval_result.violations)}")
+            for v in eval_result.violations:
+                violation_entry = {
+                    "type": "violation",
+                    "story": story_name,
+                    "variant": variant,
+                    "chapter": chapter_num,
+                    "violation": v.to_dict(),
+                }
+                debug_log(f"    [VIOLATION] {v.category}/{v.violation_type}: {v.rule}", violation_entry)
+                debug_log(f"                entities: {v.entities}")
+                debug_log(f"                event: {v.event_id}")
+                debug_log(f"                source: {v.source_text}")
+                story_violations.append(v.to_dict())
+            
+            # Record for final analysis
+            final_analyzer.record_chapter_evaluation(
+                chapter_num=chapter_num,
+                events=structured.get("events", []),
+                violations=[v.to_dict() for v in eval_result.violations],
+                entities=structured.get("entities", {}),
+            )
+            
+            # Log state after this chapter
+            debug_log(f"\n  State after chapter {chapter_num}:")
+            alias_stats_ch = alias_resolver.get_statistics()
+            debug_log(f"    Characters known: {alias_stats_ch['total_canonical_ids']}")
+            
+            chapter_output = {
+                "type": "chapter_output",
+                "story": story_name,
+                "variant": variant,
+                "chapter": chapter_num,
+                "asp_facts_count": len(eval_result.asp_facts),
+                "violations_count": len(eval_result.violations),
+                "events_processed": len(structured.get("events", [])),
+            }
+            debug_log("", chapter_output)
+        
+        # Run final analysis
+        debug_log(f"\n{'='*40}")
+        debug_log(f"FINAL ANALYSIS: {story_name} ({variant})")
+        debug_log(f"{'='*40}")
+        
+        story_id = f"{story_name}_{variant}"
+        final_result = final_analyzer.analyze(story_id, len(chapter_extractions))
+        
+        # Log final analysis results
+        debug_log(f"\nTotal events processed: {len(all_events)}")
+        debug_log(f"Total violations: {len(story_violations)}")
+        debug_log(f"Loose ends: {len(final_result.loose_ends)}")
+        debug_log(f"Long-range inconsistencies: {len(final_result.long_range_inconsistencies)}")
+        
+        for le in final_result.loose_ends:
+            le_entry = {
+                "type": "loose_end",
+                "story": story_name,
+                "variant": variant,
+                "loose_end": le.to_dict() if hasattr(le, 'to_dict') else str(le),
+            }
+            debug_log(f"  [LOOSE END] {le_entry['loose_end']}", le_entry)
+        
+        for lri in final_result.long_range_inconsistencies:
+            lri_entry = {
+                "type": "long_range_inconsistency",
+                "story": story_name,
+                "variant": variant,
+                "inconsistency": lri.to_dict() if hasattr(lri, 'to_dict') else str(lri),
+            }
+            debug_log(f"  [LONG-RANGE] {lri_entry['inconsistency']}", lri_entry)
+        
+        # Log all violations for this story
+        debug_log(f"\n--- All Violations Summary ---")
+        violation_by_type = {}
+        for v in story_violations:
+            vtype = v.get("violation_type", "unknown")
+            if vtype not in violation_by_type:
+                violation_by_type[vtype] = []
+            violation_by_type[vtype].append(v)
+        
+        for vtype, violations in sorted(violation_by_type.items()):
+            debug_log(f"  {vtype}: {len(violations)}")
+            for v in violations[:5]:  # First 5 of each type
+                debug_log(f"    - ch{v.get('chapter', '?')}: {v.get('rule', 'unknown')}")
+            if len(violations) > 5:
+                debug_log(f"    ... and {len(violations) - 5} more")
+        
+        final_summary = {
+            "type": "story_summary",
+            "story": story_name,
+            "variant": variant,
+            "chapters_processed": len(chapter_extractions),
+            "total_events": len(all_events),
+            "total_violations": len(story_violations),
+            "violations_by_type": {k: len(v) for k, v in violation_by_type.items()},
+            "loose_ends": len(final_result.loose_ends),
+            "long_range_inconsistencies": len(final_result.long_range_inconsistencies),
+        }
+        debug_log("", final_summary)
+        
+        # Log alias resolver stats
+        alias_stats = alias_resolver.get_statistics()
+        debug_log(f"\nAlias Resolver: {alias_stats['total_canonical_ids']} characters, "
+                  f"{alias_stats['total_aliases']} aliases, "
+                  f"{alias_stats['conflicts_detected']} conflicts")
+        
+        # Log item tracker stats  
+        item_stats = item_tracker.get_statistics()
+        debug_log(f"Item Tracker: {item_stats['total_items']} total, "
+                  f"{item_stats['active_items']} active, "
+                  f"{item_stats['suppressed_items']} suppressed, "
+                  f"{item_stats['causal_items']} causal, "
+                  f"{item_stats['latent_items']} latent")
+    
+    debug_log(f"\n{'='*60}")
+    debug_log(f"DEBUG MODE COMPLETE")
+    debug_log(f"{'='*60}")
+    debug_log(f"Debug JSONL output: {debug_file}")
+    debug_log(f"Debug text output: {debug_txt_file}")
+    log(f"\nDebug files written:")
+    log(f"  - {debug_file}")
+    log(f"  - {debug_txt_file}")
+
+
+# =============================================================================
 # PHASE 5: ENGINE-BASED EVALUATION (Step 5.3)
 # =============================================================================
 
@@ -2944,18 +3274,6 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 with open(extraction_log_file, "a") as f:
                     f.write(json.dumps(extraction_entry) + "\n")
                 
-                # Log events to events file
-                for event in structured.get("events", []):
-                    event_entry = {
-                        "story": story_name,
-                        "variant": variant,
-                        "chapter": i,
-                        "chapter_file": chapter_file.name,
-                        "event": event,
-                    }
-                    with open(event_log_file, "a") as f:
-                        f.write(json.dumps(event_entry) + "\n")
-                
                 # Phase 2: Normalize aliases to canonical IDs before sending to logic engine
                 structured, alias_conflicts = alias_resolver.normalize_extraction(structured, i)
                 
@@ -2993,6 +3311,18 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 eval_result = event_executor.evaluate_chapter_structured(
                     structured, i
                 )
+                
+                # Log events to events file (after global IDs assigned by EventExecutor)
+                for event in structured.get("events", []):
+                    event_entry = {
+                        "story": story_name,
+                        "variant": variant,
+                        "chapter": i,
+                        "chapter_file": chapter_file.name,
+                        "event": event,
+                    }
+                    with open(event_log_file, "a") as f:
+                        f.write(json.dumps(event_entry) + "\n")
                 
                 # Step 3: Record for final analysis
                 final_analyzer.record_chapter_evaluation(
@@ -3150,6 +3480,17 @@ Pay SPECIAL ATTENTION to character behavior and emotional interactions:
 - If an enemy gives a farewell, hug, encouragement, or praise → ALWAYS extract this as an event
 - Look for CONTRADICTIONS between established relationships and current actions
 - Populate "aliases" ONLY if the chapter introduces a new way to refer to an existing character
+
+If hostility, warmth, or affection is described for a GROUP
+(e.g., "the family", "the guards", "his classmates"):
+
+- Extract the relationship for EACH named individual in that group.
+- Do not collapse group behavior into a single representative character.
+Example:
+"The group despised Alex" →
+  member_1 -> alex (hostile)
+  member_2 -> alex (hostile)
+  member_3 -> alex (hostile)
 
 EXAMPLES OF CRITICAL BEHAVIOR TO CAPTURE:
 - "Uncle Vernon gave Harry a warm smile" → event type: "farewell" or "praise"
@@ -3584,9 +3925,9 @@ def main():
     parser.add_argument(
         "--api-mode",
         type=str,
-        choices=["local", "gemini", "openai"],
+        choices=["local", "gemini", "openai", "debug"],
         default="local",
-        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI (default: local)",
+        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI, 'debug' for using existing extractions without LLM (default: local)",
     )
     parser.add_argument(
         "--api-model",
@@ -3645,8 +3986,13 @@ def main():
         run_step1_llm(experiment_dir, stories, args.llm_url, max_chapters, 
                       api_mode=args.api_mode, api_model=args.api_model, api_delay=args.api_delay)
     elif args.step == 2:
+        # Debug mode: use existing extractions without LLM
+        if args.api_mode == "debug":
+            if not getattr(args, 'engine', False):
+                print("WARNING: Debug mode requires --engine flag. Adding it automatically.")
+            run_step2_debug(experiment_dir, stories)
         # Choose evaluation mode based on flags
-        if getattr(args, 'engine', False):
+        elif getattr(args, 'engine', False):
             # Phase 5: Use new engine modules
             run_step2_engine(experiment_dir, stories, args.llm_url, max_chapters,
                              api_mode=args.api_mode, api_model=args.api_model, api_delay=args.api_delay)
@@ -3660,11 +4006,13 @@ def main():
         print("\nUsage:")
         print("  Step 1 (LLM-only):  python run_narrative_experiment.py --step 1 --experiment-name my_exp")
         print("  Step 2 (Logic):     python run_narrative_experiment.py --step 2 --experiment-name my_exp")
+        print("  Debug mode:         python run_narrative_experiment.py --step 2 --api-mode debug --experiment-name my_exp --engine")
         print("  Summarize:          python run_narrative_experiment.py --summarize --experiment-name my_exp")
         print("  Limit chapters:     python run_narrative_experiment.py --step 2 --max-chapters 5")
         print("\nAPI options:")
         print("  --api-mode gemini   Use Google Gemini API (requires GEMINI_API_KEY)")
         print("  --api-mode openai   Use OpenAI API (requires OPENAI_API_KEY)")
+        print("  --api-mode debug    Use existing extractions without LLM (requires --engine)")
         print("  --api-model MODEL   Specify model (e.g., gemini-2.0-flash, gpt-4o-mini)")
         print("\nPhase 4/5 options:")
         print("  --structured        Use structured output only (no LLM interpretation)")
