@@ -188,7 +188,8 @@ def main():
             # Phase 5: Use new engine modules
             run_step2_engine(experiment_dir, stories, args.llm_url, max_chapters,
                              api_mode=args.api_mode, api_model=args.api_model, api_delay=args.api_delay,
-                             use_split_extraction=getattr(args, 'split_extraction', False))
+                             use_split_extraction=getattr(args, 'split_extraction', False),
+                             llm_timeout=args.llm_timeout)
         else:
             # Original or Phase 4 mode
             run_step2_logic(experiment_dir, stories, args.llm_url, max_chapters,

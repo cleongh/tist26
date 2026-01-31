@@ -45,13 +45,14 @@ def _parse_json_response(response: str) -> Dict[str, Any]:
     return {}
 
 
-def extract_characters_and_locations(chapter_text: str, api_client) -> Dict[str, Any]:
+def extract_characters_and_locations(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
     """
     Extract characters and locations from chapter text.
     
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
+        timeout: Timeout for LLM API call in seconds
         
     Returns:
         Dict with "characters" and "locations" lists
@@ -60,7 +61,7 @@ def extract_characters_and_locations(chapter_text: str, api_client) -> Dict[str,
     prompt = EXTRACT_CHARACTERS_AND_LOCATIONS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=4096, timeout=120)
+        response = api_client.extract(prompt, max_tokens=4096, timeout=timeout)
     except Exception as e:
         log(f"Character/location extraction failed: {e}", "WARN")
         return default
@@ -75,13 +76,14 @@ def extract_characters_and_locations(chapter_text: str, api_client) -> Dict[str,
     }
 
 
-def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
+def extract_items(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
     """
     Extract items from chapter text.
     
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
+        timeout: Timeout for LLM API call in seconds
         
     Returns:
         Dict with "items" list
@@ -90,7 +92,7 @@ def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_ITEMS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=2048, timeout=120)
+        response = api_client.extract(prompt, max_tokens=2048, timeout=timeout)
     except Exception as e:
         log(f"Item extraction failed: {e}", "WARN")
         return default
@@ -104,13 +106,14 @@ def extract_items(chapter_text: str, api_client) -> Dict[str, Any]:
     }
 
 
-def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
+def extract_relationships(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
     """
     Extract relationships and initial rules from chapter text.
     
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
+        timeout: Timeout for LLM API call in seconds
         
     Returns:
         Dict with "relationships" and "initial_rules" lists
@@ -119,7 +122,7 @@ def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_RELATIONSHIPS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=2048, timeout=120)
+        response = api_client.extract(prompt, max_tokens=2048, timeout=timeout)
     except Exception as e:
         log(f"Relationship extraction failed: {e}", "WARN")
         return default
@@ -134,7 +137,7 @@ def extract_relationships(chapter_text: str, api_client) -> Dict[str, Any]:
     }
 
 
-def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
+def extract_events(chapter_text: str, api_client, timeout: int = 300) -> Dict[str, Any]:
     """
     Extract events from chapter text.
     
@@ -145,6 +148,7 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
+        timeout: Timeout for LLM API call in seconds
         
     Returns:
         Dict with "events" list
@@ -153,7 +157,7 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=6024, timeout=300)
+        response = api_client.extract(prompt, max_tokens=6024, timeout=timeout)
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
         return default
@@ -293,6 +297,7 @@ def extract_chapter_split(
     use_entity_registry: bool = True,
     use_relationship_normalizer: bool = True,
     use_event_normalizer: bool = True,
+    timeout: int = 300,
 ) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
     """
     Extract structured data using the four-function pipeline.
@@ -315,6 +320,7 @@ def extract_chapter_split(
         use_entity_registry: If True, build and use EntityRegistry for validation
         use_relationship_normalizer: If True, build and use RelationshipNormalizer
         use_event_normalizer: If True, build and use EventNormalizer
+        timeout: Timeout for LLM API calls in seconds
         
     Returns:
         Tuple of (merged extraction, EntityRegistry, RelationshipNormalizer, EventNormalizer)
@@ -322,12 +328,12 @@ def extract_chapter_split(
     """
     # Phase 1: Extract characters and locations
     log("  [Phase 2] Extracting characters and locations...")
-    chars_locs = extract_characters_and_locations(chapter_text, api_client)
+    chars_locs = extract_characters_and_locations(chapter_text, api_client, timeout=timeout)
     log(f"    -> {len(chars_locs.get('characters', []))} characters, {len(chars_locs.get('locations', []))} locations")
     
     # Phase 2: Extract items
     log("  [Phase 2] Extracting items...")
-    items = extract_items(chapter_text, api_client)
+    items = extract_items(chapter_text, api_client, timeout=timeout)
     log(f"    -> {len(items.get('items', []))} items")
     
     # Phase 3: Build EntityRegistry (if enabled)
@@ -361,12 +367,12 @@ def extract_chapter_split(
     
     # Phase 3 (extraction): Extract relationships
     log("  [Phase 2] Extracting relationships...")
-    relationships = extract_relationships(chapter_text, api_client)
+    relationships = extract_relationships(chapter_text, api_client, timeout=timeout)
     log(f"    -> {len(relationships.get('relationships', []))} relationships, {len(relationships.get('initial_rules', []))} initial rules")
     
     # Phase 4 (extraction): Extract events
     log("  [Phase 2] Extracting events...")
-    events = extract_events(chapter_text, api_client)
+    events = extract_events(chapter_text, api_client, timeout=timeout)
     log(f"    -> {len(events.get('events', []))} events")
     
     # Merge with validation and normalization

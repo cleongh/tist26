@@ -541,12 +541,14 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
 def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str, 
                      max_chapters: int = None, api_mode: str = "local", 
                      api_model: str = None, api_delay: float = 0.0,
-                     use_split_extraction: bool = False) -> StepResults:
+                     use_split_extraction: bool = False,
+                     llm_timeout: int = 300) -> StepResults:
     """
     Step 2 using the new engine modules (Phase 5).
     
     Args:
         use_split_extraction: If True, use Phase 2 four-function extraction pipeline
+        llm_timeout: Timeout for LLM API calls in seconds (default: 300)
     """
     from engine import (
         StateManager, 
@@ -648,6 +650,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     use_entity_registry=use_split_extraction,  # Enable registry when using split extraction
                     use_relationship_normalizer=use_split_extraction,  # Enable normalizer when using split extraction
                     use_event_normalizer=use_split_extraction,  # Enable event normalizer when using split extraction
+                    timeout=llm_timeout,
                 )
                 
                 # Log EntityRegistry warnings if present

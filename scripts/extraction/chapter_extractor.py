@@ -26,6 +26,7 @@ def structure_chapter_standalone(
     use_entity_registry: bool = True,
     use_relationship_normalizer: bool = True,
     use_event_normalizer: bool = True,
+    timeout: int = 300,
 ) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
     """
     Structure a chapter using LLM extraction.
@@ -49,6 +50,7 @@ def structure_chapter_standalone(
         use_entity_registry: If True, build and use EntityRegistry for validation
         use_relationship_normalizer: If True, build and use RelationshipNormalizer
         use_event_normalizer: If True, build and use EventNormalizer
+        timeout: Timeout for LLM API calls in seconds
         
     Returns:
         Tuple of (extracted data, EntityRegistry, RelationshipNormalizer, EventNormalizer)
@@ -62,6 +64,7 @@ def structure_chapter_standalone(
             use_entity_registry,
             use_relationship_normalizer,
             use_event_normalizer,
+            timeout=timeout,
         )
     
     # Original single-call extraction (no EntityRegistry or normalizers)
@@ -73,7 +76,7 @@ def structure_chapter_standalone(
     )
 
     try:
-        response = api_client.extract(prompt, max_tokens=8192, timeout=180)
+        response = api_client.extract(prompt, max_tokens=8192, timeout=timeout)
         
         # Parse JSON response
         cleaned = re.sub(r'```json\s*', '', response)
