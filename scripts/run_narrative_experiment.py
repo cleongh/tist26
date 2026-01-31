@@ -2851,15 +2851,20 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     # Create log files
     log_file = experiment_dir / "step2_engine_log.jsonl"
     event_log_file = experiment_dir / "step2_events_log.jsonl"
+    extraction_log_file = experiment_dir / "step2_extractions.jsonl"
     final_analysis_file = experiment_dir / "step2_final_analysis.json"
     
     log(f"Logging to: {log_file}")
+    log(f"Extractions log: {extraction_log_file}")
+    log(f"Events log: {event_log_file}")
     
     # Initialize API client for LLM extraction
     api_client = create_api_client(api_mode, api_model, llm_url, api_delay)
     
-    # Initialize event log file
+    # Initialize log files
     with open(event_log_file, "w") as f:
+        f.write("")
+    with open(extraction_log_file, "w") as f:
         f.write("")
     
     for story_name in stories:
@@ -2901,6 +2906,30 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 
                 # Step 1: Structure chapter with LLM
                 structured = _structure_chapter_standalone(chapter_text, api_client)
+                
+                # Log LLM extraction to file
+                extraction_entry = {
+                    "story": story_name,
+                    "variant": variant,
+                    "chapter": i,
+                    "chapter_file": chapter_file.name,
+                    "timestamp": datetime.now().isoformat(),
+                    "extraction": structured,
+                }
+                with open(extraction_log_file, "a") as f:
+                    f.write(json.dumps(extraction_entry) + "\n")
+                
+                # Log events to events file
+                for event in structured.get("events", []):
+                    event_entry = {
+                        "story": story_name,
+                        "variant": variant,
+                        "chapter": i,
+                        "chapter_file": chapter_file.name,
+                        "event": event,
+                    }
+                    with open(event_log_file, "a") as f:
+                        f.write(json.dumps(event_entry) + "\n")
                 
                 # Step 2: Evaluate using EventExecutor
                 eval_result = event_executor.evaluate_chapter_structured(
@@ -2985,40 +3014,71 @@ def _structure_chapter_standalone(chapter_text: str, api_client) -> Dict[str, An
     Structure a chapter using LLM extraction.
     
     Standalone version for use with engine modules.
-    Uses the same extraction logic as LogicEvaluator._structure_chapter().
+    Uses the comprehensive extraction prompt with relationship and behavior detection.
     """
-    prompt = f"""Analyze this chapter and extract structured information.
+    # Use the comprehensive prompt that includes relationship contradiction detection
+    prompt = f"""Extract structured narrative data from the text below.
 
-CHAPTER TEXT:
-{chapter_text[:12000]}
+=== CONSISTENCY RULES CONTEXT ===
+Your extraction will be checked by a logic-based consistency verifier. The system detects:
 
-Extract the following in JSON format:
+1. RELATIONSHIP VIOLATIONS:
+   - Sudden hostile→friendly or friendly→hostile flips without cause
+   - Characters helping enemies or harming loved ones unexpectedly
+   - CRITICAL: If someone who hates another shows warmth/kindness, this MUST be extracted
+
+2. COHERENCE VIOLATIONS:
+   - Characters in contradictory states
+   - Actions that contradict established relationships
+
+TEXT:
+{chapter_text}
+
+=== CHARACTER BEHAVIOR ANALYSIS (VERY IMPORTANT) ===
+Pay SPECIAL ATTENTION to character behavior and emotional interactions:
+- If a character who is normally HOSTILE shows WARMTH, KINDNESS, or AFFECTION → this is significant!
+- If an enemy gives a farewell, hug, encouragement, or praise → ALWAYS extract this as an event
+- Look for CONTRADICTIONS between established relationships and current actions
+
+EXAMPLES OF CRITICAL BEHAVIOR TO CAPTURE:
+- "Uncle Vernon gave Harry a warm smile" → event type: "farewell" or "praise"
+- "Have a good term," said the usually cold teacher warmly → event type: "farewell"
+- An enemy wishing someone well → MUST be extracted as "farewell" event
+
+=== OUTPUT FORMAT ===
+Return ONLY this JSON structure:
+
 {{
   "entities": {{
-    "characters": [{{"id": "name_in_snake_case", "name": "Full Name", "state": "alive/dead", "emotion": "emotion"}}],
-    "locations": [{{"id": "location_id", "name": "Location Name"}}],
-    "items": [{{"id": "item_id", "name": "Item Name"}}],
-    "relationships": [{{"from": "char_id", "to": "char_id", "type": "friend/enemy/family/romantic"}}]
+    "characters": [{{"id": "name_in_snake_case", "name": "Full Name", "state": "normal/dead", "emotion": "emotion", "appearance": "normal/unusual"}}],
+    "locations": [{{"id": "location_id", "name": "Location Name", "connections": []}}],
+    "items": [{{"id": "item_id", "name": "Item Name", "state": "intact"}}],
+    "relationships": [{{"from": "char_id", "to": "char_id", "type": "hostile/friendly/family/love/fear"}}]
   }},
   "events": [
     {{
       "id": "e1",
-      "type": "action_type",
-      "agent": "who_does_it",
-      "patient": "who_receives_action",
-      "location": "where",
-      "source_text": "quote from text"
+      "type": "meet|talk|give|take|attack|help|discover|arrive|leave|die|hug|praise|farewell|encourage|smile|wave",
+      "agent": "character_id",
+      "patient": "character_id_or_null",
+      "location": "location_id_or_null",
+      "source_text": "exact quote from text (max 80 chars)"
     }}
   ],
   "initial_rules": [
-    "any rules established in this chapter"
+    {{"subject": "char_id", "predicate": "hates|loves|hostile|friendly", "object": "char_id"}}
   ]
 }}
 
-Return ONLY valid JSON."""
+CRITICAL RULES:
+- Extract ALL farewell/praise/encourage events, especially from hostile characters
+- Include initial_rules for hostile relationships (e.g., uncle_vernon hates harry_potter)
+- source_text MUST be an actual quote from the chapter
+
+Return ONLY valid JSON, no markdown or explanations."""
 
     try:
-        response = api_client.extract(prompt, max_tokens=4096, timeout=120)
+        response = api_client.extract(prompt, max_tokens=8192, timeout=180)
         
         # Parse JSON response
         import re

@@ -133,6 +133,12 @@ class RuleRegistry:
                 self.rules_dir / "simple_narrative.lp",
                 self.rules_dir / "story_rules.lp",
             ]
+            
+            # Also load universal rules for relationship, temporal, location, etc. violations
+            universal_dir = self.rules_dir / "universal"
+            if universal_dir.exists():
+                for lp_file in universal_dir.glob("*.lp"):
+                    rule_files.append(lp_file)
         
         count = 0
         for rule_file in rule_files:
