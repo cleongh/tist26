@@ -21,7 +21,7 @@ from .prompts import (
 from .entity_registry import EntityRegistry, ValidationWarning
 from .relationship_normalizer import RelationshipNormalizer, NormalizationResult
 from .event_normalizer import EventNormalizer, EventNormalizationResult
-from .json_utils import parse_llm_json
+from .json_utils import parse_llm_json, parse_events_with_salvage
 from ..state.logging import log
 
 
@@ -138,6 +138,10 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     """
     Extract events from chapter text.
     
+    This function uses truncation salvage: if the LLM output is cut off
+    mid-generation, it will attempt to recover any complete events
+    that appear before the truncation point.
+    
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
@@ -149,12 +153,17 @@ def extract_events(chapter_text: str, api_client) -> Dict[str, Any]:
     prompt = EXTRACT_EVENTS_PROMPT.format(chapter_text=chapter_text)
     
     try:
-        response = api_client.extract(prompt, max_tokens=4096, timeout=300)
+        response = api_client.extract(prompt, max_tokens=8000, timeout=300)
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
         return default
     
-    result, success = parse_llm_json(response, "events", default)
+    # Use salvage-enabled parsing for events
+    result, success, was_salvaged = parse_events_with_salvage(response, default)
+    
+    if was_salvaged:
+        log(f"  [Events] Recovered {len(result.get('events', []))} events from truncated output", "INFO")
+    
     if not success:
         return default
     

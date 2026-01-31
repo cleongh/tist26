@@ -59,6 +59,8 @@ from .lifecycle_tracker import (
 from .json_utils import (
     parse_llm_json,
     parse_llm_json_strict,
+    parse_events_with_salvage,
+    salvage_truncated_events,
     repair_json,
     JSONParseError,
 )
@@ -104,6 +106,8 @@ __all__ = [
     # JSON utilities
     "parse_llm_json",
     "parse_llm_json_strict",
+    "parse_events_with_salvage",
+    "salvage_truncated_events",
     "repair_json",
     "JSONParseError",
 ]

@@ -1,9 +1,9 @@
 === JSON Parse Failure ===
 Phase: events
-Error: Expecting value: line 1 column 1 (char 0)
+Error: Truncation salvage failed
 
 === Raw LLM Output ===
-invalid
+not json at all
 
 === After Repair Attempt ===
-invalid
+not json at all

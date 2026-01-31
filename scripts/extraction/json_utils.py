@@ -24,7 +24,7 @@ This module does NOT:
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..state.logging import log
 
@@ -368,3 +368,211 @@ def parse_llm_json_strict(
         )
     
     return result
+
+
+# =============================================================================
+# TRUNCATED EVENT SALVAGE
+# =============================================================================
+# This section handles a specific failure mode: LLM output truncated mid-generation.
+# This commonly happens with event extraction due to long outputs.
+#
+# WHY THIS IS SAFE:
+# - We only extract COMPLETE, VALID JSON objects
+# - We NEVER invent or complete missing data
+# - We stop at the first incomplete object
+# - We deduplicate by ID to handle repetition artifacts
+# - This is applied ONLY to event extraction, not other phases
+# =============================================================================
+
+
+def _extract_event_objects(text: str) -> List[str]:
+    """
+    Extract individual event object strings from text.
+    
+    This function finds all complete JSON objects that look like events
+    (have opening and closing braces with balanced nesting).
+    
+    Args:
+        text: Raw text potentially containing event JSON objects
+        
+    Returns:
+        List of individual JSON object strings
+    """
+    objects = []
+    i = 0
+    
+    while i < len(text):
+        # Find next opening brace
+        start = text.find('{', i)
+        if start == -1:
+            break
+        
+        # Find matching closing brace
+        depth = 0
+        in_string = False
+        escape_next = False
+        end = -1
+        
+        for j in range(start, len(text)):
+            char = text[j]
+            
+            if escape_next:
+                escape_next = False
+                continue
+            
+            if char == '\\' and in_string:
+                escape_next = True
+                continue
+            
+            if char == '"' and not escape_next:
+                in_string = not in_string
+                continue
+            
+            if in_string:
+                continue
+            
+            if char == '{':
+                depth += 1
+            elif char == '}':
+                depth -= 1
+                if depth == 0:
+                    end = j + 1
+                    break
+        
+        if end > start:
+            objects.append(text[start:end])
+            i = end
+        else:
+            # Incomplete object - stop here
+            break
+    
+    return objects
+
+
+def salvage_truncated_events(raw_text: str) -> List[Dict[str, Any]]:
+    """
+    Safely salvage valid events from truncated JSON output.
+    
+    This function is designed for a specific failure mode: when an LLM
+    stops generating mid-output, producing incomplete JSON. It extracts
+    all COMPLETE event objects and discards incomplete ones.
+    
+    SAFETY GUARANTEES:
+    - Only returns fully parseable JSON objects
+    - Never invents or completes missing data
+    - Stops at the first incomplete object
+    - Deduplicates by event ID (keeps first occurrence)
+    - Deterministic: same input always produces same output
+    
+    This function should ONLY be used for event extraction, not for
+    other extraction phases (characters, items, relationships).
+    
+    Args:
+        raw_text: Raw LLM output that may be truncated
+        
+    Returns:
+        List of valid, deduplicated event dicts
+    """
+    # Step 1: Clean the text
+    cleaned = _remove_markdown_fences(raw_text)
+    cleaned = _remove_think_tags(cleaned)
+    
+    # Step 2: Find the events array content
+    # Look for "events": [ or "events" : [
+    events_match = re.search(r'"events"\s*:\s*\[', cleaned)
+    if not events_match:
+        return []
+    
+    # Extract everything after "events": [
+    array_start = events_match.end()
+    array_content = cleaned[array_start:]
+    
+    # Step 3: Extract individual object strings
+    object_strings = _extract_event_objects(array_content)
+    
+    # Step 4: Parse each object individually
+    valid_events: List[Dict[str, Any]] = []
+    seen_ids: set = set()
+    
+    for obj_str in object_strings:
+        try:
+            # Apply syntax repairs to individual object
+            repaired = _fix_key_colons(obj_str)
+            repaired = _fix_single_quotes(repaired)
+            repaired = _fix_trailing_commas(repaired)
+            repaired = _fix_unquoted_values(repaired)
+            
+            event = json.loads(repaired)
+            
+            # Validate it looks like an event (has required fields)
+            if not isinstance(event, dict):
+                continue
+            if "id" not in event:
+                continue
+            if "type" not in event:
+                continue
+            
+            # Deduplicate by ID (keep first occurrence)
+            event_id = event.get("id")
+            if event_id in seen_ids:
+                continue
+            seen_ids.add(event_id)
+            
+            valid_events.append(event)
+            
+        except json.JSONDecodeError:
+            # This object is incomplete or malformed - stop here
+            # We stop rather than skip because truncation usually means
+            # everything after this point is garbage
+            break
+    
+    return valid_events
+
+
+def parse_events_with_salvage(
+    raw_output: str,
+    default: Optional[Dict[str, Any]] = None,
+) -> Tuple[Dict[str, Any], bool, bool]:
+    """
+    Parse event JSON with truncation salvage fallback.
+    
+    This is the main entry point for parsing event extraction output.
+    It first attempts normal parsing, then falls back to salvage mode
+    if the JSON appears to be truncated.
+    
+    Args:
+        raw_output: Raw text from LLM
+        default: Default value on total failure (default: {"events": []})
+        
+    Returns:
+        Tuple of (result_dict, success, was_salvaged)
+        - result_dict: {"events": [...]} or default
+        - success: True if any events were extracted
+        - was_salvaged: True if salvage mode was used
+    """
+    if default is None:
+        default = {"events": []}
+    
+    if not raw_output or not raw_output.strip():
+        log("[events] Empty LLM output", "WARN")
+        return default, False, False
+    
+    # Step 1: Try normal parsing first
+    result, success = parse_llm_json(raw_output, "events", default)
+    if success and result.get("events"):
+        return result, True, False
+    
+    # Step 2: Normal parsing failed - attempt salvage
+    log("[events] Event JSON parsing failed — attempting truncation salvage", "WARN")
+    
+    salvaged_events = salvage_truncated_events(raw_output)
+    
+    if salvaged_events:
+        log(f"[events] Salvaged {len(salvaged_events)} valid events from truncated output", "INFO")
+        return {"events": salvaged_events}, True, True
+    
+    # Step 3: Salvage also failed - log and return default
+    log("[events] Salvage failed — no valid events recovered", "WARN")
+    _log_failed_output(raw_output, "events", "Truncation salvage failed")
+    
+    return default, False, False
