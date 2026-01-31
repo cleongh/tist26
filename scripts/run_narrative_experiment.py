@@ -2836,6 +2836,9 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
         EventExecutor, 
         FinalAnalyzer,
         LearningAdapter,
+        AliasResolver,
+        build_continuity_context,
+        ItemTracker,
     )
     
     log("=" * 60)
@@ -2852,11 +2855,15 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     log_file = experiment_dir / "step2_engine_log.jsonl"
     event_log_file = experiment_dir / "step2_events_log.jsonl"
     extraction_log_file = experiment_dir / "step2_extractions.jsonl"
+    alias_conflicts_file = experiment_dir / "step2_alias_conflicts.jsonl"
+    item_stats_file = experiment_dir / "step2_item_stats.jsonl"
     final_analysis_file = experiment_dir / "step2_final_analysis.json"
     
     log(f"Logging to: {log_file}")
     log(f"Extractions log: {extraction_log_file}")
     log(f"Events log: {event_log_file}")
+    log(f"Alias conflicts log: {alias_conflicts_file}")
+    log(f"Item stats log: {item_stats_file}")
     
     # Initialize API client for LLM extraction
     api_client = create_api_client(api_mode, api_model, llm_url, api_delay)
@@ -2865,6 +2872,10 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     with open(event_log_file, "w") as f:
         f.write("")
     with open(extraction_log_file, "w") as f:
+        f.write("")
+    with open(alias_conflicts_file, "w") as f:
+        f.write("")
+    with open(item_stats_file, "w") as f:
         f.write("")
     
     for story_name in stories:
@@ -2885,8 +2896,10 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
             rule_registry = RuleRegistry(RULES_DIR)
             rule_registry.load_legacy_rules()  # Load default rules
             
+            alias_resolver = AliasResolver()  # Phase 2: Canonical identity resolution
+            item_tracker = ItemTracker()  # Phase 4: Item lifecycle tracking
             event_executor = EventExecutor(state_manager, rule_registry)
-            final_analyzer = FinalAnalyzer(state_manager, rule_registry)
+            final_analyzer = FinalAnalyzer(state_manager, rule_registry, item_tracker, alias_resolver)  # Phase 7: Full diagnostics
             learning_adapter = LearningAdapter(rule_registry)
             
             chapter_files = get_chapter_files(story_dir)
@@ -2904,16 +2917,28 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 
                 chapter_text = chapter_file.read_text(encoding="utf-8", errors="replace")
                 
-                # Step 1: Structure chapter with LLM
-                structured = _structure_chapter_standalone(chapter_text, api_client)
+                # Phase 3: Build continuity context from accumulated state
+                continuity_context = build_continuity_context(
+                    state_manager, alias_resolver, i
+                )
                 
-                # Log LLM extraction to file
+                # Step 1: Structure chapter with LLM (with continuity context)
+                structured = _structure_chapter_standalone(
+                    chapter_text, 
+                    api_client,
+                    known_characters_json=continuity_context.to_characters_json(),
+                    known_relationships_json=continuity_context.to_relationships_json(),
+                    known_character_states_json=continuity_context.to_character_states_json(),
+                )
+                
+                # Log LLM extraction to file (include context for debugging)
                 extraction_entry = {
                     "story": story_name,
                     "variant": variant,
                     "chapter": i,
                     "chapter_file": chapter_file.name,
                     "timestamp": datetime.now().isoformat(),
+                    "continuity_context": continuity_context.to_dict(),
                     "extraction": structured,
                 }
                 with open(extraction_log_file, "a") as f:
@@ -2930,6 +2955,39 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     }
                     with open(event_log_file, "a") as f:
                         f.write(json.dumps(event_entry) + "\n")
+                
+                # Phase 2: Normalize aliases to canonical IDs before sending to logic engine
+                structured, alias_conflicts = alias_resolver.normalize_extraction(structured, i)
+                
+                # Log any alias conflicts detected
+                for conflict in alias_conflicts:
+                    conflict_entry = {
+                        "story": story_name,
+                        "variant": variant,
+                        "chapter": i,
+                        "chapter_file": chapter_file.name,
+                        "timestamp": datetime.now().isoformat(),
+                        "conflict": conflict.to_dict(),
+                    }
+                    with open(alias_conflicts_file, "a") as f:
+                        f.write(json.dumps(conflict_entry) + "\n")
+                    log(f"    [ALIAS CONFLICT] '{conflict.alias}' -> {conflict.canonical_ids}", "WARN")
+                
+                # Phase 4: Process items and filter background items
+                structured = item_tracker.process_extraction(structured, i)
+                
+                # Log item stats for this chapter
+                item_stats = item_tracker.get_statistics()
+                item_stats_entry = {
+                    "story": story_name,
+                    "variant": variant,
+                    "chapter": i,
+                    "chapter_file": chapter_file.name,
+                    "timestamp": datetime.now().isoformat(),
+                    "stats": item_stats,
+                }
+                with open(item_stats_file, "a") as f:
+                    f.write(json.dumps(item_stats_entry) + "\n")
                 
                 # Step 2: Evaluate using EventExecutor
                 eval_result = event_executor.evaluate_chapter_structured(
@@ -2995,6 +3053,20 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
             log(f"  Final analysis: {len(final_result.loose_ends)} loose ends, "
                 f"{len(final_result.long_range_inconsistencies)} long-range issues")
             
+            # Log alias resolver statistics
+            alias_stats = alias_resolver.get_statistics()
+            log(f"  Alias resolver: {alias_stats['total_canonical_ids']} characters, "
+                f"{alias_stats['total_aliases']} aliases, "
+                f"{alias_stats['conflicts_detected']} conflicts")
+            
+            # Log item tracker statistics
+            item_stats = item_tracker.get_statistics()
+            log(f"  Item tracker: {item_stats['total_items']} items, "
+                f"{item_stats['active_items']} active, "
+                f"{item_stats['suppressed_items']} suppressed, "
+                f"{item_stats['causal_items']} causal, "
+                f"{item_stats['latent_items']} latent")
+            
             # Reset for next story
             final_analyzer.reset()
     
@@ -3009,15 +3081,53 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     return results
 
 
-def _structure_chapter_standalone(chapter_text: str, api_client) -> Dict[str, Any]:
+def _structure_chapter_standalone(
+    chapter_text: str, 
+    api_client,
+    known_characters_json: str = "(No characters established yet)",
+    known_relationships_json: str = "(No relationships established yet)",
+    known_character_states_json: str = "(No character states established yet)",
+) -> Dict[str, Any]:
     """
     Structure a chapter using LLM extraction.
     
     Standalone version for use with engine modules.
     Uses the comprehensive extraction prompt with relationship and behavior detection.
+    
+    Phase 3: Accepts continuity context parameters for prompt injection.
+    
+    Args:
+        chapter_text: The chapter text to extract from
+        api_client: API client for LLM calls
+        known_characters_json: JSON string of known characters and aliases
+        known_relationships_json: JSON string of known relationships
+        known_character_states_json: JSON string of known character states
+        
+    Returns:
+        Extracted structured data as dict
     """
     # Use the comprehensive prompt that includes relationship contradiction detection
     prompt = f"""Extract structured narrative data from the text below.
+
+=== CONTINUITY CONTEXT (AUTHORITATIVE) ===
+The following facts are TRUE before this chapter begins.
+You MUST treat them as ground truth.
+Do NOT reinterpret, soften, or restate them unless the chapter EXPLICITLY changes them.
+
+KNOWN CHARACTERS:
+{known_characters_json}
+
+KNOWN RELATIONSHIPS:
+{known_relationships_json}
+
+KNOWN CHARACTER STATES:
+{known_character_states_json}
+
+IDENTITY RULES:
+- Each character has ONE canonical id.
+- If the text uses a title, nickname, or alternate name, map it to the canonical id.
+- DO NOT create a new character if an alias matches a known character.
+- Use the canonical id in ALL outputs.
 
 === CONSISTENCY RULES CONTEXT ===
 Your extraction will be checked by a logic-based consistency verifier. The system detects:
@@ -3039,20 +3149,36 @@ Pay SPECIAL ATTENTION to character behavior and emotional interactions:
 - If a character who is normally HOSTILE shows WARMTH, KINDNESS, or AFFECTION → this is significant!
 - If an enemy gives a farewell, hug, encouragement, or praise → ALWAYS extract this as an event
 - Look for CONTRADICTIONS between established relationships and current actions
+- Populate "aliases" ONLY if the chapter introduces a new way to refer to an existing character
 
 EXAMPLES OF CRITICAL BEHAVIOR TO CAPTURE:
 - "Uncle Vernon gave Harry a warm smile" → event type: "farewell" or "praise"
 - "Have a good term," said the usually cold teacher warmly → event type: "farewell"
 - An enemy wishing someone well → MUST be extracted as "farewell" event
+- 
+=== ITEM EXTRACTION RULES (CRITICAL) ===
+
+ONLY extract an item if AT LEAST ONE of the following is true:
+1. The item is carried, given, taken, used, lost, discovered, or destroyed
+2. The item affects an event or a character's behavior
+3. The item is mentioned with clear narrative emphasis (focus, repetition, or consequence)
+4. The item is likely to persist across scenes or chapters
+5. The item enables or blocks future actions (keys, weapons, letters, tools, artifacts)
+
+DO NOT extract items that are:
+- Ordinary background objects (chairs, tables, doors, food, clothing)
+- Mentioned only as scenery or setting flavor
+- Not interacted with by any character
+- Immediately irrelevant and never referred to again in the chapter
 
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure:
 
 {{
   "entities": {{
-    "characters": [{{"id": "name_in_snake_case", "name": "Full Name", "state": "normal/dead", "emotion": "emotion", "appearance": "normal/unusual"}}],
+    "characters": [{{"id": "name_in_snake_case", "name": "Full Name", "aliases": [], "state": "normal/dead", "emotion": "emotion", "appearance": "normal/unusual"}}],
     "locations": [{{"id": "location_id", "name": "Location Name", "connections": []}}],
-    "items": [{{"id": "item_id", "name": "Item Name", "state": "intact"}}],
+    "items": [{{"id": "item_id", "name": "Item Name", "state": "intact", "relevance": "causal|latent"}}],
     "relationships": [{{"from": "char_id", "to": "char_id", "type": "hostile/friendly/family/love/fear"}}]
   }},
   "events": [
@@ -3072,8 +3198,14 @@ Return ONLY this JSON structure:
 
 CRITICAL RULES:
 - Extract ALL farewell/praise/encourage events, especially from hostile characters
-- Include initial_rules for hostile relationships (e.g., uncle_vernon hates harry_potter)
+- Include initial_rules ONLY for relationships EXPLICITLY stated or MODIFIED in this chapter
+- DO NOT restate known relationships from the continuity context
 - source_text MUST be an actual quote from the chapter
+- Use relevance="causal" if the item participates in an event in this chapter
+- Use relevance="latent" if the item is extracted under the CHEKHOV RULE
+- Treat this chapter as a DELTA over the continuity context:
+  - DO NOT restate unchanged relationships or states
+  - ONLY extract new events, changes, or contradictions introduced in this chapter
 
 Return ONLY valid JSON, no markdown or explanations."""
 

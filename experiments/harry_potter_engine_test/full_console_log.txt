@@ -1,16 +1,20 @@
-=== Experiment Log Started: 2026-01-31T01:15:58.138964 ===
+=== Experiment Log Started: 2026-01-31T03:05:13.002874 ===
 
-[2026-01-31 01:15:58] [INFO] API Mode: openai
-[2026-01-31 01:15:58] [INFO] ============================================================
-[2026-01-31 01:15:58] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
-[2026-01-31 01:15:58] [INFO] ============================================================
-[2026-01-31 01:15:58] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_engine_log.jsonl
-[2026-01-31 01:15:58] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_extractions.jsonl
-[2026-01-31 01:15:58] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_events_log.jsonl
-[2026-01-31 01:15:58] [INFO] Using OpenAI API with model: gpt-4o
-[2026-01-31 01:15:58] [INFO] 
+[2026-01-31 03:05:13] [INFO] API Mode: openai
+[2026-01-31 03:05:13] [INFO] ============================================================
+[2026-01-31 03:05:13] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-01-31 03:05:13] [INFO] ============================================================
+[2026-01-31 03:05:13] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_engine_log.jsonl
+[2026-01-31 03:05:13] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_extractions.jsonl
+[2026-01-31 03:05:13] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_events_log.jsonl
+[2026-01-31 03:05:13] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_alias_conflicts.jsonl
+[2026-01-31 03:05:13] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/harry_potter_engine_test/step2_item_stats.jsonl
+[2026-01-31 03:05:13] [INFO] Using OpenAI API with model: gpt-4o
+[2026-01-31 03:05:13] [INFO] 
 Processing: Harry Potter (original)
-[2026-01-31 01:15:58] [INFO]   Found 17 chapters
-[2026-01-31 01:15:58] [INFO]   Chapter 0: 000.txt
-[2026-01-31 01:16:15] [INFO]     -> 1 errors (17.4s)
-[2026-01-31 01:16:15] [INFO]   Chapter 1: 001.txt
+[2026-01-31 03:05:13] [INFO]   Found 17 chapters
+[2026-01-31 03:05:13] [INFO]   Chapter 0: 000.txt
+[2026-01-31 03:05:43] [INFO]     -> 0 errors (30.5s)
+[2026-01-31 03:05:43] [INFO]   Chapter 1: 001.txt
+[2026-01-31 03:05:50] [INFO]     -> 0 errors (6.5s)
+[2026-01-31 03:05:50] [INFO]   Chapter 2: 002.txt

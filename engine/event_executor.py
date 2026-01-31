@@ -55,9 +55,45 @@ if TYPE_CHECKING:
 
 
 # =============================================================================
-# STRUCTURED OUTPUT TYPES (Phase 4, Step 4.1 + Phase 5, Step 5.1)
+# STRUCTURED OUTPUT TYPES (Phase 4, Step 4.1 + Phase 5, Step 5.1 + Phase 7)
 # Per LOGIC_DESIGN.md Section 5.5: Output is structured JSON only
+# Phase 7: Enhanced diagnostics with canonical IDs, aliases, item lifecycle
 # =============================================================================
+
+
+@dataclass
+class EntityDiagnosticInfo:
+    """
+    Phase 7: Enhanced entity information for diagnostics.
+    
+    Ensures all reported issues reference:
+        - Canonical IDs only
+        - Aliases (if relevant)
+        - Item relevance and lifecycle (for items)
+    """
+    canonical_id: str
+    entity_type: str  # "character", "item", "location"
+    aliases: List[str] = field(default_factory=list)
+    # Item-specific fields (Phase 7)
+    item_relevance: Optional[str] = None  # "causal", "latent", "background"
+    item_lifecycle: Optional[str] = None  # "introduced", "carried", "used", "destroyed", etc.
+    item_carrier: Optional[str] = None  # Character carrying the item
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to JSON-serializable dict."""
+        result = {
+            "canonical_id": self.canonical_id,
+            "entity_type": self.entity_type,
+        }
+        if self.aliases:
+            result["aliases"] = self.aliases
+        if self.item_relevance:
+            result["relevance"] = self.item_relevance
+        if self.item_lifecycle:
+            result["lifecycle"] = self.item_lifecycle
+        if self.item_carrier:
+            result["carrier"] = self.item_carrier
+        return result
 
 class ViolationSeverity(Enum):
     """Severity of a violation per LOGIC_DESIGN.md."""
@@ -99,22 +135,27 @@ class StructuredViolation:
     
     Each issue includes:
         - Violated rule
-        - Entities involved
+        - Entities involved (Phase 7: with canonical IDs and aliases)
         - Event index / time
         - Severity
         - Provenance (Phase 5)
     
     NO natural language interpretation - pure structured data.
+    
+    Phase 7: All entity references use canonical IDs. Entity info includes
+    aliases and item lifecycle/relevance when applicable.
     """
     rule: str                           # The rule that was violated
     category: str                       # coherence, causality, temporal, location, emotional
     violation_type: str                 # Specific type (dead_agent, impossible_location, etc.)
     event_id: str                       # Event that triggered the violation
     event_time: int                     # Timestep of the event
-    entities: List[str]                 # Entities involved in the violation
+    entities: List[str]                 # Canonical entity IDs involved in the violation
     severity: ViolationSeverity = ViolationSeverity.SOFT
     source_text: Optional[str] = None   # Original text that was evaluated
     provenance: Optional[Provenance] = None  # How this was concluded (Phase 5)
+    # Phase 7: Enhanced entity diagnostics
+    entity_info: List[EntityDiagnosticInfo] = field(default_factory=list)
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to JSON-serializable dict."""
@@ -130,6 +171,9 @@ class StructuredViolation:
         }
         if self.provenance:
             result["provenance"] = self.provenance.to_dict()
+        # Phase 7: Include entity diagnostic info
+        if self.entity_info:
+            result["entity_info"] = [e.to_dict() for e in self.entity_info]
         return result
 
 
@@ -376,6 +420,13 @@ class EventExecutor:
                 lines.append(f"character({cname}).")
                 char_ids.add(cname)
             
+            # Character aliases (Phase 1: store and generate ASP facts)
+            char_key = cid if cid != "unknown" else cname
+            for alias in char.get("aliases", []):
+                alias_id = self._sanitize_char(alias)
+                if alias_id and alias_id != "unknown" and alias_id != char_key:
+                    lines.append(f"alias({alias_id}, {char_key}).")
+            
             # Emotional state
             emotion = self._sanitize_id(char.get("emotion", ""))
             if emotion and emotion not in ("unknown", "neutral"):
@@ -410,11 +461,18 @@ class EventExecutor:
                 lines.append(f"item({iname}).")
                 item_ids.add(iname)
             
+            item_key = iid if iid != "unknown" else iname
+            
             item_state = self._sanitize_id(item.get("state", ""))
             if item_state and item_state not in ("unknown", "intact"):
-                item_key = iid if iid != "unknown" else iname
                 if item_key != "unknown":
                     lines.append(f"item_state({item_key}, {item_state}).")
+            
+            # Item relevance (Phase 1: store for Chekhov tracking)
+            relevance = self._sanitize_id(item.get("relevance", ""))
+            if relevance and relevance in ("causal", "latent"):
+                if item_key != "unknown":
+                    lines.append(f"item_relevance({item_key}, {relevance}).")
         
         # Legacy support for "objects" field
         for obj in entities.get("objects", []):

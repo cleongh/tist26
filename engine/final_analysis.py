@@ -74,18 +74,26 @@ class LooseEnd:
         - unresolved_item: Item introduced but never used
         - unused_entity: Character/location introduced but not active
         - chekhov: Significant object mentioned but never resolved
+        - chekhov_latent: Phase 5/6 - Latent item never promoted to causal
         - dangling_relationship: Relationship established but not concluded
+    
+    Phase 7: Enhanced with canonical IDs, aliases, and item lifecycle.
     """
     loose_end_type: str
-    entity_id: str
+    entity_id: str  # Always canonical ID (Phase 7)
     entity_type: str  # "character", "item", "location", "relationship"
     introduced_chapter: int
     introduced_event: Optional[str] = None
     last_referenced_chapter: Optional[int] = None
     expected_resolution: Optional[str] = None  # What we expected to happen
+    # Phase 7: Enhanced diagnostics
+    aliases: List[str] = field(default_factory=list)
+    item_relevance: Optional[str] = None  # "causal", "latent", "background"
+    item_lifecycle: Optional[str] = None  # "introduced", "carried", "used", etc.
+    item_original_relevance: Optional[str] = None  # Original relevance before promotion
     
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        result = {
             "type": self.loose_end_type,
             "entity_id": self.entity_id,
             "entity_type": self.entity_type,
@@ -94,6 +102,16 @@ class LooseEnd:
             "last_referenced_chapter": self.last_referenced_chapter,
             "expected_resolution": self.expected_resolution,
         }
+        # Phase 7: Include enhanced diagnostics
+        if self.aliases:
+            result["aliases"] = self.aliases
+        if self.item_relevance:
+            result["item_relevance"] = self.item_relevance
+        if self.item_lifecycle:
+            result["item_lifecycle"] = self.item_lifecycle
+        if self.item_original_relevance:
+            result["item_original_relevance"] = self.item_original_relevance
+        return result
 
 
 @dataclass
@@ -202,21 +220,30 @@ class FinalAnalyzer:
         - Detect loose ends
         - Detect long-range inconsistencies
     
+    Phase 5: Also detects Chekhov's Gun violations from ItemTracker
+    Phase 7: Enhanced diagnostics with canonical IDs, aliases, item lifecycle
+    
     Uses data from StateManager and RuleRegistry.
     Does NOT perform any reasoning - only aggregates and reports.
     """
     
-    def __init__(self, state_manager: 'StateManager', rule_registry: 'RuleRegistry'):
+    def __init__(self, state_manager: 'StateManager', rule_registry: 'RuleRegistry',
+                 item_tracker: 'ItemTracker' = None, alias_resolver: 'AliasResolver' = None):
         from .state_manager import StateManager
         from .rule_registry import RuleRegistry
         
         self.state_manager = state_manager
         self.rule_registry = rule_registry
+        self.item_tracker = item_tracker  # Phase 5: Optional ItemTracker for Chekhov detection
+        self.alias_resolver = alias_resolver  # Phase 7: Optional AliasResolver for canonical IDs
         
         # Track entities across chapters
         self.entity_introductions: Dict[str, Dict[str, Any]] = {}  # entity_id -> {chapter, event, type}
         self.entity_references: Dict[str, List[int]] = {}  # entity_id -> [chapters where referenced]
         self.entity_resolutions: Dict[str, Dict[str, Any]] = {}  # entity_id -> {chapter, event, resolution_type}
+        
+        # Phase 5: Track latent items for Chekhov detection
+        self.latent_items: Dict[str, Dict[str, Any]] = {}  # item_id -> {introduced_chapter, ...}
         
         # Track rule usage
         self.rule_usage: Dict[str, Dict[str, Any]] = {}  # rule_id -> {applied, violations, chapters}
@@ -226,6 +253,45 @@ class FinalAnalyzer:
         
         # Total event count
         self.total_events: int = 0
+    
+    def set_item_tracker(self, item_tracker: 'ItemTracker') -> None:
+        """Set the item tracker (for late initialization)."""
+        self.item_tracker = item_tracker
+    
+    def set_alias_resolver(self, alias_resolver: 'AliasResolver') -> None:
+        """Set the alias resolver (for late initialization). Phase 7."""
+        self.alias_resolver = alias_resolver
+    
+    def get_entity_aliases(self, entity_id: str) -> List[str]:
+        """
+        Phase 7: Get aliases for an entity.
+        
+        Returns list of aliases (excluding the canonical ID itself).
+        """
+        if not self.alias_resolver:
+            return []
+        aliases = self.alias_resolver.get_aliases(entity_id)
+        # Exclude the canonical ID itself from the alias list
+        return [a for a in aliases if a != entity_id]
+    
+    def get_item_diagnostics(self, item_id: str) -> Dict[str, Any]:
+        """
+        Phase 7: Get item diagnostics (relevance, lifecycle, carrier).
+        
+        Returns dict with item info or empty dict if not tracked.
+        """
+        if not self.item_tracker:
+            return {}
+        item = self.item_tracker.get_item(item_id)
+        if not item:
+            return {}
+        return {
+            "relevance": item.relevance.value,
+            "lifecycle": item.lifecycle_state.value,
+            "carrier": item.carrier,
+            "original_relevance": item.original_relevance.value,
+            "promoted_chapter": item.promoted_to_causal_chapter,
+        }
     
     def record_chapter_evaluation(self, chapter_num: int, 
                                    events: List[Dict], 
@@ -435,6 +501,67 @@ class FinalAnalyzer:
                             last_referenced_chapter=max(refs) if refs else intro["chapter"],
                             expected_resolution="Chekhov's gun: item mentioned multiple times but not resolved",
                         ))
+        
+        # Phase 5: Detect Chekhov violations from ItemTracker latent items
+        self._detect_chekhov_from_item_tracker(result, total_chapters)
+    
+    def _detect_chekhov_from_item_tracker(self, result: FinalAnalysisResult, 
+                                           total_chapters: int) -> None:
+        """
+        Detect Chekhov's Gun violations from ItemTracker's latent items.
+        
+        Phase 5: Unused latent items are reported as causality errors
+        attributed to the chapter where they were introduced.
+        
+        Phase 6: Only items that REMAINED latent (never transitioned to causal)
+        are flagged. Items that appeared in events get promoted to causal
+        automatically and are NOT considered Chekhov violations.
+        
+        This is a POST-STORY check, not a chapter-local logical contradiction.
+        """
+        if not self.item_tracker:
+            return
+        
+        # Get Chekhov candidates (latent items that remained latent - never used in events)
+        chekhov_candidates = self.item_tracker.get_chekhov_candidates()
+        
+        for tracked_item in chekhov_candidates:
+            # Phase 7: Include enhanced item diagnostics
+            result.loose_ends.append(LooseEnd(
+                loose_end_type="chekhov_latent",
+                entity_id=tracked_item.item_id,  # Canonical ID
+                entity_type="item",
+                introduced_chapter=tracked_item.introduced_chapter,
+                introduced_event=None,
+                last_referenced_chapter=tracked_item.last_mentioned_chapter,
+                expected_resolution=f"Latent item '{tracked_item.item_id}' was introduced but never used (Chekhov's Gun violation)",
+                # Phase 7: Item lifecycle and relevance info
+                item_relevance=tracked_item.relevance.value,
+                item_lifecycle=tracked_item.lifecycle_state.value,
+                item_original_relevance=tracked_item.original_relevance.value,
+            ))
+            
+            # Also add as a violation to the introduction chapter
+            intro_chapter = tracked_item.introduced_chapter
+            if intro_chapter not in self.chapter_violations:
+                self.chapter_violations[intro_chapter] = []
+            
+            # Phase 7: Add Chekhov violation with enhanced diagnostics
+            self.chapter_violations[intro_chapter].append({
+                "category": "causality",
+                "type": "chekhov_gun",
+                "rule": "items_chekhov_gun",
+                "entity": tracked_item.item_id,  # Canonical ID
+                "entity_type": "item",
+                "detail": f"Latent item '{tracked_item.item_id}' introduced in chapter {intro_chapter} but never used",
+                "severity": "soft",
+                "introduced_chapter": intro_chapter,
+                "last_mentioned_chapter": tracked_item.last_mentioned_chapter,
+                # Phase 7: Item diagnostics
+                "item_relevance": tracked_item.relevance.value,
+                "item_lifecycle": tracked_item.lifecycle_state.value,
+                "item_original_relevance": tracked_item.original_relevance.value,
+            })
     
     def _detect_long_range_inconsistencies(self, result: FinalAnalysisResult) -> None:
         """Detect inconsistencies that span multiple chapters."""

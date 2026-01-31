@@ -106,26 +106,20 @@ class ConflictResolver:
         
         Returns:
             Initialized StoryContext
+            
+        Note:
+            Per LOGIC_DESIGN.md Section 2, story attributes must come from
+            extraction, not hardcoded detection. The metadata dict should
+            contain is_fantasy, has_magic, has_teleportation, etc. as
+            determined by the LLM extraction phase.
         """
         metadata = story_metadata or {}
         
-        # Detect fantasy/magic based on story ID or metadata
+        # Story attributes come from extraction/metadata only (LOGIC_DESIGN.md)
+        # No hardcoded story detection - that would be encoding story logic in Python
         is_fantasy = metadata.get("is_fantasy", False)
         has_magic = metadata.get("has_magic", False)
         has_teleportation = metadata.get("has_teleportation", False)
-        
-        # Auto-detect for known stories
-        story_lower = story_id.lower()
-        if "harry_potter" in story_lower or "potter" in story_lower:
-            is_fantasy = True
-            has_magic = True
-            has_teleportation = True  # Apparition, Floo, Portkeys
-        elif "lord_of_the_rings" in story_lower or "lotr" in story_lower:
-            is_fantasy = True
-            has_magic = True
-        elif "twilight" in story_lower:
-            is_fantasy = True
-            has_magic = True  # Vampire abilities
         
         context = StoryContext(
             story_id=story_id,
@@ -213,9 +207,19 @@ class ConflictResolver:
             if not context.get("has_teleportation"):
                 context["has_teleportation"] = self.story_context.has_teleportation
         
+        # -----------------------------------------------------------------
+        # ARCHITECTURE NOTE (LOGIC_DESIGN.md Section 2 & 8):
+        # The pattern matching below is a transitional implementation.
+        # Ideally, these exceptions should be ASP rules like:
+        #     -violation(causality, dead_agent, E, C) :- ghost(C), agent(E, C).
+        # The Python code here only checks metadata flags that were extracted
+        # by the LLM, it does not reason about the story world.
+        # -----------------------------------------------------------------
+        
         # Ghost/undead characters acting (dead_character_acting)
         if vtype == "dead_character_acting":
             # Check if the character is a known ghost/undead in story context
+            # This is metadata lookup, not narrative reasoning
             character = detail
             undead_chars = context.get("undead_characters", [])
             ghost_chars = context.get("ghost_characters", [])

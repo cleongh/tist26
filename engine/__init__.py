@@ -30,6 +30,21 @@ Phase 5 Additions:
     - FinalAnalyzer: Story-wide analysis after final chapter
     - FinalAnalysisResult: Structured final analysis output
     - LooseEnd, LongRangeInconsistency: Detected issues
+
+Phase 2 (Alias Resolution):
+    - AliasResolver: Canonical identity & alias resolution
+    - AliasConflict: Records conflicting alias mappings
+
+Phase 3 (Continuity Context):
+    - ContinuityContextBuilder: Gathers known state for LLM prompts
+    - ContinuityContext: Structured context for prompt injection
+    - build_continuity_context: Convenience function
+
+Phase 4 (Item Tracking):
+    - ItemTracker: Item lifecycle management & filtering
+    - TrackedItem: Tracked item with lifecycle state
+    - ItemLifecycleState: Enum for item states
+    - ItemRelevance: Enum for item relevance classification
 """
 
 from .state_manager import StateManager
@@ -51,6 +66,18 @@ from .final_analysis import (
     RuleAuditEntry,
     LooseEnd,
     LongRangeInconsistency,
+)
+from .alias_resolver import AliasResolver, AliasConflict
+from .continuity_context import (
+    ContinuityContextBuilder,
+    ContinuityContext,
+    build_continuity_context,
+)
+from .item_tracker import (
+    ItemTracker,
+    TrackedItem,
+    ItemLifecycleState,
+    ItemRelevance,
 )
 
 __all__ = [
@@ -74,6 +101,18 @@ __all__ = [
     'RuleAuditEntry',
     'LooseEnd',
     'LongRangeInconsistency',
+    # Alias resolution (Phase 2)
+    'AliasResolver',
+    'AliasConflict',
+    # Continuity context (Phase 3)
+    'ContinuityContextBuilder',
+    'ContinuityContext',
+    'build_continuity_context',
+    # Item tracking (Phase 4)
+    'ItemTracker',
+    'TrackedItem',
+    'ItemLifecycleState',
+    'ItemRelevance',
 ]
 
-__version__ = '0.3.0'  # Phase 5 update
+__version__ = '0.6.0'  # Phase 4: Item Tracking

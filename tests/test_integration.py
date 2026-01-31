@@ -185,14 +185,23 @@ class TestTeleportationMagicExceptions:
     
     Stories with teleportation (Harry Potter apparition, etc.)
     should not trigger location ubiquity violations.
+    
+    Per LOGIC_DESIGN.md Section 2: Story attributes must come from
+    extraction/metadata, not hardcoded detection.
     """
     
-    def test_harry_potter_has_teleportation(self):
-        """Harry Potter stories should auto-detect teleportation capability."""
+    def test_story_context_from_metadata(self):
+        """Story context should be initialized from metadata, not story ID detection."""
         rr = RuleRegistry()
         cr = ConflictResolver(rr)
         
-        context = cr.initialize_story_context("harry_potter_1")
+        # Correct approach: pass metadata explicitly
+        metadata = {
+            "is_fantasy": True,
+            "has_magic": True,
+            "has_teleportation": True,
+        }
+        context = cr.initialize_story_context("harry_potter_1", story_metadata=metadata)
         
         assert context.has_teleportation is True
         assert context.has_magic is True
@@ -203,8 +212,13 @@ class TestTeleportationMagicExceptions:
         rr = RuleRegistry()
         cr = ConflictResolver(rr)
         
-        # Initialize HP context (has teleportation)
-        context = cr.initialize_story_context("harry_potter_1")
+        # Initialize with explicit metadata (not auto-detection)
+        metadata = {
+            "is_fantasy": True,
+            "has_magic": True,
+            "has_teleportation": True,
+        }
+        context = cr.initialize_story_context("harry_potter_1", story_metadata=metadata)
         
         violation = {
             "category": "location",

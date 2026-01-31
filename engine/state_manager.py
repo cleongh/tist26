@@ -39,6 +39,9 @@ class Entity:
     traits: Set[str] = field(default_factory=set)
     state: str = "alive"  # 'alive', 'dead', etc.
     emotion: Optional[str] = None
+    # Phase 1: New optional fields for enhanced extraction
+    aliases: List[str] = field(default_factory=list)  # Character aliases (e.g., ["Uncle Vernon", "Mr. Dursley"])
+    relevance: Optional[str] = None  # Item relevance: "causal" | "latent" (for Chekhov tracking)
 
 
 @dataclass
@@ -256,14 +259,17 @@ class StateManager:
     
     def add_entity(self, entity_id: str, entity_type: str, 
                    traits: Set[str] = None, state: str = "alive",
-                   emotion: str = None) -> Entity:
+                   emotion: str = None, aliases: List[str] = None,
+                   relevance: str = None) -> Entity:
         """Add an entity to the current world state."""
         entity = Entity(
             id=entity_id,
             entity_type=entity_type,
             traits=traits or set(),
             state=state,
-            emotion=emotion
+            emotion=emotion,
+            aliases=aliases or [],
+            relevance=relevance
         )
         
         current = self.get_current_state()

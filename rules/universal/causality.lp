@@ -152,12 +152,16 @@ earlier_appearance(C, T2) :-
     event(E1),
     event_time(E1, T1),
     agent(E1, C),
+    event(E2),
+    event_time(E2, T2),
     T1 < T2.
 
 earlier_appearance(C, T2) :-
     event(E1),
     event_time(E1, T1),
     patient(E1, C),
+    event(E2),
+    event_time(E2, T2),
     T1 < T2.
 
 % Note: Unintroduced character violations are informational only
