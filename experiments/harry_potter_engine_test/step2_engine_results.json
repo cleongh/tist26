@@ -1,9 +1,9 @@
 {
   "step": 2,
   "approach": "logic_engine",
-  "timestamp": "2026-01-31T03:05:13.012513",
+  "timestamp": "2026-01-31T10:23:06.592567",
   "chapters_processed": 34,
-  "total_errors": 4,
+  "total_errors": 15,
   "results": [
     {
       "story_name": "Harry Potter",
@@ -12,7 +12,7 @@
       "chapter_number": 0,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 30.533446550369263,
+      "duration_seconds": 9.096989870071411,
       "success": true,
       "error_message": ""
     },
@@ -23,7 +23,7 @@
       "chapter_number": 1,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 6.536694049835205,
+      "duration_seconds": 5.623653173446655,
       "success": true,
       "error_message": ""
     },
@@ -32,9 +32,31 @@
       "variant": "original",
       "chapter_file": "002.txt",
       "chapter_number": 2,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 13.004902601242065,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Dudley banged his Smelting stick"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "harm_loved_one",
+          "description": "emotional/harm_loved_one: harm_loved_one",
+          "story_fragment": "Dudley banged his Smelting stick"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Dudley banged his Smelting stick"
+        }
+      ],
+      "duration_seconds": 8.094615459442139,
       "success": true,
       "error_message": ""
     },
@@ -45,7 +67,7 @@
       "chapter_number": 3,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 9.03042483329773,
+      "duration_seconds": 8.085967302322388,
       "success": true,
       "error_message": ""
     },
@@ -56,7 +78,7 @@
       "chapter_number": 4,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 11.14321255683899,
+      "duration_seconds": 10.442081928253174,
       "success": true,
       "error_message": ""
     },
@@ -65,9 +87,17 @@
       "variant": "original",
       "chapter_file": "005.txt",
       "chapter_number": 5,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 24.06552767753601,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Have a good term"
+        }
+      ],
+      "duration_seconds": 21.313172340393066,
       "success": true,
       "error_message": ""
     },
@@ -78,7 +108,7 @@
       "chapter_number": 6,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 17.98865580558777,
+      "duration_seconds": 20.495343685150146,
       "success": true,
       "error_message": ""
     },
@@ -89,7 +119,7 @@
       "chapter_number": 7,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 8.840477228164673,
+      "duration_seconds": 10.334097623825073,
       "success": true,
       "error_message": ""
     },
@@ -100,7 +130,7 @@
       "chapter_number": 8,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 18.663217067718506,
+      "duration_seconds": 19.253296852111816,
       "success": true,
       "error_message": ""
     },
@@ -111,7 +141,7 @@
       "chapter_number": 9,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 8.678271532058716,
+      "duration_seconds": 24.791804790496826,
       "success": true,
       "error_message": ""
     },
@@ -120,9 +150,17 @@
       "variant": "original",
       "chapter_file": "010.txt",
       "chapter_number": 10,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 4.530394077301025,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "010.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Snape was in the middle of the stands opposite them. He had his eyes fixed on Ha"
+        }
+      ],
+      "duration_seconds": 15.267222881317139,
       "success": true,
       "error_message": ""
     },
@@ -131,264 +169,70 @@
       "variant": "original",
       "chapter_file": "011.txt",
       "chapter_number": 11,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 15.950752019882202,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "012.txt",
-      "chapter_number": 12,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 21.809432983398438,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "013.txt",
-      "chapter_number": 13,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 14.85253357887268,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "014.txt",
-      "chapter_number": 14,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 23.446520566940308,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "015.txt",
-      "chapter_number": 15,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 36.353755474090576,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "original",
-      "chapter_file": "016.txt",
-      "chapter_number": 16,
-      "error_count": 2,
+      "error_count": 1,
       "errors": [
         {
-          "chapter_file": "016.txt",
+          "chapter_file": "011.txt",
           "category": "causality",
           "error_type": "dead_character_acting",
           "description": "causality/dead_character_acting: dead_character_acting",
-          "story_fragment": "Quirrell snapped his fingers. Ropes sprang out of thin air"
-        },
-        {
-          "chapter_file": "016.txt",
-          "category": "causality",
-          "error_type": "interacting_with_dead",
-          "description": "causality/interacting_with_dead: interacting_with_dead",
-          "story_fragment": "It was Quirrell. \u201cYou!\u201d gasped Harry."
+          "story_fragment": "Your father left this in my possession before he died."
         }
       ],
-      "duration_seconds": 14.13576054573059,
+      "duration_seconds": 21.194403886795044,
       "success": true,
       "error_message": ""
     },
     {
       "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "000.txt",
-      "chapter_number": 0,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 23.95548105239868,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "001.txt",
-      "chapter_number": 1,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 6.9643330574035645,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "002.txt",
-      "chapter_number": 2,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 10.543105840682983,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "003.txt",
-      "chapter_number": 3,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 13.519335269927979,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "004.txt",
-      "chapter_number": 4,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 29.1848886013031,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "005.txt",
-      "chapter_number": 5,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 22.552616834640503,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "006.txt",
-      "chapter_number": 6,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 17.597995281219482,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "007.txt",
-      "chapter_number": 7,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 12.995639324188232,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "008.txt",
-      "chapter_number": 8,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 20.585425853729248,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "009.txt",
-      "chapter_number": 9,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 18.21971583366394,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "010.txt",
-      "chapter_number": 10,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 7.404333591461182,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
-      "chapter_file": "011.txt",
-      "chapter_number": 11,
-      "error_count": 0,
-      "errors": [],
-      "duration_seconds": 16.358105897903442,
-      "success": true,
-      "error_message": ""
-    },
-    {
-      "story_name": "Harry Potter",
-      "variant": "modified",
+      "variant": "original",
       "chapter_file": "012.txt",
       "chapter_number": 12,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 16.585565328598022,
+      "duration_seconds": 17.011857271194458,
       "success": true,
       "error_message": ""
     },
     {
       "story_name": "Harry Potter",
-      "variant": "modified",
+      "variant": "original",
       "chapter_file": "013.txt",
       "chapter_number": 13,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 16.38780689239502,
+      "duration_seconds": 17.034584760665894,
       "success": true,
       "error_message": ""
     },
     {
       "story_name": "Harry Potter",
-      "variant": "modified",
+      "variant": "original",
       "chapter_file": "014.txt",
       "chapter_number": 14,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 24.372328996658325,
+      "duration_seconds": 31.227095127105713,
       "success": true,
       "error_message": ""
     },
     {
       "story_name": "Harry Potter",
-      "variant": "modified",
+      "variant": "original",
       "chapter_file": "015.txt",
       "chapter_number": 15,
       "error_count": 0,
       "errors": [],
-      "duration_seconds": 25.19089961051941,
+      "duration_seconds": 24.335384368896484,
       "success": true,
       "error_message": ""
     },
     {
       "story_name": "Harry Potter",
-      "variant": "modified",
+      "variant": "original",
       "chapter_file": "016.txt",
       "chapter_number": 16,
-      "error_count": 2,
+      "error_count": 4,
       "errors": [
         {
           "chapter_file": "016.txt",
@@ -400,12 +244,251 @@
         {
           "chapter_file": "016.txt",
           "category": "emotional",
-          "error_type": "relationship_flip",
-          "description": "emotional/relationship_flip: relationship_flip",
-          "story_fragment": ""
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "harm_loved_one",
+          "description": "emotional/harm_loved_one: harm_loved_one",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
         }
       ],
-      "duration_seconds": 22.121634006500244,
+      "duration_seconds": 19.74784517288208,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.552687168121338,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 11.266281127929688,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.816866397857666,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 15.260838985443115,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 26.7259681224823,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Have a good term my boy"
+        }
+      ],
+      "duration_seconds": 28.78408932685852,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 14.536222219467163,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.908496379852295,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.147218704223633,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 20.893434762954712,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 17.208908557891846,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "011.txt",
+          "category": "causality",
+          "error_type": "dead_character_acting",
+          "description": "causality/dead_character_acting: dead_character_acting",
+          "story_fragment": "Your father left this in my possession before he died."
+        }
+      ],
+      "duration_seconds": 22.737583875656128,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 19.789031505584717,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 16.073261737823486,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 25.089312076568604,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 29.93721294403076,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "harm_loved_one",
+          "description": "emotional/harm_loved_one: harm_loved_one",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet"
+        }
+      ],
+      "duration_seconds": 23.27146029472351,
       "success": true,
       "error_message": ""
     }

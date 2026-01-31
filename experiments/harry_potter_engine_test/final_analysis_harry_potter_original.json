@@ -1,8 +1,8 @@
 {
   "story_id": "Harry Potter_original",
   "total_chapters": 17,
-  "total_events": 76,
-  "total_violations": 2,
+  "total_events": 86,
+  "total_violations": 10,
   "rule_audit": {
     "active_count": 8,
     "deactivated_count": 0,
@@ -91,7 +91,7 @@
     ]
   },
   "loose_ends": {
-    "count": 50,
+    "count": 51,
     "items": [
       {
         "type": "unresolved_item",
@@ -105,6 +105,15 @@
       {
         "type": "unresolved_item",
         "entity_id": "letter",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "motorcycle",
         "entity_type": "item",
         "introduced_chapter": 0,
         "introduced_event": null,
@@ -158,7 +167,7 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "harry_letter",
+        "entity_id": "harry_birthday_cake",
         "entity_type": "item",
         "introduced_chapter": 3,
         "introduced_event": null,
@@ -167,7 +176,7 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "chocolate_cake",
+        "entity_id": "hogwarts_letter",
         "entity_type": "item",
         "introduced_chapter": 3,
         "introduced_event": null,
@@ -212,15 +221,6 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "vault_713_package",
-        "entity_type": "item",
-        "introduced_chapter": 4,
-        "introduced_event": null,
-        "last_referenced_chapter": 4,
-        "expected_resolution": "Item should be used or resolved"
-      },
-      {
-        "type": "unresolved_item",
         "entity_id": "snowy_owl",
         "entity_type": "item",
         "introduced_chapter": 4,
@@ -256,6 +256,24 @@
         "expected_resolution": "Item should be used or resolved"
       },
       {
+        "type": "unresolved_item",
+        "entity_id": "chocolate_frogs",
+        "entity_type": "item",
+        "introduced_chapter": 5,
+        "introduced_event": null,
+        "last_referenced_chapter": 5,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "sir_nicholas_de_mimsy_porpington",
+        "entity_type": "character",
+        "introduced_chapter": 6,
+        "introduced_event": null,
+        "last_referenced_chapter": 6,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
         "type": "unused_entity",
         "entity_id": "bloody_baron",
         "entity_type": "character",
@@ -275,7 +293,16 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "hedwig_note",
+        "entity_id": "four_legged_stool",
+        "entity_type": "item",
+        "introduced_chapter": 6,
+        "introduced_event": null,
+        "last_referenced_chapter": 6,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "gringotts_breakin_article",
         "entity_type": "item",
         "introduced_chapter": 7,
         "introduced_event": null,
@@ -284,7 +311,7 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "gringotts_article",
+        "entity_id": "hagrid_note",
         "entity_type": "item",
         "introduced_chapter": 7,
         "introduced_event": null,
@@ -301,30 +328,12 @@
         "expected_resolution": "Item should be used or resolved"
       },
       {
-        "type": "unused_entity",
-        "entity_id": "oliver_wood",
-        "entity_type": "character",
-        "introduced_chapter": 9,
-        "introduced_event": null,
-        "last_referenced_chapter": 9,
-        "expected_resolution": "Character introduced but never used"
-      },
-      {
-        "type": "unresolved_item",
-        "entity_id": "nimbus_two_thousand",
-        "entity_type": "item",
-        "introduced_chapter": 9,
-        "introduced_event": null,
-        "last_referenced_chapter": 9,
-        "expected_resolution": "Item should be used or resolved"
-      },
-      {
         "type": "unresolved_item",
         "entity_id": "golden_snitch",
         "entity_type": "item",
         "introduced_chapter": 9,
         "introduced_event": null,
-        "last_referenced_chapter": 9,
+        "last_referenced_chapter": 10,
         "expected_resolution": "Item should be used or resolved"
       },
       {
@@ -334,6 +343,24 @@
         "introduced_chapter": 9,
         "introduced_event": null,
         "last_referenced_chapter": 9,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "marcus_flint",
+        "entity_type": "character",
+        "introduced_chapter": 10,
+        "introduced_event": null,
+        "last_referenced_chapter": 10,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "quidditch_through_the_ages",
+        "entity_type": "item",
+        "introduced_chapter": 10,
+        "introduced_event": null,
+        "last_referenced_chapter": 10,
         "expected_resolution": "Item should be used or resolved"
       },
       {
@@ -364,17 +391,8 @@
         "expected_resolution": "Item should be used or resolved"
       },
       {
-        "type": "unused_entity",
-        "entity_id": "norbert",
-        "entity_type": "character",
-        "introduced_chapter": 13,
-        "introduced_event": null,
-        "last_referenced_chapter": 13,
-        "expected_resolution": "Character introduced but never used"
-      },
-      {
         "type": "unresolved_item",
-        "entity_id": "dragon_egg",
+        "entity_id": "norbert_egg",
         "entity_type": "item",
         "introduced_chapter": 13,
         "introduced_event": null,
@@ -383,7 +401,7 @@
       },
       {
         "type": "unresolved_item",
-        "entity_id": "charlies_letter",
+        "entity_id": "charlie_letter",
         "entity_type": "item",
         "introduced_chapter": 13,
         "introduced_event": null,
@@ -482,24 +500,12 @@
       },
       {
         "type": "chekhov_latent",
-        "entity_id": "smelting_stick",
-        "entity_type": "item",
-        "introduced_chapter": 2,
-        "introduced_event": null,
-        "last_referenced_chapter": 2,
-        "expected_resolution": "Latent item 'smelting_stick' was introduced but never used (Chekhov's Gun violation)",
-        "item_relevance": "latent",
-        "item_lifecycle": "introduced",
-        "item_original_relevance": "latent"
-      },
-      {
-        "type": "chekhov_latent",
-        "entity_id": "vault_713_package",
+        "entity_id": "hagrids_umbrella",
         "entity_type": "item",
         "introduced_chapter": 4,
         "introduced_event": null,
         "last_referenced_chapter": 4,
-        "expected_resolution": "Latent item 'vault_713_package' was introduced but never used (Chekhov's Gun violation)",
+        "expected_resolution": "Latent item 'hagrids_umbrella' was introduced but never used (Chekhov's Gun violation)",
         "item_relevance": "latent",
         "item_lifecycle": "introduced",
         "item_original_relevance": "latent"
@@ -518,24 +524,36 @@
       },
       {
         "type": "chekhov_latent",
-        "entity_id": "gringotts_article",
+        "entity_id": "four_legged_stool",
         "entity_type": "item",
-        "introduced_chapter": 7,
+        "introduced_chapter": 6,
         "introduced_event": null,
-        "last_referenced_chapter": 7,
-        "expected_resolution": "Latent item 'gringotts_article' was introduced but never used (Chekhov's Gun violation)",
+        "last_referenced_chapter": 6,
+        "expected_resolution": "Latent item 'four_legged_stool' was introduced but never used (Chekhov's Gun violation)",
         "item_relevance": "latent",
         "item_lifecycle": "introduced",
         "item_original_relevance": "latent"
       },
       {
         "type": "chekhov_latent",
-        "entity_id": "golden_snitch",
+        "entity_id": "gringotts_breakin_article",
         "entity_type": "item",
-        "introduced_chapter": 9,
+        "introduced_chapter": 7,
         "introduced_event": null,
-        "last_referenced_chapter": 9,
-        "expected_resolution": "Latent item 'golden_snitch' was introduced but never used (Chekhov's Gun violation)",
+        "last_referenced_chapter": 7,
+        "expected_resolution": "Latent item 'gringotts_breakin_article' was introduced but never used (Chekhov's Gun violation)",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "mirror_of_erised",
+        "entity_type": "item",
+        "introduced_chapter": 11,
+        "introduced_event": null,
+        "last_referenced_chapter": 11,
+        "expected_resolution": "Latent item 'mirror_of_erised' was introduced but never used (Chekhov's Gun violation)",
         "item_relevance": "latent",
         "item_lifecycle": "introduced",
         "item_original_relevance": "latent"
@@ -551,18 +569,6 @@
         "item_relevance": "latent",
         "item_lifecycle": "introduced",
         "item_original_relevance": "latent"
-      },
-      {
-        "type": "chekhov_latent",
-        "entity_id": "photo_album",
-        "entity_type": "item",
-        "introduced_chapter": 16,
-        "introduced_event": null,
-        "last_referenced_chapter": 16,
-        "expected_resolution": "Latent item 'photo_album' was introduced but never used (Chekhov's Gun violation)",
-        "item_relevance": "latent",
-        "item_lifecycle": "introduced",
-        "item_original_relevance": "latent"
       }
     ]
   },
@@ -572,11 +578,11 @@
   },
   "statistics": {
     "entities_introduced": {
-      "character": 23,
-      "item": 36,
-      "location": 35
+      "character": 24,
+      "item": 39,
+      "location": 36
     },
     "entities_resolved": {}
   },
-  "timestamp": "2026-01-31T03:09:52.583874"
+  "timestamp": "2026-01-31T10:27:49.948964"
 }

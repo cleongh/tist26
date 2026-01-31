@@ -1,0 +1,52 @@
+# state/ - Cross-chapter state, configuration, and data structures
+# TODO: Future refactors may add persistence mechanisms
+
+from .config import (
+    SCRIPT_DIR,
+    REPO_ROOT,
+    SOURCE_ORIGINAL_BOOKS,
+    SOURCE_MODIFIED_BOOKS,
+    EXPERIMENTS_DIR,
+    RULES_DIR,
+    ERRORS_CHECKLIST_DIR,
+    GEMINI_API_KEY,
+    OPENAI_API_KEY,
+    DEFAULT_MODELS,
+    API_MODE,
+    CHAR_ALIASES,
+    normalize_character_id,
+    STORIES,
+    ERROR_CATEGORIES,
+    REQUIRED_STRUCTURE_FIELDS,
+    REQUIRED_ENTITY_FIELDS,
+)
+from .logging import log, set_console_log_file
+from .data_structures import ChapterError, ChapterResult, StepResults
+
+__all__ = [
+    # Config
+    "SCRIPT_DIR",
+    "REPO_ROOT",
+    "SOURCE_ORIGINAL_BOOKS",
+    "SOURCE_MODIFIED_BOOKS",
+    "EXPERIMENTS_DIR",
+    "RULES_DIR",
+    "ERRORS_CHECKLIST_DIR",
+    "GEMINI_API_KEY",
+    "OPENAI_API_KEY",
+    "DEFAULT_MODELS",
+    "API_MODE",
+    "CHAR_ALIASES",
+    "normalize_character_id",
+    "STORIES",
+    "ERROR_CATEGORIES",
+    "REQUIRED_STRUCTURE_FIELDS",
+    "REQUIRED_ENTITY_FIELDS",
+    # Logging
+    "log",
+    "set_console_log_file",
+    # Data structures
+    "ChapterError",
+    "ChapterResult",
+    "StepResults",
+]
