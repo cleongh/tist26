@@ -493,6 +493,51 @@ class EntityRegistry:
     # Queries
     # =========================================================================
     
+    def get_character(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """
+        Get the full character data for an identifier.
+        
+        Args:
+            identifier: Character ID or alias
+            
+        Returns:
+            Character data dict, or None if not found
+        """
+        canonical = self.resolve_character(identifier)
+        if canonical:
+            return self._characters.get(canonical)
+        return None
+    
+    def get_location(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """
+        Get the full location data for an identifier.
+        
+        Args:
+            identifier: Location ID or alias
+            
+        Returns:
+            Location data dict, or None if not found
+        """
+        canonical = self.resolve_location(identifier)
+        if canonical:
+            return self._locations.get(canonical)
+        return None
+    
+    def get_item(self, identifier: str) -> Optional[Dict[str, Any]]:
+        """
+        Get the full item data for an identifier.
+        
+        Args:
+            identifier: Item ID or alias
+            
+        Returns:
+            Item data dict, or None if not found
+        """
+        canonical = self.resolve_item(identifier)
+        if canonical:
+            return self._items.get(canonical)
+        return None
+    
     def is_known_character(self, identifier: str) -> bool:
         """Check if an identifier is a known character."""
         return self.resolve_character(identifier) is not None

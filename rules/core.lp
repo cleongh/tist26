@@ -187,6 +187,90 @@ terminated(Fluent, T) :-
 
 
 % =============================================================================
+% PART 3.5: EXPLICIT vs ASSUMED STATE FRAMEWORK (Phase One Refactor)
+% =============================================================================
+%
+% Per LOGIC_DESIGN.md Phase One:
+%     Temporal violations must only derive from EXPLICIT STATE.
+%     Assumed states (from persistence/defaults) cannot cause violations.
+%
+% This distinction prevents false positives from:
+%     - Implicit scene changes
+%     - Missing location information
+%     - Assumed persistence between events
+%
+% The explicit_state and assumed_state predicates are DEFINED IN temporal.lp
+% but we provide core helpers here.
+% =============================================================================
+
+% --- Explicit State Interval ---
+% For states with known start and end times (from events with intervals)
+explicit_state_interval(Entity, State, T_start, T_end, E) :-
+    event(E),
+    event_start(E, T_start),
+    event_end(E, T_end),
+    T_start < T_end,
+    initiates_state(E, Entity, State).
+
+% --- State Initiation Helpers ---
+% These connect events to the states they create
+
+% Movement initiates location state
+initiates_state(E, C, at(L)) :-
+    event(E),
+    is_movement_event(E),
+    agent(E, C),
+    event_location(E, L),
+    L != unknown.
+
+% Death initiates dead state
+initiates_state(E, C, dead) :-
+    event(E),
+    is_death_event(E),
+    dies_in_event(E, C).
+
+% Possession initiates carries state
+initiates_state(E, C, carries(I)) :-
+    event(E),
+    is_take_event(E),
+    agent(E, C),
+    patient(E, I),
+    item(I).
+
+% --- State Termination Helpers ---
+% Movement terminates previous location state
+terminates_state(E, C, at(OldL)) :-
+    event(E),
+    is_movement_event(E),
+    agent(E, C),
+    event_time(E, T),
+    explicit_state(C, at(OldL), T_prev, _),
+    T_prev < T,
+    event_location(E, NewL),
+    OldL != NewL.
+
+% Drop terminates carries state
+terminates_state(E, C, carries(I)) :-
+    event(E),
+    is_give_event(E),
+    agent(E, C),
+    patient(E, I).
+
+% --- Helpers for Provenance ---
+% Track which event caused which state change
+
+state_changed_by(Entity, State, positive, T, E) :-
+    event(E),
+    event_time(E, T),
+    initiates_state(E, Entity, State).
+
+state_changed_by(Entity, State, negative, T, E) :-
+    event(E),
+    event_time(E, T),
+    terminates_state(E, Entity, State).
+
+
+% =============================================================================
 % PART 4: TIME-INDEXED RELATIONS (Step 2.2 - LKG Relations)
 % =============================================================================
 %
@@ -359,6 +443,16 @@ is_travel_event(E) :- event_type(E, travel).
 is_travel_event(E) :- event_type(E, fly).
 is_travel_event(E) :- event_type(E, apparate).
 is_travel_event(E) :- event_type(E, teleport).
+
+% --- Implicit Leave Events (from MovementContinuityGuard) ---
+% These are derived events inserted when a character appears at a new location
+% without explicit movement. They bridge gaps in the narrative extraction.
+is_movement_event(E) :- event_type(E, implicit_leave).
+is_exit_event(E) :- event_type(E, implicit_leave).
+
+% Implicit transitions provide context about derived movement
+% implicit_transition(Agent, FromLoc, ToLoc, AfterEvent, BeforeEvent)
+% This fact is purely informational for debugging/auditing.
 
 % --- Death Events ---
 % Death terminates alive status
@@ -619,9 +713,13 @@ is_sleep_related_event(E) :- event_type(E, nightmare).
 is_sleep_related_event(E) :- event_type(E, snore).
 
 % Passive events can happen to sleeping characters
-is_passive_event(E) :- not agent(E, _).
+% An event is passive if it has no agent (patient-only events)
+is_passive_event(E) :- event(E), not has_agent(E).
 is_passive_event(E) :- event_type(E, receive).
 is_passive_event(E) :- event_type(E, hear).  % Might hear in sleep
+
+% Helper: check if event has an agent
+has_agent(E) :- agent(E, _).
 
 
 % =============================================================================

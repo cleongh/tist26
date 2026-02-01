@@ -1,0 +1,31 @@
+=== Experiment Log Started: 2026-02-01T00:10:18.072613 ===
+
+[2026-02-01 00:10:18] [INFO] API Mode: local
+[2026-02-01 00:10:18] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-02-01 00:10:18] [INFO] LLM Timeout: 600s, ILASP Timeout: 60s
+[2026-02-01 00:10:18] [INFO] ============================================================
+[2026-02-01 00:10:18] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-02-01 00:10:18] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-02-01 00:10:18] [INFO] ============================================================
+[2026-02-01 00:10:18] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/01_mistral_refinement/step2_engine_log.jsonl
+[2026-02-01 00:10:18] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/01_mistral_refinement/step2_extractions.jsonl
+[2026-02-01 00:10:18] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/01_mistral_refinement/step2_events_log.jsonl
+[2026-02-01 00:10:18] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/01_mistral_refinement/step2_alias_conflicts.jsonl
+[2026-02-01 00:10:18] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/01_mistral_refinement/step2_item_stats.jsonl
+[2026-02-01 00:10:18] [INFO] Using local LLM at: http://localhost:8080/v1
+[2026-02-01 00:10:18] [INFO] 
+Processing: Harry Potter (original)
+[2026-02-01 00:10:18] [INFO]   Found 5 chapters (limited to 5)
+[2026-02-01 00:10:18] [INFO]   Chapter 0: 000.txt
+[2026-02-01 00:10:18] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-01 00:10:44] [WARN] [characters_locations] JSON parse failed: Expecting ',' delimiter: line 25 column 2 (char 475)
+[2026-02-01 00:10:44] [DEBUG] [characters_locations] Raw output logged to: /home/mrcorner/Workspace/Repos/tist26/experiments/failed_llm_outputs/characters_locations.txt
+[2026-02-01 00:10:44] [INFO]     -> 0 characters, 0 locations
+[2026-02-01 00:10:44] [INFO]   [Phase 2] Extracting items...
+[2026-02-01 00:11:10] [INFO]     -> 6 items
+[2026-02-01 00:11:10] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-01 00:11:10] [INFO]     -> 0 characters, 0 locations, 6 items registered
+[2026-02-01 00:11:10] [INFO]     -> 0 character aliases, 0 location aliases, 8 item aliases
+[2026-02-01 00:11:10] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-01 00:11:10] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-01 00:11:10] [INFO]   [Phase 2] Extracting relationships...

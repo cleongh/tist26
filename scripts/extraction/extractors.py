@@ -22,6 +22,7 @@ from .entity_registry import EntityRegistry, ValidationWarning
 from .relationship_normalizer import RelationshipNormalizer, NormalizationResult
 from .event_normalizer import EventNormalizer, EventNormalizationResult
 from .json_utils import parse_llm_json, parse_events_with_salvage
+from .post_salvage_reconciler import reconcile_salvaged_events, ReconciliationResult
 from ..state.logging import log
 
 
@@ -256,7 +257,7 @@ def extract_events(
     chapter_character_ids: str = "(No characters in this chapter)",
     chapter_item_ids: str = "(No items in this chapter)",
     chapter_location_ids: str = "(No locations in this chapter)",
-) -> Dict[str, Any]:
+) -> Tuple[Dict[str, Any], bool]:
     """
     Extract events from chapter text.
     
@@ -273,7 +274,9 @@ def extract_events(
         chapter_location_ids: Formatted string of location IDs in this chapter
         
     Returns:
-        Dict with "events" list
+        Tuple of (events_dict, was_salvaged):
+        - events_dict: Dict with "events" list
+        - was_salvaged: True if truncation salvage was used
     """
     default = {"events": []}
     prompt = EXTRACT_EVENTS_PROMPT.format(
@@ -287,7 +290,7 @@ def extract_events(
         response = api_client.extract(prompt, max_tokens=6024, timeout=timeout)
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
-        return default
+        return default, False
     
     # Use salvage-enabled parsing for events
     result, success, was_salvaged = parse_events_with_salvage(response, default)
@@ -296,11 +299,11 @@ def extract_events(
         log(f"  [Events] Recovered {len(result.get('events', []))} events from truncated output", "INFO")
     
     if not success:
-        return default
+        return default, False
     
     return {
         "events": result.get("events", []),
-    }
+    }, was_salvaged
 
 
 def merge_extractions(
@@ -526,7 +529,7 @@ def extract_chapter_split(
     chapter_item_ids = format_chapter_item_ids(items.get("items", []))
     chapter_location_ids = format_chapter_location_ids(chars_locs.get("locations", []))
     log("  [Phase 2] Extracting events...")
-    events = extract_events(
+    events, was_salvaged = extract_events(
         chapter_text, 
         api_client, 
         timeout=timeout,
@@ -535,6 +538,25 @@ def extract_chapter_split(
         chapter_location_ids=chapter_location_ids,
     )
     log(f"    -> {len(events.get('events', []))} events")
+    
+    # Post-salvage reconciliation: run ONLY if events were salvaged
+    # This attempts to repair obvious entity reference issues before validation
+    if was_salvaged and registry is not None and events.get("events"):
+        log("  [Phase 4.5] Running post-salvage reconciliation...")
+        original_count = len(events.get("events", []))
+        reconciled_events, reconciliation_result = reconcile_salvaged_events(
+            events.get("events", []),
+            registry,
+            rel_normalizer,
+        )
+        events = {"events": reconciled_events}
+        if reconciliation_result.agent_remaps or reconciliation_result.location_remaps:
+            log(
+                f"    -> Reconciled {original_count} salvaged events: "
+                f"{reconciliation_result.agent_remaps} agent remaps, "
+                f"{reconciliation_result.location_remaps} location remaps, "
+                f"{reconciliation_result.expanded_count} expanded"
+            )
     
     # Merge with validation and normalization
     merged, event_result = merge_extractions(

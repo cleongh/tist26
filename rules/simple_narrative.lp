@@ -312,11 +312,22 @@ are_contradictory_states(invisible, visible).
 
 
 % =============================================================================
-% CATEGORY C: TEMPORAL ORDER VIOLATIONS
+% CATEGORY C: TEMPORAL ORDER VIOLATIONS (Phase One Refactor)
 % =============================================================================
-% Events must respect time ordering and be possible within intervals.
-% Note: Since events are named e1, e2, etc., we use the has_death_event 
-% predicate with cross-chapter tracking via is_dead/1.
+%
+% NOTE: Main temporal violation rules are now in rules/universal/temporal.lp
+%
+% This section contains:
+%   - Event ordering helpers (for cross-chapter sequencing)
+%   - Death tracking (for causality violations)
+%   - Contradictory state definitions (used by temporal.lp)
+%
+% PHASE ONE CHANGES:
+%   - Temporal violations now require EXPLICIT state assertions
+%   - Assumed/persisted states cannot trigger violations
+%   - See temporal.lp for explicit_state vs assumed_state framework
+%
+% =============================================================================
 
 % --- Global Event Ordering ---
 % Derive time_order from event_order for cross-chapter event sequencing
@@ -336,7 +347,7 @@ is_death_type(murder).
 is_death_type(execute).
 is_death_type(execution).
 
-% Track death events in current chapter
+% Track death events in current chapter (explicit evidence)
 has_death_event(C) :-
     event(E),
     event_type(E, Type),
@@ -350,10 +361,36 @@ has_death_event(C) :-
     patient(E, C).
 
 % Inherit is_dead from has_death_event (for same-chapter detection)
+% This is EXPLICIT: death was witnessed in an event
 is_dead(C) :- has_death_event(C).
 
-% Simultaneous contradictory actions (if modeled with same event ID)
-% This is informational rather than strictly enforceable without timestamps
+% --- Explicit Death State for Temporal Rules ---
+% Links death events to the explicit_state framework in temporal.lp
+explicit_death_event(C, E, T) :-
+    event(E),
+    event_time(E, T),
+    event_type(E, Type),
+    is_death_type(Type),
+    patient(E, C).
+
+explicit_death_event(C, E, T) :-
+    event(E),
+    event_time(E, T),
+    event_type(E, Type),
+    is_death_type(Type),
+    agent(E, C),
+    Type = die.
+
+explicit_death_event(C, E, T) :-
+    event(E),
+    event_time(E, T),
+    event_type(E, Type),
+    is_death_type(Type),
+    agent(E, C),
+    Type = dies.
+
+% NOTE: Simultaneous contradictory action violations are now in temporal.lp
+% using the explicit_state framework
 
 
 % =============================================================================
@@ -370,12 +407,9 @@ character_at(C, L, E) :-
     location(E, L),
     L != unknown.
 
-% --- Ubiquity detection DISABLED ---
-% Without timestamps, we can't distinguish "moved from A to B" from "at A and B simultaneously"
-% violation(location, ubiquity, C, pair(L1, L2)) :-
-%     character_at(C, L1, E),
-%     character_at(C, L2, E),
-%     L1 != L2.
+% --- Ubiquity detection via explicit_state ---
+% Now handled in temporal.lp using explicit_state framework.
+% Only fires when two EXPLICIT location assertions overlap in time.
 
 % --- Co-location tracking (informational only, not a violation) ---
 % Tracks when interactions happen across locations - useful for analysis

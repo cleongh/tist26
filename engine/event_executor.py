@@ -49,6 +49,12 @@ import os
 import re
 import json
 
+from .movement_continuity_guard import (
+    MovementContinuityGuard,
+    MovementContinuityResult,
+    generate_transition_asp_facts,
+)
+
 if TYPE_CHECKING:
     from .state_manager import StateManager
     from .rule_registry import RuleRegistry
@@ -354,6 +360,7 @@ class EventExecutor:
         self.state_manager = state_manager
         self.rule_registry = rule_registry
         self._clingo_available = self._check_clingo()
+        self._last_continuity_result: Optional[MovementContinuityResult] = None
     
     def _check_clingo(self) -> bool:
         """Check if Clingo is available."""
@@ -362,6 +369,54 @@ class EventExecutor:
             return True
         except ImportError:
             return False
+    
+    def _parse_violation(self, atom: Any, default_event_id: str) -> Dict[str, Any]:
+        """
+        Parse a violation atom from Clingo output into a structured dict.
+        
+        Handles special compound terms like tt_info for time_travel violations
+        to extract detailed debugging information.
+        
+        Args:
+            atom: A Clingo Symbol representing a violation/4 atom
+            default_event_id: Event ID to use if violation doesn't specify one
+        
+        Returns:
+            Dict with keys: category, type, event, detail, and additional 
+            trace fields for specific violation types
+        """
+        args = atom.arguments
+        category = str(args[0]) if len(args) > 0 else "unknown"
+        vtype = str(args[1]) if len(args) > 1 else "unknown"
+        event_ref = str(args[2]) if len(args) > 2 else default_event_id
+        detail_arg = args[3] if len(args) > 3 else None
+        
+        violation_dict = {
+            "category": category,
+            "type": vtype,
+            "event": event_ref,
+            "detail": str(detail_arg) if detail_arg else "",
+        }
+        
+        # Parse rich detail for time_travel violations
+        # Format: tt_info(Character, Loc1, Time1, Loc2, Time2)
+        if vtype == "time_travel" and detail_arg is not None:
+            try:
+                if hasattr(detail_arg, 'name') and detail_arg.name == "tt_info":
+                    tt_args = detail_arg.arguments
+                    if len(tt_args) >= 5:
+                        violation_dict["trace"] = {
+                            "character": str(tt_args[0]),
+                            "earlier_location": str(tt_args[3]),  # L2 is "earlier" (lower T)
+                            "earlier_time": int(str(tt_args[4])),  # T2
+                            "later_location": str(tt_args[1]),    # L1 is "later" (higher T)
+                            "later_time": int(str(tt_args[2])),   # T1
+                        }
+            except (ValueError, AttributeError, IndexError):
+                # Fallback to string representation if parsing fails
+                pass
+        
+        return violation_dict
     
     def _sanitize_id(self, value: Any) -> str:
         """Sanitize a value for use as an ASP atom."""
@@ -599,6 +654,17 @@ class EventExecutor:
         for i in range(len(event_ids) - 1):
             lines.append(f"time_order({event_ids[i]}, {event_ids[i+1]}).")
         
+        # Movement Continuity Guard: detect and bridge implicit movement gaps
+        # Per LOGIC_DESIGN.md: Python orchestrates, adds derived facts - ASP handles logic
+        events_list = data.get("events", [])
+        if events_list:
+            guard = MovementContinuityGuard(chapter_num=chapter_num)
+            continuity_result = guard.analyze_events(events_list, self._sanitize_id)
+            if continuity_result.derived_transitions:
+                lines.append(generate_transition_asp_facts(continuity_result))
+                # Store result for audit access
+                self._last_continuity_result = continuity_result
+        
         # Add story rules from StateManager
         lines.append(f"\n% Story rules (dynamic, established by events)")
         lines.append(f"event_order(e0, 0).  % Initial state event")
@@ -761,13 +827,8 @@ class EventExecutor:
                     for atom in model.symbols(shown=True):
                         # Collect violations
                         if atom.name == "violation":
-                            parts = [str(arg) for arg in atom.arguments]
-                            result.violations.append({
-                                "category": parts[0] if len(parts) > 0 else "unknown",
-                                "type": parts[1] if len(parts) > 1 else "unknown",
-                                "event": parts[2] if len(parts) > 2 else event.id,
-                                "detail": parts[3] if len(parts) > 3 else "",
-                            })
+                            violation_dict = self._parse_violation(atom, event.id)
+                            result.violations.append(violation_dict)
                         
                         # Collect state changes (for updating world state)
                         if atom.name == "state_change":

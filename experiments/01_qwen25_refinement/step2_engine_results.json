@@ -1,0 +1,363 @@
+{
+  "step": 2,
+  "approach": "logic_engine",
+  "timestamp": "2026-02-01T00:56:41.098966",
+  "chapters_processed": 10,
+  "total_errors": 34,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 267.7740988731384,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 9,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "\u2018Thirty-six\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "\u2018All right, thirty-seven then\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "\u2018So I\u2019ll have thirty \u2026 thirty\u2026\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "\u2018I\u2026 don\u2019t\u2026 want\u2026 him\u2026 t-t-to come!\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "\u2018Harry was talking to it, weren\u2019t you, Harry?\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "emotional",
+          "error_type": "help_enemy",
+          "description": "emotional/help_enemy: help_enemy",
+          "story_fragment": "\u2018\u2026 and then, because the smiling lady in the van had asked Harry what he wanted\u2026"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "\u2018DUDLEY! MR. DURSLEY! COME AND LOOK AT THIS SNAKE! YOU WON\u2019T BELIEVE WHAT IT\u2019S D"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "\u2018Out of the way, you\u2019"
+        },
+        {
+          "chapter_file": "001.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "\u2018punching Harry in the ribs\u2019"
+        }
+      ],
+      "duration_seconds": 312.7930066585541,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Uncle Vernon took both Harry and Dudley by the scruffs of their necks"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "help_enemy",
+          "description": "emotional/help_enemy: help_enemy",
+          "story_fragment": "Uncle Vernon took both Harry and Dudley by the scruffs of their necks"
+        },
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "unmotivated_hostility",
+          "description": "emotional/unmotivated_hostility: unmotivated_hostility",
+          "story_fragment": "Dudley tried to grab the letter to read it"
+        }
+      ],
+      "duration_seconds": 218.95582389831543,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He pulled an owl, a long quill, and a roll of parchment."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "possession",
+          "error_type": "use_without_having",
+          "description": "possession/use_without_having: use_without_having",
+          "story_fragment": "Harry read: \u2018HOGWARTS SCHOOL of WITCHCRAFT and WIZARDRY\u2019"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "temporal",
+          "error_type": "missing_prerequisite",
+          "description": "temporal/missing_prerequisite: missing_prerequisite",
+          "story_fragment": "Harry read: \u2018HOGWARTS SCHOOL of WITCHCRAFT and WIZARDRY\u2019"
+        }
+      ],
+      "duration_seconds": 206.26661109924316,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 189.48477745056152,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 312.4355540275574,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 295.5882353782654,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "emotional",
+          "error_type": "relationship_action_mismatch",
+          "description": "emotional/relationship_action_mismatch: relationship_action_mismatch",
+          "story_fragment": "Uncle Vernon took both Harry and Dudley by the scruffs of their necks and threw "
+        }
+      ],
+      "duration_seconds": 333.81850695610046,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "temporal",
+          "error_type": "missing_prerequisite",
+          "description": "temporal/missing_prerequisite: missing_prerequisite",
+          "story_fragment": "Harry pulled out the letter and read: HOGWARTS SCHOOL of WITCHCRAFT and WIZARDRY"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 195.97565054893494,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 16,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "temporal",
+          "error_type": "time_travel",
+          "description": "temporal/time_travel: time_travel",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 201.9878613948822,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}
