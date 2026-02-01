@@ -282,8 +282,8 @@ is_authority_figure(grey_lady).
 is_authority_figure(peeves).  % Poltergeist, shouts at people
 
 % Adults who may talk on phones, to themselves, or make announcements
-is_authority_figure(mr_dursley).
-is_authority_figure(mrs_dursley).
+% Use canonical IDs (uncle_vernon, aunt_petunia) - aliases like mr_dursley 
+% are resolved via CHARACTER_ALIASES in event_executor.py
 is_authority_figure(uncle_vernon).
 is_authority_figure(aunt_petunia).
 

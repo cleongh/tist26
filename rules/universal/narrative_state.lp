@@ -80,8 +80,8 @@ death_time(C, T) :-
 
 % Character was alive at time T but is dead after
 was_alive(C, T) :- alive(C, T).
-died_before(C, T) :- death_time(C, T_death), T_death < T.
-died_at_or_before(C, T) :- death_time(C, T_death), T_death <= T.
+died_before(C, T) :- death_time(C, T_death), time(T), T_death < T.
+died_at_or_before(C, T) :- death_time(C, T_death), time(T), T_death <= T.
 
 % --- Death Event Classification ---
 % Extended from simple_narrative.lp for completeness

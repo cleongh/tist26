@@ -127,22 +127,35 @@ class TestVernonFarewellError:
         Verify that warm actions from hostile characters are detectable.
         
         This tests the rule structure needed for detecting the Vernon error.
+        Uses AliasResolver for dynamic alias resolution as per the design.
         """
+        from engine.alias_resolver import AliasResolver
+        
+        # Set up alias resolver with Dursley aliases
+        alias_resolver = AliasResolver()
+        alias_resolver.register_character(
+            "uncle_vernon", 
+            ["vernon_dursley", "mr_dursley"], 
+            chapter_num=1
+        )
+        
         sm = StateManager()
-        sm.add_entity("vernon_dursley", "character")
+        sm.add_entity("uncle_vernon", "character")
         sm.add_entity("harry_potter", "character")
         
         # Establish hostile relationship
-        sm.add_relationship("vernon_dursley", "harry_potter", "hates")
+        sm.add_relationship("uncle_vernon", "harry_potter", "hates")
         
         rr = RuleRegistry()
-        ee = EventExecutor(state_manager=sm, rule_registry=rr)
+        # Pass alias_resolver to EventExecutor
+        ee = EventExecutor(state_manager=sm, rule_registry=rr, alias_resolver=alias_resolver)
         
         # Create a farewell event from Vernon to Harry
+        # Use the alias "vernon_dursley" to verify it gets normalized
         event_data = {
             "id": "e5_1",
             "type": "farewell",
-            "agent": "vernon_dursley",
+            "agent": "vernon_dursley",  # alias - will be normalized to uncle_vernon
             "patient": "harry_potter",
         }
         event = ee.create_event(event_data, time=1, chapter_num=5)
@@ -152,7 +165,8 @@ class TestVernonFarewellError:
         
         assert "event_type" in asp_facts
         assert "farewell" in asp_facts.lower()
-        assert "vernon_dursley" in asp_facts.lower()
+        # Verify alias resolution: vernon_dursley -> uncle_vernon
+        assert "uncle_vernon" in asp_facts.lower()
     
     def test_action_contradicts_relationship_rules_exist(self):
         """Verify ASP rules exist for farewell contradicting hates."""

@@ -401,6 +401,8 @@ location_change(C, L1, L2, T1, T2, E1, E2) :-
 % Helper: Character has explicit presence between two times
 has_intervening_location(C, T1, T2) :-
     explicit_presence(C, _, T_mid, _),
+    time(T1),
+    time(T2),
     T1 < T_mid,
     T_mid < T2.
 
@@ -412,6 +414,7 @@ last_known_location(C, L, T) :-
 
 has_later_explicit_presence(C, T) :-
     explicit_presence(C, _, T2, _),
+    time(T),
     T < T2.
 
 

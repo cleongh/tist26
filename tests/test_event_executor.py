@@ -280,13 +280,18 @@ class TestCharacterAliases:
     
     Per LOGIC_DESIGN.md: Python is orchestration only, ASP handles logic.
     Aliases are injected as alias/2 facts for ASP resolution.
+    
+    Note: These tests verify the legacy fallback behavior. In production,
+    aliases are dynamically discovered during extraction and managed by
+    AliasResolver.
     """
     
-    def test_generate_alias_facts(self):
-        """generate_alias_facts() produces valid ASP facts."""
-        from engine.event_executor import generate_alias_facts, CHARACTER_ALIASES
+    def test_generate_alias_facts_legacy(self):
+        """generate_alias_facts() produces valid ASP facts with legacy aliases."""
+        from engine.event_executor import generate_alias_facts, _LEGACY_CHARACTER_ALIASES
         
-        asp_facts = generate_alias_facts()
+        # Test without alias_resolver (legacy mode)
+        asp_facts = generate_alias_facts(alias_resolver=None)
         
         # Should contain header comment
         assert "% Character alias facts" in asp_facts
@@ -294,22 +299,35 @@ class TestCharacterAliases:
         # Should contain alias facts
         assert "alias(" in asp_facts
         
-        # Check specific aliases from CHARACTER_ALIASES
-        for alias_id, canonical_id in CHARACTER_ALIASES.items():
+        # Check specific aliases from legacy dict
+        for alias_id, canonical_id in _LEGACY_CHARACTER_ALIASES.items():
             if alias_id != canonical_id:
                 expected = f"alias({alias_id}, {canonical_id})."
                 assert expected in asp_facts, f"Missing alias: {expected}"
+    
+    def test_generate_alias_facts_with_resolver(self):
+        """generate_alias_facts() uses AliasResolver when provided."""
+        from engine.event_executor import generate_alias_facts
+        from engine.alias_resolver import AliasResolver
+        
+        resolver = AliasResolver()
+        resolver.register_character("uncle_vernon", ["mr_dursley", "vernon"], chapter_num=1)
+        
+        asp_facts = generate_alias_facts(alias_resolver=resolver)
+        
+        # Should contain dynamically registered aliases
+        assert "alias(mr_dursley, uncle_vernon)." in asp_facts
+        assert "alias(vernon, uncle_vernon)." in asp_facts
     
     def test_alias_facts_no_self_aliases(self):
         """Self-aliases (X -> X) should not be generated."""
         from engine.event_executor import generate_alias_facts
         
-        asp_facts = generate_alias_facts()
+        asp_facts = generate_alias_facts(alias_resolver=None)
         
         # Self-aliases should not appear (e.g., alias(hagrid, hagrid).)
-        # The CHARACTER_ALIASES has hagrid -> hagrid, but we skip those
+        # The legacy aliases has hagrid -> hagrid, but we skip those
         assert "alias(hagrid, hagrid)." not in asp_facts
-        assert "alias(voldemort, voldemort)." not in asp_facts
     
     def test_to_asp_includes_alias_facts(self):
         """to_asp() includes alias facts in output."""
@@ -328,36 +346,64 @@ class TestCharacterAliases:
         
         # Should contain alias section
         assert "% Character alias facts" in asp_output
+        # Legacy mode: harry_potter -> harry
         assert "alias(harry_potter, harry)." in asp_output
     
-    def test_normalize_character_id_uses_aliases(self):
-        """normalize_character_id() resolves aliases to canonical IDs."""
+    def test_normalize_character_id_legacy(self):
+        """normalize_character_id() resolves legacy aliases without resolver."""
         from engine.event_executor import normalize_character_id
         
-        # Test Harry Potter aliases
+        # Test Harry Potter aliases (from legacy dict)
         assert normalize_character_id("harry_potter") == "harry"
         assert normalize_character_id("potter") == "harry"
         assert normalize_character_id("HARRY_POTTER") == "harry"  # case insensitive
+    
+    def test_normalize_character_id_with_resolver(self):
+        """normalize_character_id() uses AliasResolver when provided."""
+        from engine.event_executor import normalize_character_id
+        from engine.alias_resolver import AliasResolver
         
-        # Test Voldemort aliases
-        assert normalize_character_id("lord_voldemort") == "voldemort"
-        assert normalize_character_id("tom_riddle") == "voldemort"
-        assert normalize_character_id("the_dark_lord") == "voldemort"
+        resolver = AliasResolver()
+        resolver.register_character("uncle_vernon", ["mr_dursley", "vernon_dursley"], chapter_num=1)
+        
+        # With resolver, should use dynamic aliases
+        assert normalize_character_id("mr_dursley", resolver) == "uncle_vernon"
+        assert normalize_character_id("vernon_dursley", resolver) == "uncle_vernon"
+        
+        # Unknown should pass through
+        assert normalize_character_id("unknown_char", resolver) == "unknown_char"
         
         # Unknown characters pass through unchanged
         assert normalize_character_id("dobby") == "dobby"
         assert normalize_character_id("ginny") == "ginny"
     
-    def test_sanitize_char_normalizes(self):
-        """_sanitize_char() normalizes character IDs."""
+    def test_sanitize_char_normalizes_legacy(self):
+        """_sanitize_char() normalizes character IDs using legacy aliases."""
         sm = StateManager()
         rr = RuleRegistry()
-        ee = EventExecutor(sm, rr)
+        ee = EventExecutor(sm, rr)  # No alias_resolver - uses legacy
         
-        # Should sanitize AND normalize
-        assert ee._sanitize_char("Harry Potter") == "harry"
-        assert ee._sanitize_char("Lord Voldemort") == "voldemort"
+        # Should sanitize AND normalize using legacy aliases
+        assert ee._sanitize_char("Harry Potter") == "harry"  # In legacy aliases
         assert ee._sanitize_char("Dobby") == "dobby"  # Unknown passes through
+        
+        # lord_voldemort is NOT in minimal legacy aliases, so passes through
+        assert ee._sanitize_char("Lord Voldemort") == "lord_voldemort"
+    
+    def test_sanitize_char_normalizes_with_resolver(self):
+        """_sanitize_char() uses AliasResolver when provided."""
+        from engine.alias_resolver import AliasResolver
+        
+        resolver = AliasResolver()
+        resolver.register_character("voldemort", ["lord_voldemort", "tom_riddle"], chapter_num=1)
+        
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr, alias_resolver=resolver)
+        
+        # With resolver, should use dynamic aliases
+        assert ee._sanitize_char("Lord Voldemort") == "voldemort"
+        assert ee._sanitize_char("Tom Riddle") == "voldemort"
     
     def test_state_manager_includes_aliases(self):
         """StateManager.get_asp_facts_for_clingo() includes alias facts."""

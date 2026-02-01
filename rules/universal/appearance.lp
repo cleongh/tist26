@@ -284,6 +284,7 @@ appearance_introduced_by(C, Trait, T, E) :-
 % Character had this trait at some earlier time
 appearance_prior(C, Trait, T) :-
     appearance(C, Trait, T_prev),
+    time(T),
     T_prev < T.
 
 % --- Appearance Continuation ---
@@ -352,39 +353,42 @@ violation(coherence, appearance_sudden_change,
 
 % Check if there's a causal event for the appearance
 % Injury appearances are caused by violence events
-has_appearance_cause(C, Trait, T, _) :-
+has_appearance_cause(C, Trait, T, E2) :-
     injury_appearance(Trait),
     event_time(E2, T_cause),
     is_injury_cause_event(E2),
     patient(E2, C),
+    time(T),
     T_cause <= T.
 
 % Abnormal appearances can be caused by sickness events
-has_appearance_cause(C, Trait, T, _) :-
+has_appearance_cause(C, Trait, T, E2) :-
     abnormal_appearance(Trait),
     event_time(E2, T_cause),
     event_type(E2, sick),
     agent(E2, C),
+    time(T),
     T_cause <= T.
 
-has_appearance_cause(C, Trait, T, _) :-
+has_appearance_cause(C, Trait, T, E2) :-
     abnormal_appearance(Trait),
     event_time(E2, T_cause),
     event_type(E2, poison),
     patient(E2, C),
+    time(T),
     T_cause <= T.
 
-has_appearance_cause(C, Trait, T, _) :-
+has_appearance_cause(C, Trait, T, E2) :-
     abnormal_appearance(Trait),
     event_time(E2, T_cause),
     event_type(E2, transform),
     patient(E2, C),
+    time(T),
     T_cause <= T.
 
 % Initial appearances don't need causes
-has_appearance_cause(C, Trait, T, _) :-
-    initial_appearance(C, Trait),
-    T = 0.
+has_appearance_cause(C, Trait, 0, none) :-
+    initial_appearance(C, Trait).
 
 % Explicitly marked as caused (story-specific)
 has_appearance_cause(C, Trait, T, E) :-
@@ -406,6 +410,7 @@ has_removal_cause(C, Trait, T) :-
     event_time(E, T_heal),
     is_healing_event(E),
     patient(E, C),
+    time(T),
     T_heal <= T.
 
 has_removal_cause(C, Trait, T) :-
@@ -413,6 +418,7 @@ has_removal_cause(C, Trait, T) :-
     event_time(E, T_trans),
     event_type(E, transform),
     patient(E, C),
+    time(T),
     T_trans <= T.
 
 % Magic can remove persistent traits
@@ -421,6 +427,7 @@ has_removal_cause(C, Trait, T) :-
     event_time(E, T_magic),
     event_type(E, magic),
     patient(E, C),
+    time(T),
     T_magic <= T.
 
 has_removal_cause(C, Trait, T) :-
@@ -428,6 +435,7 @@ has_removal_cause(C, Trait, T) :-
     event_time(E, T_spell),
     event_type(E, spell),
     patient(E, C),
+    time(T),
     T_spell <= T.
 
 % --- VIOLATION: Unexplained Appearance Reversion ---
@@ -445,11 +453,13 @@ has_reversion_cause(C, Trait, T) :-
     is_injury_cause_event(E),
     patient(E, C),
     appearance_removed(C, Trait, T_removed),
+    time(T),
     T_removed < T_injury,
     T_injury < T.
 
 has_reversion_cause(C, Trait, T) :-
-    transient_appearance(Trait).  % Transient traits can revert freely
+    transient_appearance(Trait),
+    appearance_reverted(C, Trait, T).  % Transient traits can revert freely
 
 
 % =============================================================================
@@ -486,6 +496,7 @@ has_abnormal_appearance_justification(C, Trait, T) :-
     event_time(E, T_cause),
     event_type(E, poison),
     patient(E, C),
+    appearance(C, Trait, T),
     T_cause <= T.
 
 has_abnormal_appearance_justification(C, Trait, T) :-
@@ -493,6 +504,7 @@ has_abnormal_appearance_justification(C, Trait, T) :-
     event_time(E, T_cause),
     event_type(E, sick),
     agent(E, C),
+    appearance(C, Trait, T),
     T_cause <= T.
 
 has_abnormal_appearance_justification(C, Trait, T) :-
@@ -500,6 +512,7 @@ has_abnormal_appearance_justification(C, Trait, T) :-
     event_time(E, T_cause),
     event_type(E, transform),
     patient(E, C),
+    appearance(C, Trait, T),
     T_cause <= T.
 
 has_abnormal_appearance_justification(C, Trait, T) :-
@@ -507,22 +520,26 @@ has_abnormal_appearance_justification(C, Trait, T) :-
     event_time(E, T_cause),
     event_type(E, curse),
     patient(E, C),
+    appearance(C, Trait, T),
     T_cause <= T.
 
 % Death can justify deathly appearances
 has_abnormal_appearance_justification(C, Trait, T) :-
     Trait = deathly_pale,
     death_time(C, T_death),
+    appearance(C, Trait, T),
     T_death <= T.
 
 has_abnormal_appearance_justification(C, Trait, T) :-
     Trait = gray,
     death_time(C, T_death),
+    appearance(C, Trait, T),
     T_death <= T.
 
 has_abnormal_appearance_justification(C, Trait, T) :-
     Trait = grey,
     death_time(C, T_death),
+    appearance(C, Trait, T),
     T_death <= T.
 
 

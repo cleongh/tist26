@@ -227,58 +227,92 @@ class ChapterEvaluationResult:
 
 
 # =============================================================================
-# CHARACTER ALIASES
+# CHARACTER ALIAS RESOLUTION
+# =============================================================================
+# 
+# Per LOGIC_DESIGN.md: Aliases are discovered dynamically during extraction
+# and managed by AliasResolver. The hardcoded CHARACTER_ALIASES below are
+# DEPRECATED and only kept for backward compatibility with legacy code.
+#
+# The proper flow is:
+#   1. LLM extracts entities with aliases from story text
+#   2. AliasResolver.register_character() is called during extraction
+#   3. AliasResolver.normalize_chapter_output() normalizes all IDs
+#   4. EventExecutor receives already-normalized data
+#
+# When AliasResolver is provided to EventExecutor, it will use dynamic
+# resolution. Otherwise, it falls back to these legacy hardcoded aliases.
 # =============================================================================
 
-# Character name normalization patterns (extracted from LogicEvaluator)
-CHARACTER_ALIASES = {
-    # Harry Potter characters
+# DEPRECATED: Legacy hardcoded aliases for backward compatibility
+# These will be removed once all code paths use AliasResolver
+_LEGACY_CHARACTER_ALIASES = {
+    # Harry Potter characters - minimal set for tests
     'harry_potter': 'harry',
     'potter': 'harry',
     'ron_weasley': 'ron',
-    'weasley': 'ron',
     'hermione_granger': 'hermione',
-    'granger': 'hermione',
-    'albus_dumbledore': 'dumbledore',
-    'professor_dumbledore': 'dumbledore',
-    'severus_snape': 'snape',
-    'professor_snape': 'snape',
-    'draco_malfoy': 'malfoy',
     'hagrid': 'hagrid',
     'rubeus_hagrid': 'hagrid',
-    'voldemort': 'voldemort',
-    'lord_voldemort': 'voldemort',
-    'tom_riddle': 'voldemort',
-    'he_who_must_not_be_named': 'voldemort',
-    'you_know_who': 'voldemort',
-    'the_dark_lord': 'voldemort',
 }
 
 
-def normalize_character_id(char_id: str) -> str:
-    """Normalize character IDs to prevent duplicate detection."""
+def normalize_character_id(char_id: str, alias_resolver=None) -> str:
+    """
+    Normalize character IDs to canonical form.
+    
+    Args:
+        char_id: The character ID to normalize
+        alias_resolver: Optional AliasResolver for dynamic resolution
+        
+    Returns:
+        Canonical character ID
+        
+    Note:
+        If alias_resolver is provided, uses dynamic resolution.
+        Otherwise falls back to legacy hardcoded aliases (deprecated).
+    """
     if not char_id:
         return char_id
     normalized = char_id.lower().strip()
-    return CHARACTER_ALIASES.get(normalized, normalized)
+    
+    if alias_resolver is not None:
+        return alias_resolver.resolve(normalized)
+    
+    # Legacy fallback - deprecated
+    return _LEGACY_CHARACTER_ALIASES.get(normalized, normalized)
 
 
-def generate_alias_facts() -> str:
+def generate_alias_facts(alias_resolver=None) -> str:
     """
-    Generate ASP alias facts from CHARACTER_ALIASES.
+    Generate ASP alias facts for character resolution.
     
     Per LOGIC_DESIGN.md: Python is orchestration only, all logic in ASP.
     This function generates alias/2 facts that ASP uses for alias resolution.
     
+    Args:
+        alias_resolver: Optional AliasResolver for dynamic aliases
+        
     Returns:
         ASP facts as a string, e.g.:
             alias(harry_potter, harry).
             alias(potter, harry).
     """
-    lines = ["% Character alias facts (generated from CHARACTER_ALIASES)"]
-    for alias_id, canonical_id in CHARACTER_ALIASES.items():
-        if alias_id != canonical_id:  # Don't create self-aliases
-            lines.append(f"alias({alias_id}, {canonical_id}).")
+    lines = ["% Character alias facts"]
+    
+    if alias_resolver is not None:
+        # Dynamic: generate from AliasResolver's registered aliases
+        for canonical_id in alias_resolver.get_all_canonical_ids():
+            for alias in alias_resolver.get_aliases(canonical_id):
+                if alias != canonical_id:
+                    lines.append(f"alias({alias}, {canonical_id}).")
+    else:
+        # Legacy fallback - deprecated
+        lines.append("% (generated from legacy hardcoded aliases - deprecated)")
+        for alias_id, canonical_id in _LEGACY_CHARACTER_ALIASES.items():
+            if alias_id != canonical_id:
+                lines.append(f"alias({alias_id}, {canonical_id}).")
+    
     return "\n".join(lines)
 
 
@@ -351,16 +385,28 @@ class EventExecutor:
         - Encode event logic in Python
         - Make reasoning decisions
         - Filter or interpret violations
+    
+    Alias Resolution:
+        If an AliasResolver is provided, it will be used for dynamic alias
+        resolution. Otherwise, falls back to legacy hardcoded aliases.
+        The proper pattern is for data to be pre-normalized by calling
+        AliasResolver.normalize_chapter_output() before reaching EventExecutor.
     """
     
-    def __init__(self, state_manager: 'StateManager', rule_registry: 'RuleRegistry'):
+    def __init__(self, state_manager: 'StateManager', rule_registry: 'RuleRegistry',
+                 alias_resolver: 'AliasResolver' = None):
         from .state_manager import StateManager
         from .rule_registry import RuleRegistry
         
         self.state_manager = state_manager
         self.rule_registry = rule_registry
+        self.alias_resolver = alias_resolver  # Optional: for dynamic alias resolution
         self._clingo_available = self._check_clingo()
         self._last_continuity_result: Optional[MovementContinuityResult] = None
+    
+    def set_alias_resolver(self, alias_resolver: 'AliasResolver') -> None:
+        """Set the alias resolver for dynamic alias resolution."""
+        self.alias_resolver = alias_resolver
     
     def _check_clingo(self) -> bool:
         """Check if Clingo is available."""
@@ -433,7 +479,8 @@ class EventExecutor:
         """Sanitize and normalize character ID."""
         s = self._sanitize_id(value)
         if s and s != "unknown":
-            s = normalize_character_id(s)
+            # Use AliasResolver if available, else fall back to legacy
+            s = normalize_character_id(s, self.alias_resolver)
         return s
     
     def to_asp(self, data: Dict[str, Any], chapter_num: int) -> str:
@@ -453,8 +500,9 @@ class EventExecutor:
         
         # Inject alias facts for ASP-based alias resolution
         # Per LOGIC_DESIGN.md: Python orchestrates, ASP handles logic
+        # Use AliasResolver if available for dynamic aliases
         lines.append("")
-        lines.append(generate_alias_facts())
+        lines.append(generate_alias_facts(self.alias_resolver))
         lines.append("")
         
         # Track all character/location/item IDs

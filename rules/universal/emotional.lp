@@ -130,6 +130,8 @@ relationship_changed_by(C1, C2, Type, T) :-
 % Relationship changed between establishment and current time
 relationship_changed_after(C1, C2, T_establish, T) :-
     relationship_changed_by(C1, C2, _, T_change),
+    time(T_establish),
+    time(T),
     T_change > T_establish,
     T_change <= T.
 
@@ -137,6 +139,7 @@ relationship_changed_after(C1, C2, T_establish, T) :-
 % Key predicate: relationship existed BEFORE the event in question
 relationship_established_before(C1, C2, Type, T_event, T_establish) :-
     explicit_relationship(C1, C2, Type, T_establish),
+    time(T_event),
     T_establish < T_event.
 
 % Convenience: Has any explicit relationship at time T
@@ -159,12 +162,14 @@ first_interaction(C1, C2, E) :-
 % Prior relationship exists before time T
 has_prior_relationship(C1, C2, T) :-
     explicit_relationship(C1, C2, _, T_prior),
+    time(T),
     T_prior < T.
 
 % Prior interaction exists (any event before this one)
 has_prior_interaction(C1, C2, T) :-
     event(E),
     event_time(E, T_prior),
+    time(T),
     T_prior < T,
     agent(E, C1),
     patient(E, C2).
@@ -172,6 +177,7 @@ has_prior_interaction(C1, C2, T) :-
 has_prior_interaction(C1, C2, T) :-
     event(E),
     event_time(E, T_prior),
+    time(T),
     T_prior < T,
     agent(E, C2),
     patient(E, C1).
@@ -373,6 +379,8 @@ violation(emotional, unexplained_relationship_change,
 has_relationship_change_event(C1, C2, T_old, T_new) :-
     event(E),
     event_time(E, T_event),
+    time(T_old),
+    time(T_new),
     T_old < T_event,
     T_event <= T_new,
     is_relationship_change_event(E),
@@ -382,6 +390,8 @@ has_relationship_change_event(C1, C2, T_old, T_new) :-
 has_relationship_change_event(C1, C2, T_old, T_new) :-
     event(E),
     event_time(E, T_event),
+    time(T_old),
+    time(T_new),
     T_old < T_event,
     T_event <= T_new,
     is_relationship_change_event(E),
@@ -456,6 +466,7 @@ explicit_trait(C, Trait, T) :-
 % Trait established before event
 trait_established_before(C, Trait, T_event) :-
     explicit_trait(C, Trait, T_establish),
+    time(T_event),
     T_establish < T_event.
 
 % VIOLATION: Action contradicts established trait (Evidence-Gated)

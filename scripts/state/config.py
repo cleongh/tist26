@@ -45,12 +45,26 @@ DEFAULT_MODELS = {
 API_MODE = "local"
 
 # =============================================================================
-# CHARACTER ID NORMALIZATION
+# CHARACTER ID NORMALIZATION (DEPRECATED)
 # =============================================================================
-# Map character aliases to canonical IDs to ensure consistency across chapters.
-# Characters may be referred to differently (e.g., "uncle_vernon" vs "mr_dursley").
-# This mapping ensures rules established for one ID apply to all aliases.
+# 
+# DEPRECATED: This hardcoded alias system is being phased out.
+# 
+# Use engine.alias_resolver.AliasResolver instead, which:
+#   - Discovers aliases dynamically during LLM extraction
+#   - Handles any story (not just Harry Potter)
+#   - Supports alias promotion and conflict detection
+#   - Integrates with the extraction pipeline
+#
+# This legacy mapping is kept for backward compatibility with scripts
+# that haven't migrated to the new system yet.
+#
+# TODO: Remove this once all code paths use AliasResolver
+# =============================================================================
 
+import warnings
+
+# Legacy character aliases - DEPRECATED
 CHAR_ALIASES = {
     # Harry Potter character aliases
     'uncle_vernon': 'vernon_dursley',
@@ -86,9 +100,17 @@ CHAR_ALIASES = {
 
 def normalize_character_id(char_id: str) -> str:
     """
+    DEPRECATED: Use engine.alias_resolver.AliasResolver instead.
+    
     Normalize a character ID to its canonical form.
     This ensures that 'uncle_vernon' and 'mr_dursley' both map to 'vernon_dursley'.
     """
+    warnings.warn(
+        "normalize_character_id in scripts/state/config.py is deprecated. "
+        "Use engine.alias_resolver.AliasResolver for dynamic alias resolution.",
+        DeprecationWarning,
+        stacklevel=2
+    )
     if not char_id:
         return char_id
     char_lower = char_id.lower().strip()

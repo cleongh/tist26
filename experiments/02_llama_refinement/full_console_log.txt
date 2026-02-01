@@ -1,20 +1,33 @@
-=== Experiment Log Started: 2026-02-01T03:02:09.704080 ===
+=== Experiment Log Started: 2026-02-01T03:20:33.180520 ===
 
-[2026-02-01 03:02:09] [INFO] API Mode: local
-[2026-02-01 03:02:09] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
-[2026-02-01 03:02:09] [INFO] LLM Timeout: 600s, ILASP Timeout: 60s
-[2026-02-01 03:02:09] [INFO] ============================================================
-[2026-02-01 03:02:09] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
-[2026-02-01 03:02:09] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
-[2026-02-01 03:02:09] [INFO] ============================================================
-[2026-02-01 03:02:09] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_engine_log.jsonl
-[2026-02-01 03:02:09] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_extractions.jsonl
-[2026-02-01 03:02:09] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_events_log.jsonl
-[2026-02-01 03:02:09] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_alias_conflicts.jsonl
-[2026-02-01 03:02:09] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_item_stats.jsonl
-[2026-02-01 03:02:09] [INFO] Using local LLM at: http://localhost:8080/v1
-[2026-02-01 03:02:09] [INFO] 
+[2026-02-01 03:20:33] [INFO] API Mode: local
+[2026-02-01 03:20:33] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-02-01 03:20:33] [INFO] LLM Timeout: 600s, ILASP Timeout: 60s
+[2026-02-01 03:20:33] [INFO] ============================================================
+[2026-02-01 03:20:33] [INFO] STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)
+[2026-02-01 03:20:33] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-02-01 03:20:33] [INFO] ============================================================
+[2026-02-01 03:20:33] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_engine_log.jsonl
+[2026-02-01 03:20:33] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_extractions.jsonl
+[2026-02-01 03:20:33] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_events_log.jsonl
+[2026-02-01 03:20:33] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_alias_conflicts.jsonl
+[2026-02-01 03:20:33] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/02_llama_refinement/step2_item_stats.jsonl
+[2026-02-01 03:20:33] [INFO] Using local LLM at: http://localhost:8080/v1
+[2026-02-01 03:20:33] [INFO] 
 Processing: Harry Potter (original)
-[2026-02-01 03:02:09] [INFO]   Found 5 chapters (limited to 5)
-[2026-02-01 03:02:09] [INFO]   Chapter 0: 000.txt
-[2026-02-01 03:02:09] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-01 03:20:33] [INFO]   Found 5 chapters (limited to 5)
+[2026-02-01 03:20:33] [INFO]   Chapter 0: 000.txt
+[2026-02-01 03:20:33] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-01 03:21:45] [INFO]     -> 8 characters, 8 locations
+[2026-02-01 03:21:45] [INFO]   [Phase 2] Extracting items...
+[2026-02-01 03:22:26] [INFO]     -> 8 items
+[2026-02-01 03:22:26] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-01 03:22:26] [INFO]     -> 8 characters, 8 locations, 8 items registered
+[2026-02-01 03:22:26] [INFO]     -> 8 character aliases, 8 location aliases, 9 item aliases
+[2026-02-01 03:22:26] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-01 03:22:26] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-01 03:22:26] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-01 03:25:18] [WARN] [relationships] JSON parse failed: Unterminated string starting at: line 81 column 34 (char 5204)
+[2026-02-01 03:25:18] [DEBUG] [relationships] Raw output logged to: /home/mrcorner/Workspace/Repos/tist26/experiments/failed_llm_outputs/relationships.txt
+[2026-02-01 03:25:18] [INFO]     -> 0 relationships, 0 initial rules
+[2026-02-01 03:25:18] [INFO]   [Phase 2] Extracting events...

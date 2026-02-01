@@ -1,0 +1,236 @@
+{
+  "step": 2,
+  "approach": "logic_engine",
+  "timestamp": "2026-02-01T03:28:28.231531",
+  "chapters_processed": 10,
+  "total_errors": 16,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 18.553144693374634,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 35.549158334732056,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 59.359936475753784,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 5,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "From an inside pocket of his black overcoat he pulled a slightly squashed box."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Given Harry his letter."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "jerked the gun out of Uncle Vernon\u2019s hands, bent it into a knot"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "there was a flash of violet light, a sound like a firecracker"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "possession",
+          "error_type": "give_without_having",
+          "description": "possession/give_without_having: give_without_having",
+          "story_fragment": "Given Harry his letter."
+        }
+      ],
+      "duration_seconds": 45.52820324897766,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Harry counted out five little bronze coins."
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I'll get yer an owl."
+        }
+      ],
+      "duration_seconds": 88.27763271331787,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "took a letter out of his cloak, tucked it inside Harry\u2019s blankets"
+        }
+      ],
+      "duration_seconds": 64.524986743927,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 45.64565420150757,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 50.92536020278931,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 5,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Inside was a large, sticky chocolate cake with Happy Birthday Harry written on i"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Harry stretched out his hand at last to take the yellowish envelope."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Hagrid seized his umbrella and whirled it over his head"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "jerked the gun out of Uncle Vernon\u2019s hands, bent it into a knot"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "a flash of violet light, a sound like a firecracker"
+        }
+      ],
+      "duration_seconds": 52.59032964706421,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Harry counted out five little bronze coins"
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Harry now carried a large cage that held a beautiful snowy owl"
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He put Harry\u2019s wand back into its box and wrapped it in brown paper"
+        }
+      ],
+      "duration_seconds": 86.53419280052185,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

@@ -199,6 +199,13 @@ class StateManager:
         # Global event tracking (continuous across chapters)
         self.next_event_id: int = 1  # Start from 1, e0 reserved for initial state
         self.event_log: List[Dict] = []  # [{id, type, agent, patient, location, source_text, chapter}]
+        
+        # Optional AliasResolver for dynamic alias resolution
+        self._alias_resolver = None
+    
+    def set_alias_resolver(self, alias_resolver) -> None:
+        """Set the alias resolver for dynamic alias resolution."""
+        self._alias_resolver = alias_resolver
     
     @staticmethod
     def _sanitize_id(value: Any) -> str:
@@ -503,7 +510,7 @@ class StateManager:
             f"current_time({self.current_time}).",
             "",
             "% Character aliases (for ASP-based resolution)",
-            generate_alias_facts(),
+            generate_alias_facts(self._alias_resolver),
             "",
         ]
         

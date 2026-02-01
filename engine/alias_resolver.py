@@ -800,6 +800,15 @@ class AliasResolver:
         normalized = self._normalize_id(canonical_id)
         return self._canonical_to_aliases.get(normalized, set())
     
+    def get_all_canonical_ids(self) -> Set[str]:
+        """
+        Get all registered canonical character IDs.
+        
+        Returns:
+            Set of all canonical character IDs
+        """
+        return set(self._canonical_to_aliases.keys())
+    
     def is_known(self, identifier: str) -> bool:
         """Check if an identifier (alias or canonical) is known."""
         return self._normalize_id(identifier) in self._alias_to_canonical

@@ -1,0 +1,392 @@
+{
+  "story_id": "Harry Potter_original",
+  "total_chapters": 5,
+  "total_events": 52,
+  "total_violations": 7,
+  "rule_audit": {
+    "active_count": 10,
+    "deactivated_count": 0,
+    "learned_count": 0,
+    "rules": [
+      {
+        "rule_id": "legacy:simple_narrative",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:story_rules",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:coherence",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:appearance",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:temporal",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:narrative_state",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:emotional",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:items",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:causality",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:location",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      }
+    ]
+  },
+  "loose_ends": {
+    "count": 29,
+    "items": [
+      {
+        "type": "unused_entity",
+        "entity_id": "professor_mcgonagall",
+        "entity_type": "character",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "chekhov",
+        "entity_id": "letter",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Chekhov's gun: item mentioned multiple times but not resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "put_outer",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "motorcycle",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "scar",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "cupboard",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "glass",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "smelting_stick",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "dudleys_second_bedroom",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "rifle",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "door",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "chocolate_cake",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "umbrella",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "pig_tail",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "cornelius_fudge",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "tom",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "doris_crockford",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "dedalus_diggle",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "professor_quirrell",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "griphook",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unused_entity",
+        "entity_id": "mr_ollivander",
+        "entity_type": "character",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Character introduced but never used"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "hagrids_coat",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "owl",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "knuts",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "gringotts_key",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "vault_713_package",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "harrys_wand",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "snowy_owl",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      },
+      {
+        "type": "unresolved_item",
+        "entity_id": "hogwarts_ticket",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Item should be used or resolved"
+      }
+    ]
+  },
+  "long_range_inconsistencies": {
+    "count": 0,
+    "items": []
+  },
+  "statistics": {
+    "entities_introduced": {
+      "character": 16,
+      "item": 21,
+      "location": 21
+    },
+    "entities_resolved": {}
+  },
+  "timestamp": "2026-02-01T03:32:35.504923"
+}

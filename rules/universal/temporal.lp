@@ -144,6 +144,7 @@ explicit_state(Entity, alive, T, none) :-
 % Helper: entity has explicit death at or before time T
 has_explicit_death(Entity, T) :-
     explicit_state(Entity, dead, T2, _),
+    time(T),
     T2 <= T.
 
 % Explicit relationship states
@@ -171,6 +172,8 @@ assumed_state(Entity, at(Location), T) :-
 % Helper: entity has an explicit location change after T1 but at or before T2
 has_later_explicit_location(Entity, T_earlier, T) :-
     explicit_state(Entity, at(_), T_change, _),
+    time(T_earlier),
+    time(T),
     T_earlier < T_change,
     T_change <= T.
 
@@ -269,7 +272,12 @@ violation(temporal, causal_violation, violation_info(effect, E2, at, T2, precede
 
 contradictory_states(alive, dead).
 contradictory_states(dead, alive).
-contradictory_states(at(L1), at(L2)) :- L1 != L2, L1 != unknown, L2 != unknown.
+contradictory_states(at(L1), at(L2)) :-
+    location(L1),
+    location(L2),
+    L1 != L2,
+    L1 != unknown,
+    L2 != unknown.
 
 % Visibility
 contradictory_states(visible, invisible).
