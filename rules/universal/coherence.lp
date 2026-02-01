@@ -1,7 +1,15 @@
 % =============================================================================
 %
-%    UNIVERSAL NARRATIVE RULES - COHERENCE (v2.0)
+%    UNIVERSAL NARRATIVE RULES - COHERENCE (v2.2)
 %    =============================================
+%
+%    ERROR CATEGORY: COHERENCE
+%    -------------------------
+%    Per docs/ILASP_INTEGRATION.md:
+%        "Dead agent acting, trait conflicts"
+%
+%    All violations produced by this file are in the COHERENCE category.
+%    Violations are structured as: violation(coherence, TYPE, EVENT, ENTITY)
 %
 %    Default world assumptions for semantic/logical correctness.
 %    These rules can be overridden by story-specific rules.
@@ -10,11 +18,14 @@
 %        Universal Rules are priority layer 3 (lowest priority).
 %
 %    VERSION 2.0: Uses time-indexed fluents, rule registration
+%    VERSION 2.1: Phase Four - Appearance violations moved to appearance.lp
+%    VERSION 2.2: Added ERROR CATEGORY documentation for consistency audit
 %
-%    COHERENCE VIOLATIONS:
-%        - Self-referential impossibilities
-%        - Contradictory states
-%        - Solo communication (talking to no one)
+%    COHERENCE VIOLATIONS PRODUCED:
+%        - impossible_self_action: Character cannot be both agent and patient
+%        - contradictory_state: Character cannot be in contradictory states
+%        - solo_communication: Communication requires a recipient
+%        - (appearance violations now in appearance.lp)
 %
 % =============================================================================
 
@@ -72,14 +83,22 @@ violation(coherence, impossible_self_action, E, C) :-
 % =============================================================================
 % CONTRADICTORY STATES (Time-Indexed)
 % =============================================================================
+%
+% Phase Three Updates:
+%     - Presence contradiction now uses present_in_scene vs explicitly_absent
+%     - NOT inferred from location gaps
+%     - See narrative_state.lp for presence_contradiction/2
+%
+% =============================================================================
 
 % Contradictory state pairs
 are_contradictory_states(alive, dead).
 are_contradictory_states(dead, alive).
 are_contradictory_states(asleep, awake).
 are_contradictory_states(awake, asleep).
-are_contradictory_states(present, absent).
-are_contradictory_states(absent, present).
+% Phase Three: present/absent now handled via presence_contradiction in narrative_state.lp
+% are_contradictory_states(present, absent).  % DEPRECATED: use presence_contradiction
+% are_contradictory_states(absent, present).  % DEPRECATED: use presence_contradiction
 are_contradictory_states(visible, invisible).
 are_contradictory_states(invisible, visible).
 

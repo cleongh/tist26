@@ -3,6 +3,15 @@
 %    NARRATIVE CONSISTENCY RULES
 %    ============================
 %
+%    Version: Phase Three (Narrative State Separation)
+%    
+%    Phase Three Changes:
+%    - Integrates with narrative_state.lp for three-tier state model:
+%        alive(C, T) → present_in_scene(C, T) → physically_at(C, L, T)
+%    - Communication violations check scene presence, not physical location
+%    - Dead character violations use the canonical rules in narrative_state.lp
+%    - Deprecated present/absent character_state pairs (use presence_contradiction)
+%
 %    Violation Categories (aligned with theoretical framework):
 %
 %    a) CAUSALITY: Every story element must be properly caused. Events need
@@ -57,6 +66,12 @@
 % --- Dead characters cannot perform actions (cross-chapter causality) ---
 % A character who died in a previous chapter cannot be an agent later.
 % Exception: Death events themselves are valid (dying is the character's final act).
+%
+% Phase Three Integration:
+%     Uses alive/2 from narrative_state.lp when available.
+%     Falls back to is_dead/1 for backward compatibility.
+%     See narrative_state.lp for the canonical dead_character_acting violation.
+%
 violation(causality, dead_character_acting, E, C) :-
     event(E),
     agent(E, C),
@@ -193,6 +208,12 @@ is_reflexive_action(E) :- event_type(E, enter).
 is_reflexive_action(E) :- event_type(E, exit).
 
 % --- Communication requires two parties (except internal thoughts and public speeches) ---
+%
+% Phase Three Integration:
+%     Communication requires present_in_scene for BOTH parties.
+%     Does NOT require physically_at (talking without location is VALID).
+%     See narrative_state.lp for is_scene_action/1 classification.
+%
 violation(coherence, solo_communication, E, Type) :-
     event(E),
     event_type(E, Type),
@@ -201,6 +222,19 @@ violation(coherence, solo_communication, E, Type) :-
     not has_second_party(E),
     not is_internal_thought(E),
     not is_public_speech(E).
+
+% Phase Three: Communication violation when parties aren't in the same scene
+% This checks scene presence, not physical co-location
+violation(coherence, communication_absent_party, E, Patient) :-
+    event(E),
+    event_type(E, Type),
+    is_communication_type(Type),
+    agent(E, Agent),
+    patient(E, Patient),
+    event_time(E, T),
+    present_in_scene(Agent, T),
+    explicitly_absent(Patient, T),
+    not is_remote_action(E).
 
 is_communication_type(talk).
 is_communication_type(speak).
@@ -302,7 +336,10 @@ are_contradictory_states(awake, asleep).
 are_contradictory_states(alive, dead).
 are_contradictory_states(dead, alive).
 
-% Presence conflicts (legacy)
+% Presence conflicts (legacy - deprecated in Phase Three)
+% NOTE: For Phase Three, use presence_contradiction/2 from narrative_state.lp instead.
+% This pair is kept for backward compatibility with legacy character_state facts.
+% New code should NOT use present/absent as character_state values.
 are_contradictory_states(present, absent).
 are_contradictory_states(absent, present).
 
@@ -397,6 +434,16 @@ explicit_death_event(C, E, T) :-
 % CATEGORY D: LOCATION CORRECTNESS VIOLATIONS  
 % =============================================================================
 % Locations and distances must be correct for actions to be possible.
+%
+% Phase Three Integration:
+%     Location violations use physically_at/3 from narrative_state.lp.
+%     A character can be present_in_scene without physically_at.
+%     Talking without a location is VALID (scene-only action).
+%     Physical actions (grab, fight) require physically_at co-location.
+%
+% NOTE: Main location violation rules are now in rules/universal/location.lp
+%       This section provides helper predicates and legacy compatibility.
+%
 % NOTE: Without timestamps, we cannot reliably detect ubiquity (being in two
 % places at once) since characters legitimately move during a chapter.
 
@@ -523,10 +570,28 @@ is_travel_exempt(E) :-
 % =============================================================================
 % CATEGORY E: EMOTIONAL RELATIONS VIOLATIONS
 % =============================================================================
-% Characters must behave according to emotions, relationships, and traits.
+%
+% Phase Five: Evidence-Gated Emotional Violations
+%
+% IMPORTANT: Main emotional violation rules are now in rules/universal/emotional.lp
+%            These require explicit relationship evidence before firing.
+%
+% The rules below are DEPRECATED in favor of:
+%   - emotional.lp: relationship_action_mismatch (evidence-gated)
+%   - emotional.lp: trait_action_mismatch (evidence-gated)
+%   - emotional.lp: unexplained_relationship_change
+%
+% Phase Five Requirements Met:
+%   1. Violations fire ONLY when relationship is explicitly established BEFORE event
+%   2. No violations when relationship data is missing or first interaction
+%   3. Relationship changes require explicit events
+%   4. All violations include triggering event ID and relationship state
+%
+% =============================================================================
 
 % --- Emotional contradiction with previous chapter ---
 % Character shows opposite emotion from established pattern
+% NOTE: This remains as it uses cross-chapter previous_emotion tracking
 violation(emotional, emotional_contradiction, C, pair(Current, Previous)) :-
     character_emotion(C, Current),
     previous_emotion(C, Previous),
@@ -534,20 +599,25 @@ violation(emotional, emotional_contradiction, C, pair(Current, Previous)) :-
 
 % --- Trait contradiction ---
 % Character behaves opposite to established personality trait
+% NOTE: Phase Five moves this to emotional.lp with evidence-gating
+% This rule is kept for backward compatibility with previous_emotion
 violation(emotional, trait_contradiction, C, pair(Current, Trait)) :-
     character_emotion(C, Current),
     established_trait(C, Trait),
     is_opposite_emotion(Current, Trait).
 
 % --- Relationship-behavior mismatch ---
-% Character acts contrary to their relationship with another
-violation(emotional, relationship_behavior_mismatch, E, pair(Agent, Patient)) :-
-    event(E),
-    agent(E, Agent),
-    patient(E, Patient),
-    event_emotion(E, Emotion),
-    relationship(Agent, Patient, RelType),
-    is_contrary_to_relationship(Emotion, RelType).
+% DEPRECATED in Phase Five: Use emotional.lp relationship_action_mismatch instead.
+% This rule uses atemporal relationship/3 which doesn't track evidence.
+% Kept commented for reference.
+%
+% violation(emotional, relationship_behavior_mismatch, E, pair(Agent, Patient)) :-
+%     event(E),
+%     agent(E, Agent),
+%     patient(E, Patient),
+%     event_emotion(E, Emotion),
+%     relationship(Agent, Patient, RelType),
+%     is_contrary_to_relationship(Emotion, RelType).
 
 % If you love someone, you shouldn't be hostile to them (unexplained)
 is_contrary_to_relationship(hostile, love).
@@ -595,16 +665,19 @@ is_opposite_emotion(generous, selfish).
 is_opposite_emotion(selfish, generous).
 
 % --- Unmotivated hostile action ---
-% A character acts hostilely towards someone without hostile relationship
-violation(emotional, unmotivated_hostility, E, pair(Agent, Patient)) :-
-    event(E),
-    agent(E, Agent),
-    patient(E, Patient),
-    event_type(E, Type),
-    is_hostile_action(Type),
-    relationship(Agent, Patient, RelType),
-    not is_hostile_relationship(RelType),
-    not has_recent_conflict(Agent, Patient).
+% DEPRECATED in Phase Five: Use emotional.lp relationship_action_mismatch instead.
+% This rule fired without checking if relationship was established BEFORE event.
+% Kept commented for reference.
+%
+% violation(emotional, unmotivated_hostility, E, pair(Agent, Patient)) :-
+%     event(E),
+%     agent(E, Agent),
+%     patient(E, Patient),
+%     event_type(E, Type),
+%     is_hostile_action(Type),
+%     relationship(Agent, Patient, RelType),
+%     not is_hostile_relationship(RelType),
+%     not has_recent_conflict(Agent, Patient).
 
 is_hostile_action(attack).
 is_hostile_action(fight).
@@ -627,11 +700,21 @@ has_recent_conflict(A, B) :- conflict_event(A, B, _).
 
 
 % =============================================================================
-% CATEGORY F: RELATIONSHIP-BASED VIOLATIONS (ported from general.lp)
+% CATEGORY F: RELATIONSHIP-BASED VIOLATIONS (Phase Five Update)
 % =============================================================================
-% Actions that contradict established relationships.
+%
+% DEPRECATED in Phase Five: Most relationship violations have moved to emotional.lp
+%                           with proper evidence-gating.
+%
+% The new emotional.lp violations:
+%   - Fire ONLY when relationship is explicitly established BEFORE the event
+%   - Include triggering event ID and relationship state at that time
+%   - Skip first interactions between characters
+%
+% =============================================================================
 
 % --- Harmful actions classification ---
+% (Kept for backward compatibility with other rules)
 is_harmful_action(kill).
 is_harmful_action(attack).
 is_harmful_action(hurt).
@@ -655,15 +738,17 @@ is_helpful_action(defend).
 is_helpful_action(support).
 
 % --- Harming a loved one (without justification) ---
-% If relationship is love/friendly, harmful actions are suspicious
-violation(emotional, harm_loved_one, E, pair(Agent, Patient)) :-
-    event(E),
-    agent(E, Agent),
-    patient(E, Patient),
-    event_type(E, Type),
-    is_harmful_action(Type),
-    relationship(Agent, Patient, RelType),
-    is_positive_relationship(RelType).
+% DEPRECATED in Phase Five: Use emotional.lp relationship_action_mismatch instead.
+% Kept commented for reference.
+%
+% violation(emotional, harm_loved_one, E, pair(Agent, Patient)) :-
+%     event(E),
+%     agent(E, Agent),
+%     patient(E, Patient),
+%     event_type(E, Type),
+%     is_harmful_action(Type),
+%     relationship(Agent, Patient, RelType),
+%     is_positive_relationship(RelType).
 
 is_positive_relationship(love).
 is_positive_relationship(friendly).
@@ -672,28 +757,25 @@ is_positive_relationship(ally).
 is_positive_relationship(friend).
 
 % --- Helping an enemy (unexplained) ---
-% If relationship is hostile/enemy, helpful actions are suspicious
-violation(emotional, help_enemy, E, pair(Agent, Patient)) :-
-    event(E),
-    agent(E, Agent),
-    patient(E, Patient),
-    event_type(E, Type),
-    is_helpful_action(Type),
-    relationship(Agent, Patient, RelType),
-    is_hostile_relationship(RelType).
+% DEPRECATED in Phase Five: Use emotional.lp relationship_action_mismatch instead.
+%
+% violation(emotional, help_enemy, E, pair(Agent, Patient)) :-
+%     event(E),
+%     agent(E, Agent),
+%     patient(E, Patient),
+%     event_type(E, Type),
+%     is_helpful_action(Type),
+%     relationship(Agent, Patient, RelType),
+%     is_hostile_relationship(RelType).
 
 % --- Relationship consistency (cross-chapter) ---
-% If a previously hostile relationship suddenly becomes friendly, flag it
-violation(emotional, relationship_flip, pair(C1, C2), pair(OldType, NewType)) :-
-    relationship(C1, C2, NewType),
-    previous_relationship(C1, C2, OldType),
-    is_relationship_flip(OldType, NewType).
-
-% Also check reverse direction
-violation(emotional, relationship_flip, pair(C1, C2), pair(OldType, NewType)) :-
-    relationship(C1, C2, NewType),
-    previous_relationship(C2, C1, OldType),
-    is_relationship_flip(OldType, NewType).
+% DEPRECATED in Phase Five: Use emotional.lp unexplained_relationship_change instead.
+% The new rule requires an explicit event to change relationships.
+%
+% violation(emotional, relationship_flip, pair(C1, C2), pair(OldType, NewType)) :-
+%     relationship(C1, C2, NewType),
+%     previous_relationship(C1, C2, OldType),
+%     is_relationship_flip(OldType, NewType).
 
 % Relationship flips that are suspicious without explanation
 is_relationship_flip(hostile, friendly).

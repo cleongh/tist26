@@ -338,7 +338,7 @@ item_present(Item, Loc, T) :- holds(item_at(Item, Loc), T).
 
 
 % =============================================================================
-% PART 5.5: LOCATION CONTAINMENT (Phase 2 - Travel Coherence)
+% PART 5.5: LOCATION CONTAINMENT (Phase Two - Evidence-Based Presence)
 % =============================================================================
 %
 % Locations can have containment relationships:
@@ -349,16 +349,29 @@ item_present(Item, Loc, T) :- holds(item_at(Item, Loc), T).
 %     contains(house, hallway).
 %     contains(diagon_alley, ollivanders).
 %
-% This enables coherent travel within the same container without triggering
-% time_travel violations.
+% Phase Two Changes:
+%     - Presence is EVIDENCE-BASED, not continuous
+%     - Characters can "disappear" from tracking without contradiction
+%     - Movement within containment chain is always allowed
+%     - Non-ubiquity only fires on EXPLICIT presence (see location.lp)
+%
+% The detailed containment logic is now in rules/universal/location.lp
+% This section provides backward-compatible helpers.
 % =============================================================================
 
-% --- Presence Propagation ---
+% --- Presence Propagation (Backward Compatibility) ---
 % Presence in a sub-location implies presence in its container.
-% If Harry is in the kitchen, Harry is also in the house.
+% NOTE: This is now a DERIVED presence, not an explicit one.
+% For violation detection, use explicit_presence from location.lp
 present_in_container(E, Parent, T) :-
     present(E, Child, T),
     contains(Parent, Child).
+
+% Transitive containment (now also defined in location.lp)
+contains_transitive(Parent, Child) :- contains(Parent, Child).
+contains_transitive(Ancestor, Child) :- 
+    contains(Ancestor, Intermediate),
+    contains_transitive(Intermediate, Child).
 
 % --- Container-based Connectivity ---
 % Locations within the same container are implicitly connected.
@@ -375,8 +388,10 @@ same_container(Parent, Child) :- contains(Parent, Child).
 same_container(L2, L1) :- same_container(L1, L2).
 
 % --- Helper: Check if travel is within same container ---
-% Used to suppress time_travel violations for coherent movement
+% Used to suppress time_travel and impossible_travel violations
 travel_within_container(L1, L2) :- same_container(L1, L2).
+travel_within_container(L1, L2) :- contains_transitive(L1, L2).
+travel_within_container(L1, L2) :- contains_transitive(L2, L1).
 
 
 % =============================================================================
@@ -738,9 +753,18 @@ has_agent(E) :- agent(E, _).
 % An entity cannot be present in more than one location at the same time.
 % This is a SOFT constraint (detected as violation, not rejected).
 %
+% Phase Two Changes:
+%     - This rule now only fires for BACKWARD COMPATIBILITY with present/3
+%     - The PRIMARY ubiquity check is in location.lp using explicit_presence
+%     - The explicit_ubiquity violation requires two EXPLICIT presence facts
+%     - This rule uses frame-axiom presence, so it may fire on persisted presence
+%
 % EXCEPTION: Being in a sub-location AND its container is NOT ubiquity.
 % e.g., present(harry, kitchen, T) and present_in_container(harry, house, T)
 % are consistent because kitchen ⊂ house.
+%
+% NOTE: For new code, prefer the explicit_ubiquity rule in location.lp which
+%       only fires on explicit presence assertions (no false positives from persistence).
 
 violation(location, ubiquity, E, pair(L1, L2)) :-
     entity(E),
@@ -750,10 +774,11 @@ violation(location, ubiquity, E, pair(L1, L2)) :-
     L1 != unknown,
     L2 != unknown,
     not ubiquity_allowed(E),
-    not containment_explains_presence(E, L1, L2, T).
+    not containment_explains_presence(E, L1, L2, T),
+    not same_container(L1, L2).  % Phase Two: same-container locations are coherent
 
 % Containment explains apparent ubiquity
-% If L1 contains L2, presence in both is coherent (not a violation)
+% If L1 contains L2 (or vice versa), presence in both is coherent (not a violation)
 containment_explains_presence(E, L1, L2, T) :-
     present(E, L1, T),
     present(E, L2, T),
@@ -763,6 +788,17 @@ containment_explains_presence(E, L1, L2, T) :-
     present(E, L1, T),
     present(E, L2, T),
     contains(L2, L1).
+
+% Transitive containment also explains apparent ubiquity
+containment_explains_presence(E, L1, L2, T) :-
+    present(E, L1, T),
+    present(E, L2, T),
+    contains_transitive(L1, L2).
+
+containment_explains_presence(E, L1, L2, T) :-
+    present(E, L1, T),
+    present(E, L2, T),
+    contains_transitive(L2, L1).
 
 % Story rules can allow ubiquity for specific entities (e.g., teleportation)
 % ubiquity_allowed(Entity) :- ...

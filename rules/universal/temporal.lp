@@ -1,7 +1,15 @@
 % =============================================================================
 %
-%    UNIVERSAL NARRATIVE RULES - TEMPORAL (v3.0 - Phase One Refactor)
+%    UNIVERSAL NARRATIVE RULES - TEMPORAL (v3.1)
 %    ==================================================================
+%
+%    ERROR CATEGORY: TEMPORAL
+%    -------------------------
+%    Per docs/ILASP_INTEGRATION.md:
+%        "Time paradoxes, wrong event order"
+%
+%    All violations produced by this file are in the TEMPORAL category.
+%    Violations are structured as: violation(temporal, TYPE, EVENT, ENTITY)
 %
 %    Default world assumptions for time ordering and duration.
 %    These rules can be overridden by story-specific rules.
@@ -17,17 +25,18 @@
 %        - Time travel requires explicit contradictory state assertions
 %        - Ordering violations require must_precede AND evidence of reversal
 %        - All violations include triggering events, times, and entities
+%    VERSION 3.1: Added ERROR CATEGORY documentation for consistency audit
 %
 %    DESIGN PRINCIPLE:
 %        Time is linear, but evidence is PARTIAL.
 %        Missing information is NOT a violation.
 %        Only explicit contradictions trigger errors.
 %
-%    TEMPORAL VIOLATIONS:
-%        - Explicit ordering reversal (must_precede violated)
-%        - Explicit causal reversal (effect precedes cause)
-%        - Explicit state contradiction (same entity, contradictory states, overlapping times)
-%        - Simultaneous contradictory actions (same agent, incompatible actions)
+%    TEMPORAL VIOLATIONS PRODUCED:
+%        - ordering_violation: Events must respect explicit must_precede ordering
+%        - causal_violation: Effects cannot precede their explicitly linked causes
+%        - state_contradiction: Same entity cannot have contradictory states at same time
+%        - simultaneous_contradiction: Same agent cannot do contradictory actions at once
 %
 % =============================================================================
 
@@ -84,12 +93,24 @@ immediately_follows(E1, E2) :-
 %     - State inferred from frame axioms or defaults
 %     - Never triggers temporal violations
 %
+% Phase Two Integration:
+%     Location-related explicit states are derived from explicit_presence/4
+%     defined in location.lp. This ensures consistency between temporal and
+%     location violations.
+%
 % =============================================================================
 
 % --- Explicit State Assertions ---
 % A state is EXPLICIT if it was directly caused by an event.
 
-% Explicit presence: event explicitly places entity at location
+% Phase Two: Bridge to location.lp's explicit_presence
+% explicit_presence(Entity, Location, T, E) is defined in location.lp
+% We convert it to explicit_state for temporal reasoning
+explicit_state(Entity, at(Location), T, E) :-
+    explicit_presence(Entity, Location, T, E),
+    E != none.
+
+% Explicit presence: event explicitly places entity at location (legacy, kept for compatibility)
 explicit_state(Entity, at(Location), T, E) :-
     event(E),
     event_time(E, T),
@@ -395,12 +416,15 @@ potential_time_travel(Character, Loc1, T1, E1, Loc2, T2, E2) :-
 %
 % This catches: "Harry was in London at T=5, then was in Paris at T=3"
 % This does NOT catch: implicit scene changes or missing locations
+%
+% Phase Two: Uses same_containment_tree from location.lp for accurate suppression
 violation(temporal, time_travel, 
           violation_info(Character, at, Loc1, via_event, E1, at_time, T1, 
                         then_at, Loc2, via_event, E2, at_earlier_time, T2)) :-
     rule_active(temporal_no_time_travel),
     potential_time_travel(Character, Loc1, T1, E1, Loc2, T2, E2),
     not travel_within_container(Loc1, Loc2),  % Exclude same-building movement
+    not same_containment_tree(Loc1, Loc2),     % Phase Two: use containment tree
     not is_teleport_event(E2).  % Exclude magical travel
 
 % --- Helpers for Suppression ---

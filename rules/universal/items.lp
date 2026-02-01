@@ -1,7 +1,15 @@
 % =============================================================================
 %
-%    UNIVERSAL NARRATIVE RULES - ITEMS (v1.0)
+%    UNIVERSAL NARRATIVE RULES - ITEMS (v1.1)
 %    =========================================
+%
+%    ERROR CATEGORY: CAUSALITY
+%    -------------------------
+%    Per docs/ILASP_INTEGRATION.md:
+%        "Effect without cause, broken causal chain"
+%
+%    Item violations are primarily in the CAUSALITY category as they
+%    represent cause-effect failures (e.g., giving without having).
 %
 %    Default world assumptions for item handling and Chekhov's Gun.
 %    These rules can be overridden by story-specific rules.
@@ -10,10 +18,21 @@
 %        - item(X): Entity is an item
 %        - carries(Character, Item, Time): Character has item at time T
 %
+%    VERSION 1.0: Initial item rules with Chekhov tracking
+%    VERSION 1.1: Added ERROR CATEGORY documentation for consistency audit
+%
 %    Phase 5: Item Relevance & Chekhov Tracking
 %        - item_relevance(Item, causal|latent): Item classification
 %        - Only causal items trigger constraints
 %        - Latent items are tracked for Chekhov detection
+%
+%    ITEM VIOLATIONS PRODUCED (Category: CAUSALITY):
+%        - chekhov_gun: Latent items introduced must eventually be used
+%        - possession_constraint: Item actions require possession
+%        - causal_action: Items in actions must be causal items
+%        - give_without_having: Cannot give item not possessed (via causality.lp)
+%        - take_nonexistent: Cannot take non-existent item
+%        - use_without_having: Cannot use item not possessed
 %
 % =============================================================================
 

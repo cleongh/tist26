@@ -1,7 +1,15 @@
 % =============================================================================
 %
-%    UNIVERSAL NARRATIVE RULES - CAUSALITY (v2.0)
+%    UNIVERSAL NARRATIVE RULES - CAUSALITY (v2.1)
 %    =============================================
+%
+%    ERROR CATEGORY: CAUSALITY
+%    -------------------------
+%    Per docs/ILASP_INTEGRATION.md:
+%        "Effect without cause, broken causal chain"
+%
+%    All violations produced by this file are in the CAUSALITY category.
+%    Violations are structured as: violation(causality, TYPE, EVENT, ENTITY)
 %
 %    Default world assumptions for cause-and-effect relationships.
 %    These rules can be overridden by story-specific rules.
@@ -11,12 +19,13 @@
 %        They apply unless overridden by learned or story rules.
 %
 %    VERSION 2.0: Uses time-indexed fluents from core.lp
+%    VERSION 2.1: Added ERROR CATEGORY documentation for consistency audit
 %
-%    CAUSALITY VIOLATIONS:
-%        - Dead characters cannot act
-%        - Cannot interact with dead characters
-%        - Cannot give what you don't have
-%        - Effects require causes
+%    CAUSALITY VIOLATIONS PRODUCED:
+%        - dead_character_acting: Dead characters cannot perform actions
+%        - interacting_with_dead: Cannot interact with dead characters
+%        - give_without_having: Cannot give items you don't possess
+%        - effect_without_cause: Reactions require triggering events
 %
 % =============================================================================
 
