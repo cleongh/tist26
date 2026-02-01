@@ -46,6 +46,7 @@ SKIP_STEP1=false
 SKIP_STEP2=false
 LLM_TIMEOUT="300"
 ILASP_TIMEOUT="60"
+USE_SPLIT_EXTRACTION=true
 
 # Parse arguments
 shift || true  # Shift past experiment name if provided
@@ -89,6 +90,10 @@ while [[ $# -gt 0 ]]; do
         --ilasp-timeout)
             ILASP_TIMEOUT="$2"
             shift 2
+            ;;
+        --no-split)
+            USE_SPLIT_EXTRACTION=false
+            shift
             ;;
         *)
             echo "Unknown option: $1"
@@ -152,6 +157,7 @@ echo "  Model:        $MODEL"
 echo "  API Delay:    ${API_DELAY}s"
 echo "  Max Chapters: ${MAX_CHAPTERS:-all}"
 echo "  Stories:      ${STORIES:-all}"
+echo "  Split Extract: $USE_SPLIT_EXTRACTION"
 echo "  LLM Timeout:  ${LLM_TIMEOUT}s"
 echo "  ILASP Timeout: ${ILASP_TIMEOUT}s"
 echo ""
@@ -179,11 +185,16 @@ if [[ "$SKIP_STEP2" == "false" ]]; then
     echo ""
     echo "[STEP 2] Logic-Based Evaluation (Engine Mode)"
     echo "------------------------------------------------------------"
+    
+    STEP2_OPTS="--engine"
+    if [[ "$USE_SPLIT_EXTRACTION" == "true" ]]; then
+        STEP2_OPTS="$STEP2_OPTS --split-extraction"
+    fi
+    
     python3 scripts/run_narrative_experiment_refactored.py \
         --experiment-name "$EXPERIMENT_NAME" \
         --step 2 \
-        --engine \
-        --split-extraction \
+        $STEP2_OPTS \
         $CMD_OPTS
     echo ""
     echo "[STEP 2] Complete"
