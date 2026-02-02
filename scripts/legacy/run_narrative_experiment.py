@@ -399,15 +399,36 @@ Respond with JSON only:
 
 # Global log file handle (set by main when experiment starts)
 _console_log_file = None
+_initialized = False
 
-def set_console_log_file(file_path: Path):
-    """Set the file path for console logging."""
-    global _console_log_file
+def set_console_log_file(file_path: Path, append: bool = True):
+    """
+    Set the file path for console logging.
+    
+    Args:
+        file_path: Path to the log file
+        append: If True, append to existing file. If False, clear the file.
+    """
+    global _console_log_file, _initialized
+    
+    # If already pointing to same file, don't reinitialize
+    if _console_log_file == file_path and _initialized:
+        return
+    
     _console_log_file = file_path
-    # Create/clear the file
+    _initialized = True
+    
     file_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(file_path, "w") as f:
-        f.write(f"=== Experiment Log Started: {datetime.now().isoformat()} ===\n\n")
+    
+    if append and file_path.exists():
+        mode = "a"
+        header = f"\n{'=' * 60}\n=== Experiment Run Resumed: {datetime.now().isoformat()} ===\n{'=' * 60}\n\n"
+    else:
+        mode = "w"
+        header = f"{'=' * 60}\n=== Experiment Log Started: {datetime.now().isoformat()} ===\n{'=' * 60}\n\n"
+    
+    with open(file_path, mode) as f:
+        f.write(header)
 
 def log(msg: str, level: str = "INFO"):
     """Log a message with timestamp to console and file."""

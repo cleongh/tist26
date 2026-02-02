@@ -61,15 +61,25 @@ class TestAliasCollision:
         assert resolver.resolve("the_boy") == "harry_potter"
     
     def test_collision_accumulated_conflicts(self):
-        """Test that all conflicts are accumulated."""
+        """Test that conflicts trigger unification and are logged."""
         resolver = AliasResolver()
         
         resolver.register_character("harry", ["hero", "protagonist"], chapter_num=0)
         resolver.register_character("frodo", ["hero", "protagonist"], chapter_num=1)
         
         stats = resolver.get_statistics()
-        # Should have 2 conflicts (hero + protagonist)
-        assert stats["conflicts_detected"] >= 2
+        # With unification: first shared alias ("hero") triggers unification,
+        # merging "frodo" into "harry". The second shared alias ("protagonist")
+        # now maps to same canonical so no additional conflict.
+        # We should have exactly 1 conflict (and 1 unification).
+        assert stats["conflicts_detected"] >= 1
+        assert stats["conflicts_unified"] >= 1
+        
+        # After unification, both "frodo" and "harry" should resolve to "harry"
+        assert resolver.resolve("harry") == "harry"
+        assert resolver.resolve("frodo") == "harry"
+        assert resolver.resolve("hero") == "harry"
+        assert resolver.resolve("protagonist") == "harry"
     
     def test_collision_to_dict_serialization(self):
         """Test that AliasConflict can be serialized to dict."""

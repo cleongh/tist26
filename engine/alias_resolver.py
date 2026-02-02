@@ -31,6 +31,41 @@ class PromotionReason(Enum):
     SNAKE_CASE_VS_GENERIC = "snake_case_vs_generic"
 
 
+class UnificationReason(Enum):
+    """Reason why two canonical IDs were unified."""
+    FIRST_SEEN_WINS = "first_seen_wins"
+    SHARED_ALIAS = "shared_alias"
+    EXPLICIT_MERGE = "explicit_merge"
+
+
+@dataclass
+class AliasUnification:
+    """
+    Records when two canonical IDs are unified into one.
+    
+    Per LOGIC_DESIGN.md: Deterministic and explainable - every conclusion
+    must trace back to rules. Unifications are logged with full provenance.
+    """
+    absorbed_canonical: str       # The canonical ID that was absorbed/retired
+    surviving_canonical: str      # The canonical ID that remains active
+    shared_alias: str             # The alias that triggered the unification
+    absorbed_aliases: Set[str]    # All aliases that were migrated
+    chapter: int                  # Chapter where unification occurred
+    reason: UnificationReason
+    entity_type: str              # "character" or "location"
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "absorbed_canonical": self.absorbed_canonical,
+            "surviving_canonical": self.surviving_canonical,
+            "shared_alias": self.shared_alias,
+            "absorbed_aliases": list(self.absorbed_aliases),
+            "chapter": self.chapter,
+            "reason": self.reason.value,
+            "entity_type": self.entity_type,
+        }
+
+
 @dataclass
 class CanonicalPromotion:
     """Records when a canonical ID is promoted to a better one."""
@@ -54,19 +89,35 @@ class CanonicalPromotion:
 
 @dataclass
 class AliasConflict:
-    """Records when an alias maps to multiple canonical IDs."""
+    """
+    Records when an alias maps to multiple canonical IDs.
+    
+    Per LOGIC_DESIGN.md: conflicts are now RESOLVED (unified) rather than
+    left unresolved. The chosen_canonical field indicates which ID was kept.
+    """
     alias: str
     canonical_ids: Set[str]
     first_seen_chapter: int
     conflict_chapter: int
+    # Resolution info (populated after unification)
+    chosen_canonical: Optional[str] = None
+    absorbed_canonical: Optional[str] = None
+    resolution_reason: Optional[str] = None
     
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        result = {
             "alias": self.alias,
             "canonical_ids": list(self.canonical_ids),
             "first_seen_chapter": self.first_seen_chapter,
             "conflict_chapter": self.conflict_chapter,
         }
+        if self.chosen_canonical:
+            result["chosen_canonical"] = self.chosen_canonical
+        if self.absorbed_canonical:
+            result["absorbed_canonical"] = self.absorbed_canonical
+        if self.resolution_reason:
+            result["resolution_reason"] = self.resolution_reason
+        return result
 
 
 class AliasResolver:
@@ -136,6 +187,12 @@ class AliasResolver:
         # Location conflicts
         self._location_conflicts: List[AliasConflict] = []
         
+        # Unifications performed (characters) - tracks merged canonical IDs
+        self._unifications: List[AliasUnification] = []
+        
+        # Location unifications
+        self._location_unifications: List[AliasUnification] = []
+        
         # Statistics
         self._resolutions_made: int = 0
         self._location_resolutions_made: int = 0
@@ -159,6 +216,8 @@ class AliasResolver:
         self._location_children.clear()
         self._conflicts.clear()
         self._location_conflicts.clear()
+        self._unifications.clear()
+        self._location_unifications.clear()
         self._resolutions_made = 0
         self._location_resolutions_made = 0
         self._chapters_processed = 0
@@ -294,6 +353,192 @@ class AliasResolver:
         if old_canonical in self._canonical_to_full_name:
             del self._canonical_to_full_name[old_canonical]
         self._canonical_to_full_name[new_canonical] = full_name
+
+    def _unify_character_canonicals(
+        self,
+        existing_canonical: str,
+        new_canonical: str,
+        shared_alias: str,
+        chapter: int,
+    ) -> str:
+        """
+        Unify two canonical character IDs when a conflict is detected.
+        
+        Per LOGIC_DESIGN.md Section 2 (Core Design Principles):
+            - Deterministic and explainable: every conclusion must trace back to rules
+            - Logic-first architecture: ASP is the source of truth
+        
+        This method ensures that when two different canonical IDs refer to the
+        same real-world entity (detected via a shared alias), they are merged
+        into ONE canonical ID. This is CRITICAL for ASP rules that require
+        matching canonical IDs (e.g., emotional relationship rules).
+        
+        Strategy: FIRST-SEEN WINS (deterministic)
+            - The canonical ID that was registered first becomes the survivor
+            - The newer canonical ID is absorbed as an alias
+        
+        Args:
+            existing_canonical: The canonical ID already registered for the alias
+            new_canonical: The new canonical ID attempting to claim the alias
+            shared_alias: The alias that triggered the conflict
+            chapter: Chapter where unification occurred
+            
+        Returns:
+            The surviving canonical ID (always existing_canonical for determinism)
+        """
+        # FIRST-SEEN WINS: existing_canonical was registered first, so it survives
+        surviving = existing_canonical
+        absorbed = new_canonical
+        
+        logger.info(
+            f"UNIFYING CANONICALS: '{absorbed}' -> '{surviving}' "
+            f"(shared_alias='{shared_alias}', chapter={chapter})"
+        )
+        
+        # Gather all aliases that pointed to absorbed canonical
+        absorbed_aliases = self._canonical_to_aliases.get(absorbed, set()).copy()
+        
+        # Record unification for audit trail
+        unification = AliasUnification(
+            absorbed_canonical=absorbed,
+            surviving_canonical=surviving,
+            shared_alias=shared_alias,
+            absorbed_aliases=absorbed_aliases,
+            chapter=chapter,
+            reason=UnificationReason.FIRST_SEEN_WINS,
+            entity_type="character",
+        )
+        self._unifications.append(unification)
+        
+        # Initialize surviving canonical entry if not exists
+        if surviving not in self._canonical_to_aliases:
+            self._canonical_to_aliases[surviving] = set()
+        
+        # Migrate all aliases from absorbed to surviving
+        for alias in absorbed_aliases:
+            self._alias_to_canonical[alias] = surviving
+            self._canonical_to_aliases[surviving].add(alias)
+        
+        # Add absorbed canonical as an alias of surviving
+        self._alias_to_canonical[absorbed] = surviving
+        self._canonical_to_aliases[surviving].add(absorbed)
+        
+        # Remove absorbed canonical entry from canonical_to_aliases
+        if absorbed in self._canonical_to_aliases:
+            del self._canonical_to_aliases[absorbed]
+        
+        # Merge full name if absorbed had one and surviving doesn't
+        if absorbed in self._canonical_to_full_name:
+            if surviving not in self._canonical_to_full_name:
+                self._canonical_to_full_name[surviving] = self._canonical_to_full_name[absorbed]
+            del self._canonical_to_full_name[absorbed]
+        
+        # Merge first-seen info: keep the earliest chapter
+        if absorbed in self._alias_first_seen:
+            absorbed_first = self._alias_first_seen.get(absorbed, chapter)
+            surviving_first = self._alias_first_seen.get(surviving, chapter)
+            self._alias_first_seen[surviving] = min(absorbed_first, surviving_first)
+        
+        return surviving
+
+    def _unify_location_canonicals(
+        self,
+        existing_canonical: str,
+        new_canonical: str,
+        shared_alias: str,
+        chapter: int,
+    ) -> str:
+        """
+        Unify two canonical location IDs when a conflict is detected.
+        
+        Same logic as character unification but for locations.
+        Uses FIRST-SEEN WINS strategy for determinism.
+        
+        Args:
+            existing_canonical: The canonical ID already registered for the alias
+            new_canonical: The new canonical ID attempting to claim the alias
+            shared_alias: The alias that triggered the conflict
+            chapter: Chapter where unification occurred
+            
+        Returns:
+            The surviving canonical ID (always existing_canonical for determinism)
+        """
+        surviving = existing_canonical
+        absorbed = new_canonical
+        
+        logger.info(
+            f"UNIFYING LOCATION CANONICALS: '{absorbed}' -> '{surviving}' "
+            f"(shared_alias='{shared_alias}', chapter={chapter})"
+        )
+        
+        # Gather all aliases that pointed to absorbed canonical
+        absorbed_aliases = self._location_canonical_to_aliases.get(absorbed, set()).copy()
+        
+        # Record unification for audit trail
+        unification = AliasUnification(
+            absorbed_canonical=absorbed,
+            surviving_canonical=surviving,
+            shared_alias=shared_alias,
+            absorbed_aliases=absorbed_aliases,
+            chapter=chapter,
+            reason=UnificationReason.FIRST_SEEN_WINS,
+            entity_type="location",
+        )
+        self._location_unifications.append(unification)
+        
+        # Initialize surviving canonical entry if not exists
+        if surviving not in self._location_canonical_to_aliases:
+            self._location_canonical_to_aliases[surviving] = set()
+        
+        # Migrate all aliases from absorbed to surviving
+        for alias in absorbed_aliases:
+            self._location_alias_to_canonical[alias] = surviving
+            self._location_canonical_to_aliases[surviving].add(alias)
+        
+        # Add absorbed canonical as an alias of surviving
+        self._location_alias_to_canonical[absorbed] = surviving
+        self._location_canonical_to_aliases[surviving].add(absorbed)
+        
+        # Remove absorbed canonical entry
+        if absorbed in self._location_canonical_to_aliases:
+            del self._location_canonical_to_aliases[absorbed]
+        
+        # Merge full name if absorbed had one and surviving doesn't
+        if absorbed in self._location_canonical_to_full_name:
+            if surviving not in self._location_canonical_to_full_name:
+                self._location_canonical_to_full_name[surviving] = self._location_canonical_to_full_name[absorbed]
+            del self._location_canonical_to_full_name[absorbed]
+        
+        # Merge first-seen info
+        if absorbed in self._location_alias_first_seen:
+            absorbed_first = self._location_alias_first_seen.get(absorbed, chapter)
+            surviving_first = self._location_alias_first_seen.get(surviving, chapter)
+            self._location_alias_first_seen[surviving] = min(absorbed_first, surviving_first)
+        
+        # Handle containment: if absorbed was a child, update to surviving
+        if absorbed in self._location_containment:
+            parent = self._location_containment[absorbed]
+            del self._location_containment[absorbed]
+            if surviving not in self._location_containment:
+                self._location_containment[surviving] = parent
+            # Update parent's children set
+            if parent in self._location_children:
+                self._location_children[parent].discard(absorbed)
+                self._location_children[parent].add(surviving)
+        
+        # Handle containment: if absorbed was a parent, migrate children
+        if absorbed in self._location_children:
+            children = self._location_children[absorbed]
+            del self._location_children[absorbed]
+            if surviving not in self._location_children:
+                self._location_children[surviving] = set()
+            self._location_children[surviving].update(children)
+            # Update children to point to new parent
+            for child in children:
+                if child in self._location_containment:
+                    self._location_containment[child] = surviving
+        
+        return surviving
 
     def _promote_location_canonical(
         self,
@@ -432,19 +677,35 @@ class AliasResolver:
             if alias in self._alias_to_canonical:
                 existing_canonical = self._alias_to_canonical[alias]
                 if existing_canonical != canonical_id:
+                    # UNIFY instead of skipping: merge the two canonical IDs
+                    # Per LOGIC_DESIGN.md: deterministic - first-seen wins
+                    surviving = self._unify_character_canonicals(
+                        existing_canonical=existing_canonical,
+                        new_canonical=canonical_id,
+                        shared_alias=alias,
+                        chapter=chapter_num,
+                    )
+                    
+                    # Record conflict with resolution info
                     conflict = AliasConflict(
                         alias=alias,
                         canonical_ids={existing_canonical, canonical_id},
                         first_seen_chapter=self._alias_first_seen.get(alias, chapter_num),
                         conflict_chapter=chapter_num,
+                        chosen_canonical=surviving,
+                        absorbed_canonical=canonical_id if surviving == existing_canonical else existing_canonical,
+                        resolution_reason=UnificationReason.FIRST_SEEN_WINS.value,
                     )
                     new_conflicts.append(conflict)
                     self._conflicts.append(conflict)
-                    logger.warning(
-                        f"Alias conflict: '{alias}' maps to both "
-                        f"'{existing_canonical}' and '{canonical_id}'"
+                    
+                    logger.info(
+                        f"Alias conflict RESOLVED: '{alias}' mapped to both "
+                        f"'{existing_canonical}' and '{canonical_id}' -> unified to '{surviving}'"
                     )
-                    # Keep existing mapping (first seen wins)
+                    
+                    # Update canonical_id to the surviving one for remaining aliases
+                    canonical_id = surviving
                     continue
             
             # Register the alias
@@ -545,19 +806,35 @@ class AliasResolver:
             if alias in self._location_alias_to_canonical:
                 existing_canonical = self._location_alias_to_canonical[alias]
                 if existing_canonical != canonical_id:
+                    # UNIFY instead of skipping: merge the two canonical IDs
+                    # Per LOGIC_DESIGN.md: deterministic - first-seen wins
+                    surviving = self._unify_location_canonicals(
+                        existing_canonical=existing_canonical,
+                        new_canonical=canonical_id,
+                        shared_alias=alias,
+                        chapter=chapter_num,
+                    )
+                    
+                    # Record conflict with resolution info
                     conflict = AliasConflict(
                         alias=alias,
                         canonical_ids={existing_canonical, canonical_id},
                         first_seen_chapter=self._location_alias_first_seen.get(alias, chapter_num),
                         conflict_chapter=chapter_num,
+                        chosen_canonical=surviving,
+                        absorbed_canonical=canonical_id if surviving == existing_canonical else existing_canonical,
+                        resolution_reason=UnificationReason.FIRST_SEEN_WINS.value,
                     )
                     new_conflicts.append(conflict)
                     self._location_conflicts.append(conflict)
-                    logger.warning(
-                        f"Location alias conflict: '{alias}' maps to both "
-                        f"'{existing_canonical}' and '{canonical_id}'"
+                    
+                    logger.info(
+                        f"Location alias conflict RESOLVED: '{alias}' mapped to both "
+                        f"'{existing_canonical}' and '{canonical_id}' -> unified to '{surviving}'"
                     )
-                    # Keep existing mapping (first seen wins)
+                    
+                    # Update canonical_id to the surviving one for remaining aliases
+                    canonical_id = surviving
                     continue
             
             # Register the alias
@@ -924,19 +1201,29 @@ class AliasResolver:
             "resolutions_made": self._resolutions_made,
             "location_resolutions_made": self._location_resolutions_made,
             "conflicts_detected": len(self._conflicts),
+            "conflicts_unified": len(self._unifications),
             "location_conflicts_detected": len(self._location_conflicts),
+            "location_conflicts_unified": len(self._location_unifications),
             "promotions_made": len(self._promotions),
             "location_promotions_made": len(self._location_promotions),
             "chapters_processed": self._chapters_processed,
         }
     
     def get_conflicts(self) -> List[AliasConflict]:
-        """Get all detected character conflicts."""
+        """Get all detected character conflicts (now includes resolution info)."""
         return list(self._conflicts)
     
     def get_location_conflicts(self) -> List[AliasConflict]:
-        """Get all detected location conflicts."""
+        """Get all detected location conflicts (now includes resolution info)."""
         return list(self._location_conflicts)
+    
+    def get_unifications(self) -> List[AliasUnification]:
+        """Get all character canonical ID unifications."""
+        return list(self._unifications)
+    
+    def get_location_unifications(self) -> List[AliasUnification]:
+        """Get all location canonical ID unifications."""
+        return list(self._location_unifications)
     
     def get_promotions(self) -> List[CanonicalPromotion]:
         """Get all character canonical ID promotions."""

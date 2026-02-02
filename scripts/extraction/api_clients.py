@@ -103,22 +103,57 @@ class OpenAIAPIClient:
                 raise ImportError("openai package not installed. Run: pip install openai")
         return self._client
     
+    def _uses_max_completion_tokens(self) -> bool:
+        """Check if model requires max_completion_tokens instead of max_tokens.
+        
+        Newer models (GPT-5 family, o1, o3, o4, etc.) use max_completion_tokens.
+        Legacy models (GPT-4o, GPT-4, GPT-3.5) use max_tokens.
+        """
+        model_lower = self.model.lower()
+        # GPT-5 family and reasoning models use max_completion_tokens
+        if any(prefix in model_lower for prefix in ['gpt-5', 'o1', 'o3', 'o4']):
+            return True
+        return False
+    
+    def _is_restricted_model(self) -> bool:
+        """Check if model has restricted parameters (no temperature, top_p, etc.).
+        
+        Some newer models (GPT-5 mini, reasoning models) only support default
+        parameter values and will error if custom values are passed.
+        """
+        model_lower = self.model.lower()
+        # GPT-5-mini and reasoning models have parameter restrictions
+        if any(prefix in model_lower for prefix in ['gpt-5-mini', 'o1', 'o3', 'o4']):
+            return True
+        return False
+    
     def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 120) -> str:
         """Make an OpenAI API call and return the response text."""
         client = self._get_client()
         
-        response = client.chat.completions.create(
-            model=self.model,
-            messages=[
+        # Build base request parameters
+        request_params = {
+            "model": self.model,
+            "messages": [
                 {"role": "system", "content": "You are a narrative analysis assistant. Output ONLY valid JSON, nothing else. No explanations."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=self.temperature,
-            top_p=self.top_p,
-            presence_penalty=self.presence_penalty,
-            frequency_penalty=self.frequency_penalty,
-            max_tokens=max_tokens,
-        )
+        }
+        
+        # Only add sampling parameters for models that support them
+        if not self._is_restricted_model():
+            request_params["temperature"] = self.temperature
+            request_params["top_p"] = self.top_p
+            request_params["presence_penalty"] = self.presence_penalty
+            request_params["frequency_penalty"] = self.frequency_penalty
+        
+        # Use appropriate token limit parameter based on model
+        if self._uses_max_completion_tokens():
+            request_params["max_completion_tokens"] = max_tokens
+        else:
+            request_params["max_tokens"] = max_tokens
+        
+        response = client.chat.completions.create(**request_params)
         
         return response.choices[0].message.content
     

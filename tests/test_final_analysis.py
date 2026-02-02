@@ -598,3 +598,220 @@ class TestEntityDiagnosticInfo:
         assert "relevance" not in d
         assert "lifecycle" not in d
         assert "carrier" not in d
+
+
+# =============================================================================
+# Phase 8.5: Lifecycle-Based Detection Tests
+# =============================================================================
+
+class TestLifecycleBasedDetection:
+    """Tests for lifecycle-based detection methods (Phase 8.5)."""
+    
+    def test_detect_unused_characters_empty_registry(self):
+        """Test unused character detection with empty registry."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        
+        unused = analyzer.detect_unused_characters_from_registry()
+        assert unused == []
+    
+    def test_detect_unused_characters_active_character(self):
+        """Test active characters are not flagged as unused."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add character that acts multiple times
+        state_manager.add_entity("harry", "character", chapter=1)
+        state_manager.entity_registry.update_acted("harry", chapter=3)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        unused = analyzer.detect_unused_characters_from_registry()
+        
+        assert len(unused) == 0
+    
+    def test_detect_unused_characters_latent_never_acted(self):
+        """Test LATENT characters that never acted are flagged."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add character in chapter 1, never acts, now at chapter 6
+        state_manager.add_entity("background_char", "character", chapter=1)
+        # Update lifecycle to make it LATENT (inactive for 3+ chapters)
+        state_manager.entity_registry.update_lifecycle_states(current_chapter=6)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        unused = analyzer.detect_unused_characters_from_registry()
+        
+        # Should find the unused character
+        assert len(unused) == 1
+        assert unused[0].entity_id == "background_char"
+        assert unused[0].loose_end_type == "unused_entity"
+    
+    def test_detect_unused_characters_dead_not_flagged(self):
+        """Test dead characters are not flagged as unused."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add character that dies - should not be flagged
+        state_manager.add_entity("voldemort", "character", chapter=1)
+        state_manager.mark_dead("voldemort")
+        state_manager.entity_registry.update_lifecycle_states(current_chapter=6)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        unused = analyzer.detect_unused_characters_from_registry()
+        
+        # Dead characters are resolved, not unused
+        assert len(unused) == 0
+    
+    def test_detect_unresolved_items_empty_tracker(self):
+        """Test unresolved item detection with no ItemTracker."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        
+        unresolved = analyzer.detect_unresolved_items_from_registry()
+        assert unresolved == []
+    
+    def test_detect_unresolved_items_latent_item(self):
+        """Test latent items are detected as unresolved."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        item_tracker = ItemTracker()
+        
+        # Introduce latent item
+        extraction = {
+            "entities": {"items": [{"id": "prophecy", "relevance": "latent"}]},
+            "events": []
+        }
+        item_tracker.process_extraction(extraction, chapter_num=1)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry, item_tracker)
+        unresolved = analyzer.detect_unresolved_items_from_registry()
+        
+        assert len(unresolved) == 1
+        assert unresolved[0].entity_id == "prophecy"
+        assert unresolved[0].loose_end_type == "chekhov_latent"
+        
+        # Also check chapter_violations was populated
+        assert 1 in analyzer.chapter_violations
+        violations = analyzer.chapter_violations[1]
+        assert any(v.get("type") == "chekhov_gun" for v in violations)
+    
+    def test_detect_dangling_relationships_empty(self):
+        """Test dangling relationship detection with no relationships."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        
+        dangling = analyzer.detect_dangling_relationships()
+        assert dangling == []
+    
+    def test_detect_dangling_relationships_one_dead(self):
+        """Test relationships with one dead party are flagged."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add characters and relationship
+        state_manager.add_entity("harry", "character", chapter=1)
+        state_manager.add_entity("sirius", "character", chapter=1)
+        state_manager.add_relationship("harry", "sirius", "godfather")
+        
+        # Kill Sirius
+        state_manager.mark_dead("sirius")
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        dangling = analyzer.detect_dangling_relationships()
+        
+        assert len(dangling) == 1
+        assert "sirius is dead" in dangling[0].expected_resolution
+        assert dangling[0].loose_end_type == "dangling_relationship"
+    
+    def test_detect_dangling_relationships_frozen_entity(self):
+        """Test relationships with FROZEN entity are flagged."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add characters
+        state_manager.add_entity("harry", "character", chapter=1)
+        state_manager.add_entity("old_friend", "character", chapter=1)
+        state_manager.add_relationship("harry", "old_friend", "friend")
+        
+        # Keep harry active, make old_friend frozen
+        state_manager.entity_registry.update_acted("harry", chapter=15)
+        # old_friend hasn't acted since chapter 1, now at chapter 15 = 14 chapters inactive = FROZEN
+        state_manager.entity_registry.update_lifecycle_states(current_chapter=15)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        dangling = analyzer.detect_dangling_relationships()
+        
+        assert len(dangling) == 1
+        assert "FROZEN" in dangling[0].expected_resolution
+
+
+class TestAnalyzeFromLifecycle:
+    """Tests for analyze_from_lifecycle method (Phase 8.5)."""
+    
+    def test_analyze_from_lifecycle_basic(self):
+        """Test basic lifecycle-based analysis."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        # Add some entities
+        state_manager.add_entity("harry", "character", chapter=1)
+        state_manager.add_entity("hogwarts", "location", chapter=1)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        result = analyzer.analyze_from_lifecycle("test_story", total_chapters=3)
+        
+        assert result.story_id == "test_story"
+        assert result.total_chapters == 3
+        assert result.entities_introduced["character"] >= 1
+        assert result.entities_introduced["location"] >= 1
+    
+    def test_analyze_from_lifecycle_detects_chekhov(self):
+        """Test lifecycle analysis detects Chekhov violations."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        item_tracker = ItemTracker()
+        
+        # Add latent item never used
+        extraction = {
+            "entities": {"items": [{"id": "ring", "relevance": "latent", "name": "Magic Ring"}]},
+            "events": []
+        }
+        item_tracker.process_extraction(extraction, chapter_num=1)
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry, item_tracker)
+        result = analyzer.analyze_from_lifecycle("test_story", total_chapters=5)
+        
+        chekhov = [le for le in result.loose_ends if le.loose_end_type == "chekhov_latent"]
+        assert len(chekhov) == 1
+        assert chekhov[0].entity_id == "ring"
+    
+    def test_analyze_uses_lifecycle_by_default(self):
+        """Test that analyze() uses lifecycle mode by default."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        
+        # analyze() should now use lifecycle by default
+        result = analyzer.analyze("test_story", total_chapters=3)
+        
+        # Should still produce valid result
+        assert result.story_id == "test_story"
+        assert result.total_chapters == 3
+    
+    def test_analyze_legacy_mode(self):
+        """Test analyze with use_lifecycle=False uses legacy mode."""
+        state_manager = StateManager()
+        rule_registry = RuleRegistry(Path("rules"))
+        
+        analyzer = FinalAnalyzer(state_manager, rule_registry)
+        
+        # Legacy mode
+        result = analyzer.analyze("test_story", total_chapters=3, use_lifecycle=False)
+        
+        assert result.story_id == "test_story"
+        assert result.total_chapters == 3

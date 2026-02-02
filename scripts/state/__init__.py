@@ -13,14 +13,12 @@ from .config import (
     OPENAI_API_KEY,
     DEFAULT_MODELS,
     API_MODE,
-    CHAR_ALIASES,
-    normalize_character_id,
     STORIES,
     ERROR_CATEGORIES,
     REQUIRED_STRUCTURE_FIELDS,
     REQUIRED_ENTITY_FIELDS,
 )
-from .logging import log, set_console_log_file
+from .logging import log, set_console_log_file, log_step_start, log_step_end, reset_logging
 from .data_structures import ChapterError, ChapterResult, StepResults
 
 __all__ = [
@@ -36,8 +34,6 @@ __all__ = [
     "OPENAI_API_KEY",
     "DEFAULT_MODELS",
     "API_MODE",
-    "CHAR_ALIASES",
-    "normalize_character_id",
     "STORIES",
     "ERROR_CATEGORIES",
     "REQUIRED_STRUCTURE_FIELDS",
@@ -45,6 +41,9 @@ __all__ = [
     # Logging
     "log",
     "set_console_log_file",
+    "log_step_start",
+    "log_step_end",
+    "reset_logging",
     # Data structures
     "ChapterError",
     "ChapterResult",

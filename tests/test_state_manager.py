@@ -36,9 +36,9 @@ class TestStateManagerBasics:
         sm = StateManager()
         
         assert sm.current_time == 0
-        assert len(sm.states) == 1
-        assert 0 in sm.states
-        assert sm.states[0].time == 0
+        # Phase 8: Now uses current_state instead of states dict
+        assert sm.current_state is not None
+        assert sm.current_state.time == 0
     
     def test_get_current_state(self):
         """get_current_state returns state at current time."""
@@ -49,7 +49,7 @@ class TestStateManagerBasics:
         assert state.time == 0
     
     def test_advance_time(self):
-        """advance_time increments timestep and clones state."""
+        """advance_time increments timestep and mutates state in place."""
         sm = StateManager()
         
         # Add an entity before advancing
@@ -60,7 +60,8 @@ class TestStateManagerBasics:
         
         assert new_time == 1
         assert sm.current_time == 1
-        assert len(sm.states) == 2
+        # Phase 8: Only one current state is maintained (mutated in place)
+        assert sm.current_state.time == 1
         
         # New state should have the entity
         new_state = sm.get_current_state()
@@ -158,30 +159,35 @@ class TestStateManagerSnapshots:
     """Snapshot and delta computation tests."""
     
     def test_snapshot_clones_state(self):
-        """snapshot creates an independent copy."""
+        """snapshot returns current state (no cloning in Phase 8)."""
         sm = StateManager()
         sm.add_entity("harry", "character")
         
         snapshot = sm.snapshot(0)
         
-        # Modify original
+        # Phase 8: snapshot returns current_state reference, not a clone
+        # This is memory-optimized - no historical snapshots stored
+        assert "harry" in snapshot.entities
+        
+        # Adding more entities affects the same state
         sm.add_entity("ron", "character")
         
-        # Snapshot should not have ron
-        assert "harry" in snapshot.entities
-        assert "ron" not in snapshot.entities
+        # Since it's the same state object, ron IS in snapshot
+        assert "ron" in snapshot.entities
     
     def test_snapshot_nonexistent_time(self):
-        """snapshot of nonexistent time returns empty state."""
+        """snapshot always returns current state (Phase 8 optimization)."""
         sm = StateManager()
         
+        # Phase 8: snapshot() always returns current_state regardless of time param
         snapshot = sm.snapshot(999)
         
-        assert snapshot.time == 999
+        # Time is current time, not requested time
+        assert snapshot.time == 0
         assert len(snapshot.entities) == 0
     
     def test_delta_computation(self):
-        """delta correctly identifies changes between states."""
+        """delta returns empty delta (Phase 8 - no historical state)."""
         sm = StateManager()
         
         # Time 0: Add harry
@@ -191,13 +197,13 @@ class TestStateManagerSnapshots:
         sm.advance_time()
         sm.add_entity("ron", "character")
         
-        # Get delta
+        # Phase 8: delta returns empty - no historical states stored
         delta = sm.delta(0, 1)
         
         assert delta.from_time == 0
         assert delta.to_time == 1
-        assert len(delta.added_entities) == 1
-        assert delta.added_entities[0].id == "ron"
+        # Historical delta computation not supported in Phase 8
+        assert len(delta.added_entities) == 0
 
 
 class TestStateManagerStoryRules:
@@ -280,18 +286,26 @@ class TestStateManagerASPOutput:
         sm = StateManager()
         sm.add_entity("harry", "character")
         sm.add_entity("hogwarts", "location")
+        # Phase 8.2: voldemort must be registered before marking dead
+        sm.add_entity("voldemort", "character")
         sm.mark_dead("voldemort")
         
         facts = sm.get_asp_facts_for_clingo()
         
         assert "character(harry)." in facts
         assert "location(hogwarts)." in facts
-        assert "is_dead(voldemort)." in facts
+        # Dead facts are in cross-chapter state
+        cross_chapter = sm.get_cross_chapter_state_facts()
+        death_facts = [f for f in cross_chapter if "is_dead" in f]
+        assert len(death_facts) == 1
+        assert "voldemort" in death_facts[0]
     
     def test_get_cross_chapter_state_facts(self):
         """get_cross_chapter_state_facts includes persistent state."""
         sm = StateManager()
         sm.add_entity("harry", "character")
+        # Phase 8.2: Entity must exist before marking dead
+        sm.add_entity("cedric", "character")
         sm.mark_dead("cedric")
         sm.add_relationship("harry", "ron", "friend")
         
@@ -324,19 +338,129 @@ class TestWorldState:
         assert "trait(harry, brave)." in asp
         assert "character_emotion(harry, happy)." in asp
     
-    def test_clone_is_independent(self):
-        """clone creates an independent copy."""
+    def test_update_time_mutates_in_place(self):
+        """update_time mutates time in place (Phase 8 memory optimization)."""
         state = WorldState(time=0)
         state.entities["harry"] = Entity(id="harry", entity_type="character")
         
-        cloned = state.clone()
+        # Phase 8: update_time replaces clone()
+        state.update_time(5)
         
-        # Modify original
-        state.entities["ron"] = Entity(id="ron", entity_type="character")
+        # Same object, updated time
+        assert state.time == 5
+        assert "harry" in state.entities
+
+
+class TestActiveUniverseFiltering:
+    """Tests for Phase 8.6: ASP fact filtering by active universe."""
+    
+    def test_get_cross_chapter_state_facts_filters_relationships(self):
+        """get_cross_chapter_state_facts filters relationships by universe."""
+        from engine.active_universe import ActiveUniverseResult
         
-        # Clone should not have ron
-        assert "harry" in cloned.entities
-        assert "ron" not in cloned.entities
+        sm = StateManager()
+        sm.persistent_relationships[("harry", "ron")] = "friend"
+        sm.persistent_relationships[("harry", "draco")] = "enemy"
+        sm.persistent_relationships[("dumbledore", "snape")] = "colleague"
+        
+        # Only harry and ron in universe
+        universe = ActiveUniverseResult(
+            characters={"harry", "ron"},
+            items=set(),
+            locations=set(),
+        )
+        
+        facts = sm.get_cross_chapter_state_facts(active_universe=universe)
+        facts_str = "\n".join(facts)
+        
+        # harry-ron relationship included (both in universe)
+        assert "previous_relationship(harry, ron, friend)." in facts_str
+        # harry-draco excluded (draco not in universe)
+        assert "previous_relationship(harry, draco, enemy)." not in facts_str
+        # dumbledore-snape excluded (neither in universe)
+        assert "previous_relationship(dumbledore, snape, colleague)." not in facts_str
+    
+    def test_get_cross_chapter_state_facts_filters_emotions(self):
+        """get_cross_chapter_state_facts filters emotions by universe."""
+        from engine.active_universe import ActiveUniverseResult
+        
+        sm = StateManager()
+        sm.persistent_emotions["harry"] = "angry"
+        sm.persistent_emotions["draco"] = "smug"
+        
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items=set(),
+            locations=set(),
+        )
+        
+        facts = sm.get_cross_chapter_state_facts(active_universe=universe)
+        facts_str = "\n".join(facts)
+        
+        assert "previous_emotion(harry, angry)." in facts_str
+        assert "previous_emotion(draco, smug)." not in facts_str
+    
+    def test_get_static_entity_facts_filters_by_universe(self):
+        """get_static_entity_facts filters by active universe."""
+        from engine.active_universe import ActiveUniverseResult
+        from engine.entity_registry import EntityType
+        
+        sm = StateManager()
+        sm.entity_registry.register_entity("harry", EntityType.CHARACTER, chapter=0, is_agent=True)
+        sm.entity_registry.register_entity("ron", EntityType.CHARACTER, chapter=0, is_agent=True)
+        
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items=set(),
+            locations=set(),
+        )
+        
+        facts = sm.get_static_entity_facts(active_universe=universe)
+        
+        assert "character(harry)." in facts
+        assert "character(ron)." not in facts
+    
+    def test_worldstate_to_asp_facts_filters_entities(self):
+        """WorldState.to_asp_facts filters entities by universe."""
+        from engine.active_universe import ActiveUniverseResult
+        from engine.state_manager import WorldState, Entity
+        
+        state = WorldState(time=1)
+        state.entities["harry"] = Entity(id="harry", entity_type="character", traits={"brave"})
+        state.entities["draco"] = Entity(id="draco", entity_type="character", traits={"cunning"})
+        
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items=set(),
+            locations=set(),
+        )
+        
+        facts = state.to_asp_facts(active_universe=universe)
+        
+        assert "character(harry)." in facts
+        assert "trait(harry, brave)." in facts
+        assert "character(draco)." not in facts
+        assert "trait(draco, cunning)." not in facts
+    
+    def test_worldstate_to_asp_facts_filters_relations(self):
+        """WorldState.to_asp_facts filters relations by universe."""
+        from engine.active_universe import ActiveUniverseResult
+        from engine.state_manager import WorldState, Relation
+        
+        state = WorldState(time=1)
+        state.relations.append(Relation(predicate="at", args=["harry", "hogwarts"], time=1))
+        state.relations.append(Relation(predicate="at", args=["draco", "hogwarts"], time=1))
+        
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items=set(),
+            locations={"hogwarts"},
+        )
+        
+        facts = state.to_asp_facts(active_universe=universe)
+        
+        assert "at(harry, hogwarts, 1)." in facts
+        assert "at(draco, hogwarts, 1)." not in facts
 
 
 if __name__ == "__main__":

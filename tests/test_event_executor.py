@@ -450,5 +450,220 @@ class TestASPAliasRulesIntegration:
         assert "trait_normalized" in content
 
 
+class TestActiveUniverseFiltering:
+    """
+    Phase 8.8: Test that to_asp() only emits entity declarations for active universe.
+    
+    Per LOGIC_DESIGN.md and Phase 8 goals:
+    - Prevent global predicates from introducing unnecessary constants
+    - Inactive/latent/frozen entities should NOT appear in ASP
+    - Only emit character()/item()/location_entity() for active universe
+    """
+    
+    def test_to_asp_without_universe_includes_all_entities(self):
+        """Without active_universe, all entities are included."""
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {
+                "characters": [
+                    {"id": "harry", "name": "Harry Potter"},
+                    {"id": "ron", "name": "Ron Weasley"},
+                ],
+                "items": [
+                    {"id": "wand", "name": "Holly Wand"},
+                ],
+                "locations": [
+                    {"id": "hogwarts", "name": "Hogwarts Castle"},
+                ],
+            },
+            "events": [],
+        }
+        
+        asp = ee.to_asp(data, chapter_num=1)
+        
+        # All entities should be present
+        assert "character(harry)." in asp
+        assert "character(ron)." in asp
+        assert "item(wand)." in asp
+        assert "location_entity(hogwarts)." in asp
+    
+    def test_to_asp_with_universe_filters_entities(self):
+        """With active_universe, only entities in universe are declared."""
+        from engine.active_universe import ActiveUniverseResult
+        
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {
+                "characters": [
+                    {"id": "harry", "name": "Harry Potter"},
+                    {"id": "ron", "name": "Ron Weasley"},
+                    {"id": "hermione", "name": "Hermione Granger"},
+                ],
+                "items": [
+                    {"id": "wand", "name": "Holly Wand"},
+                    {"id": "cloak", "name": "Invisibility Cloak"},
+                ],
+                "locations": [
+                    {"id": "hogwarts", "name": "Hogwarts Castle"},
+                    {"id": "hogsmeade", "name": "Hogsmeade Village"},
+                ],
+            },
+            "events": [],
+        }
+        
+        # Only harry, wand, hogwarts are in the active universe
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items={"wand"},
+            locations={"hogwarts"},
+            current_chapter_actors={"harry"},
+            previous_chapter_actors=set(),
+            relationship_expansions=set(),
+            item_expansions=set(),
+        )
+        
+        asp = ee.to_asp(data, chapter_num=1, active_universe=universe)
+        
+        # Only active universe entities should be declared
+        assert "character(harry)." in asp
+        assert "character(ron)." not in asp
+        assert "character(hermione)." not in asp
+        
+        assert "item(wand)." in asp
+        assert "item(cloak)." not in asp
+        
+        assert "location_entity(hogwarts)." in asp
+        assert "location_entity(hogsmeade)." not in asp
+    
+    def test_to_asp_with_universe_filters_relationships(self):
+        """Relationships are only emitted if both entities are in universe."""
+        from engine.active_universe import ActiveUniverseResult
+        
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {
+                "characters": [
+                    {"id": "harry", "name": "Harry Potter"},
+                    {"id": "ron", "name": "Ron Weasley"},
+                    {"id": "draco", "name": "Draco Malfoy"},
+                ],
+                "relationships": [
+                    {"from": "harry", "to": "ron", "type": "friend"},
+                    {"from": "harry", "to": "draco", "type": "enemy"},
+                ],
+            },
+            "events": [],
+        }
+        
+        # Only harry and ron are in the active universe
+        universe = ActiveUniverseResult(
+            characters={"harry", "ron"},
+            items=set(),
+            locations=set(),
+            current_chapter_actors={"harry", "ron"},
+            previous_chapter_actors=set(),
+            relationship_expansions=set(),
+            item_expansions=set(),
+        )
+        
+        asp = ee.to_asp(data, chapter_num=1, active_universe=universe)
+        
+        # harry-ron relationship should be emitted (both in universe)
+        assert "relationship(harry, ron, friend)." in asp
+        
+        # harry-draco relationship should NOT be emitted (draco not in universe)
+        assert "relationship(harry, draco, enemy)." not in asp
+    
+    def test_to_asp_event_agent_declaration_filtered(self):
+        """Event agents only get character() declarations if in universe."""
+        from engine.active_universe import ActiveUniverseResult
+        
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {
+                "characters": [],  # No explicit character declarations
+            },
+            "events": [
+                {"global_id": "e1", "type": "speak", "agent": "harry"},
+                {"global_id": "e2", "type": "speak", "agent": "draco"},
+            ],
+        }
+        
+        # Only harry is in the active universe
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items=set(),
+            locations=set(),
+            current_chapter_actors={"harry"},
+            previous_chapter_actors=set(),
+            relationship_expansions=set(),
+            item_expansions=set(),
+        )
+        
+        asp = ee.to_asp(data, chapter_num=1, active_universe=universe)
+        
+        # Both agents are still referenced in agent() facts
+        assert "agent(e1, harry)." in asp
+        assert "agent(e2, draco)." in asp
+        
+        # Only harry gets a character() declaration
+        assert "character(harry)." in asp
+        assert "character(draco)." not in asp
+    
+    def test_to_asp_preserves_event_predicates(self):
+        """Event predicates (agent, patient, location) are preserved even if entity not declared."""
+        from engine.active_universe import ActiveUniverseResult
+        
+        sm = StateManager()
+        rr = RuleRegistry()
+        ee = EventExecutor(sm, rr)
+        
+        data = {
+            "entities": {},
+            "events": [
+                {
+                    "global_id": "e1",
+                    "type": "movement",
+                    "agent": "harry",
+                    "location": "forbidden_forest",
+                },
+            ],
+        }
+        
+        # Empty active universe
+        universe = ActiveUniverseResult(
+            characters=set(),
+            items=set(),
+            locations=set(),
+            current_chapter_actors=set(),
+            previous_chapter_actors=set(),
+            relationship_expansions=set(),
+            item_expansions=set(),
+        )
+        
+        asp = ee.to_asp(data, chapter_num=1, active_universe=universe)
+        
+        # Event predicates are preserved for ASP rule evaluation
+        assert "event(e1)." in asp
+        assert "agent(e1, harry)." in asp
+        assert "location(e1, forbidden_forest)." in asp
+        
+        # But entity declarations are NOT emitted
+        assert "character(harry)." not in asp
+        assert "location_entity(forbidden_forest)." not in asp
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

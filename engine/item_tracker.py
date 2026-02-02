@@ -23,9 +23,12 @@ Phase 4: Item Filtering & Classification Logic
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Set, Optional, Any, Tuple
+from typing import Dict, List, Set, Optional, Any, Tuple, TYPE_CHECKING
 from enum import Enum
 import logging
+
+if TYPE_CHECKING:
+    from .active_universe import ActiveUniverseResult
 
 logger = logging.getLogger(__name__)
 
@@ -557,12 +560,28 @@ class ItemTracker:
         
         return "\n".join(lines)
     
-    def to_asp_facts(self) -> List[str]:
-        """Generate ASP facts for tracked items."""
+    def to_asp_facts(
+        self,
+        active_universe: Optional['ActiveUniverseResult'] = None,
+    ) -> List[str]:
+        """
+        Generate ASP facts for tracked items.
+        
+        Phase 8.6: If active_universe is provided, only facts for items
+        in that universe are included.
+        
+        Args:
+            active_universe: Optional filter - only include items in this universe.
+        """
         facts = []
+        all_entities = active_universe.all_entities if active_universe else None
         
         for item in self._items.values():
             if item.suppressed:
+                continue
+            
+            # Skip items not in active universe (Phase 8.6)
+            if all_entities is not None and item.item_id not in all_entities:
                 continue
             
             # Item existence
@@ -574,8 +593,10 @@ class ItemTracker:
             # Lifecycle state
             facts.append(f"item_lifecycle({item.item_id}, {item.lifecycle_state.value}).")
             
-            # Carrier
+            # Carrier - only if carrier is also in active universe
             if item.carrier:
+                if all_entities is not None and item.carrier not in all_entities:
+                    continue  # Skip carrier fact if carrier not in universe
                 facts.append(f"carries({item.carrier}, {item.item_id}).")
             
             # Latent marker for Chekhov tracking

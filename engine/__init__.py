@@ -79,6 +79,69 @@ from .item_tracker import (
     ItemLifecycleState,
     ItemRelevance,
 )
+from .entity_registry import (
+    EntityRegistry,
+    RegisteredEntity,
+    EntityType,
+    LifecycleState,
+    ACTIVE_THRESHOLD,
+    LATENT_THRESHOLD,
+)
+from .context_persistence import (
+    PersistentContext,
+    ContextMetadata,
+)
+from .active_universe import (
+    compute_active_universe,
+    compute_active_universe_from_state_manager,
+    ActiveUniverseResult,
+    extract_entities_from_events,
+    filter_asp_facts_by_universe,
+    # Time scoping (Phase 8.7)
+    TimeScope,
+    compute_time_scope,
+    filter_facts_by_time_scope,
+)
+from .asp_diagnostics import (
+    # ASP diagnostics (Phase 8.8)
+    log_asp_universe,
+    log_run_summary,
+    ASPUniverseStats,
+    ASPDiagnosticsCollector,
+    enable as enable_asp_diagnostics,
+    disable as disable_asp_diagnostics,
+    is_enabled as asp_diagnostics_enabled,
+    get_collector as get_asp_diagnostics_collector,
+    reset_collector as reset_asp_diagnostics,
+)
+from .relationship_projector import (
+    # Relationship projection (Phase 8.10)
+    ProjectedRelationship,
+    RelationshipProjectionResult,
+    project_relationships,
+    project_relationships_to_asp_facts,
+    is_relationship_in_universe,
+    filter_relationship_facts,
+    # Relationship debug (Phase 8.11.2)
+    enable_relationship_debug,
+    disable_relationship_debug,
+    is_relationship_debug_enabled,
+    reset_relationship_debug_stats,
+    get_relationship_debug_stats,
+)
+from .rule_projector import (
+    # Rule projection (Phase 8.11)
+    ProjectedRule,
+    RuleProjectionResult,
+    project_story_rules,
+    project_learned_rules,  # Phase 8.11.1
+    project_rules,  # Phase 8.11.1: Unified projection
+    get_projected_rules_content,
+    get_projected_learned_rules_content,  # Phase 8.11.1
+    get_all_projected_rules_content,
+    extract_entities_from_rule,
+    is_rule_in_universe,
+)
 
 __all__ = [
     # Core modules
@@ -115,6 +178,61 @@ __all__ = [
     'TrackedItem',
     'ItemLifecycleState',
     'ItemRelevance',
+    # Entity registry (Phase 8.2: Memory optimization)
+    'EntityRegistry',
+    'RegisteredEntity',
+    'EntityType',
+    # Entity lifecycle (Phase 8.3)
+    'LifecycleState',
+    'ACTIVE_THRESHOLD',
+    'LATENT_THRESHOLD',
+    # Context persistence (Phase 8.4)
+    'PersistentContext',
+    'ContextMetadata',
+    # Active universe (Phase 8.6: ASP grounding optimization)
+    'compute_active_universe',
+    'compute_active_universe_from_state_manager',
+    'ActiveUniverseResult',
+    'extract_entities_from_events',
+    'filter_asp_facts_by_universe',
+    # Time scoping (Phase 8.7: Time-local ASP facts)
+    'TimeScope',
+    'compute_time_scope',
+    'filter_facts_by_time_scope',
+    # ASP diagnostics (Phase 8.8)
+    'log_asp_universe',
+    'log_run_summary',
+    'ASPUniverseStats',
+    'ASPDiagnosticsCollector',
+    'enable_asp_diagnostics',
+    'disable_asp_diagnostics',
+    'asp_diagnostics_enabled',
+    'get_asp_diagnostics_collector',
+    'reset_asp_diagnostics',
+    # Relationship projection (Phase 8.10)
+    'ProjectedRelationship',
+    'RelationshipProjectionResult',
+    'project_relationships',
+    'project_relationships_to_asp_facts',
+    'is_relationship_in_universe',
+    'filter_relationship_facts',
+    # Relationship debug (Phase 8.11.2)
+    'enable_relationship_debug',
+    'disable_relationship_debug',
+    'is_relationship_debug_enabled',
+    'reset_relationship_debug_stats',
+    'get_relationship_debug_stats',
+    # Rule projection (Phase 8.11)
+    'ProjectedRule',
+    'RuleProjectionResult',
+    'project_story_rules',
+    'project_learned_rules',
+    'project_rules',
+    'get_projected_rules_content',
+    'get_projected_learned_rules_content',
+    'get_all_projected_rules_content',
+    'extract_entities_from_rule',
+    'is_rule_in_universe',
 ]
 
-__version__ = '0.6.0'  # Phase 4: Item Tracking
+__version__ = '0.9.9'  # Phase 8.11.2: Relationship projection debug instrumentation

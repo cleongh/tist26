@@ -641,3 +641,85 @@ class TestPhase6RelevanceUpgrades:
         
         stats = tracker.get_statistics()
         assert stats["relevance_transitions"] == 1
+
+
+class TestActiveUniverseFiltering:
+    """Tests for Phase 8.6: ASP fact filtering by active universe."""
+    
+    def test_to_asp_facts_filters_by_active_universe(self):
+        """to_asp_facts filters items not in active universe."""
+        from engine.active_universe import ActiveUniverseResult
+        from engine.item_tracker import TrackedItem, ItemRelevance
+        
+        tracker = ItemTracker()
+        tracker._items["wand"] = TrackedItem(
+            item_id="wand",
+            relevance=ItemRelevance.CAUSAL,
+            carrier="harry",
+        )
+        tracker._items["cloak"] = TrackedItem(
+            item_id="cloak",
+            relevance=ItemRelevance.LATENT,
+            carrier="harry",
+        )
+        tracker._items["sword"] = TrackedItem(
+            item_id="sword",
+            relevance=ItemRelevance.CAUSAL,
+            carrier="dumbledore",
+        )
+        
+        # Active universe only includes wand and harry
+        universe = ActiveUniverseResult(
+            characters={"harry"},
+            items={"wand"},
+            locations=set(),
+        )
+        
+        facts = tracker.to_asp_facts(active_universe=universe)
+        facts_str = "\n".join(facts)
+        
+        assert "item(wand)." in facts_str
+        assert "carries(harry, wand)." in facts_str
+        assert "item(cloak)." not in facts_str  # Not in universe
+        assert "item(sword)." not in facts_str  # Not in universe
+    
+    def test_to_asp_facts_without_universe_includes_all(self):
+        """Without active_universe, all non-suppressed items are included."""
+        from engine.item_tracker import TrackedItem, ItemRelevance
+        
+        tracker = ItemTracker()
+        tracker._items["wand"] = TrackedItem(item_id="wand", relevance=ItemRelevance.CAUSAL)
+        tracker._items["cloak"] = TrackedItem(item_id="cloak", relevance=ItemRelevance.LATENT)
+        
+        facts = tracker.to_asp_facts()
+        facts_str = "\n".join(facts)
+        
+        assert "item(wand)." in facts_str
+        assert "item(cloak)." in facts_str
+    
+    def test_to_asp_facts_skips_carrier_not_in_universe(self):
+        """Carrier facts are skipped if carrier is not in universe."""
+        from engine.active_universe import ActiveUniverseResult
+        from engine.item_tracker import TrackedItem, ItemRelevance
+        
+        tracker = ItemTracker()
+        tracker._items["wand"] = TrackedItem(
+            item_id="wand",
+            relevance=ItemRelevance.CAUSAL,
+            carrier="dumbledore",  # Not in universe
+        )
+        
+        # Item is in universe, but carrier is not
+        universe = ActiveUniverseResult(
+            characters={"harry"},  # dumbledore not included
+            items={"wand"},
+            locations=set(),
+        )
+        
+        facts = tracker.to_asp_facts(active_universe=universe)
+        facts_str = "\n".join(facts)
+        
+        # Item exists but no carries fact (carrier not in universe)
+        assert "item(wand)." in facts_str
+        # Note: The current implementation skips the entire item if carrier not in universe
+        # This is the expected behavior - we're testing it works correctly

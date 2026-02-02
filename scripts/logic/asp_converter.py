@@ -2,12 +2,20 @@
 ASP fact conversion utilities.
 
 Converts structured JSON to ASP facts for Clingo.
+
+Phase 8.10: Supports active_universe parameter to filter relationship facts.
+No relationship fact is emitted unless BOTH endpoints are in the active universe.
+
+Phase 8.10.1: Removed dependency on deprecated normalize_character_id.
+Character IDs are now only sanitized (lowercased, snake_cased), not aliased.
+Dynamic alias resolution should be handled by AliasResolver at extraction time.
 """
 
 import re
-from typing import Dict, List, Set
+from typing import Dict, List, Optional, Set, TYPE_CHECKING
 
-from ..state.config import normalize_character_id
+if TYPE_CHECKING:
+    from engine.active_universe import ActiveUniverseResult
 
 
 def sanitize(v) -> str:
@@ -23,14 +31,28 @@ def sanitize(v) -> str:
 
 
 def sanitize_char(v) -> str:
-    """Sanitize and normalize character ID."""
-    s = sanitize(v)
-    if s and s != "unknown":
-        s = normalize_character_id(s)
-    return s
+    """
+    Sanitize a character ID for use in ASP.
+    
+    This function only performs basic sanitization (lowercase, snake_case).
+    It does NOT perform character alias resolution - that should be handled
+    by engine.alias_resolver.AliasResolver at extraction time.
+    
+    Args:
+        v: Character ID or name to sanitize
+        
+    Returns:
+        Sanitized character ID suitable for ASP
+    """
+    return sanitize(v)
 
 
-def to_asp(data: Dict, chapter_num: int, story_rules: List[Dict] = None) -> str:
+def to_asp(
+    data: Dict,
+    chapter_num: int,
+    story_rules: List[Dict] = None,
+    active_universe: Optional['ActiveUniverseResult'] = None,
+) -> str:
     """
     Convert structured JSON to ASP facts.
     
@@ -38,12 +60,22 @@ def to_asp(data: Dict, chapter_num: int, story_rules: List[Dict] = None) -> str:
         data: Structured chapter data with entities and events
         chapter_num: Chapter number for context
         story_rules: Optional list of story rules to include
+        active_universe: Optional filter - only include relationship facts where
+                        BOTH endpoints are in this universe. If None, all
+                        relationships are included.
         
     Returns:
         ASP program as string
+        
+    Phase 8.10: Relationship facts are now guarded by active_universe.
     """
     story_rules = story_rules or []
     lines = [f"% Chapter {chapter_num} facts"]
+    
+    # Extract active entity set for relationship filtering
+    universe_entities: Optional[Set[str]] = None
+    if active_universe is not None:
+        universe_entities = active_universe.all_entities
     
     # Track all character/location IDs and their name variants
     char_ids: Set[str] = set()
@@ -135,13 +167,20 @@ def to_asp(data: Dict, chapter_num: int, story_rules: List[Dict] = None) -> str:
                 lines.append(f"connected({loc_key}, {sub_id}).")
                 lines.append(f"connected({sub_id}, {loc_key}).")
     
-    # Process relationships
+    # Process relationships - only emit if BOTH endpoints are in active universe
+    # Phase 8.10: Strict ASP universe boundary enforcement
     for rel in entities.get("relationships", []):
         from_char = sanitize_char(rel.get("from", ""))
         to_char = sanitize_char(rel.get("to", ""))
         rel_type = sanitize(rel.get("type", "neutral"))
         if from_char != "unknown" and to_char != "unknown" and rel_type != "neutral":
+            # Guard: skip if either endpoint is not in active universe
+            if universe_entities is not None:
+                if from_char not in universe_entities or to_char not in universe_entities:
+                    continue  # Silently skip - no error logging per requirements
             lines.append(f"relationship({from_char}, {to_char}, {rel_type}).")
+            # Also emit initial_relationship for EC framework
+            lines.append(f"initial_relationship({from_char}, {to_char}, {rel_type}).")
     
     # Process events
     for i, event in enumerate(data.get("events", [])):
@@ -213,6 +252,11 @@ def to_asp(data: Dict, chapter_num: int, story_rules: List[Dict] = None) -> str:
         
         if rule['type'] == 'relationship':
             obj = sanitize_char(obj_raw) if obj_raw else None
+            # Phase 8.10: Guard relationship_rule by active universe
+            # relationship_rule derives initial_relationship, so must be filtered
+            if universe_entities is not None:
+                if subj not in universe_entities or (obj and obj not in universe_entities):
+                    continue  # Silently skip - no error logging
             lines.append(f"relationship_rule({subj}, {pred}, {obj}, {est_by}).")
         elif rule['type'] == 'trait':
             lines.append(f"trait_rule({subj}, {pred}, {est_by}).")

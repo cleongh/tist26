@@ -41,7 +41,7 @@ EXPERIMENT_NAME="${1:-openai_experiment_$(date +%Y%m%d_%H%M%S)}"
 MODEL="gpt-4o"
 API_DELAY="0.5"
 MAX_CHAPTERS=""
-STORIES=""
+STORIES=()  # Use array to preserve story names with spaces
 SKIP_STEP1=false
 SKIP_STEP2=false
 LLM_TIMEOUT="300"
@@ -67,7 +67,7 @@ while [[ $# -gt 0 ]]; do
         --stories)
             shift
             while [[ $# -gt 0 && ! "$1" =~ ^-- ]]; do
-                STORIES="$STORIES $1"
+                STORIES+=("$1")  # Append to array, preserving spaces
                 shift
             done
             ;;
@@ -139,9 +139,7 @@ if [[ -n "$MAX_CHAPTERS" ]]; then
     CMD_OPTS="$CMD_OPTS --max-chapters $MAX_CHAPTERS"
 fi
 
-if [[ -n "$STORIES" ]]; then
-    CMD_OPTS="$CMD_OPTS --stories$STORIES"
-fi
+# STORIES is handled separately as an array to preserve spaces in names
 
 # =============================================================================
 # RUN EXPERIMENT
@@ -156,7 +154,7 @@ echo "  Experiment:   $EXPERIMENT_NAME"
 echo "  Model:        $MODEL"
 echo "  API Delay:    ${API_DELAY}s"
 echo "  Max Chapters: ${MAX_CHAPTERS:-all}"
-echo "  Stories:      ${STORIES:-all}"
+echo "  Stories:      ${STORIES[*]:-all}"
 echo "  Split Extract: $USE_SPLIT_EXTRACTION"
 echo "  LLM Timeout:  ${LLM_TIMEOUT}s"
 echo "  ILASP Timeout: ${ILASP_TIMEOUT}s"
@@ -171,10 +169,19 @@ if [[ "$SKIP_STEP1" == "false" ]]; then
     echo ""
     echo "[STEP 1] LLM-Only Evaluation"
     echo "------------------------------------------------------------"
-    python3 scripts/run_narrative_experiment_refactored.py \
-        --experiment-name "$EXPERIMENT_NAME" \
-        --step 1 \
-        $CMD_OPTS
+    # Build command with proper array expansion for stories
+    if [[ ${#STORIES[@]} -gt 0 ]]; then
+        python3 scripts/run_narrative_experiment_refactored.py \
+            --experiment-name "$EXPERIMENT_NAME" \
+            --step 1 \
+            $CMD_OPTS \
+            --stories "${STORIES[@]}"
+    else
+        python3 scripts/run_narrative_experiment_refactored.py \
+            --experiment-name "$EXPERIMENT_NAME" \
+            --step 1 \
+            $CMD_OPTS
+    fi
     echo ""
     echo "[STEP 1] Complete"
     echo ""
@@ -191,11 +198,21 @@ if [[ "$SKIP_STEP2" == "false" ]]; then
         STEP2_OPTS="$STEP2_OPTS --split-extraction"
     fi
     
-    python3 scripts/run_narrative_experiment_refactored.py \
-        --experiment-name "$EXPERIMENT_NAME" \
-        --step 2 \
-        $STEP2_OPTS \
-        $CMD_OPTS
+    # Build command with proper array expansion for stories
+    if [[ ${#STORIES[@]} -gt 0 ]]; then
+        python3 scripts/run_narrative_experiment_refactored.py \
+            --experiment-name "$EXPERIMENT_NAME" \
+            --step 2 \
+            $STEP2_OPTS \
+            $CMD_OPTS \
+            --stories "${STORIES[@]}"
+    else
+        python3 scripts/run_narrative_experiment_refactored.py \
+            --experiment-name "$EXPERIMENT_NAME" \
+            --step 2 \
+            $STEP2_OPTS \
+            $CMD_OPTS
+    fi
     echo ""
     echo "[STEP 2] Complete"
     echo ""

@@ -49,6 +49,10 @@ import os
 import re
 import json
 
+if TYPE_CHECKING:
+    from .active_universe import ActiveUniverseResult
+
+from .asp_diagnostics import log_asp_universe
 from .movement_continuity_guard import (
     MovementContinuityGuard,
     MovementContinuityResult,
@@ -283,7 +287,10 @@ def normalize_character_id(char_id: str, alias_resolver=None) -> str:
     return _LEGACY_CHARACTER_ALIASES.get(normalized, normalized)
 
 
-def generate_alias_facts(alias_resolver=None) -> str:
+def generate_alias_facts(
+    alias_resolver=None,
+    active_universe: Optional['ActiveUniverseResult'] = None,
+) -> str:
     """
     Generate ASP alias facts for character resolution.
     
@@ -292,6 +299,7 @@ def generate_alias_facts(alias_resolver=None) -> str:
     
     Args:
         alias_resolver: Optional AliasResolver for dynamic aliases
+        active_universe: Optional filter - only include aliases for entities in this universe.
         
     Returns:
         ASP facts as a string, e.g.:
@@ -299,10 +307,14 @@ def generate_alias_facts(alias_resolver=None) -> str:
             alias(potter, harry).
     """
     lines = ["% Character alias facts"]
+    all_entities = active_universe.all_entities if active_universe else None
     
     if alias_resolver is not None:
         # Dynamic: generate from AliasResolver's registered aliases
         for canonical_id in alias_resolver.get_all_canonical_ids():
+            # Skip if canonical not in active universe (Phase 8.6)
+            if all_entities is not None and canonical_id not in all_entities:
+                continue
             for alias in alias_resolver.get_aliases(canonical_id):
                 if alias != canonical_id:
                     lines.append(f"alias({alias}, {canonical_id}).")
@@ -311,6 +323,8 @@ def generate_alias_facts(alias_resolver=None) -> str:
         lines.append("% (generated from legacy hardcoded aliases - deprecated)")
         for alias_id, canonical_id in _LEGACY_CHARACTER_ALIASES.items():
             if alias_id != canonical_id:
+                if all_entities is not None and canonical_id not in all_entities:
+                    continue
                 lines.append(f"alias({alias_id}, {canonical_id}).")
     
     return "\n".join(lines)
@@ -483,26 +497,40 @@ class EventExecutor:
             s = normalize_character_id(s, self.alias_resolver)
         return s
     
-    def to_asp(self, data: Dict[str, Any], chapter_num: int) -> str:
+    def to_asp(
+        self,
+        data: Dict[str, Any],
+        chapter_num: int,
+        active_universe: Optional['ActiveUniverseResult'] = None,
+    ) -> str:
         """
         Convert structured JSON to ASP facts.
         
         Extracted from LogicEvaluator._to_asp() per Step 3.2.
         
+        Phase 8.8: If active_universe is provided, only emit entity declarations
+        (character/item/location_entity predicates) for entities in the universe.
+        This prevents ASP grounding explosion by limiting global constants.
+        
         Args:
             data: Structured chapter data with entities and events
             chapter_num: Current chapter number
+            active_universe: Optional filter - only declare entities in this universe.
+                           Other predicates (agent, patient, etc.) are still emitted.
         
         Returns:
             ASP facts as a string
         """
         lines = [f"% Chapter {chapter_num} facts"]
         
+        # Get the active universe filter set (if provided)
+        universe_entities = active_universe.all_entities if active_universe else None
+        
         # Inject alias facts for ASP-based alias resolution
         # Per LOGIC_DESIGN.md: Python orchestrates, ASP handles logic
         # Use AliasResolver if available for dynamic aliases
         lines.append("")
-        lines.append(generate_alias_facts(self.alias_resolver))
+        lines.append(generate_alias_facts(self.alias_resolver, active_universe=active_universe))
         lines.append("")
         
         # Track all character/location/item IDs
@@ -516,112 +544,137 @@ class EventExecutor:
         for char in entities.get("characters", []):
             cid = self._sanitize_char(char.get("id", ""))
             cname = self._sanitize_char(char.get("name", ""))
+            
+            # Phase 8.8: Only emit character() declarations for entities in active universe
             if cid and cid != "unknown":
-                lines.append(f"character({cid}).")
                 char_ids.add(cid)
+                if universe_entities is None or cid in universe_entities:
+                    lines.append(f"character({cid}).")
             if cname and cname != "unknown" and cname != cid:
-                lines.append(f"character({cname}).")
                 char_ids.add(cname)
+                if universe_entities is None or cname in universe_entities:
+                    lines.append(f"character({cname}).")
             
             # Character aliases (Phase 1: store and generate ASP facts)
+            # Only emit alias facts if the character is in the universe
             char_key = cid if cid != "unknown" else cname
-            for alias in char.get("aliases", []):
-                alias_id = self._sanitize_char(alias)
-                if alias_id and alias_id != "unknown" and alias_id != char_key:
-                    lines.append(f"alias({alias_id}, {char_key}).")
+            if universe_entities is None or char_key in universe_entities:
+                for alias in char.get("aliases", []):
+                    alias_id = self._sanitize_char(alias)
+                    if alias_id and alias_id != "unknown" and alias_id != char_key:
+                        lines.append(f"alias({alias_id}, {char_key}).")
             
-            # Emotional state
+            # Emotional state - only emit if character is in universe
             emotion = self._sanitize_id(char.get("emotion", ""))
             if emotion and emotion not in ("unknown", "neutral"):
                 char_key = cid if cid != "unknown" else cname
                 if char_key != "unknown":
-                    lines.append(f"character_emotion({char_key}, {emotion}).")
+                    if universe_entities is None or char_key in universe_entities:
+                        lines.append(f"character_emotion({char_key}, {emotion}).")
             
-            # Physical state
+            # Physical state - only emit if character is in universe
             state = self._sanitize_id(char.get("state", ""))
             if state and state not in ("unknown", "normal"):
                 char_key = cid if cid != "unknown" else cname
                 if char_key != "unknown":
-                    lines.append(f"character_state({char_key}, {state}).")
-                    if state == "dead":
-                        lines.append(f"is_dead({char_key}).")
+                    if universe_entities is None or char_key in universe_entities:
+                        lines.append(f"character_state({char_key}, {state}).")
+                        if state == "dead":
+                            lines.append(f"is_dead({char_key}).")
             
-            # Appearance
+            # Appearance - only emit if character is in universe
             appearance = self._sanitize_id(char.get("appearance", ""))
             if appearance and appearance not in ("unknown", "normal", "none"):
                 char_key = cid if cid != "unknown" else cname
                 if char_key != "unknown":
-                    lines.append(f"character_appearance({char_key}, {appearance}).")
+                    if universe_entities is None or char_key in universe_entities:
+                        lines.append(f"character_appearance({char_key}, {appearance}).")
         
         # Process items
         for item in entities.get("items", []):
             iid = self._sanitize_id(item.get("id", ""))
             iname = self._sanitize_id(item.get("name", ""))
+            
+            # Phase 8.8: Only emit item() declarations for entities in active universe
             if iid and iid != "unknown":
-                lines.append(f"item({iid}).")
                 item_ids.add(iid)
+                if universe_entities is None or iid in universe_entities:
+                    lines.append(f"item({iid}).")
             if iname and iname != "unknown" and iname != iid:
-                lines.append(f"item({iname}).")
                 item_ids.add(iname)
+                if universe_entities is None or iname in universe_entities:
+                    lines.append(f"item({iname}).")
             
             item_key = iid if iid != "unknown" else iname
             
+            # Item state - only emit if item is in universe
             item_state = self._sanitize_id(item.get("state", ""))
             if item_state and item_state not in ("unknown", "intact"):
                 if item_key != "unknown":
-                    lines.append(f"item_state({item_key}, {item_state}).")
+                    if universe_entities is None or item_key in universe_entities:
+                        lines.append(f"item_state({item_key}, {item_state}).")
             
-            # Item relevance (Phase 1: store for Chekhov tracking)
+            # Item relevance (Phase 1: store for Chekhov tracking) - only if in universe
             relevance = self._sanitize_id(item.get("relevance", ""))
             if relevance and relevance in ("causal", "latent"):
                 if item_key != "unknown":
-                    lines.append(f"item_relevance({item_key}, {relevance}).")
+                    if universe_entities is None or item_key in universe_entities:
+                        lines.append(f"item_relevance({item_key}, {relevance}).")
         
         # Legacy support for "objects" field
         for obj in entities.get("objects", []):
             oid = self._sanitize_id(obj.get("id", obj.get("name", "")))
             if oid and oid != "unknown":
-                lines.append(f"object({oid}).")
                 item_ids.add(oid)
+                # Phase 8.8: Only emit object() declarations for entities in active universe
+                if universe_entities is None or oid in universe_entities:
+                    lines.append(f"object({oid}).")
         
         # Process locations
         for loc in entities.get("locations", []):
             lid = self._sanitize_id(loc.get("id", ""))
             lname = self._sanitize_id(loc.get("name", ""))
+            
+            # Phase 8.8: Only emit location_entity() declarations for entities in active universe
             if lid and lid != "unknown":
-                lines.append(f"location_entity({lid}).")
                 location_ids.add(lid)
+                if universe_entities is None or lid in universe_entities:
+                    lines.append(f"location_entity({lid}).")
             if lname and lname != "unknown" and lname != lid:
-                lines.append(f"location_entity({lname}).")
                 location_ids.add(lname)
+                if universe_entities is None or lname in universe_entities:
+                    lines.append(f"location_entity({lname}).")
             
             loc_key = lid if lid != "unknown" else lname
             
-            # Connections
-            for conn in loc.get("connections", []):
-                conn_id = self._sanitize_id(conn)
-                if conn_id and conn_id != "unknown" and loc_key != "unknown":
-                    lines.append(f"connected({loc_key}, {conn_id}).")
-                    lines.append(f"connected({conn_id}, {loc_key}).")
-            
-            # Containment
-            for sub in loc.get("contains", []):
-                sub_id = self._sanitize_id(sub)
-                if sub_id and sub_id != "unknown" and loc_key != "unknown":
-                    lines.append(f"contains({loc_key}, {sub_id}).")
-                    lines.append(f"connected({loc_key}, {sub_id}).")
-                    lines.append(f"connected({sub_id}, {loc_key}).")
+            # Connections - only emit if location is in universe
+            if universe_entities is None or loc_key in universe_entities:
+                for conn in loc.get("connections", []):
+                    conn_id = self._sanitize_id(conn)
+                    if conn_id and conn_id != "unknown" and loc_key != "unknown":
+                        lines.append(f"connected({loc_key}, {conn_id}).")
+                        lines.append(f"connected({conn_id}, {loc_key}).")
+                
+                # Containment - only emit if location is in universe
+                for sub in loc.get("contains", []):
+                    sub_id = self._sanitize_id(sub)
+                    if sub_id and sub_id != "unknown" and loc_key != "unknown":
+                        lines.append(f"contains({loc_key}, {sub_id}).")
+                        lines.append(f"connected({loc_key}, {sub_id}).")
+                        lines.append(f"connected({sub_id}, {loc_key}).")
         
-        # Process relationships
+        # Process relationships - only emit if both characters are in universe
         for rel in entities.get("relationships", []):
             from_char = self._sanitize_char(rel.get("from", ""))
             to_char = self._sanitize_char(rel.get("to", ""))
             rel_type = self._sanitize_id(rel.get("type", "neutral"))
             if from_char != "unknown" and to_char != "unknown" and rel_type != "neutral":
-                # Use initial_relationship for EC to derive time-indexed relationship/4
-                lines.append(f"initial_relationship({from_char}, {to_char}, {rel_type}).")
-                # Also keep relationship/3 for backward compatibility with simpler rules
-                lines.append(f"relationship({from_char}, {to_char}, {rel_type}).")
+                # Phase 8.8: Only emit relationship facts if both entities are in active universe
+                if universe_entities is None or (from_char in universe_entities and to_char in universe_entities):
+                    # Use initial_relationship for EC to derive time-indexed relationship/4
+                    lines.append(f"initial_relationship({from_char}, {to_char}, {rel_type}).")
+                    # Also keep relationship/3 for backward compatibility with simpler rules
+                    lines.append(f"relationship({from_char}, {to_char}, {rel_type}).")
         
         # Process initial_rules - convert relationship predicates to relationship facts
         # This handles rules like {"subject": "mr_dursley", "predicate": "hostile", "object": "harry_potter"}
@@ -631,10 +684,12 @@ class EventExecutor:
             obj = self._sanitize_char(rule.get("object", ""))
             
             if subject != "unknown" and obj != "unknown" and predicate not in ("unknown", ""):
-                # Map predicate to relationship type (hostile, friendly, hates, loves, etc.)
-                rel_type = predicate  # The predicate IS the relationship type
-                lines.append(f"initial_relationship({subject}, {obj}, {rel_type}).")
-                lines.append(f"relationship({subject}, {obj}, {rel_type}).")
+                # Phase 8.8: Only emit relationship facts if both entities are in active universe
+                if universe_entities is None or (subject in universe_entities and obj in universe_entities):
+                    # Map predicate to relationship type (hostile, friendly, hates, loves, etc.)
+                    rel_type = predicate  # The predicate IS the relationship type
+                    lines.append(f"initial_relationship({subject}, {obj}, {rel_type}).")
+                    lines.append(f"relationship({subject}, {obj}, {rel_type}).")
         
         # Process events
         event_ids = []
@@ -666,9 +721,11 @@ class EventExecutor:
             if event.get("agent"):
                 agent_id = self._sanitize_char(event['agent'])
                 lines.append(f"agent({eid}, {agent_id}).")
+                # Phase 8.8: Only emit character() declaration if agent is in active universe
                 if agent_id not in char_ids and agent_id != "unknown":
-                    lines.append(f"character({agent_id}).")
                     char_ids.add(agent_id)
+                    if universe_entities is None or agent_id in universe_entities:
+                        lines.append(f"character({agent_id}).")
             
             # Patient
             if event.get("patient"):
@@ -677,16 +734,20 @@ class EventExecutor:
                 if patient_id in char_ids or patient_id not in item_ids:
                     patient_id = self._sanitize_char(patient_raw)
                 lines.append(f"patient({eid}, {patient_id}).")
+                # Phase 8.8: Only emit is_dead if patient is in active universe
                 if etype == "death":
-                    lines.append(f"is_dead({patient_id}).")
+                    if universe_entities is None or patient_id in universe_entities:
+                        lines.append(f"is_dead({patient_id}).")
             
             # Location
             if event.get("location"):
                 loc_id = self._sanitize_id(event['location'])
                 lines.append(f"location({eid}, {loc_id}).")
+                # Phase 8.8: Only emit location_entity() declaration if location is in active universe
                 if loc_id not in location_ids and loc_id != "unknown":
-                    lines.append(f"location_entity({loc_id}).")
                     location_ids.add(loc_id)
+                    if universe_entities is None or loc_id in universe_entities:
+                        lines.append(f"location_entity({loc_id}).")
             
             # Event emotion
             event_emotion = self._sanitize_id(event.get("emotion", ""))
@@ -1014,6 +1075,9 @@ class EventExecutor:
             program_parts.extend(self.state_manager.accumulated_facts)
         
         combined = "\n".join(program_parts)
+        
+        # Phase 8.8: Log ASP universe size diagnostics (optional, no overhead when disabled)
+        log_asp_universe(combined, chapter_num)
         
         # Write to temp file
         with tempfile.NamedTemporaryFile(mode="w", suffix=".lp", delete=False) as f:

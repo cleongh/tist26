@@ -16,7 +16,7 @@ from ..state.config import (
     RULES_DIR,
 )
 from ..state.data_structures import ChapterError, ChapterResult, StepResults
-from ..state.logging import log
+from ..state.logging import log, log_step_start, log_step_end
 from ..extraction.api_clients import create_api_client
 from ..extraction.llm_client import LLMClient
 from ..extraction.chapter_extractor import structure_chapter_standalone
@@ -34,9 +34,8 @@ def run_step1_llm(experiment_dir: Path, stories: List[str], llm_url: str, max_ch
     """
     Step 1: LLM-only evaluation, chapter by chapter.
     """
-    log("=" * 60)
-    log("STEP 1: LLM-Only Evaluation")
-    log("=" * 60)
+    log_step_start("STEP 1: LLM-Only Evaluation")
+    log("LLM-only evaluation, chapter by chapter")
     
     results = StepResults(
         step=1,
@@ -135,6 +134,7 @@ def run_step1_llm(experiment_dir: Path, stories: List[str], llm_url: str, max_ch
     
     log(f"\nStep 1 complete: {results.chapters_processed} chapters, {results.total_errors} errors")
     log(f"Results saved to: {output_file}")
+    log_step_end("STEP 1: LLM-Only Evaluation")
     
     return results
 
@@ -148,11 +148,9 @@ def run_step2_logic(experiment_dir: Path, stories: List[str], llm_url: str, max_
     Args:
         structured: If True, use Phase 4 structured output (no LLM interpretation)
     """
-    log("=" * 60)
-    log("STEP 2: Logic-Based Evaluation (ILASP + Clingo)")
+    log_step_start("STEP 2: Logic-Based Evaluation (ILASP + Clingo)")
     if structured:
         log("Mode: STRUCTURED OUTPUT (Phase 4 - no LLM interpretation)")
-    log("=" * 60)
     
     results = StepResults(
         step=2,
@@ -246,6 +244,7 @@ def run_step2_logic(experiment_dir: Path, stories: List[str], llm_url: str, max_
     
     log(f"\nStep 2 complete: {results.chapters_processed} chapters, {results.total_errors} errors")
     log(f"Results saved to: {output_file}")
+    log_step_end("STEP 2: Logic-Based Evaluation (ILASP + Clingo)")
     
     return results
 
@@ -264,12 +263,9 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
         ItemTracker,
     )
     
-    log("=" * 60)
-    log("DEBUG MODE: Logic Engine Analysis (No LLM)")
-    log("=" * 60)
+    log_step_start("DEBUG MODE: Logic Engine Analysis (No LLM)")
     log("This mode loads existing extractions and runs them through the engine")
     log("for detailed debugging. No LLM calls will be made.")
-    log("=" * 60)
     
     extraction_file = experiment_dir / "step2_extractions.jsonl"
     if not extraction_file.exists():
@@ -528,14 +524,12 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
                   f"{item_stats['causal_items']} causal, "
                   f"{item_stats['latent_items']} latent")
     
-    debug_log(f"\n{'='*60}")
-    debug_log(f"DEBUG MODE COMPLETE")
-    debug_log(f"{'='*60}")
-    debug_log(f"Debug JSONL output: {debug_file}")
+    debug_log(f"\nDebug JSONL output: {debug_file}")
     debug_log(f"Debug text output: {debug_txt_file}")
     log(f"\nDebug files written:")
     log(f"  - {debug_file}")
     log(f"  - {debug_txt_file}")
+    log_step_end("DEBUG MODE: Logic Engine Analysis (No LLM)")
 
 
 def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str, 
@@ -561,11 +555,9 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
         ItemTracker,
     )
     
-    log("=" * 60)
-    log("STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)")
+    log_step_start("STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)")
     if use_split_extraction:
         log("Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)")
-    log("=" * 60)
     
     results = StepResults(
         step=2,
@@ -836,5 +828,6 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     
     log(f"\nStep 2 (Engine) complete: {results.chapters_processed} chapters, {results.total_errors} errors")
     log(f"Results saved to: {output_file}")
+    log_step_end("STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5)")
     
     return results

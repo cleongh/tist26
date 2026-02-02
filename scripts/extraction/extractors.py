@@ -23,6 +23,12 @@ from .relationship_normalizer import RelationshipNormalizer, NormalizationResult
 from .event_normalizer import EventNormalizer, EventNormalizationResult
 from .json_utils import parse_llm_json, parse_events_with_salvage
 from .post_salvage_reconciler import reconcile_salvaged_events, ReconciliationResult
+from .temporal_diagnostics import analyze_temporal_extraction, TemporalDiagnostic
+from .extraction_diagnostics import (
+    analyze_chapter_extraction,
+    ChapterDiagnostic,
+    EvidenceType,
+)
 from ..state.logging import log
 
 
@@ -257,13 +263,20 @@ def extract_events(
     chapter_character_ids: str = "(No characters in this chapter)",
     chapter_item_ids: str = "(No items in this chapter)",
     chapter_location_ids: str = "(No locations in this chapter)",
-) -> Tuple[Dict[str, Any], bool]:
+    chapter_id: str = "unknown",
+    enable_temporal_diagnostics: bool = True,
+) -> Tuple[Dict[str, Any], bool, Optional[TemporalDiagnostic]]:
     """
     Extract events from chapter text.
     
     This function uses truncation salvage: if the LLM output is cut off
     mid-generation, it will attempt to recover any complete events
     that appear before the truncation point.
+    
+    Temporal diagnostics: If enabled, scans chapter text for temporal
+    markers and emits a warning if temporal language is detected but
+    no temporal predicates are extracted. Per LOGIC_DESIGN.md, this
+    does NOT affect logic or block execution.
     
     Args:
         chapter_text: The full chapter text
@@ -272,13 +285,16 @@ def extract_events(
         chapter_character_ids: Formatted string of character IDs in this chapter (for agent/patient)
         chapter_item_ids: Formatted string of item IDs in this chapter (for patient)
         chapter_location_ids: Formatted string of location IDs in this chapter
+        chapter_id: Chapter identifier for diagnostic logging
+        enable_temporal_diagnostics: If True, analyze temporal extraction recall
         
     Returns:
-        Tuple of (events_dict, was_salvaged):
-        - events_dict: Dict with "events" list
+        Tuple of (events_dict, was_salvaged, temporal_diagnostic):
+        - events_dict: Dict with "events" and optional "temporal_constraints" lists
         - was_salvaged: True if truncation salvage was used
+        - temporal_diagnostic: TemporalDiagnostic if diagnostics enabled, else None
     """
-    default = {"events": []}
+    default = {"events": [], "temporal_constraints": []}
     prompt = EXTRACT_EVENTS_PROMPT.format(
         chapter_text=chapter_text,
         chapter_character_ids=chapter_character_ids,
@@ -290,7 +306,7 @@ def extract_events(
         response = api_client.extract(prompt, max_tokens=6024, timeout=timeout)
     except Exception as e:
         log(f"Event extraction failed: {e}", "WARN")
-        return default, False
+        return default, False, None
     
     # Use salvage-enabled parsing for events
     result, success, was_salvaged = parse_events_with_salvage(response, default)
@@ -299,11 +315,24 @@ def extract_events(
         log(f"  [Events] Recovered {len(result.get('events', []))} events from truncated output", "INFO")
     
     if not success:
-        return default, False
+        return default, False, None
     
-    return {
+    extraction_result = {
         "events": result.get("events", []),
-    }, was_salvaged
+        "temporal_constraints": result.get("temporal_constraints", []),
+    }
+    
+    # Run temporal diagnostics if enabled
+    temporal_diagnostic = None
+    if enable_temporal_diagnostics:
+        temporal_diagnostic = analyze_temporal_extraction(
+            chapter_id=chapter_id,
+            chapter_text=chapter_text,
+            extraction_result=extraction_result,
+            emit_warning=True,
+        )
+    
+    return extraction_result, was_salvaged, temporal_diagnostic
 
 
 def merge_extractions(
@@ -431,7 +460,10 @@ def extract_chapter_split(
     known_characters_list: str = "(No characters established yet)",
     known_locations_list: str = "(No locations established yet)",
     known_items_with_states: str = "(No items established yet)",
-) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
+    chapter_id: str = "unknown",
+    enable_temporal_diagnostics: bool = True,
+    enable_extraction_diagnostics: bool = True,
+) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer], Optional[TemporalDiagnostic], Optional[ChapterDiagnostic]]:
     """
     Extract structured data using the four-function pipeline.
     
@@ -447,6 +479,14 @@ def extract_chapter_split(
     Phase 5: Optionally builds an EventNormalizer for strict validation
     and event_time generation.
     
+    Temporal Diagnostics: Detects when temporal language exists in chapter
+    text but no temporal predicates are extracted. Per LOGIC_DESIGN.md,
+    diagnostics do NOT affect logic or block execution.
+    
+    Extraction Diagnostics: Detects when narrative evidence (emotional,
+    appearance, location, temporal) exists but is not promoted to structured
+    predicates. Provides clear report of why certain errors could not fire.
+    
     Args:
         chapter_text: The full chapter text
         api_client: API client for LLM calls
@@ -457,10 +497,14 @@ def extract_chapter_split(
         known_characters_list: Formatted string of known character IDs from previous chapters
         known_locations_list: Formatted string of known location IDs from previous chapters
         known_items_with_states: Formatted string of known item IDs and states from previous chapters
+        chapter_id: Chapter identifier for diagnostic logging
+        enable_temporal_diagnostics: If True, analyze temporal extraction recall
+        enable_extraction_diagnostics: If True, analyze all evidence extraction recall
         
     Returns:
-        Tuple of (merged extraction, EntityRegistry, RelationshipNormalizer, EventNormalizer)
-        Any normalizer may be None if disabled.
+        Tuple of (merged extraction, EntityRegistry, RelationshipNormalizer, EventNormalizer, 
+                  TemporalDiagnostic, ChapterDiagnostic)
+        Any normalizer or diagnostic may be None if disabled.
     """
     # Phase 1: Extract characters and locations
     log("  [Phase 2] Extracting characters and locations...")
@@ -529,15 +573,17 @@ def extract_chapter_split(
     chapter_item_ids = format_chapter_item_ids(items.get("items", []))
     chapter_location_ids = format_chapter_location_ids(chars_locs.get("locations", []))
     log("  [Phase 2] Extracting events...")
-    events, was_salvaged = extract_events(
+    events, was_salvaged, temporal_diagnostic = extract_events(
         chapter_text, 
         api_client, 
         timeout=timeout,
         chapter_character_ids=chapter_character_ids,
         chapter_item_ids=chapter_item_ids,
         chapter_location_ids=chapter_location_ids,
+        chapter_id=chapter_id,
+        enable_temporal_diagnostics=enable_temporal_diagnostics,
     )
-    log(f"    -> {len(events.get('events', []))} events")
+    log(f"    -> {len(events.get('events', []))} events, {len(events.get('temporal_constraints', []))} temporal constraints")
     
     # Post-salvage reconciliation: run ONLY if events were salvaged
     # This attempts to repair obvious entity reference issues before validation
@@ -564,4 +610,14 @@ def extract_chapter_split(
         registry, rel_normalizer, event_normalizer
     )
     
-    return merged, registry, rel_normalizer, event_normalizer
+    # Run extraction diagnostics if enabled
+    extraction_diagnostic = None
+    if enable_extraction_diagnostics:
+        extraction_diagnostic = analyze_chapter_extraction(
+            chapter_id=chapter_id,
+            chapter_text=chapter_text,
+            extraction_result=merged,
+            emit_warnings=True,
+        )
+    
+    return merged, registry, rel_normalizer, event_normalizer, temporal_diagnostic, extraction_diagnostic

@@ -446,6 +446,8 @@ Return ONLY valid JSON, no markdown or explanations."""
 
 EXTRACT_CHARACTERS_AND_LOCATIONS_PROMPT = """Extract CHARACTERS and LOCATIONS from the text below.
 
+CRITICAL: If an appearance or location is described in the prose and you omit it, the logic engine CANNOT detect inconsistencies. Your extraction directly enables error detection.
+
 TEXT:
 {chapter_text}
 
@@ -467,26 +469,49 @@ Format:
 - name: display name as written ("John Smith", "Dr. Wilson")
 - emotion: happy | sad | angry | afraid | calm | neutral
 - state: normal | injured | dead (ONLY use "dead" if character EXPLICITLY dies in THIS chapter - not mentioned as deceased before, not implied, EXPLICIT death only)
-- appearance: REQUIRED - ONE or TWO words describing current appearance. Use "normal" if nothing unusual. Use specific words like "pale", "green", "flushed", "muddy", "bloody", "disheveled" if character's appearance is described as unusual or changed
+- appearance: REQUIRED - ONE or TWO words describing current appearance
+
+=== APPEARANCE RULES (CRITICAL FOR CONSISTENCY DETECTION) ===
+
+EXTRACTION PRIORITY: When in doubt, EXTRACT the appearance. Omitting unusual appearances breaks error detection.
+
+USE "normal" ONLY when:
+- The text explicitly states the character looks normal/ordinary/unremarkable
+- No visual description is given AND no prior unusual state exists
+- The character's appearance is clearly restored from a prior unusual state
+
+NEVER USE "normal" when ANY of these apply:
+- The text describes a color change (pale, green, flushed, red, blue, etc.)
+- The text describes physical state (muddy, bloody, wet, disheveled, dirty, etc.)
+- The text describes injury effects (bruised, swollen, cut, scarred, etc.)
+- The text describes emotional manifestation (tearful, trembling, sweating, etc.)
+- The text describes transformation or disguise
 
 APPEARANCE EXAMPLES:
 - "His face turned pale green" → appearance: "pale green"
 - "She was covered in mud" → appearance: "muddy"
-- "He looked perfectly normal" → appearance: "normal"
+- "He looked perfectly normal" → appearance: "normal" (EXPLICITLY stated)
 - "Her face was flushed with anger" → appearance: "flushed"
-- "The boy with messy black hair" → appearance: "normal" (this is a permanent trait, not unusual)
+- "The boy with messy black hair" → appearance: "normal" (permanent trait, not unusual)
+- "His skin had a greenish tinge" → appearance: "greenish" (NOT "normal")
+- "She looked pale and shaken" → appearance: "pale"
+- "Blood was dripping from his forehead" → appearance: "bloody"
+- No description given → appearance: "normal" (default when truly unspecified)
 
 === LOCATIONS ===
 Specific named places where events occur.
+
+CRITICAL: If a character is described as being IN a location, that location MUST be extracted. Location extraction enables movement tracking.
 
 INCLUDE:
 - Named buildings (e.g., The Grand Hotel, City Hospital, Central Station)
 - Named streets/addresses (e.g., 5th Avenue, Oak Street, The Old Mill)
 - Named rooms if they are settings for events (e.g., The Vault, Room 237, kitchen, living_room)
+- ANY location where a character performs an action or is explicitly described as present
 
 DO NOT INCLUDE:
-- Generic unnamed places ("a room", "the street", "outside")
-- Places only referenced but never visited
+- Generic unnamed places ("a room", "the street", "outside") UNLESS a character acts there
+- Places only referenced in dialogue but never actually visited
 
 Format:
 - id: lowercase_with_underscores
@@ -547,6 +572,7 @@ INCLUDE objects that:
 - Change state (broken, lost, found)
 - Cause or enable key events
 - Appear multiple times with significance
+- Are described with narrative emphasis, even if it is furniture or clothing
 
 DO NOT INCLUDE:
 - Food and meals (unless plot-critical)
@@ -801,15 +827,127 @@ If the same action is described multiple times or repeated later in the text:
 - patient: character id OR item id OR null
 - location: location id OR null
 - after: event id ONLY if there is an explicit causal dependency
+- social_action_type: OPTIONAL — farewell | encourage | comfort | praise | insult | threaten | apologize | console | welcome | reassure (ONLY if explicitly indicated)
 - source_text: REQUIRED — exact quote from the chapter (≤ 80 chars)
 
 === EVENT RULES ===
 - agent MUST be a character
 - agent ≠ patient
 - patient may be null if unclear
-- location may be null if not explicit
 - NEVER invent agents, patients, or locations
 - source_text MUST be copied verbatim from the chapter (no paraphrasing)
+
+=== SOCIAL ACTION TYPING (OPTIONAL FIELD) ===
+DO NOT perform sentiment analysis. DO NOT infer emotions not explicitly present.
+
+Events may include an OPTIONAL field: social_action_type
+Assign ONLY when the text EXPLICITLY indicates one of these actions:
+
+ALLOWED VALUES (closed set):
+- farewell: explicit goodbye, parting words, wishing well on departure
+- encourage: explicit words of support, motivation, or confidence-building
+- comfort: explicit soothing, calming, or consoling someone upset
+- praise: explicit compliment, commendation, or approval
+- insult: explicit verbal attack, mockery, or degradation
+- threaten: explicit warning of harm or negative consequences
+- apologize: explicit expression of regret or saying sorry
+- console: explicit support during grief or distress
+- welcome: explicit greeting upon arrival or acceptance
+- reassure: explicit calming of fears or worries
+
+EXPLICIT INDICATORS (required for assignment):
+- Direct speech acts: "Goodbye", "Good luck", "I'm sorry", "Well done"
+- Narrative description: "praised him", "threatened her", "apologized for"
+- Manner adverbs: "said warmly", "wished him luck", "waved goodbye"
+
+DO NOT ASSIGN social_action_type IF:
+- Only tone is implied (no explicit social intent stated)
+- The interaction is neutral or ambiguous
+- You are guessing based on context
+
+EXAMPLES:
+- "'Have a good term,' he said warmly."
+  → type: "talk", social_action_type: "farewell"
+  
+- "She praised him for his excellent work."
+  → type: "talk", social_action_type: "praise"
+  
+- "'I'm sorry,' Harry muttered."
+  → type: "talk", social_action_type: "apologize"
+  
+- "They spoke briefly about the weather."
+  → type: "talk" (NO social_action_type - neutral conversation)
+  
+- "He nodded at her."
+  → type: "talk" (NO social_action_type - no explicit social intent)
+
+=== LOCATION RULES (CRITICAL FOR CONSISTENCY DETECTION) ===
+ If an event occurs in a clearly named place, location MUST be filled.
+
+WHEN TO SET LOCATION:
+- If a character is described acting while being in a place, use that place as the event location
+- If the scene has an established location and the event occurs within that scene, use it
+- If the text explicitly names where the action takes place, use it
+
+WHEN location = null IS ALLOWED:
+- The text truly does not specify any place
+- The action occurs in an ambiguous or unnamed location
+- No valid location ID exists for the described place
+
+DO NOT:
+- Guess locations that are not described
+- Invent new location IDs not in the VALID LOCATIONS list
+- Use null when a valid location is clearly described
+
+EXAMPLES:
+- "Harry walked into the kitchen and grabbed the letter" → location: "kitchen" (action in named place)
+- "In the Great Hall, Dumbledore stood up" → location: "great_hall" (scene establishes location)
+- "He ran outside" → location: null (generic, not a named location)
+- "They talked somewhere" → location: null (unspecified)
+
+=== TEMPORAL ORDERING RULES (CRITICAL FOR ASP REASONING) ===
+Temporal relationships enable the logic engine to detect timeline violations.
+
+WATCH FOR TEMPORAL PHRASES:
+- "before", "after", "earlier", "later"
+- "the day before", "the night before", "previously"
+- "had already", "had just", "had been"
+- "prior to", "following", "subsequently"
+- "first... then", "once... then"
+
+EXTRACTION RULES:
+
+1. EXPLICIT CAUSAL/TEMPORAL DEPENDENCY → Use `after` field:
+   - When event B explicitly happens AFTER event A in the narration
+   - Set B.after = A.id
+   - Example: "After Harry arrived, Hagrid spoke" → speak.after = arrive.id
+
+2. PAST PERFECT / FLASHBACK REFERENCE → Use `temporal_constraints`:
+   - When narration references something that happened BEFORE current scene
+   - When "had already" or "previously" indicates prior action
+   - Format: {"type": "before", "event": "event_id", "reference": "description"}
+
+3. INTERRUPTED ACTIONS → Use `after` with correct ordering:
+   - "Before X could Y, Z happened" → Z interrupts Y, so extract Z; Y may not complete
+   - Only extract the action that actually occurred
+
+DO NOT:
+- Infer temporal order from narrative position alone (events listed first aren't necessarily first)
+- Guess temporal relationships not explicitly stated
+- Create circular dependencies (A.after = B AND B.after = A)
+
+TEMPORAL EXAMPLES:
+- "Before Harry could leave, Hagrid arrived"
+  → Extract: arrive (e1), after: null (Harry didn't actually leave)
+  
+- "After the feast ended, they went to bed"
+  → Extract: feast_end (e1), go_to_bed (e2), e2.after = "e1"
+  
+- "She had already left earlier that morning"
+  → temporal_constraints: [{"type": "previous", "event": "leave", "agent": "she_id", "reference": "earlier that morning"}]
+  
+- "He had been attacked the night before"
+  → temporal_constraints: [{"type": "previous", "event": "attack", "patient": "he_id", "reference": "the night before"}]
 
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure:
@@ -823,9 +961,25 @@ Return ONLY this JSON structure:
       "patient": "...",
       "location": "...",
       "after": null,
+      "social_action_type": "...",
       "source_text": "exact quote from chapter"
+    }}
+  ],
+  "temporal_constraints": [
+    {{
+      "type": "previous",
+      "event": "event_type (e.g., leave, attack, arrive)",
+      "agent": "character_id or null",
+      "patient": "character_id or null",
+      "reference": "temporal phrase from text (e.g., 'earlier that morning', 'the night before')"
     }}
   ]
 }}
+
+NOTES:
+- social_action_type: OMIT this field entirely if no explicit social intent is stated
+- temporal_constraints: for events referenced as happening BEFORE the current chapter timeline
+- after field: for explicit ordering WITHIN this chapter's events
+- If no temporal constraints exist, return empty array: "temporal_constraints": []
 
 Return ONLY valid JSON. No markdown. No explanations."""

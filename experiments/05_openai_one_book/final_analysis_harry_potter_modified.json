@@ -1,0 +1,1460 @@
+{
+  "story_id": "Harry Potter_modified",
+  "total_chapters": 17,
+  "total_events": 154,
+  "total_violations": 15,
+  "rule_audit": {
+    "active_count": 10,
+    "deactivated_count": 0,
+    "learned_count": 0,
+    "rules": [
+      {
+        "rule_id": "legacy:simple_narrative",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:story_rules",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:coherence",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:appearance",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:temporal",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:narrative_state",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:emotional",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:items",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:causality",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:location",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      }
+    ]
+  },
+  "loose_ends": {
+    "count": 142,
+    "items": [
+      {
+        "type": "chekhov_latent",
+        "entity_id": "drills",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'drills' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "briefcase",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'briefcase' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "cloak",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'cloak' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "scar",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 6,
+        "expected_resolution": "Latent item 'scar' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "bicycle",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'bicycle' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "video_camera",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'video_camera' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "remote_control_airplane",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'remote_control_airplane' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "racing_bike",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'racing_bike' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "smeltings_uniform",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'smeltings_uniform' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "postcard",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'postcard' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "bill",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'bill' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "alarm_clock",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'alarm_clock' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "package_from_gringotts",
+        "entity_type": "item",
+        "introduced_chapter": 7,
+        "introduced_event": null,
+        "last_referenced_chapter": 7,
+        "expected_resolution": "Latent item 'package_from_gringotts' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "quaffle",
+        "entity_type": "item",
+        "introduced_chapter": 9,
+        "introduced_event": null,
+        "last_referenced_chapter": 9,
+        "expected_resolution": "Latent item 'quaffle' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "bludger",
+        "entity_type": "item",
+        "introduced_chapter": 9,
+        "introduced_event": null,
+        "last_referenced_chapter": 9,
+        "expected_resolution": "Latent item 'bludger' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "fifty_pence_piece",
+        "entity_type": "item",
+        "introduced_chapter": 11,
+        "introduced_event": null,
+        "last_referenced_chapter": 11,
+        "expected_resolution": "Latent item 'fifty_pence_piece' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mr_dursley and mrs_dursley: mr_dursley not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->dudley_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mr_dursley and dudley_dursley: mr_dursley not in registry; dudley_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->dudley_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mrs_dursley and dudley_dursley: mrs_dursley not in registry; dudley_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between mr_dursley and harry: mr_dursley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between mrs_dursley and harry: mrs_dursley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'trusts' between professor_mcgonagall and albus_dumbledore: professor_mcgonagall not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'trusts' between hagrid and albus_dumbledore: hagrid not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and harry: hagrid not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cruel' between mr_dursley and true: mr_dursley not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cruel' between mrs_dursley and true: mrs_dursley not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'kind' between albus_dumbledore and true: albus_dumbledore not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley_dursley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between dudley_dursley and harry: dudley_dursley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "piers_polkiss->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between piers_polkiss and harry: piers_polkiss not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->dudley_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between harry and dudley_dursley: harry not in registry; dudley_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between harry and mr_dursley: harry not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between harry and mrs_dursley: harry not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley_dursley->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cruel' between dudley_dursley and true: dudley_dursley not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and mr_dursley: hagrid not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->dudley_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and dudley_dursley: hagrid not in registry; dudley_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and mrs_dursley: hagrid not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between mr_dursley and hagrid: mr_dursley not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between mrs_dursley and hagrid: mrs_dursley not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley_dursley->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between dudley_dursley and hagrid: dudley_dursley not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dedalus_diggle->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between dedalus_diggle and harry: dedalus_diggle not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "doris_crockford->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between doris_crockford and harry: doris_crockford not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_quirrell->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between professor_quirrell and harry: professor_quirrell not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_ollivander->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between mr_ollivander and harry: mr_ollivander not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "tom->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between tom and harry: tom not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and true: hagrid not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_quirrell->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cowardly' between professor_quirrell and true: professor_quirrell not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fred_weasley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fred_weasley and harry: fred_weasley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "george_weasley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between george_weasley and harry: george_weasley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and harry: ron not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "draco_malfoy->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between draco_malfoy and harry: draco_malfoy not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "crabbe->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between crabbe and harry: crabbe not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "goyle->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between goyle and harry: goyle not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hermione and harry: hermione not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_weasley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between mrs_weasley and harry: mrs_weasley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "neville_longbottom->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between neville_longbottom and harry: neville_longbottom not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and professor_mcgonagall: hagrid not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between harry and professor_mcgonagall: harry not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fred_weasley->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fred_weasley and ron: fred_weasley not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "george_weasley->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between george_weasley and ron: george_weasley not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sir_nicholas_de_mimsy_porpington->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sir_nicholas_de_mimsy_porpington and harry: sir_nicholas_de_mimsy_porpington not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sir_nicholas_de_mimsy_porpington->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sir_nicholas_de_mimsy_porpington and ron: sir_nicholas_de_mimsy_porpington not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->percy_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and percy_weasley: peeves not in registry; percy_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "bloody_baron->peeves",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between bloody_baron and peeves: bloody_baron not in registry; peeves not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_snape->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_snape and harry: professor_snape not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_snape->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_snape and true: professor_snape not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fred_weasley->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fred_weasley and true: fred_weasley not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "george_weasley->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between george_weasley and true: george_weasley not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sir_nicholas_de_mimsy_porpington->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sir_nicholas_de_mimsy_porpington and true: sir_nicholas_de_mimsy_porpington not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and true: peeves not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->professor_snape",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between harry and professor_snape: harry not in registry; professor_snape not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and hagrid: harry not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and hagrid: ron not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and ron: hagrid not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_snape->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'favors' between professor_snape and draco_malfoy: professor_snape not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between harry and draco_malfoy: harry not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and ron: harry not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->professor_snape",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between hermione and professor_snape: hermione not in registry; professor_snape not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and hermione: harry not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and true: argus_filtch not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_norris->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between mrs_norris and true: mrs_norris not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'strict' between professor_mcgonagall and true: professor_mcgonagall not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between ron and draco_malfoy: ron not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "draco_malfoy->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between draco_malfoy and ron: draco_malfoy not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and neville_longbottom: harry not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and neville_longbottom: ron not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hermione and ron: hermione not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and hermione: ron not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and harry: professor_mcgonagall not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and harry: peeves not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and ron: peeves not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and hermione: peeves not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "peeves->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between peeves and neville_longbottom: peeves not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and harry: argus_filtch not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and ron: argus_filtch not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and hermione: argus_filtch not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and neville_longbottom: argus_filtch not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fred_weasley->george_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fred_weasley and george_weasley: fred_weasley not in registry; george_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "george_weasley->fred_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between george_weasley and fred_weasley: george_weasley not in registry; fred_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between professor_mcgonagall and ron: professor_mcgonagall not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and hermione: professor_mcgonagall not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'kind' between hermione and true: hermione not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'loyal' between ron and true: ron not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'brave' between harry and true: harry not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->professor_snape",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between ron and professor_snape: ron not in registry; professor_snape not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and hermione: hagrid not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between albus_dumbledore and harry: albus_dumbledore not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_flitwick->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between professor_flitwick and harry: professor_flitwick not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "percy_weasley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between percy_weasley and harry: percy_weasley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->fred_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and fred_weasley: ron not in registry; fred_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->george_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and george_weasley: ron not in registry; george_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->percy_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between ron and percy_weasley: ron not in registry; percy_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->fred_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and fred_weasley: harry not in registry; fred_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->george_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and george_weasley: harry not in registry; george_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->percy_weasley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and percy_weasley: harry not in registry; percy_weasley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "neville_longbottom->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between neville_longbottom and draco_malfoy: neville_longbottom not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "draco_malfoy->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between draco_malfoy and neville_longbottom: draco_malfoy not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_snape->professor_quirrell",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_snape and professor_quirrell: professor_snape not in registry; professor_quirrell not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "oliver_wood->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between oliver_wood and harry: oliver_wood not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hermione and hagrid: hermione not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hermione and draco_malfoy: hermione not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->norbert",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'love' between hagrid and norbert: hagrid not in registry; norbert not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "draco_malfoy->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between draco_malfoy and hermione: draco_malfoy not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and draco_malfoy: professor_mcgonagall not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "draco_malfoy->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between draco_malfoy and true: draco_malfoy not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "argus_filtch->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between argus_filtch and draco_malfoy: argus_filtch not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "bane->firenze",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between bane and firenze: bane not in registry; firenze not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fang->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fang and draco_malfoy: fang not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fang->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between fang and neville_longbottom: fang not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "firenze->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between firenze and harry: firenze not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and neville_longbottom: hagrid not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->draco_malfoy",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and draco_malfoy: hagrid not in registry; draco_malfoy not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "neville_longbottom->hermione",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between neville_longbottom and hermione: neville_longbottom not in registry; hermione not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and neville_longbottom: professor_mcgonagall not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "fang->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cowardly' between fang and true: fang not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "neville_longbottom->true",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'cowardly' between neville_longbottom and true: neville_longbottom not in registry; true not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->neville_longbottom",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hermione and neville_longbottom: hermione not in registry; neville_longbottom not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "neville_longbottom->ron",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between neville_longbottom and ron: neville_longbottom not in registry; ron not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between hermione and professor_mcgonagall: hermione not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between ron and professor_mcgonagall: ron not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->peeves",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between harry and peeves: harry not in registry; peeves not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hermione->peeves",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between hermione and peeves: hermione not in registry; peeves not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "ron->peeves",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between ron and peeves: ron not in registry; peeves not in registry"
+      }
+    ]
+  },
+  "long_range_inconsistencies": {
+    "count": 0,
+    "items": []
+  },
+  "statistics": {
+    "entities_introduced": {
+      "character": 0,
+      "location": 0,
+      "item": 0
+    },
+    "entities_resolved": {
+      "character": 0,
+      "item": 0
+    }
+  },
+  "timestamp": "2026-02-02T12:13:58.625098"
+}

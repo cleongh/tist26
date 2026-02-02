@@ -1,0 +1,36 @@
+{
+  "experiment_name": "05_openai_one_book",
+  "generated_at": "2026-02-02T12:13:59.514432",
+  "step1_llm": {
+    "approach": "LLM-only",
+    "chapters_processed": 0,
+    "total_errors": 0,
+    "timestamp": ""
+  },
+  "step2_logic": {
+    "approach": "Logic (ILASP + Clingo)",
+    "chapters_processed": 0,
+    "total_errors": 0,
+    "timestamp": ""
+  },
+  "comparison": {
+    "per_story": [],
+    "by_category": {
+      "llm": {
+        "causality": 0,
+        "coherence": 0,
+        "temporal": 0,
+        "location": 0,
+        "emotional": 0
+      },
+      "logic": {
+        "causality": 0,
+        "coherence": 0,
+        "temporal": 0,
+        "location": 0,
+        "emotional": 0
+      }
+    }
+  },
+  "ground_truth_comparison": {}
+}

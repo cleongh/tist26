@@ -225,6 +225,8 @@ class FinalAnalyzer:
     
     Uses data from StateManager and RuleRegistry.
     Does NOT perform any reasoning - only aggregates and reports.
+    
+    Phase 8.4: Can also read from PersistentContext for cross-session analysis.
     """
     
     def __init__(self, state_manager: 'StateManager', rule_registry: 'RuleRegistry',
@@ -236,6 +238,7 @@ class FinalAnalyzer:
         self.rule_registry = rule_registry
         self.item_tracker = item_tracker  # Phase 5: Optional ItemTracker for Chekhov detection
         self.alias_resolver = alias_resolver  # Phase 7: Optional AliasResolver for canonical IDs
+        self._persistent_context = None  # Phase 8.4: Optional PersistentContext
         
         # Track entities across chapters
         self.entity_introductions: Dict[str, Dict[str, Any]] = {}  # entity_id -> {chapter, event, type}
@@ -253,6 +256,18 @@ class FinalAnalyzer:
         
         # Total event count
         self.total_events: int = 0
+    
+    def set_persistent_context(self, context) -> None:
+        """
+        Set the persistent context for cross-session analysis.
+        
+        Phase 8.4: Allows FinalAnalyzer to read from persisted context
+        instead of requiring all data in memory.
+        
+        Args:
+            context: PersistentContext instance (must be loaded)
+        """
+        self._persistent_context = context
     
     def set_item_tracker(self, item_tracker: 'ItemTracker') -> None:
         """Set the item tracker (for late initialization)."""
@@ -399,12 +414,28 @@ class FinalAnalyzer:
         if triggered_violation:
             self.rule_usage[rule_id]["violations"] += 1
     
-    def analyze(self, story_id: str, total_chapters: int) -> FinalAnalysisResult:
+    def analyze(self, story_id: str, total_chapters: int, 
+                use_lifecycle: bool = True) -> FinalAnalysisResult:
         """
         Perform final analysis after all chapters are processed.
         
         Returns structured result per LOGIC_DESIGN.md Section 6.
+        
+        Args:
+            story_id: Story identifier
+            total_chapters: Total number of chapters processed
+            use_lifecycle: If True (default), use lifecycle-based detection
+                          which operates on final state only. If False, use
+                          legacy tracking-based detection.
+        
+        Phase 8.5: Prefers lifecycle-based detection that operates ONLY on
+        final WorldState, EntityRegistry, and ItemTracker. No historical
+        snapshots required.
         """
+        if use_lifecycle:
+            return self.analyze_from_lifecycle(story_id, total_chapters)
+        
+        # Legacy mode: uses entity_introductions tracking from record_chapter_evaluation
         result = FinalAnalysisResult(
             story_id=story_id,
             total_chapters=total_chapters,
@@ -617,6 +648,311 @@ class FinalAnalyzer:
                 result.entities_resolved[entity_type] = 0
             result.entities_resolved[entity_type] += 1
     
+    # =========================================================================
+    # PersistentContext Integration (Phase 8.4)
+    # =========================================================================
+    
+    def detect_chekhov_from_persistent_context(self) -> List[LooseEnd]:
+        """
+        Detect Chekhov's Gun violations from PersistentContext.
+        
+        Phase 8.4: Allows analysis without ItemTracker in memory.
+        Reads from persisted item tracker data.
+        
+        Returns:
+            List of LooseEnd objects for Chekhov violations
+        """
+        if not self._persistent_context:
+            return []
+        
+        violations = []
+        for item_data in self._persistent_context.get_chekhov_candidates():
+            violations.append(LooseEnd(
+                loose_end_type="chekhov_latent",
+                entity_id=item_data["item_id"],
+                entity_type="item",
+                introduced_chapter=item_data.get("introduced_chapter", 0),
+                introduced_event=None,
+                last_referenced_chapter=item_data.get("last_mentioned_chapter"),
+                expected_resolution=f"Latent item '{item_data['item_id']}' was introduced but never used",
+                item_relevance=item_data.get("relevance"),
+                item_lifecycle=item_data.get("lifecycle_state"),
+                item_original_relevance=item_data.get("original_relevance"),
+            ))
+        
+        return violations
+    
+    def get_lifecycle_summary_from_context(self) -> Dict[str, int]:
+        """
+        Get entity lifecycle summary from PersistentContext.
+        
+        Phase 8.4: Returns counts of active/latent/frozen entities.
+        """
+        if not self._persistent_context:
+            return {"active": 0, "latent": 0, "frozen": 0}
+        
+        return self._persistent_context.get_lifecycle_summary()
+    
+    def get_context_statistics(self) -> Dict[str, Any]:
+        """
+        Get statistics from PersistentContext.
+        
+        Phase 8.4: Returns context metadata and counts.
+        """
+        if not self._persistent_context:
+            return {}
+        
+        return self._persistent_context.get_statistics()
+    
+    # =========================================================================
+    # Lifecycle-Based Detection (Phase 8.5)
+    # =========================================================================
+    
+    def detect_unused_characters_from_registry(self) -> List[LooseEnd]:
+        """
+        Detect unused characters using EntityRegistry lifecycle states.
+        
+        Phase 8.5: Characters in LATENT or FROZEN state that never acted
+        (last_acted_chapter is None or equals first_seen_chapter) are unused.
+        
+        This operates on final WorldState + EntityRegistry only.
+        No historical snapshots required.
+        """
+        from .entity_registry import EntityType, LifecycleState
+        
+        unused = []
+        registry = self.state_manager.entity_registry
+        
+        for entity in registry.get_all_characters():
+            # Skip dead characters - they were resolved
+            if entity.state == "dead":
+                continue
+            
+            # Character is unused if:
+            # 1. Never acted (last_acted_chapter is None)
+            # 2. Only acted in introduction chapter
+            acted_once_only = (
+                entity.last_acted_chapter is None or
+                entity.last_acted_chapter == entity.first_seen_chapter
+            )
+            
+            # Only flag if in LATENT or FROZEN state (not actively participating)
+            if acted_once_only and entity.lifecycle_state in (LifecycleState.LATENT, LifecycleState.FROZEN):
+                unused.append(LooseEnd(
+                    loose_end_type="unused_entity",
+                    entity_id=entity.canonical_id,
+                    entity_type="character",
+                    introduced_chapter=entity.first_seen_chapter,
+                    introduced_event=None,
+                    last_referenced_chapter=entity.last_seen_chapter,
+                    expected_resolution="Character introduced but never used in story",
+                    aliases=list(entity.aliases),
+                ))
+        
+        return unused
+    
+    def detect_unresolved_items_from_registry(self) -> List[LooseEnd]:
+        """
+        Detect unresolved items (Chekhov violations) from ItemTracker.
+        
+        Phase 8.5: Items that remained LATENT (never promoted to CAUSAL)
+        are Chekhov's Gun violations.
+        
+        This operates on final ItemTracker state only.
+        No historical snapshots required.
+        
+        Also populates chapter_violations for backwards compatibility.
+        """
+        if not self.item_tracker:
+            return []
+        
+        unresolved = []
+        
+        # Get Chekhov candidates (latent items never used)
+        for item in self.item_tracker.get_chekhov_candidates():
+            unresolved.append(LooseEnd(
+                loose_end_type="chekhov_latent",
+                entity_id=item.item_id,
+                entity_type="item",
+                introduced_chapter=item.introduced_chapter,
+                introduced_event=None,
+                last_referenced_chapter=item.last_mentioned_chapter,
+                expected_resolution=f"Latent item '{item.item_id}' was introduced but never used",
+                item_relevance=item.relevance.value,
+                item_lifecycle=item.lifecycle_state.value,
+                item_original_relevance=item.original_relevance.value,
+            ))
+            
+            # Also add to chapter_violations for backwards compatibility
+            intro_chapter = item.introduced_chapter
+            if intro_chapter not in self.chapter_violations:
+                self.chapter_violations[intro_chapter] = []
+            
+            self.chapter_violations[intro_chapter].append({
+                "category": "causality",
+                "type": "chekhov_gun",
+                "rule": "items_chekhov_gun",
+                "entity": item.item_id,
+                "entity_type": "item",
+                "detail": f"Latent item '{item.item_id}' introduced in chapter {intro_chapter} but never used",
+                "severity": "soft",
+                "introduced_chapter": intro_chapter,
+                "last_mentioned_chapter": item.last_mentioned_chapter,
+                "item_relevance": item.relevance.value,
+                "item_lifecycle": item.lifecycle_state.value,
+                "item_original_relevance": item.original_relevance.value,
+            })
+        
+        return unresolved
+    
+    def detect_dangling_relationships(self) -> List[LooseEnd]:
+        """
+        Detect dangling relationships from StateManager.
+        
+        Phase 8.5: Relationships where one party is FROZEN or dead
+        but the relationship persists are flagged.
+        
+        This operates on final WorldState + EntityRegistry only.
+        No historical snapshots required.
+        """
+        from .entity_registry import LifecycleState
+        
+        dangling = []
+        registry = self.state_manager.entity_registry
+        
+        for (char1, char2), rel_type in self.state_manager.persistent_relationships.items():
+            entity1 = registry.get_entity(char1)
+            entity2 = registry.get_entity(char2)
+            
+            # Check if either party is problematic
+            issues = []
+            
+            if entity1:
+                if entity1.state == "dead":
+                    issues.append(f"{char1} is dead")
+                elif entity1.lifecycle_state == LifecycleState.FROZEN:
+                    issues.append(f"{char1} is FROZEN (inactive for 10+ chapters)")
+            else:
+                issues.append(f"{char1} not in registry")
+            
+            if entity2:
+                if entity2.state == "dead":
+                    issues.append(f"{char2} is dead")
+                elif entity2.lifecycle_state == LifecycleState.FROZEN:
+                    issues.append(f"{char2} is FROZEN (inactive for 10+ chapters)")
+            else:
+                issues.append(f"{char2} not in registry")
+            
+            if issues:
+                # Determine introduced chapter from earliest entity
+                intro_chapter = 0
+                if entity1:
+                    intro_chapter = entity1.first_seen_chapter
+                if entity2 and entity2.first_seen_chapter < intro_chapter:
+                    intro_chapter = entity2.first_seen_chapter
+                
+                dangling.append(LooseEnd(
+                    loose_end_type="dangling_relationship",
+                    entity_id=f"{char1}->{char2}",
+                    entity_type="relationship",
+                    introduced_chapter=intro_chapter,
+                    introduced_event=None,
+                    last_referenced_chapter=None,
+                    expected_resolution=f"Relationship '{rel_type}' between {char1} and {char2}: {'; '.join(issues)}",
+                ))
+        
+        return dangling
+    
+    def analyze_from_lifecycle(self, story_id: str, total_chapters: int) -> FinalAnalysisResult:
+        """
+        Perform final analysis using only lifecycle states.
+        
+        Phase 8.5: This is the preferred analysis method.
+        Operates ONLY on:
+            - Final WorldState (not historical snapshots)
+            - EntityRegistry lifecycle states
+            - ItemTracker final state
+            - Persistent relationships
+        
+        Does NOT:
+            - Re-run ASP
+            - Access historical WorldState snapshots
+            - Require chapter-by-chapter tracking data
+        
+        Args:
+            story_id: Story identifier
+            total_chapters: Total number of chapters processed
+            
+        Returns:
+            FinalAnalysisResult with all detected issues
+        """
+        from datetime import datetime
+        
+        result = FinalAnalysisResult(
+            story_id=story_id,
+            total_chapters=total_chapters,
+            total_events=self.total_events,  # From chapter recordings if available
+            total_violations=sum(len(v) for v in self.chapter_violations.values()),
+            timestamp=datetime.now().isoformat(),
+        )
+        
+        # Perform rule audit (uses RuleRegistry, no snapshots)
+        self._audit_rules(result)
+        
+        # Detect loose ends using lifecycle-based methods
+        # These operate on final state only
+        unused_chars = self.detect_unused_characters_from_registry()
+        unresolved_items = self.detect_unresolved_items_from_registry()
+        dangling_rels = self.detect_dangling_relationships()
+        
+        result.loose_ends.extend(unused_chars)
+        result.loose_ends.extend(unresolved_items)
+        result.loose_ends.extend(dangling_rels)
+        
+        # Also include Chekhov from persistent context if available
+        if self._persistent_context:
+            context_chekhov = self.detect_chekhov_from_persistent_context()
+            # Avoid duplicates by checking entity_id
+            existing_ids = {le.entity_id for le in result.loose_ends}
+            for le in context_chekhov:
+                if le.entity_id not in existing_ids:
+                    result.loose_ends.append(le)
+        
+        # Compute statistics from registry
+        self._compute_statistics_from_registry(result)
+        
+        return result
+    
+    def _compute_statistics_from_registry(self, result: FinalAnalysisResult) -> None:
+        """
+        Compute statistics from EntityRegistry.
+        
+        Phase 8.5: Uses registry data instead of entity_introductions dict.
+        """
+        registry = self.state_manager.entity_registry
+        
+        # Count entities by type
+        result.entities_introduced = {
+            "character": len(registry.get_all_characters()),
+            "location": len(registry.get_all_locations()),
+            "item": len(registry.get_all_items()),
+        }
+        
+        # Count resolved (dead characters, destroyed items)
+        result.entities_resolved = {
+            "character": len(registry.get_dead_characters()),
+            "item": 0,
+        }
+        
+        if self.item_tracker:
+            # Count destroyed/discarded items
+            from .item_tracker import ItemLifecycleState
+            destroyed = sum(
+                1 for item in self.item_tracker._items.values()
+                if item.lifecycle_state in (ItemLifecycleState.DESTROYED, ItemLifecycleState.DISCARDED)
+            )
+            result.entities_resolved["item"] = destroyed
+    
     def reset(self) -> None:
         """Reset analyzer for a new story."""
         self.entity_introductions.clear()
@@ -625,3 +961,4 @@ class FinalAnalyzer:
         self.rule_usage.clear()
         self.chapter_violations.clear()
         self.total_events = 0
+        self._persistent_context = None

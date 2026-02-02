@@ -17,7 +17,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from ..state.config import RULES_DIR, normalize_character_id
+from ..state.config import RULES_DIR
 from ..state.logging import log
 from ..extraction.api_clients import create_api_client
 from ..extraction.prompts import UNIFIED_EXTRACTION_PROMPT
@@ -628,6 +628,8 @@ Return ONLY the JSON array, nothing else."""
     
     def _check_with_clingo(self, facts: str, chapter_num: int) -> List[Dict]:
         """Use Clingo to find violations."""
+        from engine.asp_diagnostics import log_asp_universe
+        
         violations = []
         
         try:
@@ -652,6 +654,9 @@ Return ONLY the JSON array, nothing else."""
             program_parts.extend(self.learned_rules)
         
         combined = "\n".join(program_parts)
+        
+        # Phase 8.8: Log ASP universe size diagnostics (optional, no overhead when disabled)
+        log_asp_universe(combined, chapter_num)
         
         with tempfile.NamedTemporaryFile(mode="w", suffix=".lp", delete=False) as f:
             f.write(combined)

@@ -1,0 +1,1088 @@
+{
+  "story_id": "Harry Potter_original",
+  "total_chapters": 5,
+  "total_events": 117,
+  "total_violations": 2,
+  "rule_audit": {
+    "active_count": 10,
+    "deactivated_count": 0,
+    "learned_count": 0,
+    "rules": [
+      {
+        "rule_id": "legacy:simple_narrative",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:story_rules",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:coherence",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:appearance",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:temporal",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:narrative_state",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:emotional",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:items",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:causality",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:location",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      }
+    ]
+  },
+  "loose_ends": {
+    "count": 94,
+    "items": [
+      {
+        "type": "chekhov_latent",
+        "entity_id": "dumbledore_s_watch",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'dumbledore_s_watch' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "voldemort_s_lighter",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'voldemort_s_lighter' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harry_s_scars",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'harry_s_scars' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "dumbledore_s_cloak",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'dumbledore_s_cloak' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "professor_mcgonagall_s_cloak",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'professor_mcgonagall_s_cloak' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "silver_cigarette_lighter",
+        "entity_type": "item",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": 0,
+        "expected_resolution": "Latent item 'silver_cigarette_lighter' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "motorcycle",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Latent item 'motorcycle' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "presents",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Latent item 'presents' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "racing_bike",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Latent item 'racing_bike' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "computer",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Latent item 'computer' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "scarf",
+        "entity_type": "item",
+        "introduced_chapter": 1,
+        "introduced_event": null,
+        "last_referenced_chapter": 1,
+        "expected_resolution": "Latent item 'scarf' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "letter_envelope",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'letter_envelope' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "postcard",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'postcard' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "bill",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'bill' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "old_man_s_boat",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'old_man_s_boat' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hotel_key",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'hotel_key' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hotel_room_key",
+        "entity_type": "item",
+        "introduced_chapter": 2,
+        "introduced_event": null,
+        "last_referenced_chapter": 2,
+        "expected_resolution": "Latent item 'hotel_room_key' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hagrids_note",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'hagrids_note' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "voldemort",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Latent item 'voldemort' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "dumbledore_s_letter",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 3,
+        "expected_resolution": "Latent item 'dumbledore_s_letter' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hagrids_pocket",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'hagrids_pocket' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hagrids_handkerchief",
+        "entity_type": "item",
+        "introduced_chapter": 3,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'hagrids_handkerchief' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "silver_unicorn_horns",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'silver_unicorn_horns' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "minuscule_black_beetle_eyes",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'minuscule_black_beetle_eyes' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "brown_paper",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'brown_paper' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "grubby_package",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'grubby_package' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_robes",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_robes' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_hat",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_hat' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_books",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_books' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_parchment",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_parchment' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_quills",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_quills' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_ink",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_ink' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_cage",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_cage' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "harrys_owl",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'harrys_owl' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hagrids_ice_cream",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'hagrids_ice_cream' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "chekhov_latent",
+        "entity_id": "hagrids_pocket_biscuits",
+        "entity_type": "item",
+        "introduced_chapter": 4,
+        "introduced_event": null,
+        "last_referenced_chapter": 4,
+        "expected_resolution": "Latent item 'hagrids_pocket_biscuits' was introduced but never used",
+        "item_relevance": "latent",
+        "item_lifecycle": "introduced",
+        "item_original_relevance": "latent"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between albus_dumbledore and hagrid: albus_dumbledore not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between albus_dumbledore and professor_mcgonagall: albus_dumbledore not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->sirius_black",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between albus_dumbledore and sirius_black: albus_dumbledore not in registry; sirius_black not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and albus_dumbledore: hagrid not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and professor_mcgonagall: hagrid not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->sirius_black",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and sirius_black: hagrid not in registry; sirius_black not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and albus_dumbledore: professor_mcgonagall not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between professor_mcgonagall and hagrid: professor_mcgonagall not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->sirius_black",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between professor_mcgonagall and sirius_black: professor_mcgonagall not in registry; sirius_black not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sirius_black->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sirius_black and albus_dumbledore: sirius_black not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sirius_black->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sirius_black and hagrid: sirius_black not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "sirius_black->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between sirius_black and professor_mcgonagall: sirius_black not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mr_dursley and mrs_dursley: mr_dursley not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mr_dursley and dudley: mr_dursley not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mrs_dursley and mr_dursley: mrs_dursley not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between mrs_dursley and dudley: mrs_dursley not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between dudley and mr_dursley: dudley not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'family' between dudley and mrs_dursley: dudley not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between albus_dumbledore and mr_dursley: albus_dumbledore not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between albus_dumbledore and mrs_dursley: albus_dumbledore not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "albus_dumbledore->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between albus_dumbledore and dudley: albus_dumbledore not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mr_dursley and albus_dumbledore: mr_dursley not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mrs_dursley and albus_dumbledore: mrs_dursley not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->albus_dumbledore",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between dudley and albus_dumbledore: dudley not in registry; albus_dumbledore not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->mr_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and mr_dursley: professor_mcgonagall not in registry; mr_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->mrs_dursley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and mrs_dursley: professor_mcgonagall not in registry; mrs_dursley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "professor_mcgonagall->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between professor_mcgonagall and dudley: professor_mcgonagall not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mr_dursley and professor_mcgonagall: mr_dursley not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mrs_dursley and professor_mcgonagall: mrs_dursley not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->professor_mcgonagall",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between dudley and professor_mcgonagall: dudley not in registry; professor_mcgonagall not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mr_dursley->sirius_black",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mr_dursley and sirius_black: mr_dursley not in registry; sirius_black not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "mrs_dursley->sirius_black",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between mrs_dursley and sirius_black: mrs_dursley not in registry; sirius_black not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between dudley and harry: dudley not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between harry and dudley: harry not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->piers",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fears' between harry and piers: harry not in registry; piers not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "piers->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between piers and harry: piers not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->boa_constrictor",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and boa_constrictor: harry not in registry; boa_constrictor not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "boa_constrictor->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between boa_constrictor and harry: boa_constrictor not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "aunt_petunia->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between aunt_petunia and harry: aunt_petunia not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "uncle_vernon->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between uncle_vernon and harry: uncle_vernon not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->boa_constrictor",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between dudley and boa_constrictor: dudley not in registry; boa_constrictor not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "piers->boa_constrictor",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between piers and boa_constrictor: piers not in registry; boa_constrictor not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "aunt_petunia->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'loves' between aunt_petunia and dudley: aunt_petunia not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "aunt_petunia->uncle_vernon",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'loves' between aunt_petunia and uncle_vernon: aunt_petunia not in registry; uncle_vernon not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->uncle_vernon",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between dudley and uncle_vernon: dudley not in registry; uncle_vernon not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->aunt_petunia",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between dudley and aunt_petunia: dudley not in registry; aunt_petunia not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->aunt_petunia",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between harry and aunt_petunia: harry not in registry; aunt_petunia not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->uncle_vernon",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between harry and uncle_vernon: harry not in registry; uncle_vernon not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "uncle_vernon->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between uncle_vernon and dudley: uncle_vernon not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "uncle_vernon->aunt_petunia",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between uncle_vernon and aunt_petunia: uncle_vernon not in registry; aunt_petunia not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->dudley",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and dudley: hagrid not in registry; dudley not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->uncle_vernon",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and uncle_vernon: hagrid not in registry; uncle_vernon not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->aunt_petunia",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between hagrid and aunt_petunia: hagrid not in registry; aunt_petunia not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "hagrid->harry",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between hagrid and harry: hagrid not in registry; harry not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "harry->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'friendly' between harry and hagrid: harry not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "dudley->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'fear' between dudley and hagrid: dudley not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "uncle_vernon->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between uncle_vernon and hagrid: uncle_vernon not in registry; hagrid not in registry"
+      },
+      {
+        "type": "dangling_relationship",
+        "entity_id": "aunt_petunia->hagrid",
+        "entity_type": "relationship",
+        "introduced_chapter": 0,
+        "introduced_event": null,
+        "last_referenced_chapter": null,
+        "expected_resolution": "Relationship 'hostile' between aunt_petunia and hagrid: aunt_petunia not in registry; hagrid not in registry"
+      }
+    ]
+  },
+  "long_range_inconsistencies": {
+    "count": 0,
+    "items": []
+  },
+  "statistics": {
+    "entities_introduced": {
+      "character": 0,
+      "location": 0,
+      "item": 0
+    },
+    "entities_resolved": {
+      "character": 0,
+      "item": 0
+    }
+  },
+  "timestamp": "2026-02-02T10:34:09.079774"
+}

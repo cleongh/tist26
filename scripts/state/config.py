@@ -57,66 +57,6 @@ API_MODE = "local"
 #   - Integrates with the extraction pipeline
 #
 # This legacy mapping is kept for backward compatibility with scripts
-# that haven't migrated to the new system yet.
-#
-# TODO: Remove this once all code paths use AliasResolver
-# =============================================================================
-
-import warnings
-
-# Legacy character aliases - DEPRECATED
-CHAR_ALIASES = {
-    # Harry Potter character aliases
-    'uncle_vernon': 'vernon_dursley',
-    'vernon': 'vernon_dursley',
-    'mr_dursley': 'vernon_dursley',
-    'aunt_petunia': 'petunia_dursley',
-    'petunia': 'petunia_dursley',
-    'mrs_dursley': 'petunia_dursley',
-    'dudley': 'dudley_dursley',
-    'harry': 'harry_potter',
-    'potter': 'harry_potter',
-    'ron': 'ron_weasley',
-    'hermione': 'hermione_granger',
-    'dumbledore': 'albus_dumbledore',
-    'professor_dumbledore': 'albus_dumbledore',
-    'snape': 'severus_snape',
-    'professor_snape': 'severus_snape',
-    'mcgonagall': 'minerva_mcgonagall',
-    'professor_mcgonagall': 'minerva_mcgonagall',
-    'hagrid': 'rubeus_hagrid',
-    'voldemort': 'lord_voldemort',
-    'you_know_who': 'lord_voldemort',
-    'he_who_must_not_be_named': 'lord_voldemort',
-    'the_dark_lord': 'lord_voldemort',
-    
-    # Generic family relation aliases (less specific)
-    'uncle': 'uncle',  # Keep as-is if no specific match
-    'aunt': 'aunt',
-    'mother': 'mother',
-    'father': 'father',
-}
-
-
-def normalize_character_id(char_id: str) -> str:
-    """
-    DEPRECATED: Use engine.alias_resolver.AliasResolver instead.
-    
-    Normalize a character ID to its canonical form.
-    This ensures that 'uncle_vernon' and 'mr_dursley' both map to 'vernon_dursley'.
-    """
-    warnings.warn(
-        "normalize_character_id in scripts/state/config.py is deprecated. "
-        "Use engine.alias_resolver.AliasResolver for dynamic alias resolution.",
-        DeprecationWarning,
-        stacklevel=2
-    )
-    if not char_id:
-        return char_id
-    char_lower = char_id.lower().strip()
-    return CHAR_ALIASES.get(char_lower, char_lower)
-
-
 # Stories to process
 STORIES = [
     "Harry Potter",

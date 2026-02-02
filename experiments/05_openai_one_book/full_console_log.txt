@@ -1,0 +1,11 @@
+=== Experiment Log Started: 2026-02-02T12:13:59.514228 ===
+
+[2026-02-02 12:13:59] [INFO] API Mode: local
+[2026-02-02 12:13:59] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-02-02 12:13:59] [INFO] ============================================================
+[2026-02-02 12:13:59] [INFO] Generating Experiment Summary
+[2026-02-02 12:13:59] [INFO] ============================================================
+[2026-02-02 12:13:59] [WARN] Step 1 results not found
+[2026-02-02 12:13:59] [WARN] Step 2 results not found
+[2026-02-02 12:13:59] [INFO] 
+Summary saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/05_openai_one_book/experiment_summary.json

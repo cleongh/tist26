@@ -1,6 +1,4 @@
-index split 023
-
-A clock. I can almost see the hands ticking around the twelve-sectioned face of the arena. Each hour begins a new
+ A clock. I can almost see the hands ticking around the twelve-sectioned face of the arena. Each hour begins a new
 horror, a new Gamemaker weapon, and ends the previous. Lightning, blood rain, fog, monkeys — those are the first four
 hours on the clock. And at ten, the wave. I don't know what happens in the other seven, but I know Wiress is right.At
 present, the blood rain's falling and we're on the beach below the monkey segment, far too close to the fog for my
