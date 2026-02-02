@@ -570,6 +570,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     extraction_log_file = experiment_dir / "step2_extractions.jsonl"
     alias_conflicts_file = experiment_dir / "step2_alias_conflicts.jsonl"
     item_stats_file = experiment_dir / "step2_item_stats.jsonl"
+    diagnostics_file = experiment_dir / "step2_extraction_diagnostics.jsonl"
     final_analysis_file = experiment_dir / "step2_final_analysis.json"
     
     log(f"Logging to: {log_file}")
@@ -577,6 +578,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     log(f"Events log: {event_log_file}")
     log(f"Alias conflicts log: {alias_conflicts_file}")
     log(f"Item stats log: {item_stats_file}")
+    log(f"Diagnostics log: {diagnostics_file}")
     
     api_client = create_api_client(api_mode, api_model, llm_url, api_delay)
     
@@ -587,6 +589,8 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
     with open(alias_conflicts_file, "w") as f:
         f.write("")
     with open(item_stats_file, "w") as f:
+        f.write("")
+    with open(diagnostics_file, "w") as f:
         f.write("")
     
     for story_name in stories:
@@ -637,7 +641,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 known_locations_list = alias_resolver.format_known_locations_list()
                 known_items_with_states = item_tracker.format_known_items_with_states()
                 
-                structured, entity_registry, rel_normalizer, event_normalizer = structure_chapter_standalone(
+                structured, entity_registry, rel_normalizer, event_normalizer, temporal_diagnostic, chapter_diagnostic = structure_chapter_standalone(
                     chapter_text, 
                     api_client,
                     known_characters_json=continuity_context.to_characters_json(),
@@ -687,6 +691,43 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 }
                 with open(extraction_log_file, "a") as f:
                     f.write(json.dumps(extraction_entry) + "\n")
+                
+                # Persist extraction diagnostics (temporal and chapter-level)
+                if temporal_diagnostic is not None or chapter_diagnostic is not None:
+                    diag_entry = {
+                        "story": story_name,
+                        "variant": variant,
+                        "chapter": i,
+                        "chapter_file": chapter_file.name,
+                        "timestamp": datetime.now().isoformat(),
+                    }
+                    if temporal_diagnostic is not None:
+                        diag_entry["temporal"] = {
+                            "chapter_id": temporal_diagnostic.chapter_id,
+                            "temporal_markers_found": temporal_diagnostic.temporal_markers_found,
+                            "has_after_links": temporal_diagnostic.has_after_links,
+                            "has_temporal_constraints": temporal_diagnostic.has_temporal_constraints,
+                            "recall_failure": temporal_diagnostic.recall_failure,
+                        }
+                    if chapter_diagnostic is not None:
+                        under_extractions = chapter_diagnostic.get_under_extractions()
+                        diag_entry["chapter"] = {
+                            "chapter_id": chapter_diagnostic.chapter_id,
+                            "has_under_extraction": chapter_diagnostic.has_under_extraction,
+                            "warnings_emitted": chapter_diagnostic.warnings_emitted,
+                            "under_extractions": [
+                                {
+                                    "evidence_type": r.evidence_type.value,
+                                    "evidence_found": r.evidence_found,
+                                    "predicate_produced": r.predicate_produced,
+                                    "match_count": len(r.matches),
+                                    "first_quote": r.first_quote,
+                                }
+                                for r in under_extractions
+                            ],
+                        }
+                    with open(diagnostics_file, "a") as f:
+                        f.write(json.dumps(diag_entry) + "\n")
                 
                 structured, alias_conflicts = alias_resolver.normalize_extraction(structured, i)
                 

@@ -13,6 +13,8 @@ from .extractors import extract_chapter_split
 from .entity_registry import EntityRegistry
 from .relationship_normalizer import RelationshipNormalizer
 from .event_normalizer import EventNormalizer
+from .temporal_diagnostics import TemporalDiagnostic
+from .extraction_diagnostics import ChapterDiagnostic
 from ..state.logging import log
 
 
@@ -30,7 +32,7 @@ def structure_chapter_standalone(
     known_characters_list: str = "(No characters established yet)",
     known_locations_list: str = "(No locations established yet)",
     known_items_with_states: str = "(No items established yet)",
-) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer]]:
+) -> Tuple[Dict[str, Any], Optional[EntityRegistry], Optional[RelationshipNormalizer], Optional[EventNormalizer], Optional[TemporalDiagnostic], Optional[ChapterDiagnostic]]:
     """
     Structure a chapter using LLM extraction.
     
@@ -59,8 +61,9 @@ def structure_chapter_standalone(
         known_items_with_states: Formatted string of known item IDs and states from previous chapters
         
     Returns:
-        Tuple of (extracted data, EntityRegistry, RelationshipNormalizer, EventNormalizer)
-        Any normalizer may be None if disabled or using single-call extraction.
+        Tuple of (extracted data, EntityRegistry, RelationshipNormalizer, EventNormalizer,
+                  TemporalDiagnostic, ChapterDiagnostic)
+        Any normalizer or diagnostic may be None if disabled or using single-call extraction.
     """
     # Phase 2: Use split extraction if requested
     if use_split_extraction:
@@ -94,8 +97,8 @@ def structure_chapter_standalone(
         
         match = re.search(r'\{.*\}', cleaned, re.DOTALL)
         if match:
-            return json.loads(match.group()), None, None, None
+            return json.loads(match.group()), None, None, None, None, None
     except Exception as e:
         log(f"Structure extraction failed: {e}", "WARN")
     
-    return {"entities": {}, "events": [], "initial_rules": []}, None, None, None
+    return {"entities": {}, "events": [], "initial_rules": []}, None, None, None, None, None

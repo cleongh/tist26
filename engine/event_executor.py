@@ -754,6 +754,11 @@ class EventExecutor:
             if event_emotion and event_emotion != "unknown":
                 lines.append(f"event_emotion({eid}, {event_emotion}).")
             
+            # Social action type (emotion-aware event classification)
+            social_action_type = self._sanitize_id(event.get("social_action_type", ""))
+            if social_action_type and social_action_type != "unknown":
+                lines.append(f"social_action({eid}, {social_action_type}).")
+            
             # Temporal ordering
             after_event = self._sanitize_id(event.get("after", ""))
             if after_event and after_event not in ("unknown", "null"):

@@ -227,6 +227,11 @@ def to_asp(
         if event_emotion and event_emotion != "unknown":
             lines.append(f"event_emotion({eid}, {event_emotion}).")
         
+        # Social action type (emotion-aware event classification)
+        social_action_type = sanitize(event.get("social_action_type", ""))
+        if social_action_type and social_action_type != "unknown":
+            lines.append(f"social_action({eid}, {social_action_type}).")
+        
         after_event = sanitize(event.get("after", ""))
         if after_event and after_event != "unknown" and after_event != "null":
             lines.append(f"must_precede({after_event}, {eid}).")

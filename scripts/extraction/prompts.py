@@ -925,7 +925,7 @@ EXTRACTION RULES:
 2. PAST PERFECT / FLASHBACK REFERENCE → Use `temporal_constraints`:
    - When narration references something that happened BEFORE current scene
    - When "had already" or "previously" indicates prior action
-   - Format: {"type": "before", "event": "event_id", "reference": "description"}
+   - Format: {{"type": "before", "event": "event_id", "reference": "description"}}
 
 3. INTERRUPTED ACTIONS → Use `after` with correct ordering:
    - "Before X could Y, Z happened" → Z interrupts Y, so extract Z; Y may not complete
@@ -944,10 +944,10 @@ TEMPORAL EXAMPLES:
   → Extract: feast_end (e1), go_to_bed (e2), e2.after = "e1"
   
 - "She had already left earlier that morning"
-  → temporal_constraints: [{"type": "previous", "event": "leave", "agent": "she_id", "reference": "earlier that morning"}]
+  → temporal_constraints: [{{"type": "previous", "event": "leave", "agent": "she_id", "reference": "earlier that morning"}}]
   
 - "He had been attacked the night before"
-  → temporal_constraints: [{"type": "previous", "event": "attack", "patient": "he_id", "reference": "the night before"}]
+  → temporal_constraints: [{{"type": "previous", "event": "attack", "patient": "he_id", "reference": "the night before"}}]
 
 === OUTPUT FORMAT ===
 Return ONLY this JSON structure:
