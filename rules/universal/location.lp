@@ -440,6 +440,66 @@ explicit_presence(Entity, Location, T, E) :-
     initiates(E, present(Entity, Location)),
     Location != unknown.
 
+% Derive explicit_presence from implied_presence events
+% These are synthetic events created from implied_presence extraction
+explicit_presence(Entity, Location, T, E) :-
+    implied_presence_event(E),
+    event_time(E, T),
+    agent(E, Entity),
+    event_location(E, Location),
+    Location != unknown.
+
+% =============================================================================
+% PART I: PRESENT/3 INTEGRATION (Implied Presence Support)
+% =============================================================================
+%
+% present/3 facts can come from:
+%   - core.lp EC framework: holds(present(E, L), T) -> present(E, L, T)
+%   - Direct emission from implied_presence extraction
+%
+% We integrate present/3 with explicit_presence/4 for violation detection.
+% A synthetic event marker (present_fact) is used when no specific event exists.
+%
+% IMPORTANT: This does NOT infer travel. It only enables violation detection
+%            when an entity is simultaneously present at disjoint locations.
+% =============================================================================
+
+% Helper: Create a pair of present/3 facts at the same time for violation detection
+% This is the equivalent of explicit_presence_pair for present/3 facts
+present_pair(Entity, L1, L2, T) :-
+    present(Entity, L1, T),
+    present(Entity, L2, T),
+    L1 != L2,
+    L1 != unknown,
+    L2 != unknown.
+
+% VIOLATION: Entity present at two DISJOINT locations at the same time (via present/3)
+% This catches implied presence contradictions without requiring event IDs
+violation(location, simultaneous_presence,
+          violation_info(Entity, present_at, L1, and_at, L2, at_time, T)) :-
+    rule_active(location_explicit_ubiquity),
+    present_pair(Entity, L1, L2, T),
+    disjoint_locations(L1, L2),
+    L1 < L2.  % Avoid duplicate violations
+
+% VIOLATION: Non-remote action where agent and patient are at disjoint locations (via present/3)
+% This extends invalid_remote to work with present/3 facts
+violation(location, invalid_remote_action,
+          violation_info(Agent, present_at, L1, and, Patient, present_at, L2, in_event, E)) :-
+    rule_active(location_invalid_remote),
+    event(E),
+    event_time(E, T),
+    agent(E, Agent),
+    patient(E, Patient),
+    character(Agent),
+    character(Patient),
+    Agent != Patient,
+    present(Agent, L1, T),
+    present(Patient, L2, T),
+    disjoint_locations(L1, L2),
+    not is_remote_action(E),
+    not is_location(Patient).
+
 
 % =============================================================================
 % SHOW DIRECTIVES

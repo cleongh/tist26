@@ -1,0 +1,1579 @@
+{
+  "total_chapters": 7,
+  "loose_end_count": 118,
+  "back_annotation_count": 62,
+  "has_errors": false,
+  "loose_ends": [
+    {
+      "type": "chekhov",
+      "entity_id": "drills",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'drills' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "briefcase",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'briefcase' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "cat",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'cat' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "cloak",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'cloak' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "put_outer",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'put_outer' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "motorcycle",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Item 'motorcycle' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "scar",
+      "entity_type": "item",
+      "introduced_chapter": 0,
+      "last_chapter": 6,
+      "description": "Item 'scar' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "cupboard",
+      "entity_type": "item",
+      "introduced_chapter": 1,
+      "last_chapter": 2,
+      "description": "Item 'cupboard' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "glasses",
+      "entity_type": "item",
+      "introduced_chapter": 1,
+      "last_chapter": 1,
+      "description": "Item 'glasses' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "bicycle",
+      "entity_type": "item",
+      "introduced_chapter": 1,
+      "last_chapter": 2,
+      "description": "Item 'bicycle' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "smelting_stick",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'smelting_stick' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "video_camera",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'video_camera' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "remote_control_airplane",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'remote_control_airplane' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "racing_bike",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'racing_bike' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "parrot_cage",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'parrot_cage' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "air_rifle",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'air_rifle' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "postcard",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'postcard' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "bill",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'bill' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "school_uniform",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'school_uniform' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "mail_slot",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'mail_slot' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "alarm_clock",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'alarm_clock' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "watch",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'watch' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "rowboat",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'rowboat' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "shack",
+      "entity_type": "item",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Item 'shack' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "umbrella",
+      "entity_type": "item",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Item 'umbrella' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "hagrids_coat",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'hagrids_coat' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "owl",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'owl' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "gringotts_key",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'gringotts_key' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "harrys_money_bag",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'harrys_money_bag' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "hagrids_umbrella",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'hagrids_umbrella' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "hogwarts_letter",
+      "entity_type": "item",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Item 'hogwarts_letter' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "hedwig",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'hedwig' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "ticket",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'ticket' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "hogwarts_express",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'hogwarts_express' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "scabbers",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'scabbers' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "chocolate_frogs",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'chocolate_frogs' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "bertie_botts_every_flavor_beans",
+      "entity_type": "item",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Item 'bertie_botts_every_flavor_beans' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "sorting_hat",
+      "entity_type": "item",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Item 'sorting_hat' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "four_legged_stool",
+      "entity_type": "item",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Item 'four_legged_stool' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "parchment",
+      "entity_type": "item",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Item 'parchment' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "chekhov",
+      "entity_id": "turban",
+      "entity_type": "item",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Item 'turban' introduced but never used (Chekhov's Gun)",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "voldemort",
+      "entity_type": "character",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Character 'voldemort' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "dedalus_diggle",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Character 'dedalus_diggle' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "doris_crockford",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Character 'doris_crockford' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "professor_quirrell",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 6,
+      "description": "Character 'professor_quirrell' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "tom",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Character 'tom' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "griphook",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Character 'griphook' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "boy_in_madam_malkins",
+      "entity_type": "character",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Character 'boy_in_madam_malkins' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "hedwig",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Character 'hedwig' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "ron_weasley",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 6,
+      "description": "Character 'ron_weasley' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "percy_weasley",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 6,
+      "description": "Character 'percy_weasley' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "ginny_weasley",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Character 'ginny_weasley' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "hermione_granger",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 6,
+      "description": "Character 'hermione_granger' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "draco_malfoy",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 6,
+      "description": "Character 'draco_malfoy' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "crabbe",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Character 'crabbe' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "goyle",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Character 'goyle' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "scabbers",
+      "entity_type": "character",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Character 'scabbers' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "professor_snape",
+      "entity_type": "character",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Character 'professor_snape' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "nearly_headless_nick",
+      "entity_type": "character",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Character 'nearly_headless_nick' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "fat_friar",
+      "entity_type": "character",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Character 'fat_friar' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "bloody_baron",
+      "entity_type": "character",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Character 'bloody_baron' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "peeves",
+      "entity_type": "character",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Character 'peeves' introduced but never participates in events",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "mr_dursley->mrs_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'mr_dursley' \u2192 'mrs_dursley' (family) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "mr_dursley->dudley_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'mr_dursley' \u2192 'dudley_dursley' (family) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "mrs_dursley->dudley_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'mrs_dursley' \u2192 'dudley_dursley' (family) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "hagrid->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 5,
+      "description": "Relationship 'hagrid' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "albus_dumbledore->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'albus_dumbledore' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "professor_mcgonagall->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 6,
+      "description": "Relationship 'professor_mcgonagall' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "hagrid->albus_dumbledore",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'hagrid' \u2192 'albus_dumbledore' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "professor_mcgonagall->albus_dumbledore",
+      "entity_type": "relationship",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Relationship 'professor_mcgonagall' \u2192 'albus_dumbledore' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "harry_potter->dudley_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 1,
+      "last_chapter": 3,
+      "description": "Relationship 'harry_potter' \u2192 'dudley_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "piers_polkiss->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 1,
+      "last_chapter": 1,
+      "description": "Relationship 'piers_polkiss' \u2192 'harry_potter' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "harry_potter->mr_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 2,
+      "last_chapter": 3,
+      "description": "Relationship 'harry_potter' \u2192 'mr_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "harry_potter->mrs_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 2,
+      "last_chapter": 3,
+      "description": "Relationship 'harry_potter' \u2192 'mrs_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "hagrid->mr_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Relationship 'hagrid' \u2192 'mr_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "hagrid->mrs_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Relationship 'hagrid' \u2192 'mrs_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "hagrid->dudley_dursley",
+      "entity_type": "relationship",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Relationship 'hagrid' \u2192 'dudley_dursley' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "harry_potter->hagrid",
+      "entity_type": "relationship",
+      "introduced_chapter": 3,
+      "last_chapter": 3,
+      "description": "Relationship 'harry_potter' \u2192 'hagrid' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "professor_quirrell->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'professor_quirrell' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "dedalus_diggle->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'dedalus_diggle' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "doris_crockford->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'doris_crockford' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "tom->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'tom' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "mr_ollivander->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'mr_ollivander' \u2192 'harry_potter' (friendly) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "unresolved_relationship",
+      "entity_id": "boy_in_madam_malkins->harry_potter",
+      "entity_type": "relationship",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Relationship 'boy_in_madam_malkins' \u2192 'harry_potter' (hostile) never evolved",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "privet_drive",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 2,
+      "description": "Location 'privet_drive' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "number_four",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 5,
+      "description": "Location 'number_four' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "living_room",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 5,
+      "description": "Location 'living_room' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "garden",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Location 'garden' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "grunnings",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Location 'grunnings' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "office",
+      "entity_type": "location",
+      "introduced_chapter": 0,
+      "last_chapter": 0,
+      "description": "Location 'office' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "kitchen",
+      "entity_type": "location",
+      "introduced_chapter": 1,
+      "last_chapter": 2,
+      "description": "Location 'kitchen' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "cupboard_under_the_stairs",
+      "entity_type": "location",
+      "introduced_chapter": 1,
+      "last_chapter": 2,
+      "description": "Location 'cupboard_under_the_stairs' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "zoo",
+      "entity_type": "location",
+      "introduced_chapter": 1,
+      "last_chapter": 1,
+      "description": "Location 'zoo' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "reptile_house",
+      "entity_type": "location",
+      "introduced_chapter": 1,
+      "last_chapter": 1,
+      "description": "Location 'reptile_house' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "hall",
+      "entity_type": "location",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Location 'hall' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "railview_hotel",
+      "entity_type": "location",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Location 'railview_hotel' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "cokeworth",
+      "entity_type": "location",
+      "introduced_chapter": 2,
+      "last_chapter": 2,
+      "description": "Location 'cokeworth' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "hut_on_the_rock",
+      "entity_type": "location",
+      "introduced_chapter": 3,
+      "last_chapter": 4,
+      "description": "Location 'hut_on_the_rock' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "boat",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'boat' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "harbor",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 5,
+      "description": "Location 'harbor' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "little_town",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'little_town' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "station",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 5,
+      "description": "Location 'station' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "train",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 5,
+      "description": "Location 'train' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "london",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'london' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "leaky_cauldron",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'leaky_cauldron' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "diagon_alley",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'diagon_alley' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "gringotts",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'gringotts' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "madam_malkins",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'madam_malkins' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "flourish_and_blotts",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'flourish_and_blotts' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "eeylops_owl_emporium",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'eeylops_owl_emporium' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "ollivanders",
+      "entity_type": "location",
+      "introduced_chapter": 4,
+      "last_chapter": 4,
+      "description": "Location 'ollivanders' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "platform_nine_and_three_quarters",
+      "entity_type": "location",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Location 'platform_nine_and_three_quarters' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "compartment",
+      "entity_type": "location",
+      "introduced_chapter": 5,
+      "last_chapter": 5,
+      "description": "Location 'compartment' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "hogwarts",
+      "entity_type": "location",
+      "introduced_chapter": 5,
+      "last_chapter": 6,
+      "description": "Location 'hogwarts' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "entrance_hall",
+      "entity_type": "location",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Location 'entrance_hall' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "small_chamber",
+      "entity_type": "location",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Location 'small_chamber' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "great_hall",
+      "entity_type": "location",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Location 'great_hall' introduced but never used in events",
+      "severity": "warning"
+    },
+    {
+      "type": "dormant_entity",
+      "entity_id": "gryffindor_common_room",
+      "entity_type": "location",
+      "introduced_chapter": 6,
+      "last_chapter": 6,
+      "description": "Location 'gryffindor_common_room' introduced but never used in events",
+      "severity": "warning"
+    }
+  ],
+  "back_annotations": [
+    {
+      "chapter": 0,
+      "entity_id": "drills",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'drills' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "briefcase",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'briefcase' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "cat",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'cat' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "cloak",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'cloak' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "put_outer",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'put_outer' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "motorcycle",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'motorcycle' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 0,
+      "entity_id": "scar",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'scar' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 1,
+      "entity_id": "cupboard",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'cupboard' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 1,
+      "entity_id": "glasses",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'glasses' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 1,
+      "entity_id": "bicycle",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'bicycle' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "smelting_stick",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'smelting_stick' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "video_camera",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'video_camera' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "remote_control_airplane",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'remote_control_airplane' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "racing_bike",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'racing_bike' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "parrot_cage",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'parrot_cage' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "air_rifle",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'air_rifle' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "postcard",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'postcard' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "bill",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'bill' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "school_uniform",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'school_uniform' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "mail_slot",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'mail_slot' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "alarm_clock",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'alarm_clock' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "watch",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'watch' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "rowboat",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'rowboat' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 2,
+      "entity_id": "shack",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'shack' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 3,
+      "entity_id": "umbrella",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'umbrella' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "hagrids_coat",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'hagrids_coat' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "owl",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'owl' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "gringotts_key",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'gringotts_key' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "harrys_money_bag",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'harrys_money_bag' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "hagrids_umbrella",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'hagrids_umbrella' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "hogwarts_letter",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'hogwarts_letter' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "hedwig",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'hedwig' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "ticket",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'ticket' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "hogwarts_express",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'hogwarts_express' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "scabbers",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'scabbers' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "chocolate_frogs",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'chocolate_frogs' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "bertie_botts_every_flavor_beans",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'bertie_botts_every_flavor_beans' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "sorting_hat",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'sorting_hat' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "four_legged_stool",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'four_legged_stool' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "parchment",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'parchment' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "turban",
+      "entity_type": "item",
+      "annotation_type": "chekhov_warning",
+      "message": "Item 'turban' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 3,
+      "entity_id": "voldemort",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'voldemort' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "dedalus_diggle",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'dedalus_diggle' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "doris_crockford",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'doris_crockford' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "professor_quirrell",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'professor_quirrell' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "tom",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'tom' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "griphook",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'griphook' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 4,
+      "entity_id": "boy_in_madam_malkins",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'boy_in_madam_malkins' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "hedwig",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'hedwig' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "ron_weasley",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'ron_weasley' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "percy_weasley",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'percy_weasley' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "ginny_weasley",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'ginny_weasley' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "hermione_granger",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'hermione_granger' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "draco_malfoy",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'draco_malfoy' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "crabbe",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'crabbe' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "goyle",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'goyle' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 5,
+      "entity_id": "scabbers",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'scabbers' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "professor_snape",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'professor_snape' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "nearly_headless_nick",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'nearly_headless_nick' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "fat_friar",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'fat_friar' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "bloody_baron",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'bloody_baron' is never used in the story",
+      "detected_at_chapter": 6
+    },
+    {
+      "chapter": 6,
+      "entity_id": "peeves",
+      "entity_type": "character",
+      "annotation_type": "dormant_character",
+      "message": "Character 'peeves' is never used in the story",
+      "detected_at_chapter": 6
+    }
+  ],
+  "entity_summary": {
+    "characters": 35,
+    "items": 55,
+    "locations": 34,
+    "relationships": 51
+  },
+  "lifecycle_summary": {
+    "active": 26,
+    "modified": 2,
+    "introduced": 96
+  }
+}

@@ -47,6 +47,7 @@
 
 % --- Rule Registration (Step 2.4) ---
 rule(emotional_relationship_action_mismatch, universal, "Actions must be consistent with established relationships").
+rule(emotional_relationship_betrayal, universal, "Reporting a friend or family member to authorities is betrayal").
 rule(emotional_trait_action_mismatch, universal, "Actions must be consistent with character traits").
 rule(emotional_unexplained_relationship_change, universal, "Relationships require events to change").
 
@@ -265,6 +266,111 @@ violation(emotional, relationship_action_mismatch,
     is_positive_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
+
+% --- VIOLATION: Friendly Social Action Toward Explicit Enemy ---
+% Uses social_action/2 for explicit emotion-aware social actions
+% Fires when a hostile relationship exists and agent performs a friendly social action
+violation(emotional, relationship_action_mismatch, 
+          violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
+                        despite, RelType, established_at, T_establish)) :-
+    rule_active(emotional_relationship_action_mismatch),
+    event(E),
+    event_time(E, T_event),
+    social_action(E, Action),
+    social_action_contradicts_negative(Action),
+    agent(E, Agent),
+    patient(E, Patient),
+    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    is_negative_relationship(RelType),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(relationship_action_mismatch, E).
+
+% Social actions that contradict negative (hostile) relationships
+% These are FRIENDLY social actions - performing them toward an explicit enemy is a violation
+% Per LOGIC_DESIGN.md: evidence-gated, no inference
+friendly_social_action(farewell).
+friendly_social_action(encourage).
+friendly_social_action(comfort).
+friendly_social_action(praise).
+friendly_social_action(help).
+
+% Backward compatibility alias
+social_action_contradicts_negative(A) :- friendly_social_action(A).
+
+% Social actions that contradict positive (friendly/family) relationships
+% These are HOSTILE social actions - performing them toward an explicit ally is a violation
+hostile_social_action(good_riddance).
+hostile_social_action(insult).
+hostile_social_action(threaten).
+
+% Backward compatibility alias
+social_action_contradicts_positive(A) :- hostile_social_action(A).
+
+% NEUTRAL social actions - do NOT trigger relationship violations
+% These are procedural departures or cold/dismissive but not overtly hostile
+% Per requirement: dismissal must NOT trigger violations unless explicitly overridden
+neutral_social_action(neutral_departure).
+neutral_social_action(dismissal).
+
+% Helper: check if action is non-neutral (for future rule extensibility)
+non_neutral_social_action(A) :- friendly_social_action(A).
+non_neutral_social_action(A) :- hostile_social_action(A).
+
+% --- VIOLATION: Hostile Social Action Toward Explicit Ally ---
+% Uses social_action/2 for explicit emotion-aware social actions
+violation(emotional, relationship_action_mismatch, 
+          violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
+                        despite, RelType, established_at, T_establish)) :-
+    rule_active(emotional_relationship_action_mismatch),
+    event(E),
+    event_time(E, T_event),
+    social_action(E, Action),
+    social_action_contradicts_positive(Action),
+    agent(E, Agent),
+    patient(E, Patient),
+    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    is_positive_relationship(RelType),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(relationship_action_mismatch, E).
+
+% --- VIOLATION: Betrayal via Reporting ---
+% Fires when someone with a friendly/family relationship reports another to an authority
+% Report events are explicit betrayal signals
+violation(emotional, relationship_betrayal, 
+          violation_info(E, agent, Agent, reported, Patient, to_authority,
+                        despite, RelType, established_at, T_establish)) :-
+    rule_active(emotional_relationship_betrayal),
+    event(E),
+    event_time(E, T_event),
+    report(E),
+    agent(E, Agent),
+    patient(E, Patient),
+    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    is_positive_relationship(RelType),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(relationship_betrayal, E).
+
+% Family relationships are also positive for betrayal detection
+violation(emotional, relationship_betrayal, 
+          violation_info(E, agent, Agent, reported, Patient, to_authority,
+                        despite, RelType, established_at, T_establish)) :-
+    rule_active(emotional_relationship_betrayal),
+    event(E),
+    event_time(E, T_event),
+    report(E),
+    agent(E, Agent),
+    patient(E, Patient),
+    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    is_family_relationship(RelType),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(relationship_betrayal, E).
+
+% Family relationship types (not strictly positive but betrayal-relevant)
+is_family_relationship(family).
+is_family_relationship(sibling).
+is_family_relationship(parent).
+is_family_relationship(child).
+is_family_relationship(spouse).
 
 % --- REMOVED: Backward compatibility violations ---
 % The old atemporal relationship/3 violations are REMOVED in Phase Five.

@@ -1,0 +1,231 @@
+{
+  "step": 2,
+  "approach": "logic_engine",
+  "timestamp": "2026-02-02T23:22:02.383782",
+  "chapters_processed": 14,
+  "total_errors": 9,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 24.820178270339966,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 52.49508476257324,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "coherence",
+          "error_type": "solo_communication",
+          "description": "coherence/solo_communication: solo_communication",
+          "story_fragment": "OUT!\u201d roared Uncle Vernon"
+        }
+      ],
+      "duration_seconds": 58.15695548057556,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "From an inside pocket of his black overcoat he pulled a slightly squashed box."
+        }
+      ],
+      "duration_seconds": 52.95651698112488,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 105.51670718193054,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 91.48482871055603,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 69.19787073135376,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 78.44334578514099,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "001.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "I know, it must be really annoying."
+        }
+      ],
+      "duration_seconds": 55.475218772888184,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 77.78091239929199,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 4,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Harry stretched out his hand at last to take the yellowish envelope."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "The door was hit with such force that it swung clean off its hinges."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "bent it into a knot as easily as if it had been made of rubber."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "Dudley was dancing on the spot with his hands clasped over his fat bottom."
+        }
+      ],
+      "duration_seconds": 32.35018467903137,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Give him five Knuts."
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Yer ticket fer Hogwarts, he said."
+        }
+      ],
+      "duration_seconds": 110.05964183807373,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 104.32098507881165,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 81.62730169296265,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}

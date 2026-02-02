@@ -410,17 +410,229 @@ Return ONLY this JSON structure:
   "events": [
     {{
       "id": "e1",
-      "type": "meet|talk|give|take|attack|help|discover|arrive|leave|die|hug|praise|farewell|encourage|smile|wave",
+      "type": "meet|talk|give|take|attack|help|discover|arrive|leave|die|hug|praise|farewell|encourage|smile|wave|report|learn",
       "agent": "character_id",
       "patient": "character_id_or_null",
+      "recipient": "character_id (ONLY for type=report - the authority being informed)",
+      "fact": "short literal description of learned content (ONLY for type=learn)",
+      "source": "character_id or item_id providing the information (OPTIONAL, ONLY for type=learn)",
       "location": "location_id_or_null",
+      "social_action_type": "OPTIONAL - farewell|neutral_departure|dismissal|good_riddance|encourage|comfort|insult|threaten|apologize (see SOCIAL ACTION TYPING)",
       "source_text": "exact quote from text (max 80 chars)"
     }}
   ],
   "initial_rules": [
     {{"subject": "char_id", "predicate": "hates|loves|hostile|friendly", "object": "char_id"}}
+  ],
+  "implied_presence": [
+    {{"entity": "entity_id", "location": "location_id"}}
   ]
 }}
+
+=== SOCIAL ACTION TYPING (OPTIONAL FIELD) ===
+DO NOT perform sentiment analysis. DO NOT infer emotions not explicitly present.
+This is LEXICAL MATCHING only — use ONLY explicit textual cues.
+
+Events may include an OPTIONAL field: social_action_type
+Assign ONLY when the text contains EXPLICIT lexical indicators.
+
+ALLOWED VALUES (closed set):
+
+--- DEPARTURE CATEGORIES (mutually exclusive, use MOST SPECIFIC match) ---
+
+farewell:
+  MEANING: Explicit goodwill on departure
+  LEXICAL TRIGGERS:
+  - "wished him/her well"
+  - "said goodbye warmly"
+  - "gave a warm farewell"
+  - "have a good term/trip/journey"
+  - "take care"
+  - "good luck" (on departure)
+  - "waved goodbye fondly/warmly"
+
+neutral_departure:
+  MEANING: Procedural, emotionless leaving or parting
+  LEXICAL TRIGGERS:
+  - "said goodbye" (no adverb or qualifier)
+  - "left without comment"
+  - "departed shortly after"
+  - "took his/her leave"
+  - "headed out"
+  - parting with no emotional markers
+
+dismissal:
+  MEANING: Cold, indifferent, or curt send-off
+  LEXICAL TRIGGERS:
+  - "dismissed him/her"
+  - "said coldly"
+  - "without warmth"
+  - "curtly told him/her to go"
+  - "brushed him/her aside"
+  - "waved him/her off dismissively"
+  - "turned away without a word"
+
+good_riddance:
+  MEANING: Hostile or contemptuous send-off
+  LEXICAL TRIGGERS:
+  - "glad to see him/her go"
+  - "good riddance"
+  - "with obvious contempt"
+  - "smirked as he/she left"
+  - "sneered at his/her departure"
+  - "muttered 'finally' as he/she left"
+
+--- OTHER SOCIAL ACTIONS ---
+
+encourage:
+  MEANING: Explicit words of support or confidence-building
+  LEXICAL TRIGGERS: "you can do it", "I believe in you", "encouraged him/her"
+
+comfort:
+  MEANING: Explicit soothing or consoling someone upset
+  LEXICAL TRIGGERS: "it's okay", "don't worry", "comforted him/her", "patted his/her back"
+
+insult:
+  MEANING: Explicit verbal attack, mockery, or degradation
+  LEXICAL TRIGGERS: "called him/her [slur]", "mocked", "insulted", "sneered"
+
+threaten:
+  MEANING: Explicit warning of harm or negative consequences
+  LEXICAL TRIGGERS: "I'll make you pay", "you'll regret", "threatened", "or else"
+
+apologize:
+  MEANING: Explicit expression of regret
+  LEXICAL TRIGGERS: "I'm sorry", "forgive me", "apologized", "my apologies"
+
+CATEGORY SELECTION RULES:
+1. Choose the MOST SPECIFIC category supported by explicit text
+2. If no explicit lexical cue exists, OMIT social_action_type entirely
+3. Do NOT downgrade or upgrade categories without textual support
+4. Do NOT infer hostility from relationships or context
+5. Departure categories are MUTUALLY EXCLUSIVE — pick ONE
+
+EXAMPLES:
+- "'Have a good term,' he said warmly." → social_action_type: "farewell"
+- "'Goodbye,' she said." → social_action_type: "neutral_departure" (no emotion marker)
+- "He dismissed her with a wave." → social_action_type: "dismissal"
+- "'Good riddance,' he muttered." → social_action_type: "good_riddance"
+- "They parted ways." → OMIT social_action_type (no explicit cue)
+- "She praised him for his excellent work." → social_action_type: "praise"
+- "'I'm sorry,' Harry muttered." → social_action_type: "apologize"
+- "He nodded at her." → OMIT social_action_type (no explicit social intent)
+
+OUTPUT RULE: If social_action_type is not explicitly indicated by lexical cues, OMIT the field entirely (do not set to null).
+
+=== REPORT EVENTS (INFORMING AUTHORITIES) ===
+Use type: "report" when a character EXPLICITLY informs an authority about another character.
+
+REQUIRED FIELDS for report events:
+- agent: character who does the reporting
+- patient: character being reported about
+- recipient: authority figure being informed (teacher, official, parent, etc.)
+
+EXTRACT ONLY IF EXPLICITLY STATED:
+- "told X about Y"
+- "reported Y to X"
+- "informed the teacher about Y"
+- "went to tell X what Y had done"
+
+DO NOT:
+- Infer reporting from consequences alone (e.g., "X got in trouble" doesn't mean someone reported)
+- Invent recipients not mentioned in the text
+- Extract if patient (the person reported) is not explicit
+
+EXAMPLES:
+- "Neville told McGonagall about Harry"
+  → type: "report", agent: "neville_longbottom", patient: "harry_potter", recipient: "professor_mcgonagall"
+  
+- "She informed the headmaster about what he had done"
+  → type: "report", agent: "she_id", patient: "he_id", recipient: "headmaster"
+  
+- "He got detention" (no explicit reporting action)
+  → DO NOT extract as report (consequence only, no explicit informing)
+
+=== LEARN EVENTS (KNOWLEDGE ACQUISITION) ===
+Use type: "learn" when a character EXPLICITLY acquires knowledge.
+
+IMPORTANT: This is NOT inference or mind reading.
+Extract ONLY when the text EXPLICITLY states learning or being told.
+
+REQUIRED FIELDS for learn events:
+- agent: character who acquires the knowledge
+- fact: a short, literal description of what is learned (must be text-grounded, not abstract)
+
+OPTIONAL FIELDS:
+- source: character or item providing the information (if explicitly stated)
+
+EXPLICIT TRIGGERS (extract ONLY when these appear):
+- "learned that ..."
+- "found out that ..."
+- "was told that ..."
+- "heard that ..."
+- "read that ..."
+- "discovered that ..."
+- "realized that ..." (only if discovery is explicit, not internal inference)
+
+RULES:
+1. Extract a learn event ONLY if the text explicitly indicates knowledge acquisition
+2. The fact field must:
+   - Be directly supported by the text
+   - Not be paraphrased beyond recognition
+   - Be short and literal (a few words describing the learned content)
+3. If the learned content is vague or unclear, OMIT the event
+4. DO NOT infer knowledge from reactions alone (e.g., "He looked surprised" does not mean he learned something)
+5. DO NOT extract if the character already knew the information
+
+EXAMPLES:
+- "Hermione found out that the stone was missing."
+  → type: "learn", agent: "hermione_granger", fact: "stone_missing"
+  
+- "Harry learned that Sirius was his godfather."
+  → type: "learn", agent: "harry_potter", fact: "sirius_is_godfather", source: null
+  
+- "Ron was told by Fred that the train would leave at eleven."
+  → type: "learn", agent: "ron_weasley", fact: "train_leaves_at_eleven", source: "fred_weasley"
+  
+- "She read in the Daily Prophet that the prisoner had escaped."
+  → type: "learn", agent: "she_id", fact: "prisoner_escaped", source: "daily_prophet"
+  
+- "He seemed surprised by the news." (no explicit learning)
+  → DO NOT extract as learn (reaction only, no explicit knowledge acquisition)
+
+=== IMPLIED PRESENCE (OPTIONAL) ===
+Use "implied_presence" to record when an entity is EXPLICITLY tied to a location without a direct movement event.
+
+TRIGGERS (extract ONLY when EXPLICITLY stated):
+1. POSSESSED OBJECT AT LOCATION: "His wand was on the table in the kitchen"
+   → The wand is in the kitchen (implied_presence: wand at kitchen)
+   
+2. BODY/SELF-REFERENCE: "He found himself in a dark room" / "She noticed her hands were shaking in the library"
+   → The character is at that location (implied_presence: character at location)
+   
+3. OWNED CONTAINER/ROOM: "Harry's trunk was in his bedroom at Privet Drive"
+   → The trunk is in the bedroom (implied_presence: trunk at bedroom)
+
+FORMAT:
+- entity: character_id OR item_id (the entity whose presence is implied)
+- location: location_id (the location where the entity is present)
+
+EXAMPLES:
+- "Harry's wand lay on the nightstand in the dormitory"
+  → implied_presence: [{{"entity": "harry_wand", "location": "dormitory"}}]
+  
+- "She woke up in the hospital wing"
+  → implied_presence: [{{"entity": "character_id", "location": "hospital_wing"}}]
+  
+- "His books were scattered across the common room floor"
+  → implied_presence: [{{"entity": "books", "location": "common_room"}}]
+
+DO NOT EXTRACT implied_presence if:
+- The presence is only inferred (not explicitly stated)
+- A movement event (arrive, leave) already captures the location
+- The location is vague or unidentified
+
+If no implied_presence exists, return empty array: "implied_presence": []
 
 CRITICAL RULES:
 - Extract ALL farewell/praise/encourage events, especially from hostile characters
@@ -572,6 +784,7 @@ INCLUDE objects that:
 - Change state (broken, lost, found)
 - Cause or enable key events
 - Appear multiple times with significance
+- Doors, windows, containers if they affect actions or are described in detail
 - Are described with narrative emphasis, even if it is furniture or clothing
 
 DO NOT INCLUDE:
@@ -822,12 +1035,15 @@ If the same action is described multiple times or repeated later in the text:
 
 === EVENT FORMAT ===
 - id: e1, e2, e3... (strictly sequential, no gaps)
-- type: meet | talk | think | give | take | attack | help | discover | escape | arrive | leave | die | hug | praise | farewell | encourage | smile | wave
+- type: meet | talk | think | give | take | attack | help | discover | escape | arrive | leave | die | hug | praise | farewell | encourage | smile | wave | report | learn
 - agent: character id
 - patient: character id OR item id OR null
+- recipient: character id (ONLY for type="report" - the authority figure being informed)
+- fact: short literal description of learned content (ONLY for type="learn")
+- source: character id or item id providing the information (OPTIONAL, ONLY for type="learn")
 - location: location id OR null
 - after: event id ONLY if there is an explicit causal dependency
-- social_action_type: OPTIONAL — farewell | encourage | comfort | praise | insult | threaten | apologize | console | welcome | reassure (ONLY if explicitly indicated)
+- social_action_type: OPTIONAL — farewell | neutral_departure | dismissal | good_riddance | encourage | comfort | insult | threaten | apologize (ONLY if explicitly indicated)
 - source_text: REQUIRED — exact quote from the chapter (≤ 80 chars)
 
 === EVENT RULES ===
@@ -839,35 +1055,101 @@ If the same action is described multiple times or repeated later in the text:
 
 === SOCIAL ACTION TYPING (OPTIONAL FIELD) ===
 DO NOT perform sentiment analysis. DO NOT infer emotions not explicitly present.
+This is LEXICAL MATCHING only — use ONLY explicit textual cues.
 
 Events may include an OPTIONAL field: social_action_type
-Assign ONLY when the text EXPLICITLY indicates one of these actions:
+Assign ONLY when the text contains EXPLICIT lexical indicators.
 
 ALLOWED VALUES (closed set):
-- farewell: explicit goodbye, parting words, wishing well on departure
-- encourage: explicit words of support, motivation, or confidence-building
-- comfort: explicit soothing, calming, or consoling someone upset
-- praise: explicit compliment, commendation, or approval
-- insult: explicit verbal attack, mockery, or degradation
-- threaten: explicit warning of harm or negative consequences
-- apologize: explicit expression of regret or saying sorry
-- console: explicit support during grief or distress
-- welcome: explicit greeting upon arrival or acceptance
-- reassure: explicit calming of fears or worries
 
-EXPLICIT INDICATORS (required for assignment):
-- Direct speech acts: "Goodbye", "Good luck", "I'm sorry", "Well done"
-- Narrative description: "praised him", "threatened her", "apologized for"
-- Manner adverbs: "said warmly", "wished him luck", "waved goodbye"
+--- DEPARTURE CATEGORIES (mutually exclusive, use MOST SPECIFIC match) ---
 
-DO NOT ASSIGN social_action_type IF:
-- Only tone is implied (no explicit social intent stated)
-- The interaction is neutral or ambiguous
-- You are guessing based on context
+farewell:
+  MEANING: Explicit goodwill on departure
+  LEXICAL TRIGGERS:
+  - "wished him/her well"
+  - "said goodbye warmly"
+  - "gave a warm farewell"
+  - "have a good term/trip/journey"
+  - "take care"
+  - "good luck" (on departure)
+  - "waved goodbye fondly/warmly"
+
+neutral_departure:
+  MEANING: Procedural, emotionless leaving or parting
+  LEXICAL TRIGGERS:
+  - "said goodbye" (no adverb or qualifier)
+  - "left without comment"
+  - "departed shortly after"
+  - "took his/her leave"
+  - "headed out"
+  - parting with no emotional markers
+
+dismissal:
+  MEANING: Cold, indifferent, or curt send-off
+  LEXICAL TRIGGERS:
+  - "dismissed him/her"
+  - "said coldly"
+  - "without warmth"
+  - "curtly told him/her to go"
+  - "brushed him/her aside"
+  - "waved him/her off dismissively"
+  - "turned away without a word"
+
+good_riddance:
+  MEANING: Hostile or contemptuous send-off
+  LEXICAL TRIGGERS:
+  - "glad to see him/her go"
+  - "good riddance"
+  - "with obvious contempt"
+  - "smirked as he/she left"
+  - "sneered at his/her departure"
+  - "muttered 'finally' as he/she left"
+
+--- OTHER SOCIAL ACTIONS ---
+
+encourage:
+  MEANING: Explicit words of support or confidence-building
+  LEXICAL TRIGGERS: "you can do it", "I believe in you", "encouraged him/her"
+
+comfort:
+  MEANING: Explicit soothing or consoling someone upset
+  LEXICAL TRIGGERS: "it's okay", "don't worry", "comforted him/her", "patted his/her back"
+
+insult:
+  MEANING: Explicit verbal attack, mockery, or degradation
+  LEXICAL TRIGGERS: "called him/her [slur]", "mocked", "insulted", "sneered"
+
+threaten:
+  MEANING: Explicit warning of harm or negative consequences
+  LEXICAL TRIGGERS: "I'll make you pay", "you'll regret", "threatened", "or else"
+
+apologize:
+  MEANING: Explicit expression of regret
+  LEXICAL TRIGGERS: "I'm sorry", "forgive me", "apologized", "my apologies"
+
+CATEGORY SELECTION RULES:
+1. Choose the MOST SPECIFIC category supported by explicit text
+2. If no explicit lexical cue exists, OMIT social_action_type entirely
+3. Do NOT downgrade or upgrade categories without textual support
+4. Do NOT infer hostility from relationships or context
+5. Departure categories are MUTUALLY EXCLUSIVE — pick ONE
 
 EXAMPLES:
 - "'Have a good term,' he said warmly."
   → type: "talk", social_action_type: "farewell"
+  
+- "'Goodbye,' she said."
+  → type: "talk", social_action_type: "neutral_departure" (no emotion marker)
+  
+- "He dismissed her with a wave."
+  → type: "talk", social_action_type: "dismissal"
+  
+- "'Good riddance,' he muttered."
+  → type: "talk", social_action_type: "good_riddance"
+  
+- "They parted ways."
+  → type: "talk" (OMIT social_action_type - no explicit cue)
   
 - "She praised him for his excellent work."
   → type: "talk", social_action_type: "praise"
@@ -875,11 +1157,119 @@ EXAMPLES:
 - "'I'm sorry,' Harry muttered."
   → type: "talk", social_action_type: "apologize"
   
-- "They spoke briefly about the weather."
-  → type: "talk" (NO social_action_type - neutral conversation)
-  
 - "He nodded at her."
-  → type: "talk" (NO social_action_type - no explicit social intent)
+  → type: "talk" (OMIT social_action_type - no explicit social intent)
+
+=== REPORT EVENTS (INFORMING AUTHORITIES) ===
+Use type: "report" when a character EXPLICITLY informs an authority about another character.
+
+REQUIRED FIELDS for report events:
+- agent: character who does the reporting
+- patient: character being reported about
+- recipient: authority figure being informed (teacher, official, parent, etc.)
+
+EXTRACT ONLY IF EXPLICITLY STATED:
+- "told X about Y"
+- "reported Y to X"
+- "informed the teacher about Y"
+- "went to tell X what Y had done"
+
+DO NOT:
+- Infer reporting from consequences alone (e.g., "X got in trouble" doesn't mean someone reported)
+- Invent recipients not mentioned in the text
+- Extract if patient (the person reported) is not explicit
+
+EXAMPLES:
+- "Neville told McGonagall about Harry"
+  → type: "report", agent: "neville_longbottom", patient: "harry_potter", recipient: "professor_mcgonagall"
+  
+- "She informed the headmaster about what he had done"
+  → type: "report", agent: "she_id", patient: "he_id", recipient: "headmaster"
+  
+- "He got detention" (no explicit reporting action)
+  → DO NOT extract as report (consequence only, no explicit informing)
+
+=== LEARN EVENTS (KNOWLEDGE ACQUISITION) ===
+Use type: "learn" when a character EXPLICITLY acquires knowledge.
+
+IMPORTANT: This is NOT inference or mind reading.
+Extract ONLY when the text EXPLICITLY states learning or being told.
+
+REQUIRED FIELDS for learn events:
+- agent: character who acquires the knowledge
+- fact: a short, literal description of what is learned (must be text-grounded, not abstract)
+
+OPTIONAL FIELDS:
+- source: character or item providing the information (if explicitly stated)
+
+EXPLICIT TRIGGERS (extract ONLY when these appear):
+- "learned that ..."
+- "found out that ..."
+- "was told that ..."
+- "heard that ..."
+- "read that ..."
+- "discovered that ..."
+- "realized that ..." (only if discovery is explicit, not internal inference)
+
+RULES:
+1. Extract a learn event ONLY if the text explicitly indicates knowledge acquisition
+2. The fact field must:
+   - Be directly supported by the text
+   - Not be paraphrased beyond recognition
+   - Be short and literal (a few words describing the learned content)
+3. If the learned content is vague or unclear, OMIT the event
+4. DO NOT infer knowledge from reactions alone (e.g., "He looked surprised" does not mean he learned something)
+5. DO NOT extract if the character already knew the information
+
+EXAMPLES:
+- "Hermione found out that the stone was missing."
+  → type: "learn", agent: "hermione_granger", fact: "stone_missing"
+  
+- "Harry learned that Sirius was his godfather."
+  → type: "learn", agent: "harry_potter", fact: "sirius_is_godfather", source: null
+  
+- "Ron was told by Fred that the train would leave at eleven."
+  → type: "learn", agent: "ron_weasley", fact: "train_leaves_at_eleven", source: "fred_weasley"
+  
+- "She read in the Daily Prophet that the prisoner had escaped."
+  → type: "learn", agent: "she_id", fact: "prisoner_escaped", source: "daily_prophet"
+  
+- "He seemed surprised by the news." (no explicit learning)
+  → DO NOT extract as learn (reaction only, no explicit knowledge acquisition)
+
+=== IMPLIED PRESENCE (OPTIONAL) ===
+Use "implied_presence" to record when an entity is EXPLICITLY tied to a location without a direct movement event.
+
+TRIGGERS (extract ONLY when EXPLICITLY stated):
+1. POSSESSED OBJECT AT LOCATION: "His wand was on the table in the kitchen"
+   → The wand is in the kitchen (implied_presence: wand at kitchen)
+   
+2. BODY/SELF-REFERENCE: "He found himself in a dark room" / "She noticed her hands were shaking in the library"
+   → The character is at that location (implied_presence: character at location)
+   
+3. OWNED CONTAINER/ROOM: "Harry's trunk was in his bedroom at Privet Drive"
+   → The trunk is in the bedroom (implied_presence: trunk at bedroom)
+
+FORMAT:
+- entity: character_id OR item_id (the entity whose presence is implied)
+- location: location_id (the location where the entity is present)
+
+EXAMPLES:
+- "Harry's wand lay on the nightstand in the dormitory"
+  → implied_presence: [{{"entity": "harry_wand", "location": "dormitory"}}]
+  
+- "She woke up in the hospital wing"
+  → implied_presence: [{{"entity": "character_id", "location": "hospital_wing"}}]
+  
+- "His books were scattered across the common room floor"
+  → implied_presence: [{{"entity": "books", "location": "common_room"}}]
+
+DO NOT EXTRACT implied_presence if:
+- The presence is only inferred (not explicitly stated)
+- A movement event (arrive, leave) already captures the location
+- The location is vague or unidentified
+
+If no implied_presence exists, return empty array: "implied_presence": []
 
 === LOCATION RULES (CRITICAL FOR CONSISTENCY DETECTION) ===
  If an event occurs in a clearly named place, location MUST be filled.
@@ -959,6 +1349,8 @@ Return ONLY this JSON structure:
       "type": "...",
       "agent": "...",
       "patient": "...",
+      "fact": "short literal description (ONLY for type=learn)",
+      "source": "character_id or item_id providing info (OPTIONAL, ONLY for type=learn)",
       "location": "...",
       "after": null,
       "social_action_type": "...",
@@ -973,6 +1365,12 @@ Return ONLY this JSON structure:
       "patient": "character_id or null",
       "reference": "temporal phrase from text (e.g., 'earlier that morning', 'the night before')"
     }}
+  ],
+  "implied_presence": [
+    {{
+      "entity": "character_id or item_id",
+      "location": "location_id"
+    }}
   ]
 }}
 
@@ -981,5 +1379,8 @@ NOTES:
 - temporal_constraints: for events referenced as happening BEFORE the current chapter timeline
 - after field: for explicit ordering WITHIN this chapter's events
 - If no temporal constraints exist, return empty array: "temporal_constraints": []
+- implied_presence: for entities explicitly tied to locations without movement events (see IMPLIED PRESENCE section)
+- If no implied_presence exists, return empty array: "implied_presence": []
+- For learn events: fact is REQUIRED, source is OPTIONAL (include only if explicitly stated)
 
 Return ONLY valid JSON. No markdown. No explanations."""

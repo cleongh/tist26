@@ -405,6 +405,40 @@ class StateManager:
         self.persistent_relationships[(char1, char2)] = rel_type
         self.add_relation("relationship", (char1, char2, rel_type), source_event)
     
+    def add_presence(self, entity_id: str, location_id: str,
+                     time: int = None, source_event: str = None) -> Relation:
+        """
+        Add a presence fact for an entity at a location.
+        
+        Per LOGIC_DESIGN.md Section 3.2:
+            present(Entity, Location, Time) - Entity is at Location at time T
+        
+        This records that an entity (character or item) is present at a location
+        at a specific time. Used for:
+            - Explicit movement events (arrive, leave)
+            - Implied presence from extraction (possessed objects, body references)
+        
+        Args:
+            entity_id: Character or item ID
+            location_id: Location ID
+            time: Time index (defaults to current_time)
+            source_event: Optional event ID that established this presence
+            
+        Returns:
+            The Relation object added
+        """
+        entity_id = self._sanitize_id(entity_id)
+        location_id = self._sanitize_id(location_id)
+        
+        if time is None:
+            time = self.current_time
+        
+        return self.add_relation(
+            "present",
+            (entity_id, location_id),
+            source_event
+        )
+    
     def add_story_rule(self, rule_type: str, subject: str, predicate: str,
                        obj: str = None, established_by: str = "e0") -> StoryRule:
         """Add a story-specific rule to the current state."""

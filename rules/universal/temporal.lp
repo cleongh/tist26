@@ -37,6 +37,7 @@
 %        - causal_violation: Effects cannot precede their explicitly linked causes
 %        - state_contradiction: Same entity cannot have contradictory states at same time
 %        - simultaneous_contradiction: Same agent cannot do contradictory actions at once
+%        - knowledge_before_acquisition: Cannot react to facts before learning them
 %
 % =============================================================================
 
@@ -45,6 +46,7 @@ rule(temporal_ordering_violation, universal, "Events must respect explicit must_
 rule(temporal_causal_violation, universal, "Effects cannot precede their explicitly linked causes").
 rule(temporal_state_contradiction, universal, "Same entity cannot have contradictory explicit states at same time").
 rule(temporal_simultaneous_contradiction, universal, "Same agent cannot do contradictory actions at once").
+rule(temporal_knowledge_before_acquisition, universal, "Cannot react to facts before learning them").
 
 % =============================================================================
 % TIME ORDERING (Uses core.lp time management)
@@ -524,6 +526,94 @@ violation(temporal, duration_too_slow,
     event_duration(E, Duration),
     action_max_duration(Type, Max),
     Duration > Max.
+
+
+% =============================================================================
+% PART I: EPISTEMIC TEMPORAL VIOLATIONS (Knowledge Before Acquisition)
+% =============================================================================
+%
+% DESIGN PRINCIPLE:
+%     A character cannot react to, reason about, or act upon a fact
+%     BEFORE they have learned it.
+%
+% EVIDENCE REQUIREMENT:
+%     This rule only fires when:
+%     1. An event EXPLICITLY requires knowledge of a fact (event_requires_fact/2)
+%     2. The agent has NOT learned that fact by the event's time
+%
+% DO NOT:
+%     - Infer fact requirements implicitly
+%     - Reason about beliefs or expectations
+%     - Fire on missing knowledge (only on explicit requirement + missing acquisition)
+%
+% =============================================================================
+
+% Rule registered in header section: temporal_knowledge_before_acquisition
+
+% --- Event Types That Require Fact Knowledge ---
+% These predicates must be explicitly asserted in the ASP input.
+% The extraction layer should emit these when the event explicitly references a fact.
+
+% Generic predicate: event E requires knowledge of fact F
+% event_requires_fact(E, F) :- ... (emitted by extraction layer)
+
+% Specific event types that inherently require fact knowledge:
+% fret_about(E, F) - worrying about a specific fact
+% react_to(E, F) - reacting to a specific fact
+% plan_based_on(E, F) - planning based on a specific fact
+% discuss(E, F) - discussing a specific fact
+
+% Bridge predicates: convert specific predicates to generic requirement
+event_requires_fact(E, F) :- fret_about(E, F).
+event_requires_fact(E, F) :- react_to(E, F).
+event_requires_fact(E, F) :- plan_based_on(E, F).
+event_requires_fact(E, F) :- worry_about(E, F).
+event_requires_fact(E, F) :- discuss(E, F).
+event_requires_fact(E, F) :- act_on(E, F).
+
+% --- Knowledge Query Helpers ---
+% Check if agent knows a fact at a given time
+% Uses knows/3 from knowledge.lp
+
+agent_knows_at(Agent, Fact, T) :-
+    knows(Agent, Fact, T).
+
+% Check if agent has ever learned a fact (regardless of time)
+agent_has_learned(Agent, Fact) :-
+    learned(Agent, Fact, _).
+
+% Time when agent first learned a fact
+first_learning_time(Agent, Fact, T) :-
+    learned(Agent, Fact, T),
+    not learned_earlier(Agent, Fact, T).
+
+learned_earlier(Agent, Fact, T) :-
+    learned(Agent, Fact, T),
+    learned(Agent, Fact, T2),
+    T2 < T.
+
+% --- VIOLATION: Knowledge Before Acquisition ---
+% Fires when a character reacts to a fact before learning it
+
+violation(temporal, knowledge_before_acquisition,
+          violation_info(E, agent, Agent, fact, Fact, event_time, T, learned_time, LearnT)) :-
+    rule_active(temporal_knowledge_before_acquisition),
+    event(E),
+    event_time(E, T),
+    agent(E, Agent),
+    event_requires_fact(E, Fact),
+    first_learning_time(Agent, Fact, LearnT),
+    T < LearnT.
+
+% Alternative: Agent reacts to a fact they have NEVER learned
+violation(temporal, knowledge_before_acquisition,
+          violation_info(E, agent, Agent, fact, Fact, event_time, T, learned_time, never)) :-
+    rule_active(temporal_knowledge_before_acquisition),
+    event(E),
+    event_time(E, T),
+    agent(E, Agent),
+    event_requires_fact(E, Fact),
+    not agent_has_learned(Agent, Fact).
 
 
 % =============================================================================

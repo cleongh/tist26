@@ -718,10 +718,10 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                             "under_extractions": [
                                 {
                                     "evidence_type": r.evidence_type.value,
-                                    "evidence_found": r.evidence_found,
-                                    "predicate_produced": r.predicate_produced,
+                                    "detected": r.detected,
+                                    "predicate_emitted": r.predicate_emitted,
                                     "match_count": len(r.matches),
-                                    "first_quote": r.first_quote,
+                                    "example_quote": r.example_quote,
                                 }
                                 for r in under_extractions
                             ],

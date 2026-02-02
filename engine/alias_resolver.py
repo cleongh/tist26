@@ -1171,6 +1171,18 @@ class AliasResolver:
                 event["patient"] = self.resolve(event["patient"])
             if "location" in event and event["location"]:
                 event["location"] = self.resolve_location(event["location"])
+            # Step 3b: Normalize learn event specific fields
+            # "source" can be a character or item providing the information
+            if "source" in event and event["source"]:
+                source_id = event["source"]
+                # Try character resolution first, fall back to location/item
+                resolved = self.resolve(source_id)
+                if resolved == source_id:  # Not a known character
+                    resolved = self.resolve_location(source_id)  # Try as item/location
+                event["source"] = resolved
+            # "recipient" for report events (already handled, but ensure consistency)
+            if "recipient" in event and event["recipient"]:
+                event["recipient"] = self.resolve(event["recipient"])
         
         # Step 4: Normalize relationships
         for rel in entities.get("relationships", []):
@@ -1185,6 +1197,20 @@ class AliasResolver:
                 rule["subject"] = self.resolve(rule["subject"])
             if "object" in rule and rule["object"]:
                 rule["object"] = self.resolve(rule["object"])
+        
+        # Step 6: Normalize implied_presence entries
+        # Each entry has {"entity": id, "location": id}
+        # Entity can be character or item, location is always a location
+        for presence in normalized.get("implied_presence", []):
+            if "entity" in presence and presence["entity"]:
+                entity_id = presence["entity"]
+                # Try character resolution first, fall back to location for items
+                resolved = self.resolve(entity_id)
+                if resolved == entity_id:  # Not a known character
+                    resolved = self.resolve_location(entity_id)  # Try as item/location
+                presence["entity"] = resolved
+            if "location" in presence and presence["location"]:
+                presence["location"] = self.resolve_location(presence["location"])
         
         self._chapters_processed += 1
         

@@ -32,6 +32,7 @@ class EvidenceType(Enum):
     EMOTIONAL = "emotional"
     APPEARANCE = "appearance"
     LOCATION = "location"
+    KNOWLEDGE = "knowledge"
 
 
 # =============================================================================
@@ -134,12 +135,56 @@ LOCATION_PATTERNS = [
     r"\bin\s+(\w+)'s\s+(room|office|house|home)\b",
 ]
 
+# Knowledge/epistemic markers - language indicating knowledge acquisition or lack thereof
+# These suggest learn events should be extracted
+KNOWLEDGE_PATTERNS = [
+    # Lack of knowledge (past)
+    r"\bdidn't\s+know\b",
+    r"\bdid\s+not\s+know\b",
+    r"\bhad\s+no\s+idea\b",
+    r"\bunaware\s+that\b",
+    r"\bwas\s+unaware\b",
+    r"\bwere\s+unaware\b",
+    r"\bhadn't\s+known\b",
+    r"\bhad\s+not\s+known\b",
+    r"\bhad\s+never\s+known\b",
+    r"\bknew\s+nothing\s+(about|of)\b",
+    r"\bwithout\s+knowing\b",
+    
+    # Knowledge acquisition boundary
+    r"\bbefore\s+learning\b",
+    r"\bbefore\s+finding\s+out\b",
+    r"\bbefore\s+discovering\b",
+    r"\bbefore\s+realizing\b",
+    r"\buntil\s+(he|she|they|\w+)\s+learned\b",
+    r"\buntil\s+(he|she|they|\w+)\s+found\s+out\b",
+    r"\buntil\s+(he|she|they|\w+)\s+discovered\b",
+    
+    # Explicit learning moments
+    r"\blearned\s+that\b",
+    r"\bfound\s+out\s+that\b",
+    r"\bdiscovered\s+that\b",
+    r"\brealized\s+that\b",
+    r"\bwas\s+told\s+that\b",
+    r"\bwere\s+told\s+that\b",
+    r"\bheard\s+that\b",
+    
+    # Information reception
+    r"\bnews\s+reached\b",
+    r"\bnews\s+came\b",
+    r"\bword\s+came\b",
+    r"\bgot\s+word\b",
+    r"\bwas\s+informed\b",
+    r"\bwere\s+informed\b",
+]
+
 # Compile all patterns
 COMPILED_PATTERNS = {
     EvidenceType.TEMPORAL: [re.compile(p, re.IGNORECASE) for p in TEMPORAL_PATTERNS],
     EvidenceType.EMOTIONAL: [re.compile(p, re.IGNORECASE) for p in EMOTIONAL_PATTERNS],
     EvidenceType.APPEARANCE: [re.compile(p, re.IGNORECASE) for p in APPEARANCE_PATTERNS],
     EvidenceType.LOCATION: [re.compile(p, re.IGNORECASE) for p in LOCATION_PATTERNS],
+    EvidenceType.KNOWLEDGE: [re.compile(p, re.IGNORECASE) for p in KNOWLEDGE_PATTERNS],
 }
 
 
@@ -372,11 +417,29 @@ def check_location_predicates(extraction_result: Dict[str, Any]) -> bool:
     return False
 
 
+def check_knowledge_predicates(extraction_result: Dict[str, Any]) -> bool:
+    """
+    Check if learn events were emitted.
+    
+    Learn events indicate knowledge acquisition and should be extracted
+    when epistemic language (learning, discovering, being told) is present.
+    """
+    events = extraction_result.get("events", [])
+    
+    # Check for learn events
+    for event in events:
+        if event.get("type", "").lower() == "learn":
+            return True
+    
+    return False
+
+
 PREDICATE_CHECKERS = {
     EvidenceType.TEMPORAL: check_temporal_predicates,
     EvidenceType.EMOTIONAL: check_emotional_predicates,
     EvidenceType.APPEARANCE: check_appearance_predicates,
     EvidenceType.LOCATION: check_location_predicates,
+    EvidenceType.KNOWLEDGE: check_knowledge_predicates,
 }
 
 

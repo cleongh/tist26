@@ -1,0 +1,714 @@
+============================================================
+=== Experiment Log Started: 2026-02-02T21:17:09.830052 ===
+============================================================
+
+[2026-02-02 21:17:09] [INFO] API Mode: openai
+[2026-02-02 21:17:09] [INFO] API Model: gpt-4o
+[2026-02-02 21:17:09] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-02-02 21:17:09] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-02-02 21:17:09] [STEP] 
+============================================================
+===== START STEP: STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5) =====
+============================================================
+[2026-02-02 21:17:09] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-02-02 21:17:09] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_engine_log.jsonl
+[2026-02-02 21:17:09] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extractions.jsonl
+[2026-02-02 21:17:09] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_events_log.jsonl
+[2026-02-02 21:17:09] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_alias_conflicts.jsonl
+[2026-02-02 21:17:09] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_item_stats.jsonl
+[2026-02-02 21:17:09] [INFO] Diagnostics log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extraction_diagnostics.jsonl
+[2026-02-02 21:17:09] [INFO] Using OpenAI API with model: gpt-4o
+[2026-02-02 21:17:09] [INFO] 
+Processing: Harry Potter (original)
+[2026-02-02 21:17:09] [INFO]   Found 7 chapters (limited to 7)
+[2026-02-02 21:17:09] [INFO]   Chapter 0: 000.txt
+[2026-02-02 21:17:09] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:17:19] [INFO]     -> 7 characters, 6 locations
+[2026-02-02 21:17:19] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:17:26] [INFO]     -> 10 items
+[2026-02-02 21:17:26] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:17:26] [INFO]     -> 7 characters, 6 locations, 10 items registered
+[2026-02-02 21:17:26] [INFO]     -> 7 character aliases, 6 location aliases, 10 item aliases
+[2026-02-02 21:17:26] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:17:26] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:17:26] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:17:36] [INFO]     -> 10 relationships, 7 initial rules
+[2026-02-02 21:17:36] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:17:48] [INFO]     -> 13 events, 0 temporal constraints
+[2026-02-02 21:17:48] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:17:48] [INFO]     [RelationshipNormalizer] Normalized: 10 relationships, 1 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:17:48] [INFO]     -> 10 relationships after normalization
+[2026-02-02 21:17:48] [INFO]     -> 1 relationship conflicts detected (preserved for logic)
+[2026-02-02 21:17:48] [WARN]       - mrs_dursley → harry_potter: ['family', 'fear']
+[2026-02-02 21:17:48] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:17:48] [INFO]     -> 7 initial rules after normalization
+[2026-02-02 21:17:48] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:17:48] [INFO]     [EventNormalizer] Validated: 13 events, 0 dropped
+[2026-02-02 21:17:48] [INFO]     [EventNormalizer] Items: 1 causal, 9 latent
+[2026-02-02 21:17:48] [INFO]     -> 13 events validated, 0 dropped
+[2026-02-02 21:17:48] [INFO]     -> Items: 1 causal, 9 latent
+[2026-02-02 21:17:48] [INFO]     [EventNormalizer] Items: 1 causal, 9 latent
+[2026-02-02 21:17:48] [INFO]     [LifecycleTracker] Chapter 0: 7 chars, 10 items, 6 locs, 9 rels
+[2026-02-02 21:17:48] [INFO]     -> 0 errors (38.9s)
+[2026-02-02 21:17:48] [INFO]   Chapter 1: 001.txt
+[2026-02-02 21:17:48] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:17:57] [INFO]     -> 6 characters, 7 locations
+[2026-02-02 21:17:57] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:18:00] [INFO]     -> 5 items
+[2026-02-02 21:18:00] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:18:00] [INFO]     -> 6 characters, 7 locations, 5 items registered
+[2026-02-02 21:18:00] [INFO]     -> 8 character aliases, 7 location aliases, 6 item aliases
+[2026-02-02 21:18:00] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:18:00] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:18:00] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:18:07] [INFO]     -> 7 relationships, 9 initial rules
+[2026-02-02 21:18:07] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:18:20] [INFO]     -> 13 events, 1 temporal constraints
+[2026-02-02 21:18:20] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:18:20] [INFO]     [RelationshipNormalizer] Normalized: 7 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:18:20] [INFO]     -> 7 relationships after normalization
+[2026-02-02 21:18:20] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:18:20] [INFO]     -> 9 initial rules after normalization
+[2026-02-02 21:18:20] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:18:20] [WARN]     [EventNormalizer] Dropped event[10] (escape): agent 'snake_tank_glass' not found in EntityRegistry
+[2026-02-02 21:18:20] [INFO]     [EventNormalizer] Validated: 12 events, 1 dropped
+[2026-02-02 21:18:20] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:18:20] [INFO]     -> 12 events validated, 1 dropped
+[2026-02-02 21:18:20] [INFO]     -> Items: 1 causal, 4 latent
+[2026-02-02 21:18:20] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:18:20] [WARN] [unknown] Under-extraction: appearance evidence detected but not extracted. Example: "...taken a pair of kitchen scissors and cut his hair so short he was almost b..."
+[2026-02-02 21:18:20] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:18:20] [WARN]       - events: event[10] (escape)
+[2026-02-02 21:18:20] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:18:20] [INFO]     [LifecycleTracker] Chapter 1: 9 chars, 14 items, 10 locs, 14 rels
+[2026-02-02 21:18:20] [INFO]     -> 2 errors (32.2s)
+[2026-02-02 21:18:20] [INFO]   Chapter 2: 002.txt
+[2026-02-02 21:18:20] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:18:32] [INFO]     -> 6 characters, 8 locations
+[2026-02-02 21:18:32] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:18:43] [INFO]     -> 13 items
+[2026-02-02 21:18:43] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:18:43] [INFO]     -> 6 characters, 8 locations, 13 items registered
+[2026-02-02 21:18:43] [INFO]     -> 8 character aliases, 10 location aliases, 13 item aliases
+[2026-02-02 21:18:43] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:18:43] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:18:43] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:18:55] [INFO]     -> 6 relationships, 6 initial rules
+[2026-02-02 21:18:55] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:19:14] [INFO]     -> 9 events, 0 temporal constraints
+[2026-02-02 21:19:14] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:19:14] [INFO]     [RelationshipNormalizer] Normalized: 6 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:19:14] [INFO]     -> 6 relationships after normalization
+[2026-02-02 21:19:14] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:19:14] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 21:19:14] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:19:14] [WARN]     [EventNormalizer] Dropped event[4] (give): patient 'chocolate_cake' not found in EntityRegistry
+[2026-02-02 21:19:14] [INFO]     [EventNormalizer] Validated: 8 events, 1 dropped
+[2026-02-02 21:19:14] [INFO]     [EventNormalizer] Items: 1 causal, 12 latent
+[2026-02-02 21:19:14] [INFO]     -> 8 events validated, 1 dropped
+[2026-02-02 21:19:14] [INFO]     -> Items: 1 causal, 12 latent
+[2026-02-02 21:19:14] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:19:14] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:19:14] [WARN]       - events: event[4] (give)
+[2026-02-02 21:19:14] [INFO]     [EventNormalizer] Items: 1 causal, 12 latent
+[2026-02-02 21:19:14] [INFO]       Item 'letter' promoted latent → causal at chapter 2
+[2026-02-02 21:19:14] [INFO]     [LifecycleTracker] Chapter 2: 9 chars, 25 items, 13 locs, 14 rels
+[2026-02-02 21:19:15] [INFO]     -> 0 errors (54.1s)
+[2026-02-02 21:19:15] [INFO]   Chapter 3: 003.txt
+[2026-02-02 21:19:15] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:19:24] [INFO]     -> 5 characters, 1 locations
+[2026-02-02 21:19:24] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:19:43] [INFO]     -> 7 items
+[2026-02-02 21:19:43] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:19:43] [INFO]     -> 5 characters, 1 locations, 7 items registered
+[2026-02-02 21:19:43] [INFO]     -> 8 character aliases, 1 location aliases, 7 item aliases
+[2026-02-02 21:19:43] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:19:43] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:19:43] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:19:48] [INFO]     -> 7 relationships, 3 initial rules
+[2026-02-02 21:19:48] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:20:11] [INFO]     -> 7 events, 0 temporal constraints
+[2026-02-02 21:20:11] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:20:11] [INFO]     [RelationshipNormalizer] Normalized: 7 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:20:11] [INFO]     -> 7 relationships after normalization
+[2026-02-02 21:20:11] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:20:11] [INFO]     -> 3 initial rules after normalization
+[2026-02-02 21:20:11] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:20:11] [INFO]     [EventNormalizer] Validated: 7 events, 0 dropped
+[2026-02-02 21:20:11] [INFO]     [EventNormalizer] Items: 2 causal, 5 latent
+[2026-02-02 21:20:11] [INFO]     -> 7 events validated, 0 dropped
+[2026-02-02 21:20:11] [INFO]     -> Items: 2 causal, 5 latent
+[2026-02-02 21:20:12] [INFO]     [EventNormalizer] Items: 2 causal, 5 latent
+[2026-02-02 21:20:12] [INFO]     [LifecycleTracker] Chapter 3: 9 chars, 31 items, 14 locs, 17 rels
+[2026-02-02 21:20:12] [INFO]     -> 3 errors (57.0s)
+[2026-02-02 21:20:12] [INFO]   Chapter 4: 004.txt
+[2026-02-02 21:20:12] [INFO]   [Phase 2] Extracting characters and locations...
+
+============================================================
+=== Experiment Run Resumed: 2026-02-02T21:33:59.009123 ===
+============================================================
+
+[2026-02-02 21:33:59] [INFO] API Mode: openai
+[2026-02-02 21:33:59] [INFO] API Model: gpt-4o
+[2026-02-02 21:33:59] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-02-02 21:33:59] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-02-02 21:33:59] [STEP] 
+============================================================
+===== START STEP: STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5) =====
+============================================================
+[2026-02-02 21:33:59] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-02-02 21:33:59] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_engine_log.jsonl
+[2026-02-02 21:33:59] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extractions.jsonl
+[2026-02-02 21:33:59] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_events_log.jsonl
+[2026-02-02 21:33:59] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_alias_conflicts.jsonl
+[2026-02-02 21:33:59] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_item_stats.jsonl
+[2026-02-02 21:33:59] [INFO] Diagnostics log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extraction_diagnostics.jsonl
+[2026-02-02 21:33:59] [INFO] Using OpenAI API with model: gpt-4o
+[2026-02-02 21:33:59] [INFO] 
+Processing: Harry Potter (original)
+[2026-02-02 21:33:59] [INFO]   Found 7 chapters (limited to 7)
+[2026-02-02 21:33:59] [INFO]   Chapter 0: 000.txt
+[2026-02-02 21:33:59] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:34:06] [INFO]     -> 7 characters, 6 locations
+[2026-02-02 21:34:06] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:34:11] [INFO]     -> 8 items
+[2026-02-02 21:34:11] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:34:11] [INFO]     -> 7 characters, 6 locations, 8 items registered
+[2026-02-02 21:34:11] [INFO]     -> 7 character aliases, 6 location aliases, 10 item aliases
+[2026-02-02 21:34:11] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:34:11] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:34:11] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:34:17] [INFO]     -> 10 relationships, 6 initial rules
+[2026-02-02 21:34:17] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:34:25] [INFO]     -> 7 events, 0 temporal constraints
+[2026-02-02 21:34:25] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:34:25] [INFO]     [RelationshipNormalizer] Normalized: 10 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:34:25] [INFO]     -> 10 relationships after normalization
+[2026-02-02 21:34:25] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:34:25] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 21:34:25] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:34:25] [INFO]     [EventNormalizer] Validated: 7 events, 0 dropped
+[2026-02-02 21:34:25] [INFO]     [EventNormalizer] Items: 0 causal, 8 latent
+[2026-02-02 21:34:25] [INFO]     -> 7 events validated, 0 dropped
+[2026-02-02 21:34:25] [INFO]     -> Items: 0 causal, 8 latent
+[2026-02-02 21:34:25] [INFO]     [EventNormalizer] Items: 0 causal, 8 latent
+[2026-02-02 21:34:25] [INFO]     [LifecycleTracker] Chapter 0: 7 chars, 8 items, 6 locs, 10 rels
+[2026-02-02 21:34:25] [INFO]     -> 0 errors (26.8s)
+[2026-02-02 21:34:25] [INFO]   Chapter 1: 001.txt
+[2026-02-02 21:34:25] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:34:33] [INFO]     -> 6 characters, 7 locations
+[2026-02-02 21:34:33] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:34:37] [INFO]     -> 5 items
+[2026-02-02 21:34:37] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:34:37] [INFO]     -> 6 characters, 7 locations, 5 items registered
+[2026-02-02 21:34:37] [INFO]     -> 8 character aliases, 7 location aliases, 6 item aliases
+[2026-02-02 21:34:37] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:34:37] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:34:37] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:34:47] [INFO]     -> 5 relationships, 7 initial rules
+[2026-02-02 21:34:47] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:35:15] [INFO]     -> 16 events, 0 temporal constraints
+[2026-02-02 21:35:15] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:35:15] [INFO]     [RelationshipNormalizer] Normalized: 5 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:35:15] [INFO]     -> 5 relationships after normalization
+[2026-02-02 21:35:15] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:35:15] [INFO]     -> 7 initial rules after normalization
+[2026-02-02 21:35:15] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:35:15] [WARN]     [EventNormalizer] Dropped event[13] (escape): agent 'snake_tank' not found in EntityRegistry
+[2026-02-02 21:35:15] [INFO]     [EventNormalizer] Validated: 15 events, 1 dropped
+[2026-02-02 21:35:15] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:35:15] [INFO]     -> 15 events validated, 1 dropped
+[2026-02-02 21:35:15] [INFO]     -> Items: 1 causal, 4 latent
+[2026-02-02 21:35:15] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:35:15] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:35:15] [WARN]       - events: event[13] (escape)
+[2026-02-02 21:35:15] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:35:15] [INFO]     [LifecycleTracker] Chapter 1: 9 chars, 12 items, 10 locs, 13 rels
+[2026-02-02 21:35:15] [INFO]     -> 1 errors (49.9s)
+[2026-02-02 21:35:15] [INFO]   Chapter 2: 002.txt
+[2026-02-02 21:35:15] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:35:25] [INFO]     -> 6 characters, 8 locations
+[2026-02-02 21:35:25] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:35:34] [INFO]     -> 19 items
+[2026-02-02 21:35:34] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:35:34] [INFO]     -> 6 characters, 8 locations, 19 items registered
+[2026-02-02 21:35:34] [INFO]     -> 8 character aliases, 10 location aliases, 19 item aliases
+[2026-02-02 21:35:34] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:35:34] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:35:34] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:35:44] [INFO]     -> 6 relationships, 6 initial rules
+[2026-02-02 21:35:44] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:36:09] [INFO]     -> 11 events, 0 temporal constraints
+[2026-02-02 21:36:09] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:36:09] [INFO]     [RelationshipNormalizer] Normalized: 6 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:36:09] [INFO]     -> 6 relationships after normalization
+[2026-02-02 21:36:09] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:36:09] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 21:36:09] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:36:09] [WARN]     [EventNormalizer] Dropped event[10] (arrive): location 'shack' not found in EntityRegistry
+[2026-02-02 21:36:09] [INFO]     [EventNormalizer] Validated: 10 events, 1 dropped
+[2026-02-02 21:36:09] [INFO]     [EventNormalizer] Items: 2 causal, 17 latent
+[2026-02-02 21:36:09] [INFO]     -> 10 events validated, 1 dropped
+[2026-02-02 21:36:09] [INFO]     -> Items: 2 causal, 17 latent
+[2026-02-02 21:36:09] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:36:09] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:36:09] [WARN]       - events: event[10] (arrive)
+[2026-02-02 21:36:09] [INFO]     [EventNormalizer] Items: 2 causal, 17 latent
+[2026-02-02 21:36:09] [INFO]       Item 'letter' promoted latent → causal at chapter 2
+[2026-02-02 21:36:09] [INFO]     [LifecycleTracker] Chapter 2: 9 chars, 28 items, 13 locs, 15 rels
+[2026-02-02 21:36:09] [INFO]     -> 1 errors (54.0s)
+[2026-02-02 21:36:09] [INFO]   Chapter 3: 003.txt
+[2026-02-02 21:36:09] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:36:15] [INFO]     -> 6 characters, 1 locations
+[2026-02-02 21:36:15] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:36:29] [INFO]     -> 5 items
+[2026-02-02 21:36:29] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:36:29] [INFO]     -> 6 characters, 1 locations, 5 items registered
+[2026-02-02 21:36:29] [INFO]     -> 9 character aliases, 1 location aliases, 5 item aliases
+[2026-02-02 21:36:29] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:36:29] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:36:29] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:36:41] [INFO]     -> 11 relationships, 4 initial rules
+[2026-02-02 21:36:41] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:37:01] [INFO]     -> 6 events, 0 temporal constraints
+[2026-02-02 21:37:01] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:37:01] [INFO]     [RelationshipNormalizer] Normalized: 11 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:37:01] [INFO]     -> 11 relationships after normalization
+[2026-02-02 21:37:01] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:37:01] [INFO]     -> 4 initial rules after normalization
+[2026-02-02 21:37:01] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:37:01] [INFO]     [EventNormalizer] Validated: 6 events, 0 dropped
+[2026-02-02 21:37:01] [INFO]     [EventNormalizer] Items: 2 causal, 3 latent
+[2026-02-02 21:37:01] [INFO]     -> 6 events validated, 0 dropped
+[2026-02-02 21:37:01] [INFO]     -> Items: 2 causal, 3 latent
+[2026-02-02 21:37:01] [INFO]     [EventNormalizer] Items: 2 causal, 3 latent
+[2026-02-02 21:37:01] [INFO]     [LifecycleTracker] Chapter 3: 10 chars, 32 items, 14 locs, 19 rels
+[2026-02-02 21:37:01] [INFO]     -> 3 errors (51.7s)
+[2026-02-02 21:37:01] [INFO]   Chapter 4: 004.txt
+[2026-02-02 21:37:01] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:37:29] [INFO]     -> 11 characters, 14 locations
+[2026-02-02 21:37:29] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:37:46] [INFO]     -> 10 items
+[2026-02-02 21:37:46] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:37:46] [INFO]     -> 11 characters, 14 locations, 10 items registered
+[2026-02-02 21:37:46] [INFO]     -> 11 character aliases, 14 location aliases, 10 item aliases
+[2026-02-02 21:37:46] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:37:46] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:37:46] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:38:18] [INFO]     -> 7 relationships, 5 initial rules
+[2026-02-02 21:38:18] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:39:03] [INFO]     -> 13 events, 0 temporal constraints
+[2026-02-02 21:39:03] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:39:03] [INFO]     [RelationshipNormalizer] Normalized: 7 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:39:03] [INFO]     -> 7 relationships after normalization
+[2026-02-02 21:39:03] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:39:03] [INFO]     -> 4 initial rules after normalization
+[2026-02-02 21:39:03] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:39:03] [WARN]     [EventNormalizer] Dropped event[1] (arrive): agent 'owl' not found in EntityRegistry
+[2026-02-02 21:39:03] [WARN]     [EventNormalizer] Dropped event[3] (leave): agent 'owl' not found in EntityRegistry
+[2026-02-02 21:39:03] [INFO]     [EventNormalizer] Validated: 11 events, 2 dropped
+[2026-02-02 21:39:03] [INFO]     [EventNormalizer] Items: 4 causal, 6 latent
+[2026-02-02 21:39:03] [INFO]     -> 11 events validated, 2 dropped
+[2026-02-02 21:39:03] [INFO]     -> Items: 4 causal, 6 latent
+[2026-02-02 21:39:03] [INFO]   [Phase 3/4/5] 3 validation warnings generated
+[2026-02-02 21:39:03] [INFO]     [EntityRegistry] 3 warnings generated
+[2026-02-02 21:39:03] [WARN]       - initial_rules: rule 'hagrid trusts dumbledore'
+[2026-02-02 21:39:03] [WARN]       - events: event[1] (arrive)
+[2026-02-02 21:39:03] [WARN]       - events: event[3] (leave)
+[2026-02-02 21:39:03] [INFO]     [EventNormalizer] Items: 4 causal, 6 latent
+[2026-02-02 21:39:03] [WARN]     [ALIAS CONFLICT] 'aunt_petunia' -> {'aunt_petunia', 'mrs_dursley'}
+[2026-02-02 21:39:03] [WARN]     [ALIAS CONFLICT] 'uncle_vernon' -> {'uncle_vernon', 'mr_dursley'}
+[2026-02-02 21:39:03] [INFO]     [LifecycleTracker] Chapter 4: 17 chars, 42 items, 27 locs, 25 rels
+[2026-02-02 21:39:03] [INFO]     -> 1 errors (121.8s)
+[2026-02-02 21:39:03] [INFO]   Chapter 5: 005.txt
+[2026-02-02 21:39:03] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:39:14] [INFO]     -> 18 characters, 8 locations
+[2026-02-02 21:39:14] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:39:18] [INFO]     -> 10 items
+[2026-02-02 21:39:18] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:39:18] [INFO]     -> 18 characters, 8 locations, 10 items registered
+[2026-02-02 21:39:18] [INFO]     -> 18 character aliases, 8 location aliases, 13 item aliases
+[2026-02-02 21:39:18] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:39:18] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:39:18] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:39:44] [INFO]     -> 19 relationships, 13 initial rules
+[2026-02-02 21:39:44] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:40:12] [INFO]     -> 9 events, 0 temporal constraints
+[2026-02-02 21:40:12] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:40:12] [INFO]     [RelationshipNormalizer] Normalized: 19 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:40:12] [INFO]     -> 19 relationships after normalization
+[2026-02-02 21:40:12] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:40:12] [INFO]     -> 13 initial rules after normalization
+[2026-02-02 21:40:12] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:40:12] [WARN]     [EventNormalizer] Dropped event[7] (arrive): agent 'hogwarts_express' not found in EntityRegistry
+[2026-02-02 21:40:12] [INFO]     [EventNormalizer] Validated: 8 events, 1 dropped
+[2026-02-02 21:40:12] [INFO]     [EventNormalizer] Items: 2 causal, 8 latent
+[2026-02-02 21:40:12] [INFO]     -> 8 events validated, 1 dropped
+[2026-02-02 21:40:12] [INFO]     -> Items: 2 causal, 8 latent
+[2026-02-02 21:40:12] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:40:12] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:40:12] [WARN]       - events: event[7] (arrive)
+[2026-02-02 21:40:12] [INFO]     [EventNormalizer] Items: 2 causal, 8 latent
+[2026-02-02 21:40:12] [WARN]     [ALIAS CONFLICT] 'aunt_petunia' -> {'aunt_petunia', 'mrs_dursley'}
+[2026-02-02 21:40:12] [WARN]     [ALIAS CONFLICT] 'uncle_vernon' -> {'uncle_vernon', 'mr_dursley'}
+[2026-02-02 21:40:12] [INFO]     [LifecycleTracker] Chapter 5: 30 chars, 51 items, 30 locs, 40 rels
+[2026-02-02 21:40:13] [INFO]     -> 4 errors (69.9s)
+[2026-02-02 21:40:13] [INFO]   Chapter 6: 006.txt
+[2026-02-02 21:40:13] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:40:23] [INFO]     -> 17 characters, 5 locations
+[2026-02-02 21:40:23] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:40:45] [INFO]     -> 5 items
+[2026-02-02 21:40:45] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:40:45] [INFO]     -> 17 characters, 5 locations, 5 items registered
+[2026-02-02 21:40:45] [INFO]     -> 17 character aliases, 5 location aliases, 5 item aliases
+[2026-02-02 21:40:45] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:40:45] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:40:45] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:40:53] [INFO]     -> 16 relationships, 9 initial rules
+[2026-02-02 21:40:53] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:41:28] [INFO]     -> 12 events, 0 temporal constraints
+[2026-02-02 21:41:28] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:41:28] [INFO]     [RelationshipNormalizer] Normalized: 16 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:41:28] [INFO]     -> 16 relationships after normalization
+[2026-02-02 21:41:28] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:41:28] [INFO]     -> 9 initial rules after normalization
+[2026-02-02 21:41:28] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:41:28] [WARN]     [EventNormalizer] Dropped event[2] (arrive): agent 'ghosts' not found in EntityRegistry
+[2026-02-02 21:41:28] [WARN]     [EventNormalizer] Dropped event[5] (talk): agent 'sorting_hat' not found in EntityRegistry
+[2026-02-02 21:41:28] [WARN]     [EventNormalizer] Dropped event[6] (praise): agent 'sorting_hat' not found in EntityRegistry
+[2026-02-02 21:41:28] [WARN]     [EventNormalizer] Dropped event[10] (leave): agent 'gryffindor_first_years' not found in EntityRegistry
+[2026-02-02 21:41:28] [WARN]     [EventNormalizer] Dropped event[11] (arrive): agent 'gryffindor_first_years' not found in EntityRegistry
+[2026-02-02 21:41:28] [INFO]     [EventNormalizer] Validated: 7 events, 5 dropped
+[2026-02-02 21:41:28] [INFO]     [EventNormalizer] Items: 0 causal, 5 latent
+[2026-02-02 21:41:28] [INFO]     -> 7 events validated, 5 dropped
+[2026-02-02 21:41:28] [INFO]     -> Items: 0 causal, 5 latent
+[2026-02-02 21:41:28] [INFO]   [Phase 3/4/5] 5 validation warnings generated
+[2026-02-02 21:41:28] [INFO]     [EntityRegistry] 5 warnings generated
+[2026-02-02 21:41:28] [WARN]       - events: event[2] (arrive)
+[2026-02-02 21:41:28] [WARN]       - events: event[5] (talk)
+[2026-02-02 21:41:28] [WARN]       - events: event[6] (praise)
+[2026-02-02 21:41:28] [WARN]       - events: event[10] (leave)
+[2026-02-02 21:41:28] [WARN]       - events: event[11] (arrive)
+[2026-02-02 21:41:28] [INFO]     [EventNormalizer] Items: 0 causal, 5 latent
+[2026-02-02 21:41:28] [INFO]     [LifecycleTracker] Chapter 6: 35 chars, 55 items, 34 locs, 51 rels
+[2026-02-02 21:41:29] [INFO]     -> 0 errors (76.1s)
+[2026-02-02 21:41:29] [INFO]   [LifecycleTracker] Final analysis: 118 loose ends, 62 back-annotations
+[2026-02-02 21:41:29] [INFO]   Final analysis: 87 loose ends, 0 long-range issues
+[2026-02-02 21:41:29] [INFO]   Lifecycle analysis: 118 loose ends, 62 back-annotations
+[2026-02-02 21:41:29] [INFO]   Alias resolver: 35 characters, 39 aliases, 4 conflicts
+[2026-02-02 21:41:29] [INFO]   Item tracker: 56 items, 56 active, 0 suppressed, 44 causal, 12 latent
+[2026-02-02 21:41:29] [INFO]   Lifecycle tracker: 35 chars, 55 items, 10 causal, 45 latent, 1 promoted
+[2026-02-02 21:41:29] [INFO] 
+Processing: Harry Potter (modified)
+[2026-02-02 21:41:29] [INFO]   Found 7 chapters (limited to 7)
+[2026-02-02 21:41:29] [INFO]   Chapter 0: 000.txt
+[2026-02-02 21:41:29] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:41:35] [INFO]     -> 7 characters, 6 locations
+[2026-02-02 21:41:35] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:41:44] [INFO]     -> 7 items
+[2026-02-02 21:41:44] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:41:44] [INFO]     -> 7 characters, 6 locations, 7 items registered
+[2026-02-02 21:41:44] [INFO]     -> 7 character aliases, 6 location aliases, 9 item aliases
+[2026-02-02 21:41:44] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:41:44] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:41:44] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:41:59] [INFO]     -> 15 relationships, 7 initial rules
+[2026-02-02 21:41:59] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:42:23] [INFO]     -> 11 events, 3 temporal constraints
+[2026-02-02 21:42:23] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:42:23] [INFO]     [RelationshipNormalizer] Normalized: 15 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:42:23] [INFO]     -> 15 relationships after normalization
+[2026-02-02 21:42:23] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:42:23] [INFO]     -> 7 initial rules after normalization
+[2026-02-02 21:42:23] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:42:23] [INFO]     [EventNormalizer] Validated: 11 events, 0 dropped
+[2026-02-02 21:42:23] [INFO]     [EventNormalizer] Items: 1 causal, 6 latent
+[2026-02-02 21:42:23] [INFO]     -> 11 events validated, 0 dropped
+[2026-02-02 21:42:23] [INFO]     -> Items: 1 causal, 6 latent
+[2026-02-02 21:42:23] [INFO]     [EventNormalizer] Items: 1 causal, 6 latent
+[2026-02-02 21:42:23] [INFO]     [LifecycleTracker] Chapter 0: 7 chars, 7 items, 6 locs, 15 rels
+[2026-02-02 21:42:23] [INFO]     -> 0 errors (54.2s)
+[2026-02-02 21:42:23] [INFO]   Chapter 1: 001.txt
+[2026-02-02 21:42:23] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:43:01] [INFO]     -> 6 characters, 8 locations
+[2026-02-02 21:43:01] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:43:04] [INFO]     -> 5 items
+[2026-02-02 21:43:04] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:43:04] [INFO]     -> 6 characters, 8 locations, 5 items registered
+[2026-02-02 21:43:04] [INFO]     -> 8 character aliases, 8 location aliases, 6 item aliases
+[2026-02-02 21:43:04] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:43:04] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:43:04] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:43:08] [INFO]     -> 4 relationships, 6 initial rules
+[2026-02-02 21:43:08] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:43:29] [INFO]     -> 16 events, 0 temporal constraints
+[2026-02-02 21:43:29] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:43:29] [INFO]     [RelationshipNormalizer] Normalized: 4 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:43:29] [INFO]     -> 4 relationships after normalization
+[2026-02-02 21:43:29] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:43:29] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 21:43:29] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:43:29] [WARN]     [EventNormalizer] Dropped event[13] (leave): agent 'snake_tank_glass' not found in EntityRegistry
+[2026-02-02 21:43:29] [INFO]     [EventNormalizer] Validated: 15 events, 1 dropped
+[2026-02-02 21:43:29] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:43:29] [INFO]     -> 15 events validated, 1 dropped
+[2026-02-02 21:43:29] [INFO]     -> Items: 1 causal, 4 latent
+[2026-02-02 21:43:29] [INFO]   [Phase 3/4/5] 1 validation warnings generated
+[2026-02-02 21:43:29] [INFO]     [EntityRegistry] 1 warnings generated
+[2026-02-02 21:43:29] [WARN]       - events: event[13] (leave)
+[2026-02-02 21:43:29] [INFO]     [EventNormalizer] Items: 1 causal, 4 latent
+[2026-02-02 21:43:29] [INFO]     [LifecycleTracker] Chapter 1: 9 chars, 11 items, 10 locs, 17 rels
+[2026-02-02 21:43:29] [INFO]     -> 0 errors (66.1s)
+[2026-02-02 21:43:29] [INFO]   Chapter 2: 002.txt
+[2026-02-02 21:43:29] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:43:37] [INFO]     -> 6 characters, 8 locations
+[2026-02-02 21:43:37] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:43:42] [INFO]     -> 7 items
+[2026-02-02 21:43:42] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:43:42] [INFO]     -> 6 characters, 8 locations, 7 items registered
+[2026-02-02 21:43:42] [INFO]     -> 8 character aliases, 10 location aliases, 7 item aliases
+[2026-02-02 21:43:42] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:43:42] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:43:42] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:43:49] [INFO]     -> 6 relationships, 6 initial rules
+[2026-02-02 21:43:49] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:44:18] [INFO]     -> 13 events, 0 temporal constraints
+[2026-02-02 21:44:18] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:44:18] [INFO]     [RelationshipNormalizer] Normalized: 6 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:44:18] [INFO]     -> 6 relationships after normalization
+[2026-02-02 21:44:18] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:44:18] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 21:44:18] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:44:18] [WARN]     [EventNormalizer] Dropped event[6] (leave): location 'hall' not found in EntityRegistry
+[2026-02-02 21:44:18] [WARN]     [EventNormalizer] Dropped event[12] (discover): agent 'hotel_owner' not found in EntityRegistry
+[2026-02-02 21:44:18] [INFO]     [EventNormalizer] Validated: 11 events, 2 dropped
+[2026-02-02 21:44:18] [INFO]     [EventNormalizer] Items: 2 causal, 5 latent
+[2026-02-02 21:44:18] [INFO]     -> 11 events validated, 2 dropped
+[2026-02-02 21:44:18] [INFO]     -> Items: 2 causal, 5 latent
+[2026-02-02 21:44:18] [INFO]   [Phase 3/4/5] 2 validation warnings generated
+[2026-02-02 21:44:18] [INFO]     [EntityRegistry] 2 warnings generated
+[2026-02-02 21:44:18] [WARN]       - events: event[6] (leave)
+[2026-02-02 21:44:18] [WARN]       - events: event[12] (discover)
+[2026-02-02 21:44:18] [INFO]     [EventNormalizer] Items: 2 causal, 5 latent
+[2026-02-02 21:44:18] [INFO]       Item 'letter' promoted latent → causal at chapter 2
+[2026-02-02 21:44:18] [INFO]     [LifecycleTracker] Chapter 2: 9 chars, 16 items, 12 locs, 20 rels
+[2026-02-02 21:44:18] [INFO]     -> 1 errors (49.0s)
+[2026-02-02 21:44:18] [INFO]   Chapter 3: 003.txt
+[2026-02-02 21:44:18] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:44:23] [INFO]     -> 6 characters, 1 locations
+[2026-02-02 21:44:23] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:44:34] [INFO]     -> 8 items
+[2026-02-02 21:44:34] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:44:34] [INFO]     -> 6 characters, 1 locations, 8 items registered
+[2026-02-02 21:44:34] [INFO]     -> 9 character aliases, 1 location aliases, 9 item aliases
+[2026-02-02 21:44:34] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:44:34] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:44:34] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:44:50] [INFO]     -> 13 relationships, 5 initial rules
+[2026-02-02 21:44:50] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:45:07] [INFO]     -> 5 events, 0 temporal constraints
+[2026-02-02 21:45:07] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:45:07] [INFO]     [RelationshipNormalizer] Normalized: 13 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:45:07] [INFO]     -> 13 relationships after normalization
+[2026-02-02 21:45:07] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:45:07] [INFO]     -> 5 initial rules after normalization
+[2026-02-02 21:45:07] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:45:07] [INFO]     [EventNormalizer] Validated: 5 events, 0 dropped
+[2026-02-02 21:45:07] [INFO]     [EventNormalizer] Items: 2 causal, 6 latent
+[2026-02-02 21:45:07] [INFO]     -> 5 events validated, 0 dropped
+[2026-02-02 21:45:07] [INFO]     -> Items: 2 causal, 6 latent
+[2026-02-02 21:45:07] [INFO]     [EventNormalizer] Items: 2 causal, 6 latent
+[2026-02-02 21:45:07] [INFO]     [LifecycleTracker] Chapter 3: 10 chars, 23 items, 13 locs, 29 rels
+[2026-02-02 21:45:07] [INFO]     -> 2 errors (48.7s)
+[2026-02-02 21:45:07] [INFO]   Chapter 4: 004.txt
+[2026-02-02 21:45:07] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:45:55] [INFO]     -> 10 characters, 16 locations
+[2026-02-02 21:45:55] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:46:01] [INFO]     -> 9 items
+[2026-02-02 21:46:01] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:46:01] [INFO]     -> 10 characters, 16 locations, 9 items registered
+[2026-02-02 21:46:01] [INFO]     -> 10 character aliases, 18 location aliases, 11 item aliases
+[2026-02-02 21:46:01] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:46:01] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:46:01] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:46:12] [INFO]     -> 7 relationships, 5 initial rules
+[2026-02-02 21:46:12] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:46:48] [INFO]     -> 14 events, 0 temporal constraints
+[2026-02-02 21:46:48] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:46:48] [INFO]     [RelationshipNormalizer] Normalized: 7 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:46:48] [INFO]     -> 7 relationships after normalization
+[2026-02-02 21:46:48] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:46:48] [INFO]     -> 4 initial rules after normalization
+[2026-02-02 21:46:48] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:46:48] [WARN]     [EventNormalizer] Dropped event[1] (arrive): agent 'owl' not found in EntityRegistry
+[2026-02-02 21:46:48] [WARN]     [EventNormalizer] Dropped event[3] (leave): agent 'owl' not found in EntityRegistry
+[2026-02-02 21:46:48] [INFO]     [EventNormalizer] Validated: 12 events, 2 dropped
+[2026-02-02 21:46:48] [INFO]     [EventNormalizer] Items: 3 causal, 6 latent
+[2026-02-02 21:46:48] [INFO]     -> 12 events validated, 2 dropped
+[2026-02-02 21:46:48] [INFO]     -> Items: 3 causal, 6 latent
+[2026-02-02 21:46:48] [INFO]   [Phase 3/4/5] 3 validation warnings generated
+[2026-02-02 21:46:48] [INFO]     [EntityRegistry] 3 warnings generated
+[2026-02-02 21:46:48] [WARN]       - initial_rules: rule 'hagrid trusts dumbledore'
+[2026-02-02 21:46:48] [WARN]       - events: event[1] (arrive)
+[2026-02-02 21:46:48] [WARN]       - events: event[3] (leave)
+[2026-02-02 21:46:48] [INFO]     [EventNormalizer] Items: 3 causal, 6 latent
+[2026-02-02 21:46:48] [WARN]     [ALIAS CONFLICT] 'aunt_petunia' -> {'aunt_petunia', 'mrs_dursley'}
+[2026-02-02 21:46:48] [WARN]     [ALIAS CONFLICT] 'uncle_vernon' -> {'uncle_vernon', 'mr_dursley'}
+[2026-02-02 21:46:48] [INFO]     [LifecycleTracker] Chapter 4: 16 chars, 32 items, 28 locs, 34 rels
+[2026-02-02 21:46:48] [INFO]     -> 1 errors (101.5s)
+[2026-02-02 21:46:48] [INFO]   Chapter 5: 005.txt
+[2026-02-02 21:46:48] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:47:09] [INFO]     -> 18 characters, 8 locations
+[2026-02-02 21:47:09] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:47:24] [INFO]     -> 10 items
+[2026-02-02 21:47:24] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:47:24] [INFO]     -> 18 characters, 8 locations, 10 items registered
+[2026-02-02 21:47:24] [INFO]     -> 21 character aliases, 8 location aliases, 13 item aliases
+[2026-02-02 21:47:24] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:47:24] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:47:24] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:47:53] [INFO]     -> 21 relationships, 13 initial rules
+[2026-02-02 21:47:53] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:48:13] [INFO]     -> 9 events, 0 temporal constraints
+[2026-02-02 21:48:13] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:48:13] [INFO]     [RelationshipNormalizer] Normalized: 21 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 21:48:13] [INFO]     -> 21 relationships after normalization
+[2026-02-02 21:48:13] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:48:13] [INFO]     -> 13 initial rules after normalization
+[2026-02-02 21:48:13] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:48:13] [INFO]     [EventNormalizer] Validated: 9 events, 0 dropped
+[2026-02-02 21:48:13] [INFO]     [EventNormalizer] Items: 1 causal, 9 latent
+[2026-02-02 21:48:13] [INFO]     -> 9 events validated, 0 dropped
+[2026-02-02 21:48:13] [INFO]     -> Items: 1 causal, 9 latent
+[2026-02-02 21:48:13] [INFO]     [EventNormalizer] Items: 1 causal, 9 latent
+[2026-02-02 21:48:13] [INFO]     [LifecycleTracker] Chapter 5: 29 chars, 41 items, 32 locs, 50 rels
+[2026-02-02 21:48:14] [INFO]     -> 0 errors (85.8s)
+[2026-02-02 21:48:14] [INFO]   Chapter 6: 006.txt
+[2026-02-02 21:48:14] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 21:48:34] [INFO]     -> 18 characters, 5 locations
+[2026-02-02 21:48:34] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 21:48:41] [INFO]     -> 7 items
+[2026-02-02 21:48:41] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 21:48:41] [INFO]     -> 18 characters, 5 locations, 7 items registered
+[2026-02-02 21:48:41] [INFO]     -> 18 character aliases, 5 location aliases, 9 item aliases
+[2026-02-02 21:48:41] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 21:48:41] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 21:48:41] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 21:48:58] [INFO]     -> 14 relationships, 11 initial rules
+[2026-02-02 21:48:58] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 21:49:25] [INFO]     -> 14 events, 0 temporal constraints
+[2026-02-02 21:49:25] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 21:49:25] [INFO]     [RelationshipNormalizer] Normalized: 10 relationships, 0 conflicts, 4 dropped, 0 merged, 0 expanded
+[2026-02-02 21:49:25] [INFO]     -> 10 relationships after normalization
+[2026-02-02 21:49:25] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 21:49:25] [INFO]     -> 10 initial rules after normalization
+[2026-02-02 21:49:25] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 21:49:25] [WARN]     [EventNormalizer] Dropped event[11] (leave): agent 'gryffindor_first_years' not found in EntityRegistry
+[2026-02-02 21:49:25] [WARN]     [EventNormalizer] Dropped event[12] (arrive): agent 'gryffindor_first_years' not found in EntityRegistry
+[2026-02-02 21:49:25] [WARN]     [EventNormalizer] Dropped event[13] (arrive): agent 'gryffindor_first_years' not found in EntityRegistry
+[2026-02-02 21:49:25] [INFO]     [EventNormalizer] Validated: 11 events, 3 dropped
+[2026-02-02 21:49:25] [INFO]     [EventNormalizer] Items: 0 causal, 7 latent
+[2026-02-02 21:49:25] [INFO]     -> 11 events validated, 3 dropped
+[2026-02-02 21:49:25] [INFO]     -> Items: 0 causal, 7 latent
+[2026-02-02 21:49:25] [INFO]   [Phase 3/4/5] 8 validation warnings generated
+[2026-02-02 21:49:25] [INFO]     [EntityRegistry] 8 warnings generated
+[2026-02-02 21:49:25] [WARN]       - relationships: relationship from 'fat_friar' to 'first_years'
+[2026-02-02 21:49:25] [WARN]       - relationships: relationship from 'nearly_headless_nick' to 'gryffindor_students'
+[2026-02-02 21:49:25] [WARN]       - relationships: relationship from 'bloody_baron' to 'slytherin_students'
+[2026-02-02 21:49:25] [WARN]       - relationships: relationship from 'peeves' to 'first_years'
+[2026-02-02 21:49:25] [WARN]       - initial_rules: rule 'nearly_headless_nick friendly gryffindor_students'
+[2026-02-02 21:49:25] [WARN]       ... and 3 more
+[2026-02-02 21:49:25] [INFO]     [EventNormalizer] Items: 0 causal, 7 latent
+[2026-02-02 21:49:25] [INFO]     [LifecycleTracker] Chapter 6: 35 chars, 46 items, 37 locs, 55 rels
+[2026-02-02 21:49:26] [INFO]     -> 0 errors (72.2s)
+[2026-02-02 21:49:26] [INFO]   [LifecycleTracker] Final analysis: 118 loose ends, 50 back-annotations
+[2026-02-02 21:49:26] [INFO]   Final analysis: 75 loose ends, 0 long-range issues
+[2026-02-02 21:49:26] [INFO]   Lifecycle analysis: 118 loose ends, 50 back-annotations
+[2026-02-02 21:49:26] [INFO]   Alias resolver: 35 characters, 39 aliases, 2 conflicts
+[2026-02-02 21:49:26] [INFO]   Item tracker: 47 items, 47 active, 0 suppressed, 42 causal, 5 latent
+[2026-02-02 21:49:26] [INFO]   Lifecycle tracker: 35 chars, 46 items, 9 causal, 37 latent, 1 promoted
+[2026-02-02 21:49:26] [INFO] 
+Step 2 (Engine) complete: 14 chapters, 14 errors
+[2026-02-02 21:49:26] [INFO] Results saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_engine_results.json
+[2026-02-02 21:49:26] [STEP] ============================================================
+===== END STEP: STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5) =====
+============================================================
+
+
+============================================================
+=== Experiment Run Resumed: 2026-02-02T21:49:26.903749 ===
+============================================================
+
+[2026-02-02 21:49:26] [INFO] API Mode: local
+[2026-02-02 21:49:26] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-02-02 21:49:26] [INFO] ============================================================
+[2026-02-02 21:49:26] [INFO] Generating Experiment Summary
+[2026-02-02 21:49:26] [INFO] ============================================================
+[2026-02-02 21:49:26] [WARN] Step 1 results not found
+[2026-02-02 21:49:26] [WARN] Step 2 results not found
+[2026-02-02 21:49:26] [INFO] 
+Summary saved to: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/experiment_summary.json
+
+============================================================
+=== Experiment Run Resumed: 2026-02-02T23:17:17.899484 ===
+============================================================
+
+[2026-02-02 23:17:17] [INFO] API Mode: openai
+[2026-02-02 23:17:17] [INFO] API Model: gpt-4o
+[2026-02-02 23:17:17] [INFO] Extraction Mode: SPLIT (Phase 2 - four independent LLM calls)
+[2026-02-02 23:17:17] [INFO] LLM Timeout: 300s, ILASP Timeout: 60s
+[2026-02-02 23:17:17] [STEP] 
+============================================================
+===== START STEP: STEP 2: Logic-Based Evaluation (Engine Modules - Phase 5) =====
+============================================================
+[2026-02-02 23:17:17] [INFO] Mode: SPLIT EXTRACTION (Phase 2 - four independent LLM calls)
+[2026-02-02 23:17:17] [INFO] Logging to: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_engine_log.jsonl
+[2026-02-02 23:17:17] [INFO] Extractions log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extractions.jsonl
+[2026-02-02 23:17:17] [INFO] Events log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_events_log.jsonl
+[2026-02-02 23:17:17] [INFO] Alias conflicts log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_alias_conflicts.jsonl
+[2026-02-02 23:17:17] [INFO] Item stats log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_item_stats.jsonl
+[2026-02-02 23:17:17] [INFO] Diagnostics log: /home/mrcorner/Workspace/Repos/tist26/experiments/07_openai_one_book/step2_extraction_diagnostics.jsonl
+[2026-02-02 23:17:17] [INFO] Using OpenAI API with model: gpt-4o
+[2026-02-02 23:17:17] [INFO] 
+Processing: Harry Potter (original)
+[2026-02-02 23:17:17] [INFO]   Found 7 chapters (limited to 7)
+[2026-02-02 23:17:17] [INFO]   Chapter 0: 000.txt
+[2026-02-02 23:17:17] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 23:17:22] [INFO]     -> 7 characters, 4 locations
+[2026-02-02 23:17:22] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 23:17:27] [INFO]     -> 11 items
+[2026-02-02 23:17:27] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 23:17:27] [INFO]     -> 7 characters, 4 locations, 11 items registered
+[2026-02-02 23:17:27] [INFO]     -> 7 character aliases, 4 location aliases, 11 item aliases
+[2026-02-02 23:17:27] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 23:17:27] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 23:17:27] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 23:17:33] [INFO]     -> 9 relationships, 6 initial rules
+[2026-02-02 23:17:33] [INFO]   [Phase 2] Extracting events...
+[2026-02-02 23:17:45] [INFO]     -> 10 events, 0 temporal constraints
+[2026-02-02 23:17:45] [INFO]   [Phase 4] Normalizing relationships with RelationshipNormalizer...
+[2026-02-02 23:17:45] [INFO]     [RelationshipNormalizer] Normalized: 9 relationships, 0 conflicts, 0 dropped, 0 merged, 0 expanded
+[2026-02-02 23:17:45] [INFO]     -> 9 relationships after normalization
+[2026-02-02 23:17:45] [INFO]   [Phase 4] Normalizing initial rules...
+[2026-02-02 23:17:45] [INFO]     -> 6 initial rules after normalization
+[2026-02-02 23:17:45] [INFO]   [Phase 5] Normalizing events with EventNormalizer (strict validation)...
+[2026-02-02 23:17:45] [INFO]     [EventNormalizer] Validated: 10 events, 0 dropped
+[2026-02-02 23:17:45] [INFO]     [EventNormalizer] Items: 3 causal, 8 latent
+[2026-02-02 23:17:45] [INFO]     -> 10 events validated, 0 dropped
+[2026-02-02 23:17:45] [INFO]     -> Items: 3 causal, 8 latent
+[2026-02-02 23:17:45] [INFO]     [EventNormalizer] Items: 3 causal, 8 latent
+[2026-02-02 23:17:45] [INFO]     [LifecycleTracker] Chapter 0: 7 chars, 11 items, 4 locs, 9 rels
+[2026-02-02 23:17:45] [INFO]     -> 1 errors (27.9s)
+[2026-02-02 23:17:45] [INFO]   Chapter 1: 001.txt
+[2026-02-02 23:17:45] [INFO]   [Phase 2] Extracting characters and locations...
+[2026-02-02 23:17:51] [INFO]     -> 6 characters, 6 locations
+[2026-02-02 23:17:51] [INFO]   [Phase 2] Extracting items...
+[2026-02-02 23:17:54] [INFO]     -> 3 items
+[2026-02-02 23:17:54] [INFO]   [Phase 3] Building EntityRegistry...
+[2026-02-02 23:17:54] [INFO]     -> 6 characters, 6 locations, 3 items registered
+[2026-02-02 23:17:54] [INFO]     -> 8 character aliases, 6 location aliases, 3 item aliases
+[2026-02-02 23:17:54] [INFO]   [Phase 4] Building RelationshipNormalizer...
+[2026-02-02 23:17:54] [INFO]   [Phase 5] Building EventNormalizer...
+[2026-02-02 23:17:54] [INFO]   [Phase 2] Extracting relationships...
+[2026-02-02 23:18:17] [INFO]     -> 4 relationships, 8 initial rules
+[2026-02-02 23:18:17] [INFO]   [Phase 2] Extracting events...

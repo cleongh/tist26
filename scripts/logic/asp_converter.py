@@ -232,15 +232,65 @@ def to_asp(
         if social_action_type and social_action_type != "unknown":
             lines.append(f"social_action({eid}, {social_action_type}).")
         
-        after_event = sanitize(event.get("after", ""))
-        if after_event and after_event != "unknown" and after_event != "null":
-            lines.append(f"must_precede({after_event}, {eid}).")
+        # Report events: emit report/1 and recipient/3
+        if etype == "report":
+            lines.append(f"report({eid}).")
+            recipient_id = sanitize_char(event.get("recipient", ""))
+            if recipient_id and recipient_id != "unknown":
+                lines.append(f"recipient({eid}, {recipient_id}).")
+                # Ensure recipient is declared as a character
+                if recipient_id not in char_ids:
+                    lines.append(f"character({recipient_id}).")
+                    char_ids.add(recipient_id)
+        
+        # Learn events: emit learned/3 for knowledge acquisition
+        if etype == "learn":
+            agent_id = sanitize_char(event.get("agent", ""))
+            fact_id = sanitize(event.get("fact", ""))
+            # Use event_time if available, otherwise chapter number
+            event_time = event.get("event_time", chapter_num)
+            if agent_id != "unknown" and fact_id != "unknown":
+                lines.append(f"learned({agent_id}, {fact_id}, {event_time}).")
+                lines.append(f"learn_event({eid}).")
+                # Emit source if provided
+                source_id = sanitize(event.get("source", ""))
+                if source_id and source_id != "unknown":
+                    lines.append(f"knowledge_source({eid}, {source_id}).")
     
-    # Generate implicit time ordering
-    event_ids = [sanitize(e.get("global_id", e.get("id", f"e{chapter_num}_{i+1}"))) 
-                 for i, e in enumerate(data.get("events", []))]
-    for i in range(len(event_ids) - 1):
-        lines.append(f"time_order({event_ids[i]}, {event_ids[i+1]}).")
+    # Process implied_presence entries
+    # Emit implied_presence/3: implied_presence(entity, location, chapter_time)
+    # Chapter time is used since no specific event time is available
+    # Also emit event_location for the synthetic implied presence event
+    implied_presence_count = 0
+    for presence in data.get("implied_presence", []):
+        entity_id = sanitize(presence.get("entity", ""))
+        location_id = sanitize(presence.get("location", ""))
+        if entity_id != "unknown" and location_id != "unknown":
+            # Check active universe filtering
+            if universe_entities is not None:
+                if entity_id not in universe_entities:
+                    continue  # Entity not in active universe
+            implied_presence_count += 1
+            # Create synthetic event ID for this implied presence
+            synthetic_eid = f"ip_{chapter_num}_{implied_presence_count}"
+            lines.append(f"implied_presence({entity_id}, {location_id}, {chapter_num}).")
+            # Emit synthetic event facts for ASP integration
+            lines.append(f"implied_presence_event({synthetic_eid}).")
+            lines.append(f"event({synthetic_eid}).")
+            lines.append(f"event_time({synthetic_eid}, {chapter_num}).")
+            lines.append(f"agent({synthetic_eid}, {entity_id}).")
+            lines.append(f"event_location({synthetic_eid}, {location_id}).")
+            # Ensure entity is declared (character or item)
+            if entity_id not in char_ids and entity_id not in item_ids:
+                # Assume character if not already known
+                if universe_entities is None or entity_id in universe_entities:
+                    lines.append(f"character({entity_id}).")
+                    char_ids.add(entity_id)
+            # Ensure location is declared
+            if location_id not in location_ids:
+                if universe_entities is None or location_id in universe_entities:
+                    lines.append(f"location_entity({location_id}).")
+                    location_ids.add(location_id)
     
     # Add story rules
     lines.append(f"\n% Story rules (dynamic, established by events)")

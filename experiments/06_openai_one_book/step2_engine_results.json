@@ -1,0 +1,690 @@
+{
+  "step": 2,
+  "approach": "logic_engine",
+  "timestamp": "2026-02-02T19:24:01.618272",
+  "chapters_processed": 34,
+  "total_errors": 41,
+  "results": [
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I\u2019ve got him, sir."
+        }
+      ],
+      "duration_seconds": 67.4720139503479,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 48.84976768493652,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "we think it might be nice if you moved into Dudley\u2019s second bedroom."
+        }
+      ],
+      "duration_seconds": 57.17700386047363,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Got summat fer yeh here \u2014 I mighta sat on it at some point, but it\u2019ll taste all "
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "He reached over the back of the sofa, jerked the gun out of Uncle Vernon\u2019s hands"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "there was a flash of violet light, a sound like a firecracker, a sharp squeal."
+        }
+      ],
+      "duration_seconds": 48.153144121170044,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I'll get yer an owl."
+        }
+      ],
+      "duration_seconds": 108.3166925907135,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "005.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He had decided to call her Hedwig."
+        }
+      ],
+      "duration_seconds": 85.18802809715271,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 64.69200682640076,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 43.08431959152222,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 93.82278728485107,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Professor McGonagall told me all about the special circumstances"
+        },
+        {
+          "chapter_file": "009.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "The club flew suddenly out of the troll\u2019s hand"
+        },
+        {
+          "chapter_file": "009.txt",
+          "category": "possession",
+          "error_type": "give_without_having",
+          "description": "possession/give_without_having: give_without_having",
+          "story_fragment": "Professor McGonagall told me all about the special circumstances"
+        }
+      ],
+      "duration_seconds": 51.10016226768494,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 54.42665982246399,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "011.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 85.4309949874878,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "012.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He gave it to Neville, who looked as though he might cry."
+        }
+      ],
+      "duration_seconds": 61.51134753227234,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "013.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He had written only two words: It\u2019s hatching."
+        },
+        {
+          "chapter_file": "013.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "At last, Norbert was going\u2026 going\u2026 gone."
+        }
+      ],
+      "duration_seconds": 44.56632971763611,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 100.21025037765503,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 74.94612503051758,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "original",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I\u2019ve got yeh a present."
+        }
+      ],
+      "duration_seconds": 79.11354446411133,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "000.txt",
+      "chapter_number": 0,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "000.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "took a letter out of his cloak, tucked it inside Harry\u2019s blankets"
+        }
+      ],
+      "duration_seconds": 72.03641057014465,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "001.txt",
+      "chapter_number": 1,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 32.89827013015747,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "002.txt",
+      "chapter_number": 2,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "002.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "we think it might be nice if you moved into Dudley\u2019s second bedroom"
+        }
+      ],
+      "duration_seconds": 53.203064918518066,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "003.txt",
+      "chapter_number": 3,
+      "error_count": 4,
+      "errors": [
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Got summat fer yeh here \u2014 I mighta sat on it at some point, but it\u2019ll taste all "
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "An\u2019 I reckon it\u2019s abou\u2019 time yeh read yer letter."
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "he reached over the back of the sofa, jerked the gun out of Uncle Vernon\u2019s hands"
+        },
+        {
+          "chapter_file": "003.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "there was a flash of violet light, a sound like a firecracker, a sharp squeal, a"
+        }
+      ],
+      "duration_seconds": 53.59318542480469,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "004.txt",
+      "chapter_number": 4,
+      "error_count": 3,
+      "errors": [
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Give him five Knuts"
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I\u2019ll get yer an owl."
+        },
+        {
+          "chapter_file": "004.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Yer ticket fer Hogwarts"
+        }
+      ],
+      "duration_seconds": 96.73389196395874,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "005.txt",
+      "chapter_number": 5,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 90.57703733444214,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "006.txt",
+      "chapter_number": 6,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 58.9979362487793,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "007.txt",
+      "chapter_number": 7,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 60.85476613044739,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "008.txt",
+      "chapter_number": 8,
+      "error_count": 1,
+      "errors": [
+        {
+          "chapter_file": "008.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 66.72547364234924,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "009.txt",
+      "chapter_number": 9,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "009.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "It contains your new Nimbus Two Thousand"
+        },
+        {
+          "chapter_file": "009.txt",
+          "category": "possession",
+          "error_type": "give_without_having",
+          "description": "possession/give_without_having: give_without_having",
+          "story_fragment": "It contains your new Nimbus Two Thousand"
+        }
+      ],
+      "duration_seconds": 73.70723986625671,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "010.txt",
+      "chapter_number": 10,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 49.510711669921875,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "011.txt",
+      "chapter_number": 11,
+      "error_count": 4,
+      "errors": [
+        {
+          "chapter_file": "011.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "To Harry, from Hagrid. Inside was a roughly cut wooden flute."
+        },
+        {
+          "chapter_file": "011.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "I think I know who that one\u2019s from... My mom."
+        },
+        {
+          "chapter_file": "011.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "His next present also contained candy \u2014 a large box of Chocolate Frogs from Herm"
+        },
+        {
+          "chapter_file": "011.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 81.80224514007568,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "012.txt",
+      "chapter_number": 12,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "012.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "He gave it to Neville, who looked as though he might cry."
+        },
+        {
+          "chapter_file": "012.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        }
+      ],
+      "duration_seconds": 53.68310308456421,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "013.txt",
+      "chapter_number": 13,
+      "error_count": 2,
+      "errors": [
+        {
+          "chapter_file": "013.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Won it, said Hagrid."
+        },
+        {
+          "chapter_file": "013.txt",
+          "category": "possession",
+          "error_type": "give_without_having",
+          "description": "possession/give_without_having: give_without_having",
+          "story_fragment": "Won it, said Hagrid."
+        }
+      ],
+      "duration_seconds": 52.32120633125305,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "014.txt",
+      "chapter_number": 14,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 84.5936210155487,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "015.txt",
+      "chapter_number": 15,
+      "error_count": 0,
+      "errors": [],
+      "duration_seconds": 125.60975193977356,
+      "success": true,
+      "error_message": ""
+    },
+    {
+      "story_name": "Harry Potter",
+      "variant": "modified",
+      "chapter_file": "016.txt",
+      "chapter_number": 16,
+      "error_count": 6,
+      "errors": [
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "give_without_having",
+          "description": "causality/give_without_having: give_without_having",
+          "story_fragment": "Dumbledore gave me the day off yesterday ter fix it. \u2018Course, he shoulda sacked "
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "dead_character_acting",
+          "description": "causality/dead_character_acting: dead_character_acting",
+          "story_fragment": "Quirrell snapped his fingers. Ropes sprang out of thin air and wrapped themselve"
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "dead_character_acting",
+          "description": "causality/dead_character_acting: dead_character_acting",
+          "story_fragment": "Quirrell lunged, knocking Harry clean off his feet\u2019 landing on top of him, both "
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "emotional",
+          "error_type": "emotional_contradiction",
+          "description": "emotional/emotional_contradiction: emotional_contradiction",
+          "story_fragment": ""
+        },
+        {
+          "chapter_file": "016.txt",
+          "category": "causality",
+          "error_type": "interacting_with_dead",
+          "description": "causality/interacting_with_dead: interacting_with_dead",
+          "story_fragment": "It was Quirrell. \u201cYou!\u201d gasped Harry."
+        }
+      ],
+      "duration_seconds": 60.22378611564636,
+      "success": true,
+      "error_message": ""
+    }
+  ]
+}
