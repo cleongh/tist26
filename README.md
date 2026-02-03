@@ -892,11 +892,7 @@ ls source_modified_books/
 If you use this system in your research, please cite:
 
 ```bibtex
-@misc{narrative-consistency-checker,
-  title={Hybrid LLM and Logic Programming for Narrative Consistency Checking},
-  year={2026},
-  note={Comparing LLM-based and ILASP/Clingo-based narrative evaluation}
-}
+TBD
 ```
 
 ---
