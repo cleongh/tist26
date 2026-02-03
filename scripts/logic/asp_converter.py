@@ -194,6 +194,15 @@ def to_asp(
         if eid.startswith('e') and eid[1:].isdigit():
             event_num = int(eid[1:])
             lines.append(f"event_order({eid}, {event_num}).")
+            # Emit event_time/2 for time-indexed rules (emotional.lp, etc.)
+            # Time is derived from event order to maintain monotonicity
+            lines.append(f"event_time({eid}, {event_num}).")
+        
+        # Emit narrative_time_relation for non-linear narration detection
+        narrative_time = event.get('narrative_time')
+        if narrative_time:
+            nt = sanitize(narrative_time)
+            lines.append(f"narrative_time_relation({eid}, {nt}).")
         
         source_text = event.get('source_text', '')
         if source_text:

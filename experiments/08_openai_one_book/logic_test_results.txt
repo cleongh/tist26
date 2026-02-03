@@ -1,0 +1,135 @@
+
+================================================================================
+LOGIC EVALUATION TRACE
+================================================================================
+Experiment: /home/mrcorner/Workspace/Repos/tist26/experiments/08_openai_one_book
+Timestamp: 2026-02-03T23:56:42.270535
+Total statements evaluated: 0
+Total violations: 15
+Rule files: 11
+================================================================================
+
+================================================================================
+Logic-Only Test Runner
+Timestamp: 2026-02-03T23:56:41.802610
+Experiment: /home/mrcorner/Workspace/Repos/tist26/experiments/08_openai_one_book
+Rule files: 11
+================================================================================
+
+------------------------------------------------------------
+Chapter 0 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 1 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 2 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 3 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 2
+  1. [causality] give_without_having: e2
+      Detail: chocolate_cake
+  2. [coherence] appearance_emotion_mismatch: mr_dursley
+      Detail: pale
+
+------------------------------------------------------------
+Chapter 4 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 5 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 6 (Harry Potter - original)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 0 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 1 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 3
+  1. [coherence] solo_communication: e16
+      Detail: talk
+  2. [causality] interacting_with_dead: e16
+      Detail: snake_tank
+  3. [coherence] appearance_emotion_mismatch: dudley_dursley
+      Detail: pale_green
+
+------------------------------------------------------------
+Chapter 2 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+------------------------------------------------------------
+Chapter 3 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 5
+  1. [causality] give_without_having: e3
+      Detail: letter
+  2. [causality] interacting_with_dead: e2
+      Detail: door
+  3. [causality] interacting_with_dead: e6
+      Detail: gun
+  4. [causality] interacting_with_dead: e7
+      Detail: pig_tail
+  5. [coherence] appearance_emotion_mismatch: mr_dursley
+      Detail: pale
+
+------------------------------------------------------------
+Chapter 4 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 2
+  1. [causality] give_without_having: e3
+      Detail: knuts
+  2. [causality] give_without_having: e23
+      Detail: ticket_to_hogwarts
+
+------------------------------------------------------------
+Chapter 5 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 3
+  1. [other] emotional: relationship_action_mismatch
+      Detail: violation_info(e3,agent,mr_dursley,social_action,farewell,toward,harry_potter,despite,hostile,established_at,0)
+  2. [other] emotional: relationship_action_mismatch
+      Detail: violation_info(e3,agent,mr_dursley,social_action,farewell,toward,harry_potter,despite,hostile,established_at,1)
+  3. [other] emotional: relationship_action_mismatch
+      Detail: violation_info(e3,agent,mr_dursley,social_action,farewell,toward,harry_potter,despite,hostile,established_at,2)
+
+------------------------------------------------------------
+Chapter 6 (Harry Potter - modified)
+------------------------------------------------------------
+Violations: 0 (clean)
+
+================================================================================
+SUMMARY
+================================================================================
+Total chapters processed: 14
+Total violations: 15
+
+Violations by category:
+  causality: 8
+  coherence: 4
+  other: 3
+
+Violations by type:
+  give_without_having: 4
+  interacting_with_dead: 4
+  appearance_emotion_mismatch: 3
+  emotional: 3
+  solo_communication: 1

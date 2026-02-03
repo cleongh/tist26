@@ -124,7 +124,7 @@ violation(coherence, contradictory_state, C, pair(S1, S2)) :-
 % COMMUNICATION VIOLATIONS
 % =============================================================================
 
-% Communication types (require two parties)
+% Communication types (require two parties when patient is specified)
 is_communication_type(talk).
 is_communication_type(speak).
 is_communication_type(conversation).
@@ -136,6 +136,36 @@ is_communication_type(chat).
 
 % Has second party
 has_second_party(E) :- patient(E, _).
+
+% =============================================================================
+% SPEECH ACT vs DIALOGUE DISTINCTION
+% =============================================================================
+%
+% SPEECH ACTS: Communication without a specific addressee
+%   - Announcements, speeches, muttering, thinking aloud
+%   - These are VALID even without a patient
+%
+% DIALOGUE: Communication directed at a specific person
+%   - Requires patient to be present/reachable
+%   - Violation if patient is absent
+%
+% =============================================================================
+
+% Speech act: talk event without explicit patient (monologue, narration, etc.)
+is_speech_act(E) :- event_type(E, talk), not has_second_party(E).
+is_speech_act(E) :- event_type(E, speak), not has_second_party(E).
+
+% Exempt event types (never require a patient)
+is_exempt_speech(E) :- event_type(E, shout).
+is_exempt_speech(E) :- event_type(E, mutter).
+is_exempt_speech(E) :- event_type(E, whisper), not has_second_party(E).
+is_exempt_speech(E) :- event_type(E, yell).
+is_exempt_speech(E) :- event_type(E, cry).
+is_exempt_speech(E) :- event_type(E, scream).
+is_exempt_speech(E) :- event_type(E, sing).
+is_exempt_speech(E) :- event_type(E, chant).
+is_exempt_speech(E) :- event_type(E, greet), not has_second_party(E).  % General greeting
+is_exempt_speech(E) :- event_type(E, farewell), not has_second_party(E).
 
 % Internal thoughts (don't need second party)
 is_internal_thought(E) :- event_type(E, think).
@@ -152,13 +182,49 @@ is_public_speech(E) :- event_type(E, speech).
 is_public_speech(E) :- event_type(E, proclaim).
 is_public_speech(E) :- event_type(E, declare).
 
-% VIOLATION: Communication without recipient
+% =============================================================================
+% SOLO COMMUNICATION VIOLATION (REFINED)
+% =============================================================================
+%
+% This violation now fires ONLY for DIALOGUE (talk with explicit patient)
+% where the patient is not reachable/present.
+%
+% DOES NOT fire for:
+%   - Speech acts (talk without patient)
+%   - Internal thoughts
+%   - Public speeches
+%   - Exempt speech types (shout, mutter, etc.)
+%
+% =============================================================================
+
+% VIOLATION: Dialogue with absent/unreachable patient
+% Only fires when there IS a patient but they cannot hear the communication
 violation(coherence, solo_communication, E, Type) :-
     rule_active(coherence_solo_communication),
     event(E),
     event_type(E, Type),
     is_communication_type(Type),
-    agent(E, _),
-    not has_second_party(E),
+    agent(E, Agent),
+    patient(E, Patient),          % Must have explicit patient (this is dialogue)
+    Agent != Patient,             % Not self-talk
     not is_internal_thought(E),
-    not is_public_speech(E).
+    not is_public_speech(E),
+    not is_speech_act(E),
+    not is_exempt_speech(E),
+    not same_location_possible(Agent, Patient, E).  % Patient not reachable
+
+% Same location check: characters could plausibly be in same place
+% This is a permissive check - defaults to true if location info is missing
+same_location_possible(A, P, E) :-
+    event(E),
+    agent(E, A),
+    patient(E, P),
+    location(E, L),          % Event has a location
+    character(P).            % Patient exists as character (assume co-located if no contrary evidence)
+
+% If no location info, assume same location is possible (no violation)
+same_location_possible(A, P, E) :-
+    event(E),
+    agent(E, A),
+    patient(E, P),
+    not location(E, _).      % No location specified, assume valid

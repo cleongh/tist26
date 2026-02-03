@@ -517,28 +517,79 @@ in_location_graph(L) :- connected(_, L).
 in_location_graph(L) :- contains(L, _).
 in_location_graph(L) :- contains(_, L).
 
-% Track previous location from sequential events
-previous_event_location(E2, L1) :-
-    event(E1), event(E2),
+% =============================================================================
+% CATEGORY D-2: LOCATION CONTINUITY (Refined)
+% =============================================================================
+%
+% GOAL: Detect impossible travel while allowing implicit narrative transitions.
+%
+% KEY INSIGHT: In narrative, time advances implicitly between events.
+%   - e1: Harry at station (time 5)
+%   - e2: Harry at platform (time 7)
+%   This is VALID - Harry could have walked there between events.
+%
+% VIOLATION should only fire when:
+%   1. SAME character is at two locations in CONSECUTIVE events (no time gap)
+%   2. Those locations are unreachable from each other
+%   3. No travel/transport event intervenes
+%
+% =============================================================================
+
+% --- Implicit Transition Detection ---
+% Events allow implicit movement when there's a time gap between them
+% (narrative implicitly advances time and location)
+allows_implicit_transition(E1, E2) :-
+    event_time(E1, T1),
+    event_time(E2, T2),
+    T2 > T1.  % Any time progression allows implicit travel
+
+% Fallback: If no event_time, use event_order gaps
+allows_implicit_transition(E1, E2) :-
+    event_order(E1, N1),
+    event_order(E2, N2),
+    N2 > N1 + 1,  % Non-consecutive events allow implicit travel
+    not event_time(E1, _),
+    not event_time(E2, _).
+
+% --- Per-Character Location Tracking ---
+% Track previous location for the SAME character, not just any event
+previous_character_location(C, E2, L1, E1) :-
+    agent(E1, C),
+    agent(E2, C),
     location(E1, L1),
     time_order(E1, E2),
-    L1 != unknown.
+    L1 != unknown,
+    not has_intervening_event(C, E1, E2).
 
-% Violation: Character moves to unreachable location
-% Only flag if BOTH locations are in the SAME connected subgraph
-% This prevents false positives when:
-% 1. LLM doesn't enumerate world connections (e.g., house→zoo via car)
-% 2. Different areas exist as separate subgraphs (Dursley house vs Zoo)
-violation(location, unreachable_location, E, pair(PrevLoc, CurrentLoc)) :-
-    event(E),
-    location(E, CurrentLoc),
-    previous_event_location(E, PrevLoc),
+% Helper: Character has an event between E1 and E2
+has_intervening_event(C, E1, E2) :-
+    agent(E1, C),
+    agent(E2, C),
+    agent(E_mid, C),
+    time_order(E1, E_mid),
+    time_order(E_mid, E2),
+    E1 != E_mid,
+    E_mid != E2.
+
+% --- VIOLATION: Unreachable Location (Refined) ---
+% Fires ONLY when:
+%   - Same character moves between events
+%   - Events are consecutive for that character (no intervening events)
+%   - Events do NOT allow implicit transition (simultaneous or very close)
+%   - Locations are in same subgraph but not reachable
+%
+violation(location, unreachable_location, E2, pair(PrevLoc, CurrentLoc)) :-
+    event(E2),
+    agent(E2, C),
+    location(E2, CurrentLoc),
+    previous_character_location(C, E2, PrevLoc, E1),
     CurrentLoc != PrevLoc,
     CurrentLoc != unknown,
     PrevLoc != unknown,
-    same_location_subgraph(PrevLoc, CurrentLoc),  % Only check within same subgraph
+    same_location_subgraph(PrevLoc, CurrentLoc),
     not reachable(PrevLoc, CurrentLoc),
-    not is_travel_exempt(E).
+    not allows_implicit_transition(E1, E2),
+    not is_travel_exempt(E2).
 
 % Two locations are in the same subgraph if they're connected (directly or transitively)
 same_location_subgraph(L1, L2) :- reachable(L1, L2).
@@ -556,13 +607,17 @@ is_travel_exempt(E) :- event_type(E, journey).
 % "arrive" at a new area implies travel happened (car trip, walk, etc.)
 is_travel_exempt(E) :- event_type(E, arrive).
 is_travel_exempt(E) :- event_type(E, leave).  % Leaving for another area
+is_travel_exempt(E) :- event_type(E, enter).  % Entering a new location
+is_travel_exempt(E) :- event_type(E, exit).   % Exiting current location
+is_travel_exempt(E) :- event_type(E, move).   % Generic movement
 
 % Movement within the same container is coherent (not teleportation)
 % e.g., kitchen → hallway within "house" is exempt from reachability checks
 is_travel_exempt(E) :-
     event(E),
+    agent(E, C),
     location(E, CurrentLoc),
-    previous_event_location(E, PrevLoc),
+    previous_character_location(C, E, PrevLoc, _),
     CurrentLoc != PrevLoc,
     travel_within_container(PrevLoc, CurrentLoc).
 

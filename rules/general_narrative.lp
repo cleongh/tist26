@@ -196,17 +196,22 @@ connected(L1, L2) :- contains(L1, L2).
 connected(L2, L1) :- contains(L1, L2).
 
 % VIOLATION: Movement between unconnected locations (spatial impossibility)
-% Only trigger if we have connectivity info for at least one of the locations
-violation(location, unreachable_location, E1, E2, "Character moves to location not connected to previous location") :-
-    event(E1), event(E2),
-    agent(E1, A), agent(E2, A),
-    location(E1, L1), location(E2, L2),
-    L1 != L2,
-    time_order(E1, E2),
-    not reachable(L1, L2),
-    has_connectivity_info(L1),
-    not is_travel_event(E1),
-    not is_travel_event(E2).
+% DISABLED: This naive rule fires for ALL ordered event pairs at different locations.
+% The refined rule in simple_narrative.lp (Category D-2) handles this properly by:
+%   - Tracking per-character consecutive events
+%   - Allowing implicit narrative transitions (time gaps)
+%   - Only flagging truly impossible movements
+%
+% violation(location, unreachable_location, E1, E2, "Character moves to location not connected to previous location") :-
+%     event(E1), event(E2),
+%     agent(E1, A), agent(E2, A),
+%     location(E1, L1), location(E2, L2),
+%     L1 != L2,
+%     time_order(E1, E2),
+%     not reachable(L1, L2),
+%     has_connectivity_info(L1),
+%     not is_travel_event(E1),
+%     not is_travel_event(E2).
 
 % Helper: Check if a location has any connectivity information defined
 has_connectivity_info(L) :- connected(L, _).

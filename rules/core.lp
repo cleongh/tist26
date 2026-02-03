@@ -313,9 +313,51 @@ alive(C, T) :- holds(alive(C), T).
 % Characters are alive initially unless marked dead
 initially(alive(C)) :- character(C), not initially_dead(C).
 
+% =============================================================================
+% INVARIANT FIX: Characters are ALIVE by default
+% =============================================================================
+%
+% PROBLEM: The fluent inertia framework (holds/initially) requires consecutive
+% time steps (T, T+1, T+2...) for state to propagate. Additionally, when
+% event_time/2 facts are not generated, the time-indexed alive(C, T) cannot
+% be derived, causing `not alive(C, T)` to be true and dead_character_acting
+% to fire globally.
+%
+% FIX: Assert both time-indexed and atemporal alive defaults.
+%
+% This restores the invariant:
+%   "Characters are ALIVE by default unless explicitly marked dead."
+%
+% =============================================================================
+
+% TIME-INDEXED: Alive at any event time unless died in an earlier event
+alive(C, T) :- 
+    character(C), 
+    event_time(_, T),
+    not died_before(C, T).
+
+% Character died before time T if there's a death event at an earlier time
+died_before(C, T) :- 
+    dies_in_event(E, C), 
+    event_time(E, T_death),
+    event_time(_, T),
+    T_death < T.
+
+% ATEMPORAL: Characters are alive unless explicitly marked dead
+% This handles cases where event_time/2 is not available
+alive(C) :- character(C), not explicitly_dead(C).
+
+% Explicitly dead: character state is "dead" or died in an event (atemporal)
+explicitly_dead(C) :- is_dead_explicit(C).
+explicitly_dead(C) :- dies_in_event(_, C).
+
+% is_dead_explicit/1 is asserted by asp_converter when character state = "dead"
+% (via the existing is_dead(C) fact emission)
+
 % Death tracking (convenience predicate)
-is_dead(C, T) :- character(C), time(T), not alive(C, T).
-is_dead(C) :- is_dead(C, T), time(T).  % Atemporal shorthand
+% Only mark as dead if NOT atemporally alive (fixes the invariant)
+is_dead(C, T) :- character(C), time(T), not alive(C, T), not alive(C).
+is_dead(C) :- explicitly_dead(C).
 
 
 % =============================================================================

@@ -418,24 +418,91 @@ potential_time_travel(Character, Loc1, T1, E1, Loc2, T2, E2) :-
     explicit_presence_pair(Character, Loc1, T1, E1, Loc2, T2, E2),
     before(T2, T1).  % Event E2 happens at earlier time T2, but is extracted after E1
 
+% =============================================================================
+% NON-LINEAR NARRATION EVIDENCE (Required for time_travel violation)
+% =============================================================================
+%
+% DESIGN: The time_travel violation now requires POSITIVE EVIDENCE that
+% the narrative is non-linear (flashback, memory, recalled scene, etc.).
+%
+% Without this evidence, ordinary sequential narrative (where characters
+% naturally move between locations over time) will NOT trigger violations.
+%
+% Non-linear narration is indicated by:
+%   1. Explicit flashback/memory event types
+%   2. Story-level declarations
+%   3. Temporal markers in extraction (e.g., "earlier that day", "years ago")
+%
+% =============================================================================
+
+% --- Non-Linear Narration Evidence ---
+% An event is part of non-linear narration if explicitly marked
+
+% Primary source: narrative_time_relation/2 from extraction
+non_linear_narration(E) :- narrative_time_relation(E, flashback).
+non_linear_narration(E) :- narrative_time_relation(E, memory).
+non_linear_narration(E) :- narrative_time_relation(E, recollection).
+non_linear_narration(E) :- narrative_time_relation(E, dream).
+non_linear_narration(E) :- narrative_time_relation(E, vision).
+non_linear_narration(E) :- narrative_time_relation(E, time_jump).
+
+% Fallback: Flashback/memory event types (legacy support)
+non_linear_narration(E) :- event_type(E, flashback).
+non_linear_narration(E) :- event_type(E, memory).
+non_linear_narration(E) :- event_type(E, recall).
+non_linear_narration(E) :- event_type(E, dream).
+non_linear_narration(E) :- event_type(E, vision).
+non_linear_narration(E) :- event_type(E, prophecy).
+
+% Story-level flashback declarations
+non_linear_narration(E) :- story_flashback_event(E).
+non_linear_narration(E) :- story_memory_sequence(E).
+
+% Extraction-level temporal discontinuity markers
+non_linear_narration(E) :- temporal_discontinuity(E).
+non_linear_narration(E) :- narrative_time_jump(E).
+
+% --- Linear Narration Default ---
+% Linear narration is the default assumption for all events.
+% Non-linear narration (flashbacks, memories, dreams, etc.) must be
+% explicitly extracted from the text. This predicate is for documentation
+% and future extensions; it does NOT trigger any violations.
+linear_narration(E) :-
+    event(E),
+    not non_linear_narration(E).
+
 % --- VIOLATION: Explicit Time Travel ---
 % Only fires when:
 %   1. We have two explicit presence events (not assumed)
 %   2. The event that happens "later" in extraction has an earlier time index
 %   3. The rule is active
+%   4. POSITIVE EVIDENCE of non-linear narration exists for at least one event
 %
-% This catches: "Harry was in London at T=5, then was in Paris at T=3"
-% This does NOT catch: implicit scene changes or missing locations
+% This catches: Flashback scenes where character is shown in past location
+% This does NOT catch: Ordinary sequential narrative with location changes
 %
 % Phase Two: Uses same_containment_tree from location.lp for accurate suppression
+%
+% Two variants: one for E1 being non-linear, one for E2 being non-linear
 violation(temporal, time_travel, 
           violation_info(Character, at, Loc1, via_event, E1, at_time, T1, 
                         then_at, Loc2, via_event, E2, at_earlier_time, T2)) :-
     rule_active(temporal_no_time_travel),
     potential_time_travel(Character, Loc1, T1, E1, Loc2, T2, E2),
-    not travel_within_container(Loc1, Loc2),  % Exclude same-building movement
-    not same_containment_tree(Loc1, Loc2),     % Phase Two: use containment tree
-    not is_teleport_event(E2).  % Exclude magical travel
+    non_linear_narration(E1),  % REQUIRED: E1 is a flashback/memory/etc.
+    not travel_within_container(Loc1, Loc2),
+    not same_containment_tree(Loc1, Loc2),
+    not is_teleport_event(E2).
+
+violation(temporal, time_travel, 
+          violation_info(Character, at, Loc1, via_event, E1, at_time, T1, 
+                        then_at, Loc2, via_event, E2, at_earlier_time, T2)) :-
+    rule_active(temporal_no_time_travel),
+    potential_time_travel(Character, Loc1, T1, E1, Loc2, T2, E2),
+    non_linear_narration(E2),  % REQUIRED: E2 is a flashback/memory/etc.
+    not travel_within_container(Loc1, Loc2),
+    not same_containment_tree(Loc1, Loc2),
+    not is_teleport_event(E2).
 
 % --- Helpers for Suppression ---
 % These prevent false positives from legitimate narrative patterns

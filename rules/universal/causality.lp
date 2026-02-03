@@ -54,11 +54,13 @@ violation(causality, dead_character_acting, E, C) :-
     not is_undead(C).
 
 % Backward compatibility: also check atemporal is_dead
+% FIXED: Also require NOT alive(C) to respect the atemporal alive default
 violation(causality, dead_character_acting, E, C) :-
     rule_active(causality_dead_character_acting),
     event(E),
     agent(E, C),
-    is_dead(C),
+    explicitly_dead(C),
+    not alive(C),
     not is_death_event(E),
     not is_ghost(C),
     not is_undead(C),

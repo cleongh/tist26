@@ -137,13 +137,125 @@ DO NOT INCLUDE:
 Format:
 - id: lowercase_with_underscores
 - name: display name
-- connections: IMPORTANT - list of other location IDs directly reachable from here (e.g., ["hallway", "garden"])
+- connections: list of other location IDs (ONLY if explicitly connected - see rules below)
 - contains: list of sub-location IDs inside this location (e.g., a building contains rooms)
 
+=== LOCATION CONNECTIVITY (EXPLICIT ONLY) ===
+Extract connections ONLY when the text EXPLICITLY states them.
+
+EXTRACT A CONNECTION ONLY IF the text says:
+- "from X to Y" / "went from X to Y"
+- "through X" / "passed through X"
+- "inside X" / "entered X"
+- "connected to X" / "leads to X"
+- "adjacent to X" / "next to X"
+- "part of X" / "within X"
+- "door to X" / "path to X" / "stairs to X"
+
+CONNECTION RULES:
+1. Connections must be EXPLICIT in the text - never inferred
+2. If character travels "from kitchen to garden" → connection(kitchen, garden)
+3. If "the door led to the cellar" → connection(current_room, cellar)
+4. Connections are SYMMETRIC by default (A→B implies B→A) unless text says otherwise
+5. "contains" implies connection (parent ↔ child are connected)
+
+DO NOT EXTRACT CONNECTIONS:
+- Based on real-world knowledge ("kitchens are usually near dining rooms")
+- Based on building type assumptions ("hotels have lobbies")
+- When no explicit travel or path statement exists
+- When only ONE location exists in the chapter
+
+IF NO EXPLICIT CONNECTIVITY IS STATED:
+- Leave connections as an empty list: []
+- This is CORRECT - missing data is better than invented data
+
 LOCATION EXAMPLES:
-- A castle with a dungeon and tower: connections: ["great_hall", "dungeon", "tower"]
-- A room inside a building: the building's "contains" should list this room
-- Distant locations (another city): should NOT be in connections unless travel happens
+- "Harry walked from the kitchen to the garden" → kitchen.connections: ["garden"], garden.connections: ["kitchen"]
+- "The dungeon was beneath the castle" → castle.contains: ["dungeon"], implies connection
+- "She was in the library" (no travel mentioned) → library.connections: [] (empty)
+- Distant city mentioned in dialogue → connections: [] (no travel path stated)
+
+=== LOCATION PERSISTENCE (CRITICAL FOR TRACKING) ===
+Characters REMAIN at a location until explicitly moved.
+
+RULES:
+1. Once a character is placed in a location, they STAY THERE until:
+   - The text explicitly moves them ("he left", "she walked to...", "they arrived at...")
+   - OR a new explicit location is stated for them
+
+2. For EVENTS: If an event's agent was previously placed in a location AND:
+   - They have not been moved since
+   - No conflicting location is stated for this event
+   → Use the SAME location ID for the event
+
+3. NEVER INFER new locations. Only reuse locations explicitly named in the text.
+
+4. If no location is stated or can be derived from persistence, OMIT location entirely.
+
+=== SCENE CO-LOCATION (CRITICAL FOR CONSISTENCY) ===
+When characters interact, they are in the SAME PLACE.
+
+APPLY CO-LOCATION WHEN:
+1. Two or more characters interact DIRECTLY:
+   - talk, argue, discuss, converse
+   - give, take, exchange items
+   - fight, attack, defend
+   - help, save, rescue
+   - hug, kiss, touch physically
+   
+2. AND a location is EXPLICITLY named in the scene (not just implied)
+
+3. THEN: Mark ALL interacting characters as present at that location
+
+CO-LOCATION DOES NOT APPLY TO:
+- Internal thoughts ("He thought about her...")
+- Emotional states without interaction ("She felt angry")
+- Narration about absent characters ("Meanwhile, far away...")
+- Remote communication (letters, magical messages, phones)
+
+MULTIPLE LOCATIONS IN SCENE:
+- If the scene mentions multiple locations, only apply co-location when:
+  - The text clearly anchors the interaction to ONE specific location
+  - E.g., "In the kitchen, Harry and Ron argued" → both at kitchen
+  - E.g., "Harry was in the kitchen. Ron shouted from upstairs." → DIFFERENT locations
+
+EXAMPLES:
+- "In the Great Hall, Harry spoke to Dumbledore." → BOTH at great_hall
+- "'Hello,' said Hermione to Ron in the library." → BOTH at library  
+- "Harry and Ron ate dinner together at the table." → BOTH at same location (if table's location known)
+- "She thought about meeting him tomorrow." → NO co-location (internal thought)
+- "Harry received a letter from Sirius." → NO co-location (remote communication)
+
+PERSISTENCE EXAMPLES:
+- "Harry was in the kitchen. He ate breakfast." → e1(arrive, kitchen), e2(eat, kitchen) - persistence
+- "Hermione was in the library. Ron joined her." → Ron is also at library (co-location + movement)
+- "They talked." (no location context) → OMIT location field entirely
+
+=== LOCATION DIAGNOSTIC (OPTIONAL) ===
+When extracting locations, you may include a "location_diagnostic" field to indicate extraction certainty.
+This field is OPTIONAL and helps identify why location-based reasoning may be limited.
+
+VALID VALUES:
+- "no_location_in_scene": No location is explicitly named in this scene/chapter
+- "single_location_only": Only one location exists; no travel or connectivity possible
+- "no_connectivity_info": Multiple locations exist but no explicit connections stated
+- "implicit_persistence_applied": Location inferred from prior scene via persistence rules
+
+WHEN TO USE:
+- Use "no_location_in_scene" when the text never names a specific place
+- Use "single_location_only" when all events happen in one named location
+- Use "no_connectivity_info" when 2+ locations exist but no travel paths stated
+- Use "implicit_persistence_applied" when a location is carried forward from context
+
+RULES:
+1. This field reflects EXTRACTION certainty, not logic conclusions
+2. It is purely informational - it does NOT affect logic behavior
+3. Include it only when it provides useful diagnostic information
+4. If unsure, omit the field entirely
+
+FORMAT:
+- Add to the "locations" array output, e.g.:
+  {"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}
 
 === ITEMS ===
 Plot-significant objects.
@@ -200,6 +312,14 @@ Format:
 - location: location id OR null
 - after: event id that MUST happen before this one (optional, only if explicit causal dependency)
 - source_text: REQUIRED - The exact sentence or short phrase (max 80 chars) from the chapter where this event happens. Quote the text directly.
+- narrative_time: (OPTIONAL) Only set if text EXPLICITLY signals non-linear narration:
+  - "flashback" - explicit flashback ("years earlier...", "in the past...")
+  - "memory" - character recalling past ("he remembered when...", "she recalled...")
+  - "recollection" - narrator recounting past ("long ago...", "once upon a time...")
+  - "dream" - dream sequence ("in his dream...", "while she slept...")
+  - "vision" - prophetic or magical vision ("he saw a vision of...")
+  - "time_jump" - explicit temporal discontinuity ("three years later...")
+  If the event is in normal chronological narrative order, OMIT this field entirely.
 
 EVENT RULES:
 - agent != patient (no self-actions)
@@ -254,7 +374,11 @@ EXAMPLES:
 
 === CHARACTER LOCATIONS (for location tracking) ===
 Where are characters located at the START of this chapter?
-Only include if the chapter establishes their initial location.
+This establishes the INITIAL location for persistence tracking.
+
+CRITICAL: Initial locations set the baseline for location persistence.
+All subsequent events for that character will inherit this location
+until an explicit movement or new location is stated.
 
 Format:
 - character: character id
@@ -263,6 +387,7 @@ Format:
 EXAMPLES:
 - "Harry was in his cupboard under the stairs" → {{"character": "harry_potter", "location": "cupboard"}}
 - "The Dursleys were at the breakfast table" → {{"character": "uncle_vernon", "location": "kitchen"}}
+- "They were all in the living room" → Extract EACH character with location "living_room"
 
 === CHARACTER POSSESSIONS (for possession tracking) ===
 What items do characters have/own at the START of this chapter?
@@ -301,7 +426,7 @@ Return ONLY this JSON structure, nothing else:
   ],
   "items": [],
   "events": [
-    {{"id": "e1", "type": "...", "agent": "...", "patient": "...", "location": "...", "after": null, "source_text": "exact quote from chapter" }}
+    {{"id": "e1", "type": "...", "agent": "...", "patient": "...", "location": "...", "after": null, "source_text": "exact quote from chapter", "narrative_time": null }}
   ],
   "relationships": [],
   "initial_rules": [
@@ -728,13 +853,125 @@ DO NOT INCLUDE:
 Format:
 - id: lowercase_with_underscores
 - name: display name
-- connections: IMPORTANT - list of other location IDs directly reachable from here (e.g., ["hallway", "garden"])
+- connections: list of other location IDs (ONLY if explicitly connected - see rules below)
 - contains: list of sub-location IDs inside this location (e.g., a building contains rooms)
 
+=== LOCATION CONNECTIVITY (EXPLICIT ONLY) ===
+Extract connections ONLY when the text EXPLICITLY states them.
+
+EXTRACT A CONNECTION ONLY IF the text says:
+- "from X to Y" / "went from X to Y"
+- "through X" / "passed through X"
+- "inside X" / "entered X"
+- "connected to X" / "leads to X"
+- "adjacent to X" / "next to X"
+- "part of X" / "within X"
+- "door to X" / "path to X" / "stairs to X"
+
+CONNECTION RULES:
+1. Connections must be EXPLICIT in the text - never inferred
+2. If character travels "from kitchen to garden" → connection(kitchen, garden)
+3. If "the door led to the cellar" → connection(current_room, cellar)
+4. Connections are SYMMETRIC by default (A→B implies B→A) unless text says otherwise
+5. "contains" implies connection (parent ↔ child are connected)
+
+DO NOT EXTRACT CONNECTIONS:
+- Based on real-world knowledge ("kitchens are usually near dining rooms")
+- Based on building type assumptions ("hotels have lobbies")
+- When no explicit travel or path statement exists
+- When only ONE location exists in the chapter
+
+IF NO EXPLICIT CONNECTIVITY IS STATED:
+- Leave connections as an empty list: []
+- This is CORRECT - missing data is better than invented data
+
 LOCATION EXAMPLES:
-- A castle with a dungeon and tower: connections: ["great_hall", "dungeon", "tower"]
-- A room inside a building: the building's "contains" should list this room
-- Distant locations (another city): should NOT be in connections unless travel happens
+- "Harry walked from the kitchen to the garden" → kitchen.connections: ["garden"], garden.connections: ["kitchen"]
+- "The dungeon was beneath the castle" → castle.contains: ["dungeon"], implies connection
+- "She was in the library" (no travel mentioned) → library.connections: [] (empty)
+- Distant city mentioned in dialogue → connections: [] (no travel path stated)
+
+=== LOCATION PERSISTENCE (CRITICAL FOR TRACKING) ===
+Characters REMAIN at a location until explicitly moved.
+
+RULES:
+1. Once a character is placed in a location, they STAY THERE until:
+   - The text explicitly moves them ("he left", "she walked to...", "they arrived at...")
+   - OR a new explicit location is stated for them
+
+2. For EVENTS: If an event's agent was previously placed in a location AND:
+   - They have not been moved since
+   - No conflicting location is stated for this event
+   → Use the SAME location ID for the event
+
+3. NEVER INFER new locations. Only reuse locations explicitly named in the text.
+
+4. If no location is stated or can be derived from persistence, OMIT location entirely.
+
+=== SCENE CO-LOCATION (CRITICAL FOR CONSISTENCY) ===
+When characters interact, they are in the SAME PLACE.
+
+APPLY CO-LOCATION WHEN:
+1. Two or more characters interact DIRECTLY:
+   - talk, argue, discuss, converse
+   - give, take, exchange items
+   - fight, attack, defend
+   - help, save, rescue
+   - hug, kiss, touch physically
+   
+2. AND a location is EXPLICITLY named in the scene (not just implied)
+
+3. THEN: Mark ALL interacting characters as present at that location
+
+CO-LOCATION DOES NOT APPLY TO:
+- Internal thoughts ("He thought about her...")
+- Emotional states without interaction ("She felt angry")
+- Narration about absent characters ("Meanwhile, far away...")
+- Remote communication (letters, magical messages, phones)
+
+MULTIPLE LOCATIONS IN SCENE:
+- If the scene mentions multiple locations, only apply co-location when:
+  - The text clearly anchors the interaction to ONE specific location
+  - E.g., "In the kitchen, Harry and Ron argued" → both at kitchen
+  - E.g., "Harry was in the kitchen. Ron shouted from upstairs." → DIFFERENT locations
+
+EXAMPLES:
+- "In the Great Hall, Harry spoke to Dumbledore." → BOTH at great_hall
+- "'Hello,' said Hermione to Ron in the library." → BOTH at library  
+- "Harry and Ron ate dinner together at the table." → BOTH at same location (if table's location known)
+- "She thought about meeting him tomorrow." → NO co-location (internal thought)
+- "Harry received a letter from Sirius." → NO co-location (remote communication)
+
+PERSISTENCE EXAMPLES:
+- "Harry was in the kitchen. He ate breakfast." → e1(arrive, kitchen), e2(eat, kitchen) - persistence
+- "Hermione was in the library. Ron joined her." → Ron is also at library (co-location + movement)
+- "They talked." (no location context) → OMIT location field entirely
+
+=== LOCATION DIAGNOSTIC (OPTIONAL) ===
+When extracting locations, you may include a "location_diagnostic" field to indicate extraction certainty.
+This field is OPTIONAL and helps identify why location-based reasoning may be limited.
+
+VALID VALUES:
+- "no_location_in_scene": No location is explicitly named in this scene/chapter
+- "single_location_only": Only one location exists; no travel or connectivity possible
+- "no_connectivity_info": Multiple locations exist but no explicit connections stated
+- "implicit_persistence_applied": Location inferred from prior scene via persistence rules
+
+WHEN TO USE:
+- Use "no_location_in_scene" when the text never names a specific place
+- Use "single_location_only" when all events happen in one named location
+- Use "no_connectivity_info" when 2+ locations exist but no travel paths stated
+- Use "implicit_persistence_applied" when a location is carried forward from context
+
+RULES:
+1. This field reflects EXTRACTION certainty, not logic conclusions
+2. It is purely informational - it does NOT affect logic behavior
+3. Include it only when it provides useful diagnostic information
+4. If unsure, omit the field entirely
+
+FORMAT:
+- Add to the "locations" array output, e.g.:
+  {"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}
 
 === KNOWN ENTITIES CONTEXT (IMPORTANT) ===
 The following characters and locations are ALREADY KNOWN from previous chapters.
