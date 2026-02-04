@@ -12,8 +12,8 @@ CRITICAL RULES:
 - Never continue or extend the story
 - Never echo back the input
 - Always include a brief summary of the chapter (2-3 sentences covering key events, characters, and locations)
-- If no errors found, return: {"error_count": 0, "errors": [], "chapter_summary": "..."}
-- If errors found, return: {"error_count": N, "errors": [...], "chapter_summary": "..."}"""
+- If no errors found, return: {{"error_count": 0, "errors": [], "chapter_summary": "..."}}
+- If errors found, return: {{"error_count": N, "errors": [...], "chapter_summary": "..."}}"""
 
 # User prompt: chapter FIRST, then instructions
 LLM_LINT_PROMPT = """---BEGIN CHAPTER---
@@ -255,7 +255,7 @@ RULES:
 
 FORMAT:
 - Add to the "locations" array output, e.g.:
-  {"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}
+  {{"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}}
 
 === ITEMS ===
 Plot-significant objects.
@@ -971,7 +971,7 @@ RULES:
 
 FORMAT:
 - Add to the "locations" array output, e.g.:
-  {"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}
+  {{"id": "...", "name": "...", "connections": [], "location_diagnostic": "no_connectivity_info"}}
 
 === KNOWN ENTITIES CONTEXT (IMPORTANT) ===
 The following characters and locations are ALREADY KNOWN from previous chapters.
