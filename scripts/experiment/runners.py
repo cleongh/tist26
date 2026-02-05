@@ -390,6 +390,7 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
                     }
                     debug_log(f"  [ALIAS CONFLICT] {conflict.alias} -> {conflict.canonical_ids}", conflict_entry)
             
+            #TODO: This is obsolete, need to update
             structured = item_tracker.process_extraction(structured, chapter_num)
             
             item_stats = item_tracker.get_statistics()
@@ -551,7 +552,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
         FinalAnalyzer,
         LearningAdapter,
         AliasResolver,
-        build_continuity_context,
+        ContinuityContextBuilder,
         ItemTracker,
     )
     
@@ -632,7 +633,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 
                 chapter_text = chapter_file.read_text(encoding="utf-8", errors="replace")
                 
-                continuity_context = build_continuity_context(
+                continuity_context = ContinuityContextBuilder().build_context(
                     state_manager, alias_resolver, i
                 )
                 
@@ -744,6 +745,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                         f.write(json.dumps(conflict_entry) + "\n")
                     log(f"    [ALIAS CONFLICT] '{conflict.alias}' -> {conflict.canonical_ids}", "WARN")
                 
+                #TODO: This is obsolete, need to update to new ItemTracker logic
                 structured = item_tracker.process_extraction(structured, i)
                 
                 # Phase 6: Update lifecycle tracker with chapter extraction

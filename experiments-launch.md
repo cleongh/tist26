@@ -19,3 +19,7 @@ python scripts/run_narrative_experiment_refactored.py --step 2 --experiment-name
 ## Run experiment step 2 against local llm
 
 python scripts/run_narrative_experiment_refactored.py --step 2 --experiment-name 02_llama_refinement --api-mode local --engine --split-extraction --stories "Harry Potter" --llm-timeout 600
+
+## Run all the data extracted from one experiment just against logic to debug
+
+python scripts/logic_only_test_runner.py --experiment_dir experiments/08_openai_one_book --output_log experiments/08_openai_one_book/logic_test_results_final.txt --verbose --trace
