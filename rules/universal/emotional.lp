@@ -143,6 +143,12 @@ relationship_established_before(C1, C2, Type, T_event, T_establish) :-
     time(T_event),
     T_establish < T_event.
 
+% --- Earliest Establishment Time ---
+% To avoid duplicate violations, we identify the earliest time a relationship was established
+earliest_relationship_establishment(C1, C2, Type, T_event, T_min) :-
+    relationship_established_before(C1, C2, Type, T_event, T_min),
+    T_min = #min { T : relationship_established_before(C1, C2, Type, T_event, T) }.
+
 % Convenience: Has any explicit relationship at time T
 has_explicit_relationship(C1, C2, T) :-
     explicit_relationship(C1, C2, _, T).
@@ -236,6 +242,7 @@ action_contradicts_positive(deceive).
 
 % --- VIOLATION: Friendly Action Toward Explicit Enemy ---
 % Uses explicit_relationship, NOT assumed relationship
+% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, acted, Type, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
@@ -246,12 +253,14 @@ violation(emotional, relationship_action_mismatch,
     action_contradicts_negative(Type),
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_negative_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
 % --- VIOLATION: Hostile Action Toward Explicit Ally ---
+% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
+% NOTE: Does NOT fire for defensive/protective actions (e.g., petrifying friend to stop them)
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, acted, Type, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
@@ -260,16 +269,26 @@ violation(emotional, relationship_action_mismatch,
     event_time(E, T_event),
     event_type(E, Type),
     action_contradicts_positive(Type),
+    not is_protective_action(E),                 % NOT protective/defensive
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
+% Protective/defensive actions - not true hostile actions toward friends
+% These are actions taken to protect the patient or others, even if harmful
+is_protective_action(E) :- event_type(E, immobilize).
+is_protective_action(E) :- event_type(E, restrain).
+is_protective_action(E) :- event_type(E, petrify).
+is_protective_action(E) :- event_type(E, stun).
+is_protective_action(E) :- event_type(E, stop).
+
 % --- VIOLATION: Friendly Social Action Toward Explicit Enemy ---
 % Uses social_action/2 for explicit emotion-aware social actions
 % Fires when a hostile relationship exists and agent performs a friendly social action
+% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
@@ -280,7 +299,7 @@ violation(emotional, relationship_action_mismatch,
     social_action_contradicts_negative(Action),
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_negative_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
@@ -318,6 +337,7 @@ non_neutral_social_action(A) :- hostile_social_action(A).
 
 % --- VIOLATION: Hostile Social Action Toward Explicit Ally ---
 % Uses social_action/2 for explicit emotion-aware social actions
+% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
@@ -328,7 +348,7 @@ violation(emotional, relationship_action_mismatch,
     social_action_contradicts_positive(Action),
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
@@ -336,6 +356,8 @@ violation(emotional, relationship_action_mismatch,
 % --- VIOLATION: Betrayal via Reporting ---
 % Fires when someone with a friendly/family relationship reports another to an authority
 % Report events are explicit betrayal signals
+% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
+% NOTE: Does NOT fire when reporting is protective/concerned (e.g., worried about safety)
 violation(emotional, relationship_betrayal, 
           violation_info(E, agent, Agent, reported, Patient, to_authority,
                         despite, RelType, established_at, T_establish)) :-
@@ -343,9 +365,10 @@ violation(emotional, relationship_betrayal,
     event(E),
     event_time(E, T_event),
     report(E),
+    not is_protective_report(E),                 % NOT a concerned/protective report
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_betrayal, E).
@@ -358,12 +381,18 @@ violation(emotional, relationship_betrayal,
     event(E),
     event_time(E, T_event),
     report(E),
+    not is_protective_report(E),                 % NOT a concerned/protective report
     agent(E, Agent),
     patient(E, Patient),
-    relationship_established_before(Agent, Patient, RelType, T_event, T_establish),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_family_relationship(RelType),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_betrayal, E).
+
+% Protective reports - reporting out of concern, not betrayal
+% These are reports made to authorities out of worry for safety
+% Default: assume reports are NOT protective (stricter) unless marked
+% is_protective_report(E) :- ... (can be specialized per story)
 
 % Family relationship types (not strictly positive but betrayal-relevant)
 is_family_relationship(family).

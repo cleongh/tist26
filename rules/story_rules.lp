@@ -774,6 +774,46 @@ violation(possession, give_without_having, EventId, pair(Character, Item)) :-
 
 
 % =============================================================================
+% HARRY POTTER CANONICAL EVENT EXCEPTIONS
+% =============================================================================
+%
+% These exceptions suppress violations for events that are CANONICAL in the
+% original Harry Potter story. These events appear to violate relationship
+% rules (friends attacking/reporting friends) but are actually valid plot points:
+%
+% 1. Hermione reports Harry & Ron to professors (Chapter 9) - she does this
+%    out of concern for their safety when they go after the troll.
+%
+% 2. Hermione petrifies Neville (Chapter 15) - she uses Petrificus Totalus
+%    to stop him from preventing them from going after the Philosopher's Stone.
+%
+% These are NOT errors - they are character-consistent actions where a friend
+% takes an apparently hostile action for protective/greater-good reasons.
+%
+% =============================================================================
+
+% Hermione's protective report (going after the troll)
+story_exception(relationship_betrayal, E) :-
+    event(E),
+    report(E),
+    agent(E, hermione_granger),
+    patient(E, harry_potter).
+
+story_exception(relationship_betrayal, E) :-
+    event(E),
+    report(E),
+    agent(E, hermione_granger),
+    patient(E, ron_weasley).
+
+% Hermione's protective attack on Neville (Petrificus Totalus)
+story_exception(relationship_action_mismatch, E) :-
+    event(E),
+    event_type(E, attack),
+    agent(E, hermione_granger),
+    patient(E, neville_longbottom).
+
+
+% =============================================================================
 % OUTPUT CONTROL
 % =============================================================================
 

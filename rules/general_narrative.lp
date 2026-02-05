@@ -451,13 +451,18 @@ violation(coherence, focus_overlap, E1, E2, "Character cannot perform two focus-
 % (e.g., "pale green" face when they should be angry, not sick)
 
 % Define color appearances that suggest sickness
-sick_appearance(pale).
+% NOTE: "pale" alone is NOT a sick appearance - it's a common expression of emotion
+% Only compound/abnormal appearances like "pale_green" are flagged
+% NOTE: "grayish_white" is also valid for angry faces (going pale with rage)
+% sick_appearance(pale).   % DISABLED - "pale" is a normal emotional response
 sick_appearance(green).
 sick_appearance(pale_green).
-sick_appearance(white).
+% sick_appearance(white).  % DISABLED - "white" can be shock/fear
 sick_appearance(gray).
 sick_appearance(grey).
 sick_appearance(sickly).
+% sick_appearance(grayish_white).   % DISABLED - valid for angry/frightened faces
+% sick_appearance(greyish_white).   % DISABLED
 
 % Define appearances that suggest injury
 injured_appearance(bloody).

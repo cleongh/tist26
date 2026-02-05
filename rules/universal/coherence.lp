@@ -199,6 +199,7 @@ is_public_speech(E) :- event_type(E, declare).
 
 % VIOLATION: Dialogue with absent/unreachable patient
 % Only fires when there IS a patient but they cannot hear the communication
+% IMPORTANT: Only applies when patient is a character, not an item or animal
 violation(coherence, solo_communication, E, Type) :-
     rule_active(coherence_solo_communication),
     event(E),
@@ -206,6 +207,7 @@ violation(coherence, solo_communication, E, Type) :-
     is_communication_type(Type),
     agent(E, Agent),
     patient(E, Patient),          % Must have explicit patient (this is dialogue)
+    character(Patient),           % Patient must be a character (not item/animal)
     Agent != Patient,             % Not self-talk
     not is_internal_thought(E),
     not is_public_speech(E),

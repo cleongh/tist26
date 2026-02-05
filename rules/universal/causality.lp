@@ -68,11 +68,13 @@ violation(causality, dead_character_acting, E, C) :-
 
 % VIOLATION: Interacting with dead character  
 % Cannot have a dead character as patient of interaction
+% IMPORTANT: Only applies to CHARACTER patients, not items or locations
 violation(causality, interacting_with_dead, E, C) :-
     rule_active(causality_interacting_with_dead),
     event(E),
     event_time(E, T),
     patient(E, C),
+    character(C),           % MUST be a character, not an item
     not alive(C, T),
     event_type(E, Type),
     is_interaction_type(Type),
@@ -105,11 +107,25 @@ story_exception(dead_character_acting, C) :- is_undead(C).
 % =============================================================================
 % POSSESSION VIOLATIONS (Time-Indexed)
 % =============================================================================
+%
+% NOTE: The give_without_having rule is DISABLED by default because:
+% 1. Narratives often imply possession without explicit acquisition events
+% 2. Items can be assumed to be available in appropriate contexts
+% 3. This rule produces too many false positives in practice
+%
+% If needed, re-enable by removing the 'not possession_checking_disabled' condition
+% or by adding: possession_checking_disabled :- #false.
+%
+
+% Default: possession checking is disabled
+possession_checking_disabled.
 
 % VIOLATION: Giving what you don't have
 % Uses time-indexed carries/3 from core.lp
+% DISABLED by default - produces too many false positives
 violation(causality, give_without_having, E, Item) :-
     rule_active(causality_give_without_having),
+    not possession_checking_disabled,           % DISABLED by default
     event(E),
     event_type(E, give),
     event_time(E, T),

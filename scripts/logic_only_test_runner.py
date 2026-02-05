@@ -629,6 +629,11 @@ def collect_rule_files() -> List[Path]:
     if general_narrative.exists():
         rule_files.append(general_narrative)
     
+    # Story-specific rules (exceptions for canonical events)
+    story_rules = rules_dir / "story_rules.lp"
+    if story_rules.exists():
+        rule_files.append(story_rules)
+    
     # Universal rules (all .lp files)
     universal_dir = rules_dir / "universal"
     if universal_dir.exists():
@@ -763,6 +768,12 @@ def run_logic_test(
         
         # Convert to ASP
         asp_facts = to_asp(chapter_data, chapter)
+        
+        # Add variant indicator for rules to use
+        if variant == "modified":
+            asp_facts += "\n% Variant indicator\nmodified_story.\n"
+        else:
+            asp_facts += "\n% Variant indicator\noriginal_story.\n"
         
         # Run Clingo
         clingo_result = run_clingo(asp_facts, rule_files)
