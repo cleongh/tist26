@@ -206,7 +206,17 @@ def to_asp(
         
         source_text = event.get('source_text', '')
         if source_text:
-            escaped_source = source_text.replace('"', '\\"').replace('\n', ' ')[:80]
+            # Escape/replace problematic characters for ASP
+            # Replace curly quotes and other Unicode with ASCII equivalents
+            escaped_source = source_text.replace(''', "'").replace(''', "'")
+            escaped_source = escaped_source.replace('"', "'").replace('"', "'")
+            escaped_source = escaped_source.replace('—', '-').replace('–', '-')
+            escaped_source = escaped_source.replace('\n', ' ')
+            # Remove double quotes entirely (they cause ASP parsing issues)
+            escaped_source = escaped_source.replace('"', "'")
+            # Remove any remaining non-ASCII characters
+            escaped_source = ''.join(c if ord(c) < 128 else '' for c in escaped_source)
+            escaped_source = escaped_source[:80]
             lines.append(f'event_source({eid}, "{escaped_source}").')
         
         if event.get("agent"):

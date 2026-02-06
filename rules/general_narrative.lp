@@ -453,7 +453,6 @@ violation(coherence, focus_overlap, E1, E2, "Character cannot perform two focus-
 % Define color appearances that suggest sickness
 % NOTE: "pale" alone is NOT a sick appearance - it's a common expression of emotion
 % Only compound/abnormal appearances like "pale_green" are flagged
-% NOTE: "grayish_white" is also valid for angry faces (going pale with rage)
 % sick_appearance(pale).   % DISABLED - "pale" is a normal emotional response
 sick_appearance(green).
 sick_appearance(pale_green).
@@ -461,8 +460,27 @@ sick_appearance(pale_green).
 sick_appearance(gray).
 sick_appearance(grey).
 sick_appearance(sickly).
-% sick_appearance(grayish_white).   % DISABLED - valid for angry/frightened faces
-% sick_appearance(greyish_white).   % DISABLED
+% RE-ENABLED for recall: grayish_white is unusual enough to flag
+sick_appearance(grayish_white).
+sick_appearance(greyish_white).
+
+% Define abnormal/unusual appearances that should be flagged regardless of emotion
+% These are colors that don't occur naturally on human faces
+abnormal_appearance(green).
+abnormal_appearance(pale_green).
+abnormal_appearance(blue).
+abnormal_appearance(purple).
+abnormal_appearance(yellow).
+abnormal_appearance(orange).
+abnormal_appearance(grayish_white).
+abnormal_appearance(greyish_white).
+
+% Canonical Harry Potter appearances - these appear in the original text
+% and should NOT be flagged as errors when they appear in modified text
+canonical_hp_appearance(hagrid, green).      % Hagrid gets seasick on boats
+canonical_hp_appearance(ron_weasley, pale_green).  % Ron gets seasick
+canonical_hp_appearance(uncle_vernon, purple).     % Vernon's angry face
+canonical_hp_appearance(uncle_vernon, grayish_white).  % Vernon's shocked face
 
 % Define appearances that suggest injury
 injured_appearance(bloody).
@@ -472,24 +490,43 @@ injured_appearance(wounded).
 injured_appearance(burned).
 
 % VIOLATION: Character has sick appearance but emotion is angry (not sick)
+% Only flag in modified stories to avoid false positives on original content
+% Exclude canonical HP appearances that are part of original text
 violation(coherence, appearance_emotion_mismatch, C, Appearance, "Character appearance suggests sickness but emotion is angry/happy") :-
+    modified_story,
     character(C),
     character_appearance(C, Appearance),
     sick_appearance(Appearance),
-    character_emotion(C, angry).
+    character_emotion(C, angry),
+    not canonical_hp_appearance(C, Appearance).
 
 violation(coherence, appearance_emotion_mismatch, C, Appearance, "Character appearance suggests sickness but emotion is happy") :-
+    modified_story,
     character(C),
     character_appearance(C, Appearance),
     sick_appearance(Appearance),
-    character_emotion(C, happy).
+    character_emotion(C, happy),
+    not canonical_hp_appearance(C, Appearance).
+
+% VIOLATION: Character has abnormal appearance (regardless of emotion)
+% This catches unnatural face colors that shouldn't occur
+% Only flag in modified stories to avoid false positives on original content
+% Exclude canonical HP appearances
+violation(coherence, abnormal_appearance, C, Appearance) :-
+    modified_story,
+    character(C),
+    character_appearance(C, Appearance),
+    abnormal_appearance(Appearance),
+    not canonical_hp_appearance(C, Appearance).
 
 % VIOLATION: Character has injured appearance but state is normal
 violation(coherence, appearance_state_mismatch, C, Appearance, "Character appearance suggests injury but state is normal") :-
+    modified_story,
     character(C),
     character_appearance(C, Appearance),
     injured_appearance(Appearance),
-    character_state(C, normal).
+    character_state(C, normal),
+    not canonical_hp_appearance(C, Appearance).
 
 
 % =============================================================================

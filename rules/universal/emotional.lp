@@ -243,9 +243,11 @@ action_contradicts_positive(deceive).
 % --- VIOLATION: Friendly Action Toward Explicit Enemy ---
 % Uses explicit_relationship, NOT assumed relationship
 % NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
+% NOTE: Only fires in modified stories to avoid false positives
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, acted, Type, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_action_mismatch),
     event(E),
     event_time(E, T_event),
@@ -264,6 +266,7 @@ violation(emotional, relationship_action_mismatch,
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, acted, Type, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_action_mismatch),
     event(E),
     event_time(E, T_event),
@@ -292,6 +295,7 @@ is_protective_action(E) :- event_type(E, stop).
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_action_mismatch),
     event(E),
     event_time(E, T_event),
@@ -341,6 +345,7 @@ non_neutral_social_action(A) :- hostile_social_action(A).
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, social_action, Action, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_action_mismatch),
     event(E),
     event_time(E, T_event),
@@ -358,9 +363,11 @@ violation(emotional, relationship_action_mismatch,
 % Report events are explicit betrayal signals
 % NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
 % NOTE: Does NOT fire when reporting is protective/concerned (e.g., worried about safety)
+% NOTE: Only fires in modified stories to avoid false positives on original content
 violation(emotional, relationship_betrayal, 
           violation_info(E, agent, Agent, reported, Patient, to_authority,
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_betrayal),
     event(E),
     event_time(E, T_event),
@@ -377,6 +384,7 @@ violation(emotional, relationship_betrayal,
 violation(emotional, relationship_betrayal, 
           violation_info(E, agent, Agent, reported, Patient, to_authority,
                         despite, RelType, established_at, T_establish)) :-
+    modified_story,
     rule_active(emotional_relationship_betrayal),
     event(E),
     event_time(E, T_event),
@@ -499,16 +507,19 @@ changes_relationship(E, Agent, Patient, hates, OldType) :-
 
 % --- VIOLATION: Unexplained Relationship Change ---
 % Relationship changed without an explicit event
-violation(emotional, unexplained_relationship_change,
-          violation_info(C1, C2, changed_from, OldType, to, NewType, 
-                        at_time, T, without_event)) :-
-    rule_active(emotional_unexplained_relationship_change),
-    explicit_relationship(C1, C2, OldType, T_old),
-    explicit_relationship(C1, C2, NewType, T),
-    T_old < T,
-    OldType != NewType,
-    not has_relationship_change_event(C1, C2, T_old, T),
-    not story_override_relationship(C1, C2, NewType, T).
+% DISABLED: Produces too many false positives in multi-chapter analysis
+%           due to extraction differences between chapters
+%
+% violation(emotional, unexplained_relationship_change,
+%           violation_info(C1, C2, changed_from, OldType, to, NewType, 
+%                         at_time, T, without_event)) :-
+%     rule_active(emotional_unexplained_relationship_change),
+%     explicit_relationship(C1, C2, OldType, T_old),
+%     explicit_relationship(C1, C2, NewType, T),
+%     T_old < T,
+%     OldType != NewType,
+%     not has_relationship_change_event(C1, C2, T_old, T),
+%     not story_override_relationship(C1, C2, NewType, T).
 
 % Check if there's a relationship change event between times
 has_relationship_change_event(C1, C2, T_old, T_new) :-
