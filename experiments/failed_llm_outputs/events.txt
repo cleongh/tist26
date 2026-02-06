@@ -3,7 +3,17 @@ Phase: events
 Error: Truncation salvage failed
 
 === Raw LLM Output ===
-not json at all
+```json
+{
+  "events": [],
+  "temporal_constraints": [],
+  "implied_presence": []
+}
+```
 
 === After Repair Attempt ===
-not json at all
+{
+  "events": [],
+  "temporal_constraints": [],
+  "implied_presence": []
+}

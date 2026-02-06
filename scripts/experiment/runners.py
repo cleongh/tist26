@@ -331,6 +331,7 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
         
         story_violations = []
         all_events = []
+        previous_chapter_events = []  # Phase 8.6: Track for active_universe filtering
         
         for ext in chapter_extractions:
             chapter_num = ext["chapter"]
@@ -396,7 +397,14 @@ def run_step2_debug(experiment_dir: Path, stories: List[str]) -> None:
             debug_log(f"  Item Tracker: {item_stats['active_items']} active, {item_stats['suppressed_items']} suppressed")
             
             debug_log(f"\n  Running EventExecutor.evaluate_chapter_structured()...")
-            eval_result = event_executor.evaluate_chapter_structured(structured, chapter_num)
+            eval_result = event_executor.evaluate_chapter_structured(
+                structured, chapter_num,
+                previous_chapter_events=previous_chapter_events,
+                item_tracker=item_tracker
+            )
+            
+            # Phase 8.6: Update previous_chapter_events for next iteration
+            previous_chapter_events = events
             
             for event in structured.get("events", []):
                 all_events.append({
@@ -625,6 +633,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
             log(f"  Found {len(chapter_files)} chapters" + (f" (limited to {max_chapters})" if max_chapters else ""))
             
             story_violations: List[Dict] = []
+            previous_chapter_events = []  # Phase 8.6: Track for active_universe filtering
             
             for i, chapter_file in enumerate(chapter_files):
                 log(f"  Chapter {i}: {chapter_file.name}")
@@ -762,8 +771,13 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     f.write(json.dumps(item_stats_entry) + "\n")
                 
                 eval_result = event_executor.evaluate_chapter_structured(
-                    structured, i
+                    structured, i,
+                    previous_chapter_events=previous_chapter_events,
+                    item_tracker=item_tracker
                 )
+                
+                # Phase 8.6: Update previous_chapter_events for next iteration
+                previous_chapter_events = structured.get("events", [])
                 
                 for event in structured.get("events", []):
                     event_entry = {

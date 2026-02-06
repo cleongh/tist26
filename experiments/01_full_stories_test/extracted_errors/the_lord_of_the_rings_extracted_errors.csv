@@ -1,0 +1,11 @@
+Chapter,Category,Description
+046.txt,cross_chapter,"The chapter is incorrectly labeled as Chapter 3, which conflicts with the previous chapter summaries indicating this should be a later chapter."
+059.txt,cross_chapter,"The chapter is labeled as Chapter 6, but the events described are from the end of the story, suggesting a mislabeling or inconsistency with the chapter numbering."
+055.txt,cross_chapter,"The chapter is labeled as Chapter 2, but the content and context suggest it is much later in the story, likely during the journey through Mordor."
+012.txt,cross_chapter,"The chapter number is inconsistent with the previous chapter summaries, which already included a Chapter 12."
+050.txt,cross_chapter,"Chapter 7 is repeated in both the current and previous summaries, leading to confusion about the sequence of events."
+008.txt,cross_chapter,The chapter summary provided for Chapter 8 does not match the content of the chapter analyzed. The summary describes events that occur in Chapter 7.
+022.txt,cross_chapter,Inconsistency in the chapter numbering compared to previous summaries.
+003.txt,cross_chapter,The chapter summary for Chapter 3 in the previous summaries section does not match the content of the current Chapter 3.
+031.txt,cross_chapter,"The chapter is labeled as Chapter 9, but the content and events described align with later events in the story, specifically after the battle of Helm's Deep and the destruction of Isengard, which contradicts the sequence of events in previous chapter summaries."
+058.txt,cross_chapter,"The chapter is labeled as Chapter 5, but the content and events described correspond to the end of 'The Return of the King,' which should be much later in the narrative."

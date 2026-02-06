@@ -51,7 +51,9 @@ import json
 
 if TYPE_CHECKING:
     from .active_universe import ActiveUniverseResult
+    from .item_tracker import ItemTracker
 
+from .active_universe import compute_active_universe_from_state_manager
 from .asp_diagnostics import log_asp_universe
 from .movement_continuity_guard import (
     MovementContinuityGuard,
@@ -1101,7 +1103,10 @@ class EventExecutor:
         
         return results, all_violations
     
-    def check_with_clingo(self, facts: str, chapter_num: int) -> List[Dict[str, Any]]:
+    def check_with_clingo(
+        self, facts: str, chapter_num: int,
+        active_universe: Optional['ActiveUniverseResult'] = None
+    ) -> List[Dict[str, Any]]:
         """
         Use Clingo to find violations in batch mode.
         
@@ -1110,9 +1115,13 @@ class EventExecutor:
         
         Extracted from LogicEvaluator._check_with_clingo() per Step 3.2.
         
+        Phase 8.6: If active_universe is provided, only include entities
+        in the active universe to reduce ASP grounding time.
+        
         Args:
             facts: ASP facts string (from to_asp())
             chapter_num: Current chapter number
+            active_universe: Optional filter - only include facts for entities in this universe
         
         Returns:
             List of violation dictionaries
@@ -1124,8 +1133,10 @@ class EventExecutor:
         
         import clingo
         
-        # Get cross-chapter state facts
-        cross_chapter_facts = self.state_manager.get_cross_chapter_state_facts()
+        # Get cross-chapter state facts (filtered by active_universe)
+        cross_chapter_facts = self.state_manager.get_cross_chapter_state_facts(
+            active_universe=active_universe
+        )
         
         # Combine all knowledge
         program_parts = [facts]
@@ -1135,10 +1146,29 @@ class EventExecutor:
             program_parts.append("\n% Cross-chapter state:")
             program_parts.extend(cross_chapter_facts)
         
-        # Add accumulated persistent facts
+        # Add accumulated persistent facts (filtered by active_universe)
         if self.state_manager.accumulated_facts:
-            program_parts.append("\n% Previously introduced entities:")
-            program_parts.extend(self.state_manager.accumulated_facts)
+            accumulated = self.state_manager.accumulated_facts
+            if active_universe is not None:
+                # Filter accumulated facts to only include active entities
+                # Facts are like: character(harry). location(hogwarts). item(wand).
+                all_entities = active_universe.all_entities
+                filtered_accumulated = []
+                for fact in accumulated:
+                    # Extract entity name from fact like "character(harry)."
+                    import re
+                    match = re.match(r'\w+\((\w+)\)\.', fact)
+                    if match:
+                        entity = match.group(1)
+                        if entity in all_entities:
+                            filtered_accumulated.append(fact)
+                    else:
+                        # Keep facts we can't parse (safety net)
+                        filtered_accumulated.append(fact)
+                accumulated = filtered_accumulated
+            if accumulated:
+                program_parts.append("\n% Previously introduced entities:")
+                program_parts.extend(accumulated)
         
         combined = "\n".join(program_parts)
         
@@ -1250,11 +1280,14 @@ class EventExecutor:
     # =========================================================================
     
     def evaluate_chapter_structured(self, structured_data: Dict[str, Any], 
-                                     chapter_num: int) -> ChapterEvaluationResult:
+                                     chapter_num: int,
+                                     previous_chapter_events: Optional[List[Dict[str, Any]]] = None,
+                                     item_tracker: Optional['ItemTracker'] = None) -> ChapterEvaluationResult:
         """
         Evaluate chapter and return structured JSON output only.
         
         Phase 4, Step 4.1: Refactored evaluate_chapter()
+        Phase 8.9: Added active_universe filtering for performance
         
         Changes from old pipeline:
             - NO Python-encoded logic decisions
@@ -1265,6 +1298,8 @@ class EventExecutor:
         Args:
             structured_data: Structured chapter data from LLM extraction
             chapter_num: Current chapter number
+            previous_chapter_events: Events from previous chapter (for active_universe)
+            item_tracker: Optional ItemTracker for active_universe computation
         
         Returns:
             ChapterEvaluationResult with structured violations
@@ -1275,11 +1310,20 @@ class EventExecutor:
         events = self.assign_global_event_ids(events, chapter_num)
         structured_data["events"] = events
         
-        # Convert to ASP facts
-        facts = self.to_asp(structured_data, chapter_num)
+        # Phase 8.9: Compute active universe for this chapter
+        # Only entities from current + previous chapter (plus 1-hop relationships) are included
+        active_universe = compute_active_universe_from_state_manager(
+            current_chapter_events=events,
+            previous_chapter_events=previous_chapter_events,
+            state_manager=self.state_manager,
+            item_tracker=item_tracker,
+        )
+        
+        # Convert to ASP facts (filtered by active_universe)
+        facts = self.to_asp(structured_data, chapter_num, active_universe=active_universe)
         
         # Run Clingo (all reasoning happens here, not in Python)
-        raw_violations = self.check_with_clingo(facts, chapter_num)
+        raw_violations = self.check_with_clingo(facts, chapter_num, active_universe=active_universe)
         
         # Update StateManager with persistent facts
         self.state_manager.accumulate_persistent_facts(facts)
