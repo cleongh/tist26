@@ -1,12 +1,12 @@
 Chapter,Category,Description
-027.txt,cross_chapter,The chapter number is inconsistent with the previous chapter summaries provided.
-049.txt,coherence,"Hermione is with Harry and Ron until they reach the Charms classroom, but then she is suddenly missing without explanation."
-055.txt,temporal,"The use of the Time-Turner creates a time paradox where Harry sees himself casting a Patronus, which he later realizes he must do himself."
-011.txt,coherence,"Harry notices a small door with a golden F painted on it, but this detail is not explained or revisited, leaving its significance unclear."
 005.txt,emotional,"Uncle Vernon's behavior is inconsistent with his established character. He shows a warm and sad smile, which contradicts his usual disdain for Harry."
-045.txt,coherence,"Professor Trelawney mentions climbing stairs in the dungeons, which is inconsistent with the known layout of Hogwarts, as dungeons are typically below ground level."
-020.txt,cross_chapter,"The chapter is labeled as Chapter Four, but the content suggests it should be a later chapter in the sequence, given the previous chapter summaries."
-014.txt,coherence,"The chapter title 'The Forbidden Forest' is repeated at the beginning of the chapter, which is likely a typographical error."
 025.txt,cross_chapter,The chapter summary for Chapter 9 provided in the previous summaries does not match the content of the current Chapter Nine.
+011.txt,coherence,"Harry notices a small door with a golden F painted on it, but this detail is not explained or revisited, leaving its significance unclear."
+045.txt,coherence,"Professor Trelawney mentions climbing stairs in the dungeons, which is inconsistent with the known layout of Hogwarts, as dungeons are typically below ground level."
+055.txt,temporal,"The use of the Time-Turner creates a time paradox where Harry sees himself casting a Patronus, which he later realizes he must do himself."
 007.txt,coherence,Repetition of text indicating a possible editing error.
+049.txt,coherence,"Hermione is with Harry and Ron until they reach the Charms classroom, but then she is suddenly missing without explanation."
+027.txt,cross_chapter,The chapter number is inconsistent with the previous chapter summaries provided.
+020.txt,cross_chapter,"The chapter is labeled as Chapter Four, but the content suggests it should be a later chapter in the sequence, given the previous chapter summaries."
 026.txt,cross_chapter,"Inconsistency regarding the chapter numbering, as the current chapter is labeled as Chapter Ten, but previous summaries indicate the story should be beyond Chapter Twenty-Six."
+014.txt,coherence,"The chapter title 'The Forbidden Forest' is repeated at the beginning of the chapter, which is likely a typographical error."

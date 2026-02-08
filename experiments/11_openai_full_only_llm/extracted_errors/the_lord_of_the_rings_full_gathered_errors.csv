@@ -1,0 +1,12 @@
+Chapter,Error_Original,Error_Modified
+009.txt,,"[cross_chapter] Frodo uses the name 'Underhill' as an alias, but the chapter summary for Chapter 6 does not mention this plan or alias being established."
+012.txt,,"[coherence] Glorfindel's touch is described as both causing Frodo's skin to shiver and providing warmth, which is contradictory."
+021.txt,"[temporal] The chapter suggests that the moon's phase is inconsistent with the time spent in Lothlórien, implying a time discrepancy.",[temporal] The timing of the moon phases seems inconsistent with the time spent in Lothlórien.
+032.txt,[coherence] The text contains a typographical error where 'hut' should be 'but'.,
+035.txt,[coherence] There is a typographical error where 'hir' should be 'his'.,"[coherence] The text mentions 'hir master' which seems to be a typographical error, likely meant to be 'his master'."
+035.txt,,"[coherence] The text uses 'bc' which appears to be a typographical error, likely meant to be 'be'."
+043.txt,"[cross_chapter] Frodo is described as dead, but later it is revealed he is not, which contradicts the previous chapter's implication of his survival.",
+046.txt,,"[cross_chapter] Inconsistency regarding Aragorn's departure. In Chapter 46, Aragorn decides to take the Paths of the Dead, but Éowyn's reaction in this chapter suggests a lack of prior knowledge."
+054.txt,"[coherence] The text refers to 'ores' instead of 'orcs', which seems to be a typographical error.","[coherence] The text refers to 'ores' instead of 'orcs', which seems to be a typographical error."
+058.txt,,"[emotional] Faramir's reaction to Éowyn's concerns seems inconsistent with their established relationship, as he recoils from her despite their mutual affection."
+059.txt,"[coherence] The text mentions Éomer's statement about Éowyn being given to Faramir as a wife, but earlier it is stated that Éowyn grants it full willing, which seems contradictory as it implies she has already agreed.",

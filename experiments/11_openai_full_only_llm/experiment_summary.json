@@ -1,0 +1,97 @@
+{
+  "experiment_name": "11_openai_full_only_llm",
+  "generated_at": "2026-02-08T02:15:42.888460",
+  "step1_llm": {
+    "approach": "LLM-only",
+    "chapters_processed": 704,
+    "total_errors": 442,
+    "timestamp": "2026-02-07T22:44:39.000317"
+  },
+  "step2_logic": {
+    "approach": "Logic (ILASP + Clingo)",
+    "chapters_processed": 0,
+    "total_errors": 0,
+    "timestamp": ""
+  },
+  "comparison": {
+    "per_story": [
+      {
+        "story": "Harry Potter",
+        "variant": "original",
+        "llm_errors": 30,
+        "logic_errors": 0
+      },
+      {
+        "story": "Harry Potter",
+        "variant": "modified",
+        "llm_errors": 34,
+        "logic_errors": 0
+      },
+      {
+        "story": "The Hunger Games",
+        "variant": "original",
+        "llm_errors": 43,
+        "logic_errors": 0
+      },
+      {
+        "story": "The Hunger Games",
+        "variant": "modified",
+        "llm_errors": 44,
+        "logic_errors": 0
+      },
+      {
+        "story": "The Lord of the Rings",
+        "variant": "original",
+        "llm_errors": 6,
+        "logic_errors": 0
+      },
+      {
+        "story": "The Lord of the Rings",
+        "variant": "modified",
+        "llm_errors": 8,
+        "logic_errors": 0
+      },
+      {
+        "story": "Twilight",
+        "variant": "original",
+        "llm_errors": 76,
+        "logic_errors": 0
+      },
+      {
+        "story": "Twilight",
+        "variant": "modified",
+        "llm_errors": 79,
+        "logic_errors": 0
+      },
+      {
+        "story": "Goosebumps",
+        "variant": "original",
+        "llm_errors": 60,
+        "logic_errors": 0
+      },
+      {
+        "story": "Goosebumps",
+        "variant": "modified",
+        "llm_errors": 62,
+        "logic_errors": 0
+      }
+    ],
+    "by_category": {
+      "llm": {
+        "causality": 1,
+        "coherence": 58,
+        "temporal": 5,
+        "location": 0,
+        "emotional": 24
+      },
+      "logic": {
+        "causality": 0,
+        "coherence": 0,
+        "temporal": 0,
+        "location": 0,
+        "emotional": 0
+      }
+    }
+  },
+  "ground_truth_comparison": {}
+}

@@ -1,32 +1,11 @@
 Chapter,Error_Original,Error_Modified
-000.txt,,
-001.txt,,
-002.txt,,
-003.txt,,
-004.txt,,
 005.txt,"[coherence] Effie Trinket incorrectly states that coal turns to pearls, which is a factual error.","[coherence] Effie Trinket mistakenly says coal turns to pearls, which is scientifically incorrect."
-006.txt,,
-007.txt,,
 008.txt,"[emotional] Katniss expresses hatred towards the red-headed Avox girl, which contradicts her earlier feelings of guilt and empathy towards her.","[emotional] Katniss expresses hatred towards the red-headed Avox girl, which contradicts her previous feelings of guilt and empathy towards her."
-009.txt,,
 010.txt,"[cross_chapter] Katniss reflects on Peeta's lack of confidence in winning, which contradicts his strategic mindset and public declaration of love in previous chapters.",
 011.txt,[emotional] Katniss's reaction to Peeta's actions seems overly harsh and inconsistent with her previous feelings of confusion and mixed emotions about him.,[emotional] Katniss's reaction to Peeta's actions seems overly hostile given their previous alliance and Peeta's public declaration of love.
-012.txt,,
-013.txt,,
-014.txt,,
 015.txt,"[cross_chapter] The chapter mentions a boy from District 10 with a bad leg, but previous summaries do not mention this character being alive or significant.","[cross_chapter] The chapter mentions a boy from District 10 with a bad leg, but previous summaries do not mention this character being alive or relevant."
-016.txt,,
-017.txt,,
-018.txt,,
-019.txt,,
-020.txt,,
-021.txt,,
-022.txt,,
 023.txt,,"[coherence] The chapter mentions Peeta's leg injury affecting his ability to climb, but does not explain how he managed to walk back to the cave without significant difficulty."
-024.txt,,
-025.txt,,
 026.txt,[cross_chapter] Inconsistency regarding Peeta's leg injury and Katniss's awareness of it.,[cross_chapter] Inconsistency regarding Peeta's leg injury and Katniss's awareness of it.
-027.txt,,
 028.txt,"[cross_chapter] The chapter implies that Katniss and Peeta's relationship was cool after the Games, but previous summaries suggest they maintained a public romance.","[cross_chapter] The chapter implies that Katniss and Gale's relationship has been publicly perceived as familial ('cousins'), but previous summaries do not mention this cover story being established."
 029.txt,"[cross_chapter] Inconsistency regarding Peeta's leg. In Chapter 27, it was revealed that Peeta had a leg amputation, but this chapter does not mention any prosthetic or difficulty in movement until he slips in the snow.","[cross_chapter] Inconsistency in the timeline regarding Katniss's age and the Quarter Quell. Katniss is stated to be sixteen, but the Quarter Quell occurs every 25 years, and she mentions not being alive for one."
 030.txt,"[coherence] Effie is surprised by the lack of a welcoming committee at the District 11 station, but given the context of the Victory Tour and the Capitol's control, this should not be unexpected.",[cross_chapter] Inconsistency regarding the sequence of events and the timeline of the Victory Tour.
@@ -40,30 +19,21 @@ Chapter,Error_Original,Error_Modified
 038.txt,"[cross_chapter] The chapter refers to Katniss's bridal photo shoot and the Capitol's interest in her wedding, which seems inconsistent with the previous chapter summaries that focus on the aftermath of the Hunger Games and the Victory Tour.",
 039.txt,"[cross_chapter] Contradiction regarding the reaping process for the Quarter Quell. Previous chapters suggest Katniss was aware of the possibility of returning to the arena, but this chapter implies she did not expect it.","[cross_chapter] The chapter mentions Katniss's surprise at having to return to the arena, but previous summaries indicate she was already aware of the Quarter Quell requiring victors to return."
 040.txt,"[cross_chapter] The chapter mentions Katniss and Peeta watching Haymitch's Games tape, but previous summaries do not indicate that they had access to these tapes or that Effie sent them.",
-041.txt,,
 042.txt,"[cross_chapter] Inconsistency regarding the Avox girl serving at dinner. In Chapter 6, Katniss encounters an Avox girl who triggers memories, but the specific identity of the redheaded Avox girl is not mentioned in the summaries, making it unclear if this is the same character.","[cross_chapter] The chapter mentions Katniss volunteering to save Prim, which is consistent with the first book but not directly relevant to the current context of the Quarter Quell."
 043.txt,"[cross_chapter] The chapter mentions Katniss and Peeta each receiving a score of twelve, making Hunger Games history, but previous chapters do not establish the significance of this score or its historical context.","[coherence] The chapter mentions Katniss and Peeta each receiving a score of twelve, making Hunger Games history, but does not explain why this is unprecedented or how it impacts the narrative."
-044.txt,,
 045.txt,"[cross_chapter] Inconsistency regarding Peeta's leg amputation, which was mentioned in Chapter 27 but not addressed in the current chapter where Peeta is swimming.","[coherence] Katniss is supposed to be pregnant as part of a strategy, but she seems to momentarily forget this important detail."
 046.txt,"[cross_chapter] Inconsistency regarding Peeta's heart stopping and being revived by Finnick, which is not mentioned in previous summaries where Peeta's condition is discussed.","[cross_chapter] Inconsistency regarding the pregnancy claim. In Chapter 45, Peeta reveals they are 'married' and expecting a baby, but Katniss's reaction in this chapter suggests she is not actually pregnant, contradicting the previous public narrative."
-047.txt,,
-048.txt,,
 049.txt,"[cross_chapter] The chapter mentions Katniss being 'knocked up,' implying pregnancy, which contradicts previous chapters where Peeta's claim of her being pregnant was a strategic lie.",[emotional] Johanna's aggressive behavior towards Katniss seems inconsistent with the alliance and cooperation they have been maintaining.
-050.txt,,
 051.txt,"[cross_chapter] The chapter mentions Katniss's ability to hear the force field with her reconstructed ear, which contradicts the previous chapter summary where Beetee taught her to spot force fields visually.",
 052.txt,,"[coherence] The chapter describes Katniss being attacked by Johanna and then left alone, but later Katniss questions if Johanna was acting alone or in alliance with Finnick, which seems inconsistent with the immediate threat she experienced."
 053.txt,,"[cross_chapter] The chapter suggests that Katniss was unaware of the plan to break out of the arena, but previous summaries indicate she had suspicions about the rebellion and District 13."
-054.txt,,
 055.txt,"[cross_chapter] The chapter mentions Katniss and Gale returning to Compartment 307, but previous summaries do not establish their relocation to District 13 or the existence of compartments.","[cross_chapter] The chapter refers to Katniss's mother and sister being in Compartment 307, but previous summaries do not mention them being relocated to District 13."
-056.txt,,
 057.txt,"[cross_chapter] The chapter refers to Katniss's prep team being imprisoned in District 13, but previous summaries do not mention their capture or presence in District 13.",
 058.txt,"[cross_chapter] The chapter number is inconsistent with the previous chapter summaries, which indicate a different sequence of events.","[cross_chapter] The chapter refers to Katniss's prep team being imprisoned and mistreated in District 13, which contradicts the previous chapter summary where Katniss discovers them imprisoned for the first time."
 059.txt,"[cross_chapter] The chapter number is inconsistent with the provided summaries, which suggest a different sequence of events.","[cross_chapter] The chapter mentions Katniss's prep team being present in District 13, but in Chapter 58, it was established that they were imprisoned and mistreated, raising questions about their sudden presence and participation."
-060.txt,,
 061.txt,"[cross_chapter] The chapter refers to Katniss's previous participation in the Hunger Games and her role as the Mockingjay, but the summaries provided do not cover events from 'Catching Fire' or 'Mockingjay,' which are necessary to understand these references.","[cross_chapter] The chapter refers to Katniss waking up in her old bed in the hospital, but previous summaries indicate she is in District 13, which has different living conditions."
 062.txt,"[cross_chapter] The chapter implies Katniss is in District 13, but previous summaries suggest she is in District 12.","[cross_chapter] The chapter number is inconsistent with the previous chapter summaries, which end at Chapter 62, but this chapter is labeled as Chapter 9."
 063.txt,,"[emotional] Katniss's mother is described as having a 'disgusted grin' when looking at her daughters, which contradicts her usual caring demeanor."
-064.txt,,
 065.txt,"[cross_chapter] The chapter mentions Katniss and Peeta's first meeting on the train to the Games, but previous summaries indicate they had interactions before the Games.",[emotional] Peeta's sudden attack on Katniss contradicts his established feelings and behavior towards her.
 066.txt,"[cross_chapter] The chapter refers to Peeta's condition as 'hijacked' and explains it as a new concept, but previous chapters do not mention this term or concept, creating a potential inconsistency in the narrative.","[cross_chapter] The chapter suggests that Peeta's prep team was executed, but previous summaries do not mention this event, creating a potential contradiction."
 067.txt,"[cross_chapter] The chapter implies Katniss has been in District 2 for two weeks, but previous summaries do not mention this transition or time frame.","[cross_chapter] The chapter mentions Katniss and Peeta visiting District 2 during the Victory Tour, which contradicts the previous summaries where the Victory Tour events are not detailed to include such a visit."
@@ -73,11 +43,8 @@ Chapter,Error_Original,Error_Modified
 071.txt,"[cross_chapter] The chapter mentions Katniss and Peeta's participation in the Seventy-sixth Hunger Games, which contradicts the previous summaries where they were victors of the Seventy-fifth Hunger Games.","[cross_chapter] The chapter mentions Katniss and Finnick as the two best-equipped soldiers, but previous summaries do not establish Finnick's combat skills as superior to others."
 072.txt,,"[cross_chapter] The chapter number is repeated as '19' at the beginning, which is inconsistent with the sequence of chapter numbers provided in the previous summaries."
 073.txt,,"[cross_chapter] The chapter involves Katniss receiving prime security clearance from Boggs, but there is no prior mention of such a clearance system or its significance in the previous summaries."
-074.txt,,
 075.txt,[cross_chapter] Inconsistency in the number of original Star Squad members mentioned.,"[cross_chapter] The chapter describes Katniss shooting a woman in a turquoise robe, but there is no prior mention of this character or situation in the summaries, making it unclear how Katniss ended up in this scenario."
 076.txt,"[cross_chapter] The chapter describes Katniss and her squad navigating the Capitol and encountering Tigris, but previous summaries do not mention Tigris or her role in the story.",
 077.txt,"[cross_chapter] The chapter refers to Katniss's intention to kill Snow, but previous summaries do not mention this specific plan.",
 078.txt,"[cross_chapter] The chapter describes Katniss as being in a Capitol hospital and later in the president's mansion, which contradicts the previous chapter summary that ends with a tragic scene involving parachutes exploding among children, suggesting she was in a different location.","[cross_chapter] The chapter describes Katniss as being in a Capitol hospital and later in the president's mansion, but previous summaries indicate she was in District 13 after the destruction of District 12."
 079.txt,"[cross_chapter] The chapter number is inconsistent with the previous chapter summaries, which end at Chapter 79. This chapter is labeled as Chapter 26, which does not follow the sequence.","[cross_chapter] The chapter number is inconsistent with the previous chapter summaries, which end at Chapter 79."
-080.txt,,
-081.txt,,
