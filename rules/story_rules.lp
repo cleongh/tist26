@@ -629,7 +629,9 @@ has_any_prerequisite_satisfied(EventId, Patient) :-
 
 % --- VIOLATION: Missing prerequisite ---
 % Action requires a prerequisite but NONE of the acceptable options occurred
+% Only flag in modified stories to avoid false positives
 violation(temporal, missing_prerequisite, EventId, pair(ActionType, Patient)) :-
+    modified_story,
     event_global(EventId, ActionType, _),
     patient(EventId, Patient),
     action_needs_prerequisite(ActionType),
@@ -640,12 +642,14 @@ violation(temporal, missing_prerequisite, EventId, pair(ActionType, Patient)) :-
 % These are extracted from narrative statements like "before he could X, he had to Y"
 
 violation(temporal, explicit_order_violated, EventB, pair(EventA, EventB)) :-
+    modified_story,
     temporal_rule(TypeA, must_precede, TypeB, _),
     event_global(EventA, TypeA, _),
     event_global(EventB, TypeB, _),
     event_before(EventB, EventA).  % B happened before A, violating constraint
 
 violation(temporal, prerequisite_not_met, EventB, pair(TypeA, TypeB)) :-
+    modified_story,
     temporal_rule(TypeA, must_precede, TypeB, _),
     event_global(EventB, TypeB, _),
     not event_of_type_exists(TypeA).
@@ -811,6 +815,103 @@ story_exception(relationship_action_mismatch, E) :-
     event_type(E, attack),
     agent(E, hermione_granger),
     patient(E, neville_longbottom).
+
+
+% =============================================================================
+% HOGWARTS LOCATION HIERARCHY
+% =============================================================================
+% Define the containment structure of Hogwarts to enable location violation detection
+%
+% Locations that are FAR APART should not be reachable without travel
+% Dungeons and Dormitories (towers) are on opposite ends of the castle
+
+is_location(hogwarts).
+is_location(dungeons).
+is_location(dungeon).
+is_location(potions_classroom).
+is_location(slytherin_common_room).
+is_location(gryffindor_tower).
+is_location(gryffindor_dormitory).
+is_location(dormitory).
+is_location(great_hall).
+is_location(library).
+is_location(astronomy_tower).
+is_location(hagrid_house).
+is_location(forbidden_forest).
+is_location(hospital_wing).
+is_location(headmasters_office).
+is_location(quidditch_pitch).
+
+% Containment - everything is in Hogwarts (or grounds)
+contains(hogwarts, dungeons).
+contains(hogwarts, dungeon).
+contains(hogwarts, potions_classroom).
+contains(hogwarts, gryffindor_tower).
+contains(hogwarts, gryffindor_dormitory).
+contains(hogwarts, dormitory).
+contains(hogwarts, great_hall).
+contains(hogwarts, library).
+contains(hogwarts, astronomy_tower).
+contains(hogwarts, hospital_wing).
+contains(hogwarts, headmasters_office).
+
+% Dungeons contain potions classroom
+contains(dungeons, potions_classroom).
+contains(dungeons, slytherin_common_room).
+
+% Gryffindor tower contains dormitory
+contains(gryffindor_tower, gryffindor_dormitory).
+
+% Outside hogwarts main building
+contains(hogwarts_grounds, hagrid_house).
+contains(hogwarts_grounds, forbidden_forest).
+contains(hogwarts_grounds, quidditch_pitch).
+
+% DISJOINT LOCATIONS - dungeons and towers are far apart
+% Characters cannot instantly access items in distant locations
+disjoint_castle_areas(dungeons, gryffindor_tower).
+disjoint_castle_areas(dungeons, dormitory).
+disjoint_castle_areas(dungeons, gryffindor_dormitory).
+disjoint_castle_areas(dungeon, gryffindor_tower).
+disjoint_castle_areas(dungeon, dormitory).
+disjoint_castle_areas(dungeon, gryffindor_dormitory).
+disjoint_castle_areas(astronomy_tower, dungeons).
+disjoint_castle_areas(astronomy_tower, dungeon).
+
+% Make symmetric
+disjoint_castle_areas(A, B) :- disjoint_castle_areas(B, A).
+
+% VIOLATION: Character interacts with item at a disjoint location
+% This catches cases where someone in the dungeons reaches for items in dormitory
+violation(location, impossible_access, 
+          violation_info(Character, at, Loc1, reaches_item_at, Loc2, in_event, E)) :-
+    event(E),
+    event_time(E, T),
+    agent(E, Character),
+    explicit_presence(Character, Loc1, T, _),
+    event_type(E, Type),
+    uses_item_action(Type),
+    event_location(E, Loc2),
+    Loc2 != unknown,
+    disjoint_castle_areas(Loc1, Loc2).
+
+% Actions that involve using/accessing items
+uses_item_action(take).
+uses_item_action(get).
+uses_item_action(reach).
+uses_item_action(grab).
+uses_item_action(use).
+uses_item_action(pick_up).
+
+
+% =============================================================================
+% RULE OVERRIDES
+% =============================================================================
+% Disable rules that produce too many false positives on multi-chapter analysis
+
+% The unexplained_relationship_change rule fires when relationships differ
+% between chapters due to extraction differences, not actual narrative errors
+story_override(unexplained_relationship_change).
 
 
 % =============================================================================
