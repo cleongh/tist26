@@ -132,6 +132,12 @@ def main():
         action="store_true",
         help="Disable all timeouts (set to None)",
     )
+    parser.add_argument(
+        '--extraction-only',
+        action='store_true',
+        default=False,
+        help='Only extract data from LLM, skip engine processing'
+    )
     
     args = parser.parse_args()
     
@@ -189,7 +195,7 @@ def main():
             run_step2_engine(experiment_dir, stories, args.llm_url, max_chapters,
                              api_mode=args.api_mode, api_model=args.api_model, api_delay=args.api_delay,
                              use_split_extraction=getattr(args, 'split_extraction', False),
-                             llm_timeout=args.llm_timeout)
+                             llm_timeout=args.llm_timeout, extraction_only=args.extraction_only)
         else:
             # Original or Phase 4 mode
             run_step2_logic(experiment_dir, stories, args.llm_url, max_chapters,

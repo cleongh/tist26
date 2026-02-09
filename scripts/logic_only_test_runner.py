@@ -706,6 +706,7 @@ def run_logic_test(
     output_log: Path,
     verbose: bool = False,
     trace: bool = False,
+    story_filter: List[str] = None,
 ) -> Dict[str, Any]:
     """
     Run logic test on all chapters in the experiment.
@@ -715,6 +716,7 @@ def run_logic_test(
         output_log: Path to output log file
         verbose: Whether to print verbose output
         trace: Whether to include per-statement evaluation traces
+        story_filter: If provided, only process chapters from these stories
         
     Returns:
         Summary dict with violation counts
@@ -727,6 +729,12 @@ def run_logic_test(
     # Load extractions
     extractions = load_extractions(extractions_path)
     print(f"Loaded {len(extractions)} chapter extractions from {extractions_path}")
+    
+    # Filter by story if specified
+    if story_filter:
+        story_filter_lower = [s.lower() for s in story_filter]
+        extractions = [e for e in extractions if e.get("story", "").lower() in story_filter_lower]
+        print(f"Filtered to {len(extractions)} extractions for stories: {', '.join(story_filter)}")
     
     # Collect rule files
     rule_files = collect_rule_files()
@@ -921,6 +929,13 @@ def main():
         action="store_true",
         help="Enable per-statement evaluation traces in output"
     )
+    parser.add_argument(
+        "--story", "-s",
+        type=str,
+        nargs='*',
+        default=None,
+        help="Filter to specific stories (e.g., --story 'Harry Potter' 'Twilight')"
+    )
     
     args = parser.parse_args()
     
@@ -932,12 +947,19 @@ def main():
     if not output_log.is_absolute():
         output_log = Path.cwd() / output_log
     
+    # Append story name to output file if filtering
+    if args.story:
+        story_slug = "_".join(s.lower().replace(" ", "_") for s in args.story)
+        stem = output_log.stem
+        suffix = output_log.suffix or ".txt"
+        output_log = output_log.with_name(f"{stem}_{story_slug}{suffix}")
+    
     if not experiment_dir.exists():
         print(f"Error: Experiment directory not found: {experiment_dir}")
         sys.exit(1)
     
     try:
-        results = run_logic_test(experiment_dir, output_log, args.verbose, args.trace)
+        results = run_logic_test(experiment_dir, output_log, args.verbose, args.trace, args.story)
         print(f"\nSummary:")
         print(f"  Chapters: {results['chapters_processed']}")
         print(f"  Total violations: {results['total_violations']}")

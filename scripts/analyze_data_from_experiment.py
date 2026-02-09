@@ -270,11 +270,13 @@ def analyze_experiment(
     if not implanted_errors:
         print(f"Warning: No errors CSV found at {csv_path}")
     
+    debug_logs_dir = experiment_dir / "debug_logs"
+
     # Load experiment data
     extractions = load_jsonl(experiment_dir / "step2_extractions.jsonl")
-    events_log = load_jsonl(experiment_dir / "step2_events_log.jsonl")
-    item_stats = load_jsonl(experiment_dir / "step2_item_stats.jsonl")
-    alias_conflicts = load_jsonl(experiment_dir / "step2_alias_conflicts.jsonl")
+    events_log = load_jsonl(debug_logs_dir / "step2_events_log.jsonl")
+    item_stats = load_jsonl(debug_logs_dir / "step2_item_stats.jsonl")
+    alias_conflicts = load_jsonl(debug_logs_dir / "step2_alias_conflicts.jsonl")
     engine_results = load_json(experiment_dir / "step2_engine_results.json") or {}
     
     # Load lifecycle analysis if available

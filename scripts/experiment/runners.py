@@ -158,10 +158,13 @@ def run_step2_logic(experiment_dir: Path, stories: List[str], llm_url: str, max_
         timestamp=datetime.now().isoformat(),
     )
     
-    log_file = experiment_dir / "step2_logic_log.jsonl"
+    debug_logs_dir = experiment_dir / "debug_logs"
+    debug_logs_dir.mkdir(exist_ok=True)
+    
+    log_file = debug_logs_dir / "step2_logic_log.jsonl"
     log(f"Logging prompts/responses to: {log_file}")
     
-    event_log_file = experiment_dir / "step2_events_log.jsonl"
+    event_log_file = debug_logs_dir / "step2_events_log.jsonl"
     log(f"Logging events to: {event_log_file}")
     
     evaluator = LogicEvaluator(base_url=llm_url, log_file=log_file, api_mode=api_mode, api_model=api_model, api_delay=api_delay)
@@ -544,7 +547,8 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                      max_chapters: int = None, api_mode: str = "local", 
                      api_model: str = None, api_delay: float = 0.0,
                      use_split_extraction: bool = False,
-                     llm_timeout: int = 300) -> StepResults:
+                     llm_timeout: int = 300, 
+                     extraction_only: bool = False) -> StepResults:
     """
     Step 2 using the new engine modules (Phase 5).
     
@@ -572,13 +576,16 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
         approach="logic_engine",
         timestamp=datetime.now().isoformat(),
     )
+
+    debug_logs_dir = experiment_dir / "debug_logs"
+    debug_logs_dir.mkdir(exist_ok=True)
     
-    log_file = experiment_dir / "step2_engine_log.jsonl"
-    event_log_file = experiment_dir / "step2_events_log.jsonl"
+    log_file = debug_logs_dir / "step2_engine_log.jsonl"
+    event_log_file = debug_logs_dir / "step2_events_log.jsonl"
     extraction_log_file = experiment_dir / "step2_extractions.jsonl"
-    alias_conflicts_file = experiment_dir / "step2_alias_conflicts.jsonl"
-    item_stats_file = experiment_dir / "step2_item_stats.jsonl"
-    diagnostics_file = experiment_dir / "step2_extraction_diagnostics.jsonl"
+    alias_conflicts_file = debug_logs_dir / "step2_alias_conflicts.jsonl"
+    item_stats_file = debug_logs_dir / "step2_item_stats.jsonl"
+    diagnostics_file = debug_logs_dir / "step2_extraction_diagnostics.jsonl"
     final_analysis_file = experiment_dir / "step2_final_analysis.json"
     
     log(f"Logging to: {log_file}")
@@ -701,6 +708,12 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 with open(extraction_log_file, "a") as f:
                     f.write(json.dumps(extraction_entry) + "\n")
                 
+                if extraction_only:
+                    duration = time.time() - start_time
+                    results.chapters_processed += 1
+                    log(f"      -> extraction saved (extraction-only mode)")
+                    continue
+
                 # Persist extraction diagnostics (temporal and chapter-level)
                 if temporal_diagnostic is not None or chapter_diagnostic is not None:
                     diag_entry = {
