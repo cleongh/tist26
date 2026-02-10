@@ -1,11 +1,218 @@
 === JSON Parse Failure ===
 Phase: events
-Error: Truncation salvage failed
+Error: Invalid control character at: line 98 column 38 (char 2383)
 
 === Raw LLM Output ===
 ```json
 {
-  "events": [],
+  "events": [
+    {
+      "id": "e1",
+      "type": "arrive",
+      "agent": "alice",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "ALICE DROPPED ME OFF IN THE MORNING"
+    },
+    {
+      "id": "e2",
+      "type": "report",
+      "agent": "charlie",
+      "patient": "jacob",
+      "recipient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "kitchen",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Jacob called, Charlie had written."
+    },
+    {
+      "id": "e3",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Edward showed up, officially returning"
+    },
+    {
+      "id": "e4",
+      "type": "discover",
+      "agent": "edward",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Someone’s been here"
+    },
+    {
+      "id": "e5",
+      "type": "learn",
+      "agent": "bella",
+      "patient": null,
+      "fact": "vampire had been in the house",
+      "source": "edward",
+      "location": "charlies_house",
+      "after": "e4",
+      "social_action_type": null,
+      "source_text": "A vampire had been in the house looking for me"
+    },
+    {
+      "id": "e6",
+      "type": "leave",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e5",
+      "social_action_type": null,
+      "source_text": "Edward had me out the door"
+    },
+    {
+      "id": "e7",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e6",
+      "social_action_type": null,
+      "source_text": "They were waiting for us"
+    },
+    {
+      "id": "e8",
+      "type": "talk",
+      "agent": "edward",
+      "patient": "alice",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e7",
+      "social_action_type": null,
+      "source_text": "What happened?”
+    },
+    {
+      "id": "e9",
+      "type": "arrive",
+      "agent": "emmett",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e8",
+      "social_action_type": null,
+      "source_text": "Emmett burst through the kitchen door"
+    },
+    {
+      "id": "e10",
+      "type": "arrive",
+      "agent": "jasper",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e9",
+      "social_action_type": null,
+      "source_text": "Jasper right behind him"
+    },
+    {
+      "id": "e11",
+      "type": "give",
+      "agent": "jasper",
+      "patient": "fern_frond",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e10",
+      "social_action_type": null,
+      "source_text": "He held out something green and crumpled"
+    },
+    {
+      "id": "e12",
+      "type": "learn",
+      "agent": "bella",
+      "patient": null,
+      "fact": "visitor was careful to make no contact",
+      "source": "alice",
+      "location": "cullens_house",
+      "after": "e11",
+      "social_action_type": null,
+      "source_text": "This visitor was so careful to make no contact"
+    },
+    {
+      "id": "e13",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e12",
+      "social_action_type": null,
+      "source_text": "Edward drove me to Charlie’s"
+    },
+    {
+      "id": "e14",
+      "type": "report",
+      "agent": "charlie",
+      "patient": "jacob",
+      "recipient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e13",
+      "social_action_type": null,
+      "source_text": "Jacob called again"
+    },
+    {
+      "id": "e15",
+      "type": "talk",
+      "agent": "bella",
+      "patient": "jacob",
+      "fact": null,
+      "source": null,
+      "location": null,
+      "after": "e14",
+      "social_action_type": "apologize",
+      "source_text": "I’m not mad. You’re forgiven."
+    },
+    {
+      "id": "e16",
+      "type": "talk",
+      "agent": "jacob",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": null,
+      "after": "e15",
+      "social_action_type": "apologize",
+      "source_text": "I swear I didn’t mean it. I was just being stupid."
+    },
+    {
+      "id": "e17",
+      "type": "learn",
+      "agent": "jacob",
+      "patient": null,
+      "fact": "visitor was not a scent Edward knew",
+      "source": "edward",
+      "location": null,
+      "after": "e16",
+      "social_action_type": null,
+      "source_text": "Someone was here—not a scent I know"
+    }
+  ],
   "temporal_constraints": [],
   "implied_presence": []
 }
@@ -13,7 +220,214 @@ Error: Truncation salvage failed
 
 === After Repair Attempt ===
 {
-  "events": [],
+  "events": [
+    {
+      "id": "e1",
+      "type": "arrive",
+      "agent": "alice",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "ALICE DROPPED ME OFF IN THE MORNING"
+    },
+    {
+      "id": "e2",
+      "type": "report",
+      "agent": "charlie",
+      "patient": "jacob",
+      "recipient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "kitchen",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Jacob called, Charlie had written."
+    },
+    {
+      "id": "e3",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Edward showed up, officially returning"
+    },
+    {
+      "id": "e4",
+      "type": "discover",
+      "agent": "edward",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": null,
+      "social_action_type": null,
+      "source_text": "Someone’s been here"
+    },
+    {
+      "id": "e5",
+      "type": "learn",
+      "agent": "bella",
+      "patient": null,
+      "fact": "vampire had been in the house",
+      "source": "edward",
+      "location": "charlies_house",
+      "after": "e4",
+      "social_action_type": null,
+      "source_text": "A vampire had been in the house looking for me"
+    },
+    {
+      "id": "e6",
+      "type": "leave",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e5",
+      "social_action_type": null,
+      "source_text": "Edward had me out the door"
+    },
+    {
+      "id": "e7",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e6",
+      "social_action_type": null,
+      "source_text": "They were waiting for us"
+    },
+    {
+      "id": "e8",
+      "type": "talk",
+      "agent": "edward",
+      "patient": "alice",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e7",
+      "social_action_type": null,
+      "source_text": "What happened?”
+    },
+    {
+      "id": "e9",
+      "type": "arrive",
+      "agent": "emmett",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e8",
+      "social_action_type": null,
+      "source_text": "Emmett burst through the kitchen door"
+    },
+    {
+      "id": "e10",
+      "type": "arrive",
+      "agent": "jasper",
+      "patient": null,
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e9",
+      "social_action_type": null,
+      "source_text": "Jasper right behind him"
+    },
+    {
+      "id": "e11",
+      "type": "give",
+      "agent": "jasper",
+      "patient": "fern_frond",
+      "fact": null,
+      "source": null,
+      "location": "cullens_house",
+      "after": "e10",
+      "social_action_type": null,
+      "source_text": "He held out something green and crumpled"
+    },
+    {
+      "id": "e12",
+      "type": "learn",
+      "agent": "bella",
+      "patient": null,
+      "fact": "visitor was careful to make no contact",
+      "source": "alice",
+      "location": "cullens_house",
+      "after": "e11",
+      "social_action_type": null,
+      "source_text": "This visitor was so careful to make no contact"
+    },
+    {
+      "id": "e13",
+      "type": "arrive",
+      "agent": "edward",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e12",
+      "social_action_type": null,
+      "source_text": "Edward drove me to Charlie’s"
+    },
+    {
+      "id": "e14",
+      "type": "report",
+      "agent": "charlie",
+      "patient": "jacob",
+      "recipient": "bella",
+      "fact": null,
+      "source": null,
+      "location": "charlies_house",
+      "after": "e13",
+      "social_action_type": null,
+      "source_text": "Jacob called again"
+    },
+    {
+      "id": "e15",
+      "type": "talk",
+      "agent": "bella",
+      "patient": "jacob",
+      "fact": null,
+      "source": null,
+      "location": null,
+      "after": "e14",
+      "social_action_type": "apologize",
+      "source_text": "I’m not mad. You’re forgiven."
+    },
+    {
+      "id": "e16",
+      "type": "talk",
+      "agent": "jacob",
+      "patient": "bella",
+      "fact": null,
+      "source": null,
+      "location": null,
+      "after": "e15",
+      "social_action_type": "apologize",
+      "source_text": "I swear I didn’t mean it. I was just being stupid."
+    },
+    {
+      "id": "e17",
+      "type": "learn",
+      "agent": "jacob",
+      "patient": null,
+      "fact": "visitor was not a scent Edward knew",
+      "source": "edward",
+      "location": null,
+      "after": "e16",
+      "social_action_type": null,
+      "source_text": "Someone was here—not a scent I know"
+    }
+  ],
   "temporal_constraints": [],
   "implied_presence": []
 }

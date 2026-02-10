@@ -707,12 +707,6 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                 }
                 with open(extraction_log_file, "a") as f:
                     f.write(json.dumps(extraction_entry) + "\n")
-                
-                if extraction_only:
-                    duration = time.time() - start_time
-                    results.chapters_processed += 1
-                    log(f"      -> extraction saved (extraction-only mode)")
-                    continue
 
                 # Persist extraction diagnostics (temporal and chapter-level)
                 if temporal_diagnostic is not None or chapter_diagnostic is not None:
@@ -751,6 +745,12 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                     with open(diagnostics_file, "a") as f:
                         f.write(json.dumps(diag_entry) + "\n")
                 
+                if extraction_only:
+                    duration = time.time() - start_time
+                    results.chapters_processed += 1
+                    log(f"      -> extraction saved (extraction-only mode)")
+                    continue
+
                 structured, alias_conflicts = alias_resolver.normalize_extraction(structured, i)
                 
                 for conflict in alias_conflicts:
