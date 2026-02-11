@@ -1,0 +1,196 @@
+{
+  "k": 1,
+  "num_experiments": 5,
+  "experiments": [
+    {
+      "k": 1,
+      "test_stories": [
+        "Harry Potter"
+      ],
+      "train_stories": [
+        "The Hunger Games",
+        "Twilight",
+        "Goosebumps",
+        "The Lord of the Rings"
+      ],
+      "metrics": {
+        "total_violations": 15,
+        "total_ground_truth": 15,
+        "true_positives": 4,
+        "false_positives": 11,
+        "false_negatives": 11,
+        "precision": 0.2667,
+        "recall": 0.2667,
+        "f1": 0.2667
+      },
+      "story_results": [
+        {
+          "story": "Harry Potter",
+          "total_violations": 15,
+          "total_ground_truth": 15,
+          "true_positives": 4,
+          "false_positives": 11,
+          "false_negatives": 11,
+          "precision": 0.2667,
+          "recall": 0.2667,
+          "f1": 0.2667,
+          "chapters_with_violations": 10,
+          "chapters_with_ground_truth": 15
+        }
+      ],
+      "timestamp": "2026-02-11T00:24:48.008389"
+    },
+    {
+      "k": 1,
+      "test_stories": [
+        "The Hunger Games"
+      ],
+      "train_stories": [
+        "Harry Potter",
+        "Twilight",
+        "Goosebumps",
+        "The Lord of the Rings"
+      ],
+      "metrics": {
+        "total_violations": 30,
+        "total_ground_truth": 15,
+        "true_positives": 3,
+        "false_positives": 27,
+        "false_negatives": 12,
+        "precision": 0.1,
+        "recall": 0.2,
+        "f1": 0.1333
+      },
+      "story_results": [
+        {
+          "story": "The Hunger Games",
+          "total_violations": 30,
+          "total_ground_truth": 15,
+          "true_positives": 3,
+          "false_positives": 27,
+          "false_negatives": 12,
+          "precision": 0.1,
+          "recall": 0.2,
+          "f1": 0.1333,
+          "chapters_with_violations": 19,
+          "chapters_with_ground_truth": 15
+        }
+      ],
+      "timestamp": "2026-02-11T00:24:54.672919"
+    },
+    {
+      "k": 1,
+      "test_stories": [
+        "Twilight"
+      ],
+      "train_stories": [
+        "Harry Potter",
+        "The Hunger Games",
+        "Goosebumps",
+        "The Lord of the Rings"
+      ],
+      "metrics": {
+        "total_violations": 23,
+        "total_ground_truth": 15,
+        "true_positives": 2,
+        "false_positives": 21,
+        "false_negatives": 13,
+        "precision": 0.087,
+        "recall": 0.1333,
+        "f1": 0.1053
+      },
+      "story_results": [
+        {
+          "story": "Twilight",
+          "total_violations": 23,
+          "total_ground_truth": 15,
+          "true_positives": 2,
+          "false_positives": 21,
+          "false_negatives": 13,
+          "precision": 0.087,
+          "recall": 0.1333,
+          "f1": 0.1053,
+          "chapters_with_violations": 15,
+          "chapters_with_ground_truth": 15
+        }
+      ],
+      "timestamp": "2026-02-11T00:25:02.604692"
+    },
+    {
+      "k": 1,
+      "test_stories": [
+        "Goosebumps"
+      ],
+      "train_stories": [
+        "Harry Potter",
+        "The Hunger Games",
+        "Twilight",
+        "The Lord of the Rings"
+      ],
+      "metrics": {
+        "total_violations": 16,
+        "total_ground_truth": 15,
+        "true_positives": 3,
+        "false_positives": 13,
+        "false_negatives": 12,
+        "precision": 0.1875,
+        "recall": 0.2,
+        "f1": 0.1935
+      },
+      "story_results": [
+        {
+          "story": "Goosebumps",
+          "total_violations": 16,
+          "total_ground_truth": 15,
+          "true_positives": 3,
+          "false_positives": 13,
+          "false_negatives": 12,
+          "precision": 0.1875,
+          "recall": 0.2,
+          "f1": 0.1935,
+          "chapters_with_violations": 8,
+          "chapters_with_ground_truth": 15
+        }
+      ],
+      "timestamp": "2026-02-11T00:25:06.166027"
+    },
+    {
+      "k": 1,
+      "test_stories": [
+        "The Lord of the Rings"
+      ],
+      "train_stories": [
+        "Harry Potter",
+        "The Hunger Games",
+        "Twilight",
+        "Goosebumps"
+      ],
+      "metrics": {
+        "total_violations": 27,
+        "total_ground_truth": 15,
+        "true_positives": 5,
+        "false_positives": 22,
+        "false_negatives": 10,
+        "precision": 0.1852,
+        "recall": 0.3333,
+        "f1": 0.2381
+      },
+      "story_results": [
+        {
+          "story": "The Lord of the Rings",
+          "total_violations": 27,
+          "total_ground_truth": 15,
+          "true_positives": 5,
+          "false_positives": 22,
+          "false_negatives": 10,
+          "precision": 0.1852,
+          "recall": 0.3333,
+          "f1": 0.2381,
+          "chapters_with_violations": 11,
+          "chapters_with_ground_truth": 15
+        }
+      ],
+      "timestamp": "2026-02-11T00:25:12.403448"
+    }
+  ]
+}
