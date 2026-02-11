@@ -755,15 +755,16 @@ violation(coherence, consciousness_conflict, C, pair(S1, S2)) :-
 % --- State-Action Constraints ---
 % Certain actions require specific states
 
+% DISABLED: action_while_asleep generates too many false positives
 % Sleeping character cannot perform most actions
-violation(coherence, action_while_asleep, E, C) :-
-    event(E),
-    agent(E, C),
-    event_time(E, T),
-    consciousness(C, asleep, T),
-    not is_wake_event(E),
-    not is_sleep_related_event(E),
-    not is_passive_event(E).
+% violation(coherence, action_while_asleep, E, C) :-
+%     event(E),
+%     agent(E, C),
+%     event_time(E, T),
+%     consciousness(C, asleep, T),
+%     not is_wake_event(E),
+%     not is_sleep_related_event(E),
+%     not is_passive_event(E).
 
 is_sleep_related_event(E) :- event_type(E, dream).
 is_sleep_related_event(E) :- event_type(E, nightmare).

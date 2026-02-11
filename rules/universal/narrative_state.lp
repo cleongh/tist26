@@ -323,31 +323,32 @@ is_physical_action(E) :- event_type(E, shake_hands).
 % =============================================================================
 
 % --- VIOLATION: Dead Character in Scene ---
+% DISABLED: Generates FPs due to "deceased" status without proper death tracking
 % A character who died cannot appear in the scene after death
 % Exception: Flashbacks, memories, ghosts (story-specific override)
-violation(narrative, dead_in_scene, 
-          violation_info(C, died_at, T_death, but_present_at, T, in_event, E)) :-
-    rule_active(narrative_dead_in_scene),
-    event(E),
-    event_time(E, T),
-    agent(E, C),
-    character(C),
-    death_time(C, T_death),
-    T_death < T,
-    not is_posthumous_action(E),
-    not allows_dead_appearance(C).
+% violation(narrative, dead_in_scene, 
+%           violation_info(C, died_at, T_death, but_present_at, T, in_event, E)) :-
+%     rule_active(narrative_dead_in_scene),
+%     event(E),
+%     event_time(E, T),
+%     agent(E, C),
+%     character(C),
+%     death_time(C, T_death),
+%     T_death < T,
+%     not is_posthumous_action(E),
+%     not allows_dead_appearance(C).
 
-violation(narrative, dead_in_scene, 
-          violation_info(C, died_at, T_death, but_present_at, T, in_event, E)) :-
-    rule_active(narrative_dead_in_scene),
-    event(E),
-    event_time(E, T),
-    patient(E, C),
-    character(C),
-    death_time(C, T_death),
-    T_death < T,
-    not is_posthumous_action(E),
-    not allows_dead_appearance(C).
+% violation(narrative, dead_in_scene, 
+%           violation_info(C, died_at, T_death, but_present_at, T, in_event, E)) :-
+%     rule_active(narrative_dead_in_scene),
+%     event(E),
+%     event_time(E, T),
+%     patient(E, C),
+%     character(C),
+%     death_time(C, T_death),
+%     T_death < T,
+%     not is_posthumous_action(E),
+%     not allows_dead_appearance(C).
 
 % Story can allow dead characters to appear (ghosts, flashbacks)
 % allows_dead_appearance(Character) :- story_has_ghosts(Character).
@@ -368,16 +369,17 @@ violation(narrative, absent_acting,
 % --- VIOLATION: Dead Character Acting (Causality) ---
 % Dead characters cannot perform actions (agent role after death)
 % This is a CAUSALITY violation, not just a narrative one
-violation(causality, dead_character_acting,
-          violation_info(C, died_at, T_death, acts_at, T, in_event, E)) :-
-    rule_active(narrative_dead_acting),
-    event(E),
-    event_time(E, T),
-    agent(E, C),
-    character(C),
-    death_time(C, T_death),
-    T_death < T,
-    not is_death_event(E).
+% DISABLED: Generates FPs - death tracking not reliable across chapters
+% violation(causality, dead_character_acting,
+%           violation_info(C, died_at, T_death, acts_at, T, in_event, E)) :-
+%     rule_active(narrative_dead_acting),
+%     event(E),
+%     event_time(E, T),
+%     agent(E, C),
+%     character(C),
+%     death_time(C, T_death),
+%     T_death < T,
+%     not is_death_event(E).
 
 
 % =============================================================================

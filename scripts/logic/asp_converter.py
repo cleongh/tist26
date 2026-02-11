@@ -344,4 +344,35 @@ def to_asp(
             obj = sanitize(obj_raw) if obj_raw else None
             lines.append(f"temporal_rule({subj}, must_precede, {obj}, {est_by}).")
     
+    # Process initial_rules from extraction data
+    # These are relationship/trait rules extracted from the narrative
+    initial_rules = data.get('initial_rules', [])
+    if initial_rules:
+        lines.append(f"\n% Initial rules from extraction")
+        for rule in initial_rules:
+            subj = sanitize_char(rule.get('subject', ''))
+            pred = sanitize(rule.get('predicate', ''))
+            obj = rule.get('object', '')
+            
+            if not subj or not pred:
+                continue
+            
+            # Check if this is a relationship (has object that looks like a character)
+            if obj and obj not in ('true', 'false', 'none', ''):
+                obj_san = sanitize_char(obj)
+                # Guard by active universe
+                if universe_entities is not None:
+                    if subj not in universe_entities or obj_san not in universe_entities:
+                        continue
+                # Emit as initial_relationship for relationship predicates
+                if pred in ('hostile', 'friendly', 'friend', 'enemy', 'ally', 'love', 
+                           'hate', 'fear', 'trust', 'distrust', 'respect', 'family'):
+                    lines.append(f"initial_relationship({subj}, {obj_san}, {pred}).")
+                else:
+                    # Other predicates as trait rules
+                    lines.append(f"trait_rule({subj}, {pred}, e0).")
+            else:
+                # This is a trait (predicate without object or boolean object)
+                lines.append(f"character_trait({subj}, {pred}).")
+    
     return "\n".join(lines)

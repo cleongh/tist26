@@ -60,23 +60,23 @@ The ASP-based detection system uses 12 rule files:
 
 | K | Experiments | Avg Precision | Avg Recall | Avg F1 | Total TP | Total FP | Total FN |
 |---|-------------|---------------|------------|--------|----------|----------|----------|
-| 1 | 5 | 0.1653 | 0.2267 | 0.1874 | 17 | 94 | 58 |
-| 2 | 10 | 0.1573 | 0.2267 | 0.1844 | 68 | 376 | 232 |
-| 3 | 10 | 0.1549 | 0.2267 | 0.1835 | 102 | 564 | 348 |
-| 4 | 5 | 0.1538 | 0.2267 | 0.1831 | 68 | 376 | 232 |
+| 1 | 5           | 0.1653        | 0.2267     | 0.1874 | 17       | 94       | 58       |
+| 2 | 10          | 0.1573        | 0.2267     | 0.1844 | 68       | 376      | 232      |
+| 3 | 10          | 0.1549        | 0.2267     | 0.1835 | 102      | 564      | 348      |
+| 4 | 5           | 0.1538        | 0.2267     | 0.1831 | 68       | 376      | 232      |
 
 **Observation:** Performance is remarkably consistent across all k-values, indicating the system generalizes uniformly across different story combinations.
 
 ### 2.2 K=1 Results (Leave-One-Out)
 
-| Test Story | Violations | GT Errors | TP | FP | FN | Precision | Recall | F1 |
-|------------|------------|-----------|----|----|----|-----------|---------|----|
-| Harry Potter | 15 | 15 | 4 | 11 | 11 | 0.267 | 0.267 | 0.267 |
-| The Hunger Games | 30 | 15 | 3 | 27 | 12 | 0.100 | 0.200 | 0.133 |
-| Twilight | 23 | 15 | 2 | 21 | 13 | 0.087 | 0.133 | 0.105 |
-| Goosebumps | 16 | 15 | 3 | 13 | 12 | 0.188 | 0.200 | 0.194 |
-| The Lord of the Rings | 27 | 15 | 5 | 22 | 10 | 0.185 | 0.333 | 0.238 |
-| **Average** | **22.2** | **15** | **3.4** | **18.8** | **11.6** | **0.165** | **0.227** | **0.187** |
+| Test Story            | Violations | GT Errors | TP      | FP       | FN       | Precision | Recall    | F1        |
+|-----------------------|------------|-----------|---------|----------|----------|-----------|-----------|-----------|
+| Harry Potter          | 15         | 15        | 4       | 11       | 11       | 0.267     | 0.267     | 0.267     |
+| The Hunger Games      | 30         | 15        | 3       | 27       | 12       | 0.100     | 0.200     | 0.133     |
+| Twilight              | 23         | 15        | 2       | 21       | 13       | 0.087     | 0.133     | 0.105     |
+| Goosebumps            | 16         | 15        | 3       | 13       | 12       | 0.188     | 0.200     | 0.194     |
+| The Lord of the Rings | 27         | 15        | 5       | 22       | 10       | 0.185     | 0.333     | 0.238     |
+| **Average**           | **22.2**   | **15**    | **3.4** | **18.8** | **11.6** | **0.165** | **0.227** | **0.187** |
 
 ### 2.3 Per-Story Performance Analysis
 
@@ -94,18 +94,18 @@ The ASP-based detection system uses 12 rule files:
 
 ### 3.1 K=2 Results (10 Pair Combinations)
 
-| Test Stories | Precision | Recall | F1 |
-|--------------|-----------|--------|-----|
-| HP + HG | 0.156 | 0.233 | 0.187 |
-| HP + TW | 0.158 | 0.200 | 0.176 |
-| HP + GB | 0.226 | 0.233 | 0.230 |
-| HP + LR | 0.214 | 0.300 | 0.250 |
-| HG + TW | 0.094 | 0.167 | 0.120 |
-| HG + GB | 0.130 | 0.200 | 0.158 |
-| HG + LR | 0.140 | 0.267 | 0.184 |
-| TW + GB | 0.128 | 0.167 | 0.145 |
-| TW + LR | 0.140 | 0.233 | 0.175 |
-| GB + LR | 0.186 | 0.267 | 0.219 |
+| Test Stories | Precision | Recall | F1    |
+|--------------|-----------|--------|-------|
+| HP + HG      | 0.156     | 0.233  | 0.187 |
+| HP + TW      | 0.158     | 0.200  | 0.176 |
+| HP + GB      | 0.226     | 0.233  | 0.230 |
+| HP + LR      | 0.214     | 0.300  | 0.250 |
+| HG + TW      | 0.094     | 0.167  | 0.120 |
+| HG + GB      | 0.130     | 0.200  | 0.158 |
+| HG + LR      | 0.140     | 0.267  | 0.184 |
+| TW + GB      | 0.128     | 0.167  | 0.145 |
+| TW + LR      | 0.140     | 0.233  | 0.175 |
+| GB + LR      | 0.186     | 0.267  | 0.219 |
 
 *HP=Harry Potter, HG=Hunger Games, TW=Twilight, GB=Goosebumps, LR=Lord of the Rings*
 

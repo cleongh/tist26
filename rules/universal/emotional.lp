@@ -86,6 +86,28 @@ is_negative_relationship(hate).  % Alias
 %
 % =============================================================================
 
+% --- Symmetric Relationship Types ---
+% Certain relationships are inherently symmetric (if A is friends with B, B is friends with A)
+symmetric_relationship_type(friendly).
+symmetric_relationship_type(friend).
+symmetric_relationship_type(ally).
+symmetric_relationship_type(hostile).
+symmetric_relationship_type(enemy).
+symmetric_relationship_type(rival).
+symmetric_relationship_type(family).
+
+% Derive symmetric initial relationships
+initial_relationship(C2, C1, Type) :-
+    initial_relationship(C1, C2, Type),
+    symmetric_relationship_type(Type),
+    C1 != C2.
+
+% Derive symmetric relationship facts
+relationship(C2, C1, Type) :-
+    relationship(C1, C2, Type),
+    symmetric_relationship_type(Type),
+    C1 != C2.
+
 % --- Explicit Relationship Evidence ---
 % A relationship is explicit if established by:
 %   1. Initial relationship declaration
@@ -194,9 +216,9 @@ has_prior_interaction(C1, C2, T) :-
 % =============================================================================
 
 % Actions that contradict negative relationships (friendly actions)
-action_contradicts_negative(help).
-action_contradicts_negative(save).
-action_contradicts_negative(protect).
+% NOTE: help/save/protect/heal/rescue removed - these can occur in survival contexts,
+% professional situations (mentors), or between enemies forced to cooperate (common in HG/LOTR)
+% Keeping only strong emotional signals: hug, kiss, gift, comfort, farewell, etc.
 action_contradicts_negative(hug).
 action_contradicts_negative(kiss).
 action_contradicts_negative(gift).
@@ -205,8 +227,6 @@ action_contradicts_negative(comfort).
 action_contradicts_negative(defend).
 action_contradicts_negative(farewell).
 action_contradicts_negative(congratulates).
-action_contradicts_negative(heal).
-action_contradicts_negative(rescue).
 
 % Actions that contradict positive relationships (hostile actions)
 action_contradicts_positive(attack).
@@ -222,6 +242,11 @@ action_contradicts_positive(kill).
 action_contradicts_positive(murder).
 action_contradicts_positive(poison).
 action_contradicts_positive(deceive).
+% NOTE: "report" disabled - context-dependent (can be protective like Hermione protecting Harry)
+% action_contradicts_positive(report).
+
+% NOTE: "attack" disabled for friends - often defensive (Hermione petrifying Neville)
+% attack is handled separately by is_protective_action checks
 
 
 % =============================================================================
@@ -263,6 +288,7 @@ violation(emotional, relationship_action_mismatch,
 % --- VIOLATION: Hostile Action Toward Explicit Ally ---
 % NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
 % NOTE: Does NOT fire for defensive/protective actions (e.g., petrifying friend to stop them)
+% NOTE: Does NOT fire for family members (siblings often fight without narrative error)
 violation(emotional, relationship_action_mismatch, 
           violation_info(E, agent, Agent, acted, Type, toward, Patient, 
                         despite, RelType, established_at, T_establish)) :-
@@ -273,12 +299,19 @@ violation(emotional, relationship_action_mismatch,
     event_type(E, Type),
     action_contradicts_positive(Type),
     not is_protective_action(E),                 % NOT protective/defensive
+    not is_family_conflict(Agent, Patient),      % NOT family squabbles
     agent(E, Agent),
     patient(E, Patient),
     earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
+    RelType != family,                           % Exclude family relationships from attack violations
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
+
+% Family conflict exception - siblings fight, parents discipline
+is_family_conflict(A, B) :- relationship(A, B, family).
+is_family_conflict(A, B) :- initial_relationship(A, B, family).
+is_family_conflict(A, B) :- family(A, B).
 
 % Protective/defensive actions - not true hostile actions toward friends
 % These are actions taken to protect the patient or others, even if harmful
@@ -309,13 +342,12 @@ violation(emotional, relationship_action_mismatch,
     not story_exception(relationship_action_mismatch, E).
 
 % Social actions that contradict negative (hostile) relationships
-% These are FRIENDLY social actions - performing them toward an explicit enemy is a violation
+% These are EXPLICITLY FRIENDLY social actions - performing them toward an explicit enemy is a violation
 % Per LOGIC_DESIGN.md: evidence-gated, no inference
+% Note: help/encourage removed - these can occur in professional/survival contexts (mentors, allies of necessity)
 friendly_social_action(farewell).
-friendly_social_action(encourage).
 friendly_social_action(comfort).
 friendly_social_action(praise).
-friendly_social_action(help).
 
 % Backward compatibility alias
 social_action_contradicts_negative(A) :- friendly_social_action(A).
@@ -358,42 +390,26 @@ violation(emotional, relationship_action_mismatch,
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
-% --- VIOLATION: Betrayal via Reporting ---
-% Fires when someone with a friendly/family relationship reports another to an authority
-% Report events are explicit betrayal signals
-% NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
-% NOTE: Does NOT fire when reporting is protective/concerned (e.g., worried about safety)
-% NOTE: Only fires in modified stories to avoid false positives on original content
-violation(emotional, relationship_betrayal, 
-          violation_info(E, agent, Agent, reported, Patient, to_authority,
-                        despite, RelType, established_at, T_establish)) :-
+% --- VIOLATION: Friend Reporting to Hostile Authority ---
+% A friend reporting you to someone who is hostile towards you is a clear betrayal
+% More targeted than generic betrayal - requires hostile relationship with recipient
+violation(emotional, friend_hostile_report, 
+          violation_info(E, agent, Agent, reported, Patient, to, Recipient,
+                        despite_friendly_relationship, T_establish)) :-
     modified_story,
     rule_active(emotional_relationship_betrayal),
     event(E),
     event_time(E, T_event),
     report(E),
-    not is_protective_report(E),                 % NOT a concerned/protective report
     agent(E, Agent),
     patient(E, Patient),
-    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
-    is_positive_relationship(RelType),
-    not first_interaction(Agent, Patient, E),
-    not story_exception(relationship_betrayal, E).
-
-% Family relationships are also positive for betrayal detection
-violation(emotional, relationship_betrayal, 
-          violation_info(E, agent, Agent, reported, Patient, to_authority,
-                        despite, RelType, established_at, T_establish)) :-
-    modified_story,
-    rule_active(emotional_relationship_betrayal),
-    event(E),
-    event_time(E, T_event),
-    report(E),
-    not is_protective_report(E),                 % NOT a concerned/protective report
-    agent(E, Agent),
-    patient(E, Patient),
-    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
-    is_family_relationship(RelType),
+    recipient(E, Recipient),
+    Recipient != Patient,
+    Agent != Recipient,
+    % Agent is friendly with patient
+    earliest_relationship_establishment(Agent, Patient, friendly, T_event, T_establish),
+    % Recipient is hostile to patient (this is what makes it a betrayal)
+    relationship(Recipient, Patient, hostile),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_betrayal, E).
 

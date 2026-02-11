@@ -634,6 +634,11 @@ def collect_rule_files() -> List[Path]:
     if story_rules.exists():
         rule_files.append(story_rules)
     
+    # Enhanced detection rules
+    enhanced_detection = rules_dir / "enhanced_detection.lp"
+    if enhanced_detection.exists():
+        rule_files.append(enhanced_detection)
+    
     # Universal rules (all .lp files)
     universal_dir = rules_dir / "universal"
     if universal_dir.exists():

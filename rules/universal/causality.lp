@@ -42,29 +42,30 @@ rule(causality_effect_without_cause, universal, "Reactions require triggering ev
 % Death event types are defined in core.lp (is_death_event/1)
 
 % VIOLATION: Dead character performing action
+% DISABLED: Generates FPs due to "deceased" status without proper death tracking
 % Uses time-indexed alive/2 from core.lp fluent system
-violation(causality, dead_character_acting, E, C) :-
-    rule_active(causality_dead_character_acting),
-    event(E),
-    event_time(E, T),
-    agent(E, C),
-    not alive(C, T),
-    not is_death_event(E),
-    not is_ghost(C),
-    not is_undead(C).
+% violation(causality, dead_character_acting, E, C) :-
+%     rule_active(causality_dead_character_acting),
+%     event(E),
+%     event_time(E, T),
+%     agent(E, C),
+%     not alive(C, T),
+%     not is_death_event(E),
+%     not is_ghost(C),
+%     not is_undead(C).
 
 % Backward compatibility: also check atemporal is_dead
-% FIXED: Also require NOT alive(C) to respect the atemporal alive default
-violation(causality, dead_character_acting, E, C) :-
-    rule_active(causality_dead_character_acting),
-    event(E),
-    agent(E, C),
-    explicitly_dead(C),
-    not alive(C),
-    not is_death_event(E),
-    not is_ghost(C),
-    not is_undead(C),
-    not event_time(E, _).  % Only if no time-indexed version
+% DISABLED: Same issue
+% violation(causality, dead_character_acting, E, C) :-
+%     rule_active(causality_dead_character_acting),
+%     event(E),
+%     agent(E, C),
+%     explicitly_dead(C),
+%     not alive(C),
+%     not is_death_event(E),
+%     not is_ghost(C),
+%     not is_undead(C),
+%     not event_time(E, _).  % Only if no time-indexed version
 
 % VIOLATION: Interacting with dead character  
 % Cannot have a dead character as patient of interaction

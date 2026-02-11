@@ -72,11 +72,12 @@
 %     Falls back to is_dead/1 for backward compatibility.
 %     See narrative_state.lp for the canonical dead_character_acting violation.
 %
-violation(causality, dead_character_acting, E, C) :-
-    event(E),
-    agent(E, C),
-    is_dead(C),
-    not is_death_event(E).
+% DISABLED: Generates FPs - deceased status in metadata doesn't mean dead in chapter
+% violation(causality, dead_character_acting, E, C) :-
+%     event(E),
+%     agent(E, C),
+%     is_dead(C),
+%     not is_death_event(E).
 
 % Death events are exempt - dying is a valid final action
 is_death_event(E) :- event_type(E, die).

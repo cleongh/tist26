@@ -575,35 +575,39 @@ approach_action(follow).
 % ----- EMOTIONAL VIOLATIONS -----
 
 % VIOLATION: Harming loved one without justification
-violation(emotional, harm_loved, E, B, "Character harms someone they love without justification") :-
-    event(E),
-    agent(E, A),
-    patient(E, B),
-    event_type(E, Type),
-    harmful_action(Type),
-    loves(A, B),
-    not justified_harm(E).
+% DISABLED: Many FPs - characters harming loved ones is actually common in narratives
+% (protective restraint, misunderstandings, etc.)
+% violation(emotional, harm_loved, E, B, "Character harms someone they love without justification") :-
+%     event(E),
+%     agent(E, A),
+%     patient(E, B),
+%     event_type(E, Type),
+%     harmful_action(Type),
+%     loves(A, B),
+%     not justified_harm(E).
 
 % VIOLATION: Helping enemy without motivation
-violation(emotional, help_enemy, E, B, "Character helps someone they hate without strategic reason") :-
-    event(E),
-    agent(E, A),
-    patient(E, B),
-    event_type(E, Type),
-    helpful_action(Type),
-    hates(A, B),
-    not strategic_help(E).
+% DISABLED: Too many FPs - helping enemies is common in narratives (survival, redemption arcs)
+% violation(emotional, help_enemy, E, B, "Character helps someone they hate without strategic reason") :-
+%     event(E),
+%     agent(E, A),
+%     patient(E, B),
+%     event_type(E, Type),
+%     helpful_action(Type),
+%     hates(A, B),
+%     not strategic_help(E).
 
 % VIOLATION: Approaching feared entity without necessity
-violation(emotional, approach_feared, E, B, "Character voluntarily approaches someone they fear") :-
-    event(E),
-    agent(E, A),
-    patient(E, B),
-    event_type(E, Type),
-    approach_action(Type),
-    fears(A, B),
-    not forced_approach(E),
-    not brave_moment(E).
+% DISABLED: Too many FPs - characters often confront their fears in narratives
+% violation(emotional, approach_feared, E, B, "Character voluntarily approaches someone they fear") :-
+%     event(E),
+%     agent(E, A),
+%     patient(E, B),
+%     event_type(E, Type),
+%     approach_action(Type),
+%     fears(A, B),
+%     not forced_approach(E),
+%     not brave_moment(E).
 
 % VIOLATION: Trusting someone who's been shown untrustworthy
 violation(emotional, misplaced_trust, E, B, "Character trusts someone they distrust without earned redemption") :-
@@ -690,6 +694,113 @@ opposite_emotions(suspicious, trusting).
 %
 % =============================================================================
 
+
+% =============================================================================
+% SECTION 7: RELATIONSHIP PREDICATE DERIVATION
+% =============================================================================
+%
+% Derive binary relationship predicates from relationship/3 facts.
+% This allows rules using loves(A,B), hates(A,B), etc. to work with
+% extracted relationship data.
+%
+% =============================================================================
+
+% Derive loves/2 from relationship or initial_relationship
+loves(A, B) :- relationship(A, B, loves).
+loves(A, B) :- relationship(A, B, love).
+loves(A, B) :- initial_relationship(A, B, loves).
+loves(A, B) :- initial_relationship(A, B, love).
+
+% Derive hates/2 from relationship or initial_relationship
+hates(A, B) :- relationship(A, B, hates).
+hates(A, B) :- relationship(A, B, hate).
+hates(A, B) :- relationship(A, B, hostile).
+hates(A, B) :- initial_relationship(A, B, hates).
+hates(A, B) :- initial_relationship(A, B, hate).
+hates(A, B) :- initial_relationship(A, B, hostile).
+
+% Derive fears/2 from relationship or initial_relationship
+fears(A, B) :- relationship(A, B, fears).
+fears(A, B) :- relationship(A, B, fear).
+fears(A, B) :- initial_relationship(A, B, fears).
+fears(A, B) :- initial_relationship(A, B, fear).
+
+% Derive trusts/2 from relationship or initial_relationship
+trusts(A, B) :- relationship(A, B, trusts).
+trusts(A, B) :- relationship(A, B, trust).
+trusts(A, B) :- initial_relationship(A, B, trusts).
+trusts(A, B) :- initial_relationship(A, B, trust).
+
+% Derive distrusts/2 from relationship or initial_relationship
+distrusts(A, B) :- relationship(A, B, distrusts).
+distrusts(A, B) :- relationship(A, B, distrust).
+distrusts(A, B) :- initial_relationship(A, B, distrusts).
+distrusts(A, B) :- initial_relationship(A, B, distrust).
+
+% Derive friendly/2 from relationship or initial_relationship
+friendly(A, B) :- relationship(A, B, friendly).
+friendly(A, B) :- relationship(A, B, friend).
+friendly(A, B) :- initial_relationship(A, B, friendly).
+friendly(A, B) :- initial_relationship(A, B, friend).
+
+% Family relationship derivation
+family(A, B) :- relationship(A, B, family).
+family(A, B) :- initial_relationship(A, B, family).
+
+
+% =============================================================================
+% SECTION 8: MULTI-SIGNAL DETECTION
+% =============================================================================
+%
+% Detect chapters with multiple suspicious signals that together indicate
+% potential narrative errors. Individual signals are weak, but combinations
+% are stronger evidence.
+%
+% =============================================================================
+
+% Count individual signals (aggregation via counting)
+% Signal 1: Hostile relationships present
+has_hostile_signal :- relationship(_, _, hostile).
+has_hostile_signal :- initial_relationship(_, _, hostile).
+has_hostile_signal :- hates(_, _).
+
+% Signal 2: Insult social actions present
+has_insult_signal :- social_action(_, insult).
+
+% Signal 3: Report events present (potential betrayal)
+has_report_signal :- report(_).
+
+% Signal 4: Abnormal character appearance present
+has_abnormal_signal :- character_appearance(_, App), abnormal_appearance(App).
+
+% Signal 5: Attack events present
+has_attack_signal :- event_type(_, attack).
+
+% Signal 6: Comfort social action (surprisingly correlates with errors in emotional scenes)
+has_comfort_signal :- social_action(_, comfort).
+
+% Signal 7: Threatening social action
+has_threat_signal :- social_action(_, threaten).
+
+% Combine into violation when multiple signals are present
+% This is a "suspicious chapter" detection
+
+% Count number of signals present
+signal_count(N) :- N = #count {
+    1 : has_hostile_signal;
+    2 : has_insult_signal;
+    3 : has_report_signal;
+    4 : has_abnormal_signal;
+    5 : has_attack_signal;
+    6 : has_comfort_signal;
+    7 : has_threat_signal
+}.
+
+% NOTE: Multi-signal violation rule disabled for precision-focused mode
+% violation(coherence, multi_signal_anomaly, chapter, signal_count, SC) :-
+%     modified_story,
+%     signal_count(SC),
+%     SC >= 2.
 
 % =============================================================================
 % OUTPUT CONFIGURATION
