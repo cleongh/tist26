@@ -467,7 +467,7 @@ def run_experiment_for_stories(
                 
                 for i, gt in enumerate(chapter_gt):
                     if i not in matched_gt:
-                        if match_error_category(v_cat, gt.category):
+                        if match_error_category(v_cat, gt.category, strict=True):
                             matched = True
                             matched_gt.add(i)
                             tp += 1
