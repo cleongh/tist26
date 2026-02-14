@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-14T21:34:53.839244",
+  "timestamp": "2026-02-15T00:50:07.434400",
   "stories": [
     "Harry Potter",
     "The Hunger Games",
@@ -18,42 +18,42 @@
     "k1": {
       "k": 1,
       "num_experiments": 5,
-      "avg_precision": 0.124,
-      "avg_recall": 0.5733,
-      "avg_f1": 0.2024,
-      "total_tp": 43,
-      "total_fp": 311,
-      "total_fn": 32
+      "avg_precision": 0.0293,
+      "avg_recall": 0.1467,
+      "avg_f1": 0.0487,
+      "total_tp": 11,
+      "total_fp": 343,
+      "total_fn": 64
     },
     "k2": {
       "k": 2,
       "num_experiments": 10,
-      "avg_precision": 0.1227,
-      "avg_recall": 0.5733,
-      "avg_f1": 0.2016,
-      "total_tp": 172,
-      "total_fp": 1244,
-      "total_fn": 128
+      "avg_precision": 0.0307,
+      "avg_recall": 0.1467,
+      "avg_f1": 0.0506,
+      "total_tp": 44,
+      "total_fp": 1372,
+      "total_fn": 256
     },
     "k3": {
       "k": 3,
       "num_experiments": 10,
-      "avg_precision": 0.122,
-      "avg_recall": 0.5733,
-      "avg_f1": 0.201,
-      "total_tp": 258,
-      "total_fp": 1866,
-      "total_fn": 192
+      "avg_precision": 0.0309,
+      "avg_recall": 0.1467,
+      "avg_f1": 0.051,
+      "total_tp": 66,
+      "total_fp": 2058,
+      "total_fn": 384
     },
     "k4": {
       "k": 4,
       "num_experiments": 5,
-      "avg_precision": 0.1217,
-      "avg_recall": 0.5733,
-      "avg_f1": 0.2007,
-      "total_tp": 172,
-      "total_fp": 1244,
-      "total_fn": 128
+      "avg_precision": 0.031,
+      "avg_recall": 0.1467,
+      "avg_f1": 0.0512,
+      "total_tp": 44,
+      "total_fp": 1372,
+      "total_fn": 256
     }
   }
 }
