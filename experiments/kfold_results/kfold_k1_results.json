@@ -14,31 +14,31 @@
         "The Lord of the Rings"
       ],
       "metrics": {
-        "total_violations": 15,
+        "total_violations": 67,
         "total_ground_truth": 15,
-        "true_positives": 4,
-        "false_positives": 11,
-        "false_negatives": 11,
-        "precision": 0.2667,
-        "recall": 0.2667,
-        "f1": 0.2667
+        "true_positives": 12,
+        "false_positives": 55,
+        "false_negatives": 3,
+        "precision": 0.1791,
+        "recall": 0.8,
+        "f1": 0.2927
       },
       "story_results": [
         {
           "story": "Harry Potter",
-          "total_violations": 15,
+          "total_violations": 67,
           "total_ground_truth": 15,
-          "true_positives": 4,
-          "false_positives": 11,
-          "false_negatives": 11,
-          "precision": 0.2667,
-          "recall": 0.2667,
-          "f1": 0.2667,
-          "chapters_with_violations": 10,
+          "true_positives": 12,
+          "false_positives": 55,
+          "false_negatives": 3,
+          "precision": 0.1791,
+          "recall": 0.8,
+          "f1": 0.2927,
+          "chapters_with_violations": 40,
           "chapters_with_ground_truth": 15
         }
       ],
-      "timestamp": "2026-02-11T00:24:48.008389"
+      "timestamp": "2026-02-14T20:43:32.203829"
     },
     {
       "k": 1,
@@ -52,31 +52,31 @@
         "The Lord of the Rings"
       ],
       "metrics": {
-        "total_violations": 30,
+        "total_violations": 89,
         "total_ground_truth": 15,
-        "true_positives": 3,
-        "false_positives": 27,
-        "false_negatives": 12,
-        "precision": 0.1,
-        "recall": 0.2,
-        "f1": 0.1333
+        "true_positives": 11,
+        "false_positives": 78,
+        "false_negatives": 4,
+        "precision": 0.1236,
+        "recall": 0.7333,
+        "f1": 0.2115
       },
       "story_results": [
         {
           "story": "The Hunger Games",
-          "total_violations": 30,
+          "total_violations": 89,
           "total_ground_truth": 15,
-          "true_positives": 3,
-          "false_positives": 27,
-          "false_negatives": 12,
-          "precision": 0.1,
-          "recall": 0.2,
-          "f1": 0.1333,
-          "chapters_with_violations": 19,
+          "true_positives": 11,
+          "false_positives": 78,
+          "false_negatives": 4,
+          "precision": 0.1236,
+          "recall": 0.7333,
+          "f1": 0.2115,
+          "chapters_with_violations": 46,
           "chapters_with_ground_truth": 15
         }
       ],
-      "timestamp": "2026-02-11T00:24:54.672919"
+      "timestamp": "2026-02-14T20:44:24.013332"
     },
     {
       "k": 1,
@@ -90,31 +90,31 @@
         "The Lord of the Rings"
       ],
       "metrics": {
-        "total_violations": 23,
+        "total_violations": 85,
         "total_ground_truth": 15,
-        "true_positives": 2,
-        "false_positives": 21,
-        "false_negatives": 13,
-        "precision": 0.087,
-        "recall": 0.1333,
-        "f1": 0.1053
+        "true_positives": 5,
+        "false_positives": 80,
+        "false_negatives": 10,
+        "precision": 0.0588,
+        "recall": 0.3333,
+        "f1": 0.1
       },
       "story_results": [
         {
           "story": "Twilight",
-          "total_violations": 23,
+          "total_violations": 85,
           "total_ground_truth": 15,
-          "true_positives": 2,
-          "false_positives": 21,
-          "false_negatives": 13,
-          "precision": 0.087,
-          "recall": 0.1333,
-          "f1": 0.1053,
-          "chapters_with_violations": 15,
+          "true_positives": 5,
+          "false_positives": 80,
+          "false_negatives": 10,
+          "precision": 0.0588,
+          "recall": 0.3333,
+          "f1": 0.1,
+          "chapters_with_violations": 34,
           "chapters_with_ground_truth": 15
         }
       ],
-      "timestamp": "2026-02-11T00:25:02.604692"
+      "timestamp": "2026-02-14T20:45:23.000507"
     },
     {
       "k": 1,
@@ -128,31 +128,31 @@
         "The Lord of the Rings"
       ],
       "metrics": {
-        "total_violations": 16,
+        "total_violations": 44,
         "total_ground_truth": 15,
-        "true_positives": 3,
-        "false_positives": 13,
-        "false_negatives": 12,
-        "precision": 0.1875,
-        "recall": 0.2,
-        "f1": 0.1935
+        "true_positives": 5,
+        "false_positives": 39,
+        "false_negatives": 10,
+        "precision": 0.1136,
+        "recall": 0.3333,
+        "f1": 0.1695
       },
       "story_results": [
         {
           "story": "Goosebumps",
-          "total_violations": 16,
+          "total_violations": 44,
           "total_ground_truth": 15,
-          "true_positives": 3,
-          "false_positives": 13,
-          "false_negatives": 12,
-          "precision": 0.1875,
-          "recall": 0.2,
-          "f1": 0.1935,
-          "chapters_with_violations": 8,
+          "true_positives": 5,
+          "false_positives": 39,
+          "false_negatives": 10,
+          "precision": 0.1136,
+          "recall": 0.3333,
+          "f1": 0.1695,
+          "chapters_with_violations": 21,
           "chapters_with_ground_truth": 15
         }
       ],
-      "timestamp": "2026-02-11T00:25:06.166027"
+      "timestamp": "2026-02-14T20:45:43.274071"
     },
     {
       "k": 1,
@@ -166,31 +166,31 @@
         "Goosebumps"
       ],
       "metrics": {
-        "total_violations": 27,
+        "total_violations": 69,
         "total_ground_truth": 15,
-        "true_positives": 5,
-        "false_positives": 22,
-        "false_negatives": 10,
-        "precision": 0.1852,
-        "recall": 0.3333,
+        "true_positives": 10,
+        "false_positives": 59,
+        "false_negatives": 5,
+        "precision": 0.1449,
+        "recall": 0.6667,
         "f1": 0.2381
       },
       "story_results": [
         {
           "story": "The Lord of the Rings",
-          "total_violations": 27,
+          "total_violations": 69,
           "total_ground_truth": 15,
-          "true_positives": 5,
-          "false_positives": 22,
-          "false_negatives": 10,
-          "precision": 0.1852,
-          "recall": 0.3333,
+          "true_positives": 10,
+          "false_positives": 59,
+          "false_negatives": 5,
+          "precision": 0.1449,
+          "recall": 0.6667,
           "f1": 0.2381,
-          "chapters_with_violations": 11,
+          "chapters_with_violations": 29,
           "chapters_with_ground_truth": 15
         }
       ],
-      "timestamp": "2026-02-11T00:25:12.403448"
+      "timestamp": "2026-02-14T20:46:29.555753"
     }
   ]
 }
