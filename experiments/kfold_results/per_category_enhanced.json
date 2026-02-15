@@ -1,0 +1,68 @@
+{
+  "per_category": [
+    {
+      "category": "Basic Coherence",
+      "gt": 15,
+      "detected_lenient": 7,
+      "detected_strict": 6,
+      "violations": 154,
+      "tp_lenient": 46,
+      "tp_strict": 11,
+      "recall_lenient": 0.4666666666666667,
+      "precision_lenient": 0.2987012987012987
+    },
+    {
+      "category": "Causality",
+      "gt": 15,
+      "detected_lenient": 9,
+      "detected_strict": 0,
+      "violations": 9,
+      "tp_lenient": 5,
+      "tp_strict": 0,
+      "recall_lenient": 0.6,
+      "precision_lenient": 0.5555555555555556
+    },
+    {
+      "category": "Emotional Relations",
+      "gt": 15,
+      "detected_lenient": 9,
+      "detected_strict": 1,
+      "violations": 75,
+      "tp_lenient": 21,
+      "tp_strict": 2,
+      "recall_lenient": 0.6,
+      "precision_lenient": 0.28
+    },
+    {
+      "category": "Location correctness",
+      "gt": 15,
+      "detected_lenient": 7,
+      "detected_strict": 0,
+      "violations": 0,
+      "tp_lenient": 0,
+      "tp_strict": 0,
+      "recall_lenient": 0.4666666666666667,
+      "precision_lenient": 0
+    },
+    {
+      "category": "Temporal Order",
+      "gt": 15,
+      "detected_lenient": 6,
+      "detected_strict": 0,
+      "violations": 3,
+      "tp_lenient": 0,
+      "tp_strict": 0,
+      "recall_lenient": 0.4,
+      "precision_lenient": 0.0
+    }
+  ],
+  "total": {
+    "gt": 75,
+    "detected": 38,
+    "violations": 251,
+    "tp": 79,
+    "precision": 0.3147410358565737,
+    "recall": 0.5066666666666667,
+    "f1": 0.38828170471447976
+  }
+}

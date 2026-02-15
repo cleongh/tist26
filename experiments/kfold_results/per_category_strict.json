@@ -1,0 +1,56 @@
+{
+  "coherence": {
+    "gt": 15,
+    "tp": 8,
+    "fn": 7,
+    "violations": 43,
+    "recall": 53.33,
+    "precision": 18.6,
+    "f1": 27.59
+  },
+  "emotional": {
+    "gt": 15,
+    "tp": 2,
+    "fn": 13,
+    "violations": 12,
+    "recall": 13.33,
+    "precision": 16.67,
+    "f1": 14.81
+  },
+  "location": {
+    "gt": 15,
+    "tp": 8,
+    "fn": 7,
+    "violations": 47,
+    "recall": 53.33,
+    "precision": 17.02,
+    "f1": 25.81
+  },
+  "temporal": {
+    "gt": 15,
+    "tp": 6,
+    "fn": 9,
+    "violations": 32,
+    "recall": 40.0,
+    "precision": 18.75,
+    "f1": 25.53
+  },
+  "causality": {
+    "gt": 15,
+    "tp": 7,
+    "fn": 8,
+    "violations": 36,
+    "recall": 46.67,
+    "precision": 19.44,
+    "f1": 27.45
+  },
+  "total": {
+    "gt": 75,
+    "tp": 31,
+    "fn": 44,
+    "violations": 170,
+    "recall": 41.33,
+    "precision": 18.24,
+    "f1": 25.31
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "lenient": {
+    "per_category": [
+      {
+        "category": "Basic Coherence",
+        "internal": "coherence",
+        "gt": 15,
+        "detected": 5,
+        "recall": 0.3333333333333333,
+        "violations": 33,
+        "tp": 12,
+        "precision": 0.36363636363636365
+      },
+      {
+        "category": "Causality",
+        "internal": "causality",
+        "gt": 15,
+        "detected": 4,
+        "recall": 0.26666666666666666,
+        "violations": 9,
+        "tp": 5,
+        "precision": 0.5555555555555556
+      },
+      {
+        "category": "Emotional Relations",
+        "internal": "emotional",
+        "gt": 15,
+        "detected": 2,
+        "recall": 0.13333333333333333,
+        "violations": 56,
+        "tp": 14,
+        "precision": 0.25
+      },
+      {
+        "category": "Location correctness",
+        "internal": "location",
+        "gt": 15,
+        "detected": 3,
+        "recall": 0.2,
+        "violations": 0,
+        "tp": 0,
+        "precision": 0
+      },
+      {
+        "category": "Temporal Order",
+        "internal": "temporal",
+        "gt": 15,
+        "detected": 3,
+        "recall": 0.2,
+        "violations": 3,
+        "tp": 0,
+        "precision": 0.0
+      }
+    ],
+    "total": {
+      "gt": 75,
+      "detected": 17,
+      "recall": 0.22666666666666666,
+      "violations": 101,
+      "tp": 31,
+      "precision": 0.3069306930693069
+    }
+  },
+  "strict": {
+    "per_category": [
+      {
+        "category": "Basic Coherence",
+        "internal": "coherence",
+        "gt": 15,
+        "detected": 3,
+        "recall": 0.2,
+        "violations": 33,
+        "tp": 4,
+        "precision": 0.12121212121212122
+      },
+      {
+        "category": "Causality",
+        "internal": "causality",
+        "gt": 15,
+        "detected": 0,
+        "recall": 0.0,
+        "violations": 9,
+        "tp": 0,
+        "precision": 0.0
+      },
+      {
+        "category": "Emotional Relations",
+        "internal": "emotional",
+        "gt": 15,
+        "detected": 1,
+        "recall": 0.06666666666666667,
+        "violations": 56,
+        "tp": 1,
+        "precision": 0.017857142857142856
+      },
+      {
+        "category": "Location correctness",
+        "internal": "location",
+        "gt": 15,
+        "detected": 0,
+        "recall": 0.0,
+        "violations": 0,
+        "tp": 0,
+        "precision": 0
+      },
+      {
+        "category": "Temporal Order",
+        "internal": "temporal",
+        "gt": 15,
+        "detected": 0,
+        "recall": 0.0,
+        "violations": 3,
+        "tp": 0,
+        "precision": 0.0
+      }
+    ],
+    "total": {
+      "gt": 75,
+      "detected": 4,
+      "recall": 0.05333333333333334,
+      "violations": 101,
+      "tp": 5,
+      "precision": 0.04950495049504951
+    }
+  }
+}
