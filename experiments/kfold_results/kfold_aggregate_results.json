@@ -1,59 +1,16 @@
 {
-  "timestamp": "2026-02-15T00:50:07.434400",
-  "stories": [
-    "Harry Potter",
-    "The Hunger Games",
-    "Twilight",
-    "Goosebumps",
-    "The Lord of the Rings"
+  "k_values": [
+    1
   ],
-  "ground_truth_counts": {
-    "The Lord of the Rings": 15,
-    "Harry Potter": 15,
-    "Twilight": 15,
-    "Goosebumps": 15,
-    "The Hunger Games": 15
-  },
-  "k_summaries": {
-    "k1": {
-      "k": 1,
-      "num_experiments": 5,
-      "avg_precision": 0.0293,
-      "avg_recall": 0.1467,
-      "avg_f1": 0.0487,
-      "total_tp": 11,
-      "total_fp": 343,
-      "total_fn": 64
-    },
-    "k2": {
-      "k": 2,
-      "num_experiments": 10,
-      "avg_precision": 0.0307,
-      "avg_recall": 0.1467,
-      "avg_f1": 0.0506,
-      "total_tp": 44,
-      "total_fp": 1372,
-      "total_fn": 256
-    },
-    "k3": {
-      "k": 3,
-      "num_experiments": 10,
-      "avg_precision": 0.0309,
-      "avg_recall": 0.1467,
-      "avg_f1": 0.051,
-      "total_tp": 66,
-      "total_fp": 2058,
-      "total_fn": 384
-    },
-    "k4": {
-      "k": 4,
-      "num_experiments": 5,
-      "avg_precision": 0.031,
-      "avg_recall": 0.1467,
-      "avg_f1": 0.0512,
-      "total_tp": 44,
-      "total_fp": 1372,
-      "total_fn": 256
+  "results_by_k": {
+    "1": {
+      "total_experiments": 5,
+      "total_ground_truth": 75,
+      "total_tp": 31,
+      "total_fp": 139,
+      "avg_precision": 18.235294117647058,
+      "avg_recall": 41.333333333333336,
+      "avg_f1": 25.306122448979593
     }
   }
 }
