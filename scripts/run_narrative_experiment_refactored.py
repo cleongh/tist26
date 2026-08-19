@@ -27,6 +27,8 @@ from scripts.state.config import (
     EXPERIMENTS_DIR,
     GEMINI_API_KEY,
     OPENAI_API_KEY,
+    ANTHROPIC_API_KEY,
+    MOONSHOT_API_KEY,
     STORIES,
 )
 from scripts.state.logging import log, set_console_log_file
@@ -84,15 +86,15 @@ def main():
     parser.add_argument(
         "--api-mode",
         type=str,
-        choices=["local", "gemini", "openai", "debug"],
+        choices=["local", "gemini", "openai", "claude", "kimi", "debug"],
         default="local",
-        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI, 'debug' for using existing extractions without LLM (default: local)",
+        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI, 'claude' for Anthropic Claude, 'kimi' for Moonshot Kimi, 'debug' for using existing extractions without LLM (default: local)",
     )
     parser.add_argument(
         "--api-model",
         type=str,
         default=None,
-        help="Model to use (default: auto for local, gemini-2.0-flash for Gemini, gpt-4o for OpenAI)",
+        help="Model to use (default: auto for local, gemini-2.0-flash for Gemini, gpt-4o for OpenAI, claude-sonnet-4-5-20250929 for Claude, kimi-k3 for Kimi)",
     )
     parser.add_argument(
         "--api-delay",
@@ -155,6 +157,14 @@ def main():
         print("ERROR: OPENAI_API_KEY environment variable not set")
         print("Set it with: export OPENAI_API_KEY='your-api-key'")
         sys.exit(1)
+    if args.api_mode == "claude" and not ANTHROPIC_API_KEY:
+        print("ERROR: ANTHROPIC_API_KEY environment variable not set")
+        print("Set it with: export ANTHROPIC_API_KEY='your-api-key'")
+        sys.exit(1)
+    if args.api_mode == "kimi" and not MOONSHOT_API_KEY:
+        print("ERROR: MOONSHOT_API_KEY environment variable not set")
+        print("Set it with: export MOONSHOT_API_KEY='your-api-key'")
+        sys.exit(1)
     
     # Create/find experiment directory
     experiment_dir = EXPERIMENTS_DIR / args.experiment_name
@@ -212,8 +222,10 @@ def main():
         print("\nAPI options:")
         print("  --api-mode gemini   Use Google Gemini API (requires GEMINI_API_KEY)")
         print("  --api-mode openai   Use OpenAI API (requires OPENAI_API_KEY)")
+        print("  --api-mode claude   Use Anthropic Claude API (requires ANTHROPIC_API_KEY)")
+        print("  --api-mode kimi     Use Moonshot Kimi API (requires MOONSHOT_API_KEY)")
         print("  --api-mode debug    Use existing extractions without LLM (requires --engine)")
-        print("  --api-model MODEL   Specify model (e.g., gemini-2.0-flash, gpt-4o-mini)")
+        print("  --api-model MODEL   Specify model (e.g., gemini-2.0-flash, gpt-4o-mini, claude-sonnet-4-5-20250929)")
         print("\nPhase 2/4/5 options:")
         print("  --split-extraction  Use Phase 2 split extraction (four LLM calls)")
         print("  --structured        Use structured output only (no LLM interpretation)")

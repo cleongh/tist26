@@ -12,11 +12,17 @@ from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent.parent.resolve()  # scripts/
 REPO_ROOT = SCRIPT_DIR.parent
-SOURCE_ORIGINAL_BOOKS = REPO_ROOT / "original_books"
-SOURCE_MODIFIED_BOOKS = REPO_ROOT / "modified_books"
+
+# Read-only dataset inputs; override to point at a shared/NAS location.
+DATA_ROOT = Path(os.environ.get("NARRATIVE_DATA_ROOT") or REPO_ROOT)
+
+SOURCE_ORIGINAL_BOOKS = DATA_ROOT / "original_books"
+SOURCE_MODIFIED_BOOKS = DATA_ROOT / "modified_books"
+ERRORS_CHECKLIST_DIR = DATA_ROOT / "errors_checklist"
+
+# Generated output always stays local to the machine running the experiment.
 EXPERIMENTS_DIR = REPO_ROOT / "experiments"
 RULES_DIR = REPO_ROOT / "rules"
-ERRORS_CHECKLIST_DIR = REPO_ROOT / "errors_checklist"
 
 # Add script dir and repo root to path for imports
 if str(SCRIPT_DIR) not in sys.path:
@@ -30,18 +36,30 @@ if str(REPO_ROOT) not in sys.path:
 # Set these environment variables before running:
 #   export GEMINI_API_KEY="your-gemini-api-key"
 #   export OPENAI_API_KEY="your-openai-api-key"
+#   export ANTHROPIC_API_KEY="your-anthropic-api-key"
+#   export MOONSHOT_API_KEY="your-moonshot-api-key"
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+MOONSHOT_API_KEY = os.environ.get("MOONSHOT_API_KEY", "")
 
 # Default models for each API provider
 DEFAULT_MODELS = {
     "local": "auto",
     "gemini": "gemini-2.0-flash",
     "openai": "gpt-4o",
+    "claude": "claude-sonnet-4-5-20250929",
+    "kimi": "kimi-k3",
 }
 
-# API mode: "local" | "gemini" | "openai"
+# OpenAI-compatible base URLs for providers reached through OpenAIAPIClient
+PROVIDER_BASE_URLS = {
+    "claude": "https://api.anthropic.com/v1/",
+    "kimi": "https://api.moonshot.ai/v1",
+}
+
+# API mode: "local" | "gemini" | "openai" | "claude" | "kimi"
 API_MODE = "local"
 
 # =============================================================================

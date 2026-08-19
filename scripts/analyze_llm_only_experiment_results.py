@@ -9,6 +9,7 @@ This script loads experiment data from:
 
 import json
 import csv
+import os
 from pathlib import Path
 from typing import Dict, List, Any
 
@@ -484,7 +485,7 @@ def load_all_data(experiment_name: str) -> Dict[str, Any]:
     # Set up paths
     root_dir = Path(__file__).parent.parent
     experiment_dir = root_dir / 'experiments' / experiment_name
-    errors_dir = root_dir / 'errors_checklist'
+    errors_dir = Path(os.environ.get('NARRATIVE_DATA_ROOT') or root_dir) / 'errors_checklist'
     
     # Initialize data storage
     loaded_data = {

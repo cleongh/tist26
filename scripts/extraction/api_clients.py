@@ -9,7 +9,14 @@ import urllib.request
 from typing import Optional
 
 # Import configuration from state module
-from ..state.config import GEMINI_API_KEY, OPENAI_API_KEY, DEFAULT_MODELS
+from ..state.config import (
+    GEMINI_API_KEY,
+    OPENAI_API_KEY,
+    ANTHROPIC_API_KEY,
+    MOONSHOT_API_KEY,
+    DEFAULT_MODELS,
+    PROVIDER_BASE_URLS,
+)
 from ..state.logging import log
 
 
@@ -80,25 +87,35 @@ class GeminiAPIClient:
 
 
 class OpenAIAPIClient:
-    """Client for OpenAI API."""
+    """Client for OpenAI-compatible chat-completions APIs (OpenAI, and via
+    base_url override, other OpenAI-compatible providers)."""
     
     def __init__(self, model: str = "gpt-4o", temperature: float = 0.2,
-                 top_p: float = 0.9, presence_penalty: float = 0.0, frequency_penalty: float = 0.0):
+                 top_p: float = 0.9, presence_penalty: float = 0.0, frequency_penalty: float = 0.0,
+                 base_url: Optional[str] = None, api_key: Optional[str] = None,
+                 provider: str = "openai"):
         self.model = model
         self.temperature = temperature
         self.top_p = top_p
         self.presence_penalty = presence_penalty
         self.frequency_penalty = frequency_penalty
+        self.base_url = base_url
+        self.api_key = api_key
+        self.provider = provider
         self._client = None
         
     def _get_client(self):
-        """Lazy initialization of OpenAI client."""
+        """Lazy initialization of OpenAI-compatible client."""
         if self._client is None:
             try:
                 from openai import OpenAI
-                if not OPENAI_API_KEY:
+                key = self.api_key or OPENAI_API_KEY
+                if not key:
                     raise ValueError("OPENAI_API_KEY environment variable not set")
-                self._client = OpenAI(api_key=OPENAI_API_KEY)
+                if self.base_url:
+                    self._client = OpenAI(api_key=key, base_url=self.base_url)
+                else:
+                    self._client = OpenAI(api_key=key)
             except ImportError:
                 raise ImportError("openai package not installed. Run: pip install openai")
         return self._client
@@ -106,9 +123,12 @@ class OpenAIAPIClient:
     def _uses_max_completion_tokens(self) -> bool:
         """Check if model requires max_completion_tokens instead of max_tokens.
         
-        Newer models (GPT-5 family, o1, o3, o4, etc.) use max_completion_tokens.
-        Legacy models (GPT-4o, GPT-4, GPT-3.5) use max_tokens.
+        Newer OpenAI models (GPT-5 family, o1, o3, o4, etc.) use
+        max_completion_tokens. Legacy models (GPT-4o, GPT-4, GPT-3.5) use
+        max_tokens. Only applies to the "openai" provider.
         """
+        if self.provider != "openai":
+            return False
         model_lower = self.model.lower()
         # GPT-5 family and reasoning models use max_completion_tokens
         if any(prefix in model_lower for prefix in ['gpt-5', 'o1', 'o3', 'o4']):
@@ -118,14 +138,31 @@ class OpenAIAPIClient:
     def _is_restricted_model(self) -> bool:
         """Check if model has restricted parameters (no temperature, top_p, etc.).
         
-        Some newer models (GPT-5 mini, reasoning models) only support default
-        parameter values and will error if custom values are passed.
+        Some newer OpenAI models (GPT-5 mini, reasoning models) only support
+        default parameter values and will error if custom values are passed.
+        Kimi K3 only accepts the default temperature (1) and errors otherwise.
         """
         model_lower = self.model.lower()
-        # GPT-5-mini and reasoning models have parameter restrictions
-        if any(prefix in model_lower for prefix in ['gpt-5-mini', 'o1', 'o3', 'o4']):
-            return True
+        if self.provider == "openai":
+            # GPT-5-mini and reasoning models have parameter restrictions
+            if any(prefix in model_lower for prefix in ['gpt-5-mini', 'o1', 'o3', 'o4']):
+                return True
+        elif self.provider == "kimi":
+            if 'k3' in model_lower:
+                return True
         return False
+    
+    def _min_output_tokens(self) -> Optional[int]:
+        """Minimum completion token budget this model needs.
+        
+        Reasoning models (e.g. Kimi K3) emit hidden reasoning_content that
+        counts against the same max_tokens/max_completion_tokens budget as
+        the visible content, so callers' default budgets can be too small.
+        """
+        model_lower = self.model.lower()
+        if self.provider == "kimi" and "k3" in model_lower:
+            return 32768
+        return None
     
     def extract(self, prompt: str, max_tokens: int = 4096, timeout: int = 120) -> str:
         """Make an OpenAI API call and return the response text."""
@@ -143,27 +180,46 @@ class OpenAIAPIClient:
         # Only add sampling parameters for models that support them
         if not self._is_restricted_model():
             request_params["temperature"] = self.temperature
-            request_params["top_p"] = self.top_p
+            # Anthropic's OpenAI-compat endpoint rejects temperature+top_p together
+            if self.provider != "claude":
+                request_params["top_p"] = self.top_p
             request_params["presence_penalty"] = self.presence_penalty
             request_params["frequency_penalty"] = self.frequency_penalty
         
+        # Raise the budget floor for models whose reasoning tokens share it
+        min_tokens = self._min_output_tokens()
+        effective_max_tokens = max(max_tokens, min_tokens) if min_tokens else max_tokens
+        
         # Use appropriate token limit parameter based on model
         if self._uses_max_completion_tokens():
-            request_params["max_completion_tokens"] = max_tokens
+            request_params["max_completion_tokens"] = effective_max_tokens
         else:
-            request_params["max_tokens"] = max_tokens
+            request_params["max_tokens"] = effective_max_tokens
         
         response = client.chat.completions.create(**request_params)
+        message = response.choices[0].message
+        content = message.content or ""
         
-        return response.choices[0].message.content
+        # Reasoning models can exhaust the budget on hidden reasoning and
+        # return no visible content; surface this instead of failing silently
+        if not content and response.choices[0].finish_reason == "length":
+            reasoning = getattr(message, "reasoning_content", None)
+            log(
+                f"{self.provider.title()} response truncated with no visible "
+                f"content (finish_reason=length, reasoning_content_len="
+                f"{len(reasoning) if reasoning else 0}); consider raising max_tokens",
+                "WARN",
+            )
+        
+        return content
     
     def check_server(self) -> bool:
-        """Check if OpenAI API is available."""
+        """Check if the OpenAI-compatible API is available."""
         try:
             self._get_client()
             return True
         except Exception as e:
-            log(f"OpenAI API check failed: {e}", "ERROR")
+            log(f"{self.provider.title()} API check failed: {e}", "ERROR")
             return False
 
 
@@ -229,6 +285,24 @@ def create_api_client(api_mode: str, api_model: str = None, base_url: str = "htt
         model = api_model or DEFAULT_MODELS["openai"]
         log(f"Using OpenAI API with model: {model}", "INFO")
         return OpenAIAPIClient(model=model)
+    elif api_mode == "claude":
+        model = api_model or DEFAULT_MODELS["claude"]
+        log(f"Using Claude (Anthropic) API with model: {model}", "INFO")
+        return OpenAIAPIClient(
+            model=model,
+            base_url=PROVIDER_BASE_URLS["claude"],
+            api_key=ANTHROPIC_API_KEY,
+            provider="claude",
+        )
+    elif api_mode == "kimi":
+        model = api_model or DEFAULT_MODELS["kimi"]
+        log(f"Using Kimi (Moonshot) API with model: {model}", "INFO")
+        return OpenAIAPIClient(
+            model=model,
+            base_url=PROVIDER_BASE_URLS["kimi"],
+            api_key=MOONSHOT_API_KEY,
+            provider="kimi",
+        )
     else:  # local
         log(f"Using local LLM at: {base_url}", "INFO")
         return LocalLLMClient(base_url=base_url)

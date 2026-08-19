@@ -98,6 +98,7 @@ def structure_chapter_standalone(
         match = re.search(r'\{.*\}', cleaned, re.DOTALL)
         if match:
             return json.loads(match.group()), None, None, None, None, None
+        log(f"No JSON object found in extraction response (response length={len(response)})", "WARN")
     except Exception as e:
         log(f"Structure extraction failed: {e}", "WARN")
     

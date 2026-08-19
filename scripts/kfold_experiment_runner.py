@@ -36,6 +36,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 # Import logic modules
 from scripts.logic.asp_converter import to_asp
+from scripts.state.config import DATA_ROOT
 
 
 # =============================================================================
@@ -635,6 +636,12 @@ def main():
         help="Directory to write JSON results"
     )
     parser.add_argument(
+        "--errors_dir",
+        type=str,
+        default=None,
+        help="Directory with ground truth CSVs (default: $NARRATIVE_DATA_ROOT/errors_checklist)"
+    )
+    parser.add_argument(
         "--k",
         type=int,
         nargs='+',
@@ -659,7 +666,9 @@ def main():
         output_dir = PROJECT_ROOT / output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    errors_dir = PROJECT_ROOT / "errors_checklist"
+    errors_dir = Path(args.errors_dir) if args.errors_dir else DATA_ROOT / "errors_checklist"
+    if not errors_dir.is_absolute():
+        errors_dir = PROJECT_ROOT / errors_dir
     
     # Load data
     print("Loading extractions...")

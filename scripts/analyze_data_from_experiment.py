@@ -15,6 +15,7 @@ Example:
 import argparse
 import csv
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -446,7 +447,7 @@ def main():
     script_dir = Path(__file__).parent.resolve()
     repo_root = script_dir.parent
     experiments_dir = repo_root / "experiments"
-    errors_checklist_dir = repo_root / "errors_checklist"
+    errors_checklist_dir = Path(os.environ.get("NARRATIVE_DATA_ROOT") or repo_root) / "errors_checklist"
     
     try:
         report = analyze_experiment(
