@@ -1,0 +1,27 @@
+{
+  "coherence": {
+    "gt": 15,
+    "tp_estimated": 8,
+    "recall": 53.33
+  },
+  "causality": {
+    "gt": 15,
+    "tp_estimated": 8,
+    "recall": 53.33
+  },
+  "emotional": {
+    "gt": 15,
+    "tp_estimated": 8,
+    "recall": 53.33
+  },
+  "location": {
+    "gt": 15,
+    "tp_estimated": 8,
+    "recall": 53.33
+  },
+  "temporal": {
+    "gt": 15,
+    "tp_estimated": 8,
+    "recall": 53.33
+  }
+}

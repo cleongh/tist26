@@ -133,8 +133,13 @@ def load_ground_truth(errors_dir: Path) -> Dict[str, List[GroundTruthError]]:
 # Clingo Integration
 # =============================================================================
 
-def collect_rule_files() -> List[Path]:
-    """Collect all rule files to load into Clingo."""
+def collect_rule_files(stories: List[str] = None) -> List[Path]:
+    """Collect all rule files to load into Clingo.
+    
+    Args:
+        stories: Optional list of story names to load story-specific rules for.
+                 If None, loads all story rules.
+    """
     rules_dir = PROJECT_ROOT / "rules"
     rule_files = []
     
@@ -148,7 +153,7 @@ def collect_rule_files() -> List[Path]:
     if general_narrative.exists():
         rule_files.append(general_narrative)
     
-    # Story-specific rules
+    # Story-specific rules (legacy location)
     story_rules = rules_dir / "story_rules.lp"
     if story_rules.exists():
         rule_files.append(story_rules)
@@ -163,6 +168,31 @@ def collect_rule_files() -> List[Path]:
     if universal_dir.exists():
         for lp_file in sorted(universal_dir.glob("*.lp")):
             rule_files.append(lp_file)
+    
+    # Story-specific rules from rules/story/ directory
+    story_dir = rules_dir / "story"
+    if story_dir.exists():
+        # Map story names to rule file names
+        story_rule_map = {
+            "Harry Potter": "harry_potter.lp",
+            "The Hunger Games": "hunger_games.lp",
+            "Twilight": "twilight.lp",
+            "Goosebumps": "goosebumps.lp",
+            "The Lord of the Rings": "lord_of_the_rings.lp"
+        }
+        
+        if stories:
+            # Load only specific story rules
+            for story in stories:
+                rule_name = story_rule_map.get(story)
+                if rule_name:
+                    rule_file = story_dir / rule_name
+                    if rule_file.exists():
+                        rule_files.append(rule_file)
+        else:
+            # Load all story rules
+            for lp_file in sorted(story_dir.glob("*.lp")):
+                rule_files.append(lp_file)
     
     return rule_files
 
@@ -437,7 +467,7 @@ def run_experiment_for_stories(
                 
                 for i, gt in enumerate(chapter_gt):
                     if i not in matched_gt:
-                        if match_error_category(v_cat, gt.category):
+                        if match_error_category(v_cat, gt.category, strict=True):
                             matched = True
                             matched_gt.add(i)
                             tp += 1
@@ -647,7 +677,7 @@ def main():
         print(f"  {story}: {len(errors)} ground truth errors")
     
     print("Collecting rule files...")
-    rule_files = collect_rule_files()
+    rule_files = collect_rule_files(ALL_STORIES)
     print(f"Found {len(rule_files)} rule files")
     
     # Run experiments for each k
