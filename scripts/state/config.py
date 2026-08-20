@@ -14,11 +14,24 @@ SCRIPT_DIR = Path(__file__).parent.parent.resolve()  # scripts/
 REPO_ROOT = SCRIPT_DIR.parent
 
 # Read-only dataset inputs; override to point at a shared/NAS location.
+# NARRATIVE_DATA_ROOT is the common base; the three vars below can each be
+# overridden independently for multi-variant datasets (e.g. modified_books_ai_15/).
 DATA_ROOT = Path(os.environ.get("NARRATIVE_DATA_ROOT") or REPO_ROOT)
 
-SOURCE_ORIGINAL_BOOKS = DATA_ROOT / "original_books"
-SOURCE_MODIFIED_BOOKS = DATA_ROOT / "modified_books"
-ERRORS_CHECKLIST_DIR = DATA_ROOT / "errors_checklist"
+SOURCE_ORIGINAL_BOOKS = Path(
+    os.environ.get("NARRATIVE_ORIGINAL_BOOKS") or DATA_ROOT / "original_books"
+)
+SOURCE_MODIFIED_BOOKS = Path(
+    os.environ.get("NARRATIVE_MODIFIED_BOOKS") or DATA_ROOT / "modified_books"
+)
+
+# Multi-variant datasets ship ground truth nested inside the modified-books
+# folder; fall back to a root-level errors_checklist for the legacy layout.
+_variant_checklist = SOURCE_MODIFIED_BOOKS / "errors_checklist"
+ERRORS_CHECKLIST_DIR = Path(
+    os.environ.get("NARRATIVE_ERRORS_CHECKLIST")
+    or (_variant_checklist if _variant_checklist.is_dir() else DATA_ROOT / "errors_checklist")
+)
 
 # Generated output always stays local to the machine running the experiment.
 EXPERIMENTS_DIR = REPO_ROOT / "experiments"

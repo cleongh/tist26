@@ -15,7 +15,6 @@ Example:
 import argparse
 import csv
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -446,8 +445,12 @@ def main():
     # Setup paths
     script_dir = Path(__file__).parent.resolve()
     repo_root = script_dir.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from scripts.state.config import ERRORS_CHECKLIST_DIR
+
     experiments_dir = repo_root / "experiments"
-    errors_checklist_dir = Path(os.environ.get("NARRATIVE_DATA_ROOT") or repo_root) / "errors_checklist"
+    errors_checklist_dir = ERRORS_CHECKLIST_DIR
     
     try:
         report = analyze_experiment(

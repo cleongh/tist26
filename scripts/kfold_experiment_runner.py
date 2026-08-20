@@ -36,7 +36,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 # Import logic modules
 from scripts.logic.asp_converter import to_asp
-from scripts.state.config import DATA_ROOT
+from scripts.state.config import ERRORS_CHECKLIST_DIR
 
 
 # =============================================================================
@@ -639,7 +639,7 @@ def main():
         "--errors_dir",
         type=str,
         default=None,
-        help="Directory with ground truth CSVs (default: $NARRATIVE_DATA_ROOT/errors_checklist)"
+        help="Directory with ground truth CSVs (default: the active dataset's errors_checklist)"
     )
     parser.add_argument(
         "--k",
@@ -666,7 +666,7 @@ def main():
         output_dir = PROJECT_ROOT / output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    errors_dir = Path(args.errors_dir) if args.errors_dir else DATA_ROOT / "errors_checklist"
+    errors_dir = Path(args.errors_dir) if args.errors_dir else ERRORS_CHECKLIST_DIR
     if not errors_dir.is_absolute():
         errors_dir = PROJECT_ROOT / errors_dir
     

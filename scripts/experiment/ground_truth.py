@@ -16,7 +16,7 @@ def load_ground_truth(story_name: str) -> List[Dict[str, Any]]:
     """
     csv_mapping = {
         "Harry Potter": "harry_potter_errors.csv",
-        "The Hunger Games": "hunger_games_errors.csv",
+        "The Hunger Games": "the_hunger_games_errors.csv",
         "The Lord of the Rings": "the_lord_of_the_rings_errors.csv",
         "Twilight": "twilight_errors.csv",
         "Goosebumps": "goosebumps_errors.csv",
