@@ -119,6 +119,9 @@ class EntityRegistry:
         The 'name' and any 'aliases' are registered for resolution.
         """
         for char in characters:
+            if not isinstance(char, dict):
+                log(f"    [EntityRegistry] Skipping non-dict character entry: {char!r}", "WARN")
+                continue
             canonical_id = _normalize_id(char.get("id", ""))
             if not canonical_id:
                 log(f"    [EntityRegistry] Skipping character with empty ID: {char}", "WARN")
@@ -151,6 +154,9 @@ class EntityRegistry:
         The 'name' is registered for resolution.
         """
         for loc in locations:
+            if not isinstance(loc, dict):
+                log(f"    [EntityRegistry] Skipping non-dict location entry: {loc!r}", "WARN")
+                continue
             canonical_id = _normalize_id(loc.get("id", ""))
             if not canonical_id:
                 log(f"    [EntityRegistry] Skipping location with empty ID: {loc}", "WARN")
@@ -173,6 +179,9 @@ class EntityRegistry:
         The 'name' is registered for resolution.
         """
         for item in items:
+            if not isinstance(item, dict):
+                log(f"    [EntityRegistry] Skipping non-dict item entry: {item!r}", "WARN")
+                continue
             canonical_id = _normalize_id(item.get("id", ""))
             if not canonical_id:
                 log(f"    [EntityRegistry] Skipping item with empty ID: {item}", "WARN")
@@ -286,6 +295,9 @@ class EntityRegistry:
         validated = []
         
         for rel in relationships:
+            if not isinstance(rel, dict):
+                log(f"    [EntityRegistry] Skipping non-dict relationship entry: {rel!r}", "WARN")
+                continue
             from_id = rel.get("from", "")
             to_id = rel.get("to", "")
             
@@ -351,6 +363,9 @@ class EntityRegistry:
         validated = []
         
         for rule in initial_rules:
+            if not isinstance(rule, dict):
+                log(f"    [EntityRegistry] Skipping non-dict initial_rule entry: {rule!r}", "WARN")
+                continue
             subject = rule.get("subject", "")
             obj = rule.get("object", "")
             predicate = rule.get("predicate", "")
@@ -358,7 +373,7 @@ class EntityRegistry:
             subject_canonical = self.resolve_character(subject)
             
             # Object can be "true" for traits, or a character ID for relationships
-            obj_is_trait = obj.lower() in ("true", "false", "yes", "no")
+            obj_is_trait = isinstance(obj, str) and obj.lower() in ("true", "false", "yes", "no")
             obj_canonical = None if obj_is_trait else self.resolve_character(obj)
             
             has_error = False
@@ -423,6 +438,9 @@ class EntityRegistry:
         validated = []
         
         for event in events:
+            if not isinstance(event, dict):
+                log(f"    [EntityRegistry] Skipping non-dict event entry: {event!r}", "WARN")
+                continue
             event_id = event.get("id", "?")
             agent = event.get("agent", "")
             patient = event.get("patient")

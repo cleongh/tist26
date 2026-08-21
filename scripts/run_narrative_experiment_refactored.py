@@ -29,6 +29,7 @@ from scripts.state.config import (
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
     MOONSHOT_API_KEY,
+    DASHSCOPE_API_KEY,
     STORIES,
 )
 from scripts.state.logging import log, set_console_log_file
@@ -86,15 +87,15 @@ def main():
     parser.add_argument(
         "--api-mode",
         type=str,
-        choices=["local", "gemini", "openai", "claude", "kimi", "debug"],
+        choices=["local", "gemini", "openai", "claude", "kimi", "qwen", "debug"],
         default="local",
-        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI, 'claude' for Anthropic Claude, 'kimi' for Moonshot Kimi, 'debug' for using existing extractions without LLM (default: local)",
+        help="API mode: 'local' for local LLM server, 'gemini' for Google Gemini, 'openai' for OpenAI, 'claude' for Anthropic Claude, 'kimi' for Moonshot Kimi, 'qwen' for Alibaba Model Studio Qwen, 'debug' for using existing extractions without LLM (default: local)",
     )
     parser.add_argument(
         "--api-model",
         type=str,
         default=None,
-        help="Model to use (default: auto for local, gemini-2.0-flash for Gemini, gpt-4o for OpenAI, claude-sonnet-4-5-20250929 for Claude, kimi-k3 for Kimi)",
+        help="Model to use (default: auto for local, gemini-2.0-flash for Gemini, gpt-4o for OpenAI, claude-sonnet-4-5-20250929 for Claude, kimi-k3 for Kimi, qwen3.7-flash for Qwen)",
     )
     parser.add_argument(
         "--api-delay",
@@ -165,6 +166,10 @@ def main():
         print("ERROR: MOONSHOT_API_KEY environment variable not set")
         print("Set it with: export MOONSHOT_API_KEY='your-api-key'")
         sys.exit(1)
+    if args.api_mode == "qwen" and not DASHSCOPE_API_KEY:
+        print("ERROR: DASHSCOPE_API_KEY environment variable not set")
+        print("Set it with: export DASHSCOPE_API_KEY='your-api-key'")
+        sys.exit(1)
     
     # Create/find experiment directory
     experiment_dir = EXPERIMENTS_DIR / args.experiment_name
@@ -224,6 +229,7 @@ def main():
         print("  --api-mode openai   Use OpenAI API (requires OPENAI_API_KEY)")
         print("  --api-mode claude   Use Anthropic Claude API (requires ANTHROPIC_API_KEY)")
         print("  --api-mode kimi     Use Moonshot Kimi API (requires MOONSHOT_API_KEY)")
+        print("  --api-mode qwen     Use Alibaba Model Studio Qwen API (requires DASHSCOPE_API_KEY)")
         print("  --api-mode debug    Use existing extractions without LLM (requires --engine)")
         print("  --api-model MODEL   Specify model (e.g., gemini-2.0-flash, gpt-4o-mini, claude-sonnet-4-5-20250929)")
         print("\nPhase 2/4/5 options:")

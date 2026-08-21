@@ -14,6 +14,7 @@ from ..state.config import (
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
     MOONSHOT_API_KEY,
+    DASHSCOPE_API_KEY,
     DEFAULT_MODELS,
     PROVIDER_BASE_URLS,
 )
@@ -140,7 +141,9 @@ class OpenAIAPIClient:
         
         Some newer OpenAI models (GPT-5 mini, reasoning models) only support
         default parameter values and will error if custom values are passed.
-        Kimi K3 only accepts the default temperature (1) and errors otherwise.
+        All current Kimi models fix temperature/top_p/penalties and error on
+        any explicit override. Qwen's hybrid-thinking models allow full
+        parameter control, so they are not restricted here.
         """
         model_lower = self.model.lower()
         if self.provider == "openai":
@@ -148,9 +151,32 @@ class OpenAIAPIClient:
             if any(prefix in model_lower for prefix in ['gpt-5-mini', 'o1', 'o3', 'o4']):
                 return True
         elif self.provider == "kimi":
-            if 'k3' in model_lower:
-                return True
+            return True
         return False
+    
+    def _kimi_thinking_toggle(self) -> Optional[dict]:
+        """Extra request body to disable Kimi's thinking mode, where supported.
+        
+        K2.6/K2.5 think by default and their hidden reasoning_content shares
+        the max_tokens budget with the visible output, which can silently
+        truncate short extraction calls to nothing. K3 and K2.7-code don't
+        accept this parameter (K3 has no toggle; K2.7-code always thinks).
+        """
+        model_lower = self.model.lower()
+        if self.provider == "kimi" and ("k2.6" in model_lower or "k2.5" in model_lower):
+            return {"thinking": {"type": "disabled"}}
+        return None
+    
+    def _qwen_thinking_toggle(self) -> Optional[dict]:
+        """Extra request body to disable Qwen's hybrid thinking mode.
+        
+        Qwen3+ models default to reasoning enabled, and their hidden
+        reasoning_content shares the max_tokens budget with the visible
+        output just like Kimi, risking silent truncation on short calls.
+        """
+        if self.provider == "qwen":
+            return {"enable_thinking": False}
+        return None
     
     def _min_output_tokens(self) -> Optional[int]:
         """Minimum completion token budget this model needs.
@@ -185,6 +211,10 @@ class OpenAIAPIClient:
                 request_params["top_p"] = self.top_p
             request_params["presence_penalty"] = self.presence_penalty
             request_params["frequency_penalty"] = self.frequency_penalty
+        
+        thinking_toggle = self._kimi_thinking_toggle() or self._qwen_thinking_toggle()
+        if thinking_toggle:
+            request_params["extra_body"] = thinking_toggle
         
         # Raise the budget floor for models whose reasoning tokens share it
         min_tokens = self._min_output_tokens()
@@ -302,6 +332,15 @@ def create_api_client(api_mode: str, api_model: str = None, base_url: str = "htt
             base_url=PROVIDER_BASE_URLS["kimi"],
             api_key=MOONSHOT_API_KEY,
             provider="kimi",
+        )
+    elif api_mode == "qwen":
+        model = api_model or DEFAULT_MODELS["qwen"]
+        log(f"Using Qwen (Alibaba Model Studio) API with model: {model}", "INFO")
+        return OpenAIAPIClient(
+            model=model,
+            base_url=PROVIDER_BASE_URLS["qwen"],
+            api_key=DASHSCOPE_API_KEY,
+            provider="qwen",
         )
     else:  # local
         log(f"Using local LLM at: {base_url}", "INFO")

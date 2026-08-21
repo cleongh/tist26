@@ -51,11 +51,13 @@ if str(REPO_ROOT) not in sys.path:
 #   export OPENAI_API_KEY="your-openai-api-key"
 #   export ANTHROPIC_API_KEY="your-anthropic-api-key"
 #   export MOONSHOT_API_KEY="your-moonshot-api-key"
+#   export DASHSCOPE_API_KEY="your-alibaba-model-studio-api-key"
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 MOONSHOT_API_KEY = os.environ.get("MOONSHOT_API_KEY", "")
+DASHSCOPE_API_KEY = os.environ.get("DASHSCOPE_API_KEY", "")
 
 # Default models for each API provider
 DEFAULT_MODELS = {
@@ -64,15 +66,17 @@ DEFAULT_MODELS = {
     "openai": "gpt-4o",
     "claude": "claude-sonnet-4-5-20250929",
     "kimi": "kimi-k3",
+    "qwen": "qwen3.7-flash",
 }
 
 # OpenAI-compatible base URLs for providers reached through OpenAIAPIClient
 PROVIDER_BASE_URLS = {
     "claude": "https://api.anthropic.com/v1/",
     "kimi": "https://api.moonshot.ai/v1",
+    "qwen": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
 }
 
-# API mode: "local" | "gemini" | "openai" | "claude" | "kimi"
+# API mode: "local" | "gemini" | "openai" | "claude" | "kimi" | "qwen"
 API_MODE = "local"
 
 # =============================================================================
