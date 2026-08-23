@@ -70,6 +70,23 @@ rule(causality_effect_without_cause, universal, "Reactions require triggering ev
 % VIOLATION: Interacting with dead character  
 % Cannot have a dead character as patient of interaction
 % IMPORTANT: Only applies to CHARACTER patients, not items or locations
+% NOTE: `not alive(C, T)` alone is inferred purely from event-type keywords
+% (dies_in_event/is_death_event: "kill"/"murder"/"execute"/...), which are
+% frequently used non-literally in narrative dialogue (idioms, threats,
+% hyperbole -- "I could kill him", "you're dead to me") regardless of story.
+% The sibling dead_character_acting rule above was disabled for exactly this
+% kind of false-positive risk. Require the death to also be corroborated by
+% the character's own extracted physical state (character_state/2, populated
+% directly from the LLM's per-character state classification, never derived
+% by any rule) so an event-keyword match alone is never sufficient evidence
+% -- a character merely threatened with "kill" wouldn't also have their own
+% state independently classified as dead.
+% NOTE 2: an interaction in the SAME chapter as the death itself (holding
+% the body, a farewell embrace, addressing the newly dead) is normal grief
+% narration, not a continuity error -- the character isn't being written as
+% if still alive, they're being mourned. Only flag interactions that occur
+% in a LATER chapter than the death, which is the actual "story forgot this
+% character died" signal this rule is meant to catch.
 violation(causality, interacting_with_dead, E, C) :-
     rule_active(causality_interacting_with_dead),
     event(E),
@@ -77,9 +94,14 @@ violation(causality, interacting_with_dead, E, C) :-
     patient(E, C),
     character(C),           % MUST be a character, not an item
     not alive(C, T),
+    character_state(C, dead),  % corroborate the event-keyword inference
     event_type(E, Type),
     is_interaction_type(Type),
-    not is_death_event(E).
+    not is_death_event(E),
+    event_global(E, _, ChapterE),
+    dies_in_event(DeathEvent, C),
+    event_global(DeathEvent, _, ChapterDeath),
+    ChapterE > ChapterDeath.
 
 % Interaction types (require living/present participant)
 is_interaction_type(talk).

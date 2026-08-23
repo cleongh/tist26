@@ -166,10 +166,25 @@ relationship_established_before(C1, C2, Type, T_event, T_establish) :-
     T_establish < T_event.
 
 % --- Earliest Establishment Time ---
-% To avoid duplicate violations, we identify the earliest time a relationship was established
+% To avoid duplicate violations, we identify the earliest time a relationship
+% was established.
+% NOTE: computing this via #min over relationship_established_before/5 (as
+% before) re-scans every T for every T_event pair -- an O(relationship_pairs
+% * time^2) join. Chapters with many events (a large time/1 domain) and many
+% relationships combine combinatorially and make grounding/solving extremely
+% expensive, regardless of story. The earliest explicit-establishment time
+% for a (C1, C2, Type) triple does not actually depend on T_event, so it can
+% be computed ONCE per triple (an O(relationship_pairs * time) aggregate)
+% and then just compared against each T_event, avoiding the T_event-indexed
+% rescan entirely while keeping the same "first establishment" semantics.
+first_explicit_relationship_time(C1, C2, Type, T_min) :-
+    explicit_relationship(C1, C2, Type, _),
+    T_min = #min { T : explicit_relationship(C1, C2, Type, T) }.
+
 earliest_relationship_establishment(C1, C2, Type, T_event, T_min) :-
-    relationship_established_before(C1, C2, Type, T_event, T_min),
-    T_min = #min { T : relationship_established_before(C1, C2, Type, T_event, T) }.
+    first_explicit_relationship_time(C1, C2, Type, T_min),
+    time(T_event),
+    T_min < T_event.
 
 % Convenience: Has any explicit relationship at time T
 has_explicit_relationship(C1, C2, T) :-
@@ -227,6 +242,13 @@ action_contradicts_negative(comfort).
 action_contradicts_negative(defend).
 action_contradicts_negative(farewell).
 action_contradicts_negative(congratulates).
+% General warmth/affection verbs (not tied to any specific story's vocabulary)
+action_contradicts_negative(smile).
+action_contradicts_negative(embrace).
+action_contradicts_negative(console).
+action_contradicts_negative(reassure).
+action_contradicts_negative(welcome).
+action_contradicts_negative(caress).
 
 % Actions that contradict positive relationships (hostile actions)
 action_contradicts_positive(attack).
@@ -242,6 +264,13 @@ action_contradicts_positive(kill).
 action_contradicts_positive(murder).
 action_contradicts_positive(poison).
 action_contradicts_positive(deceive).
+% General hostility/coldness verbs (not tied to any specific story's vocabulary)
+action_contradicts_positive(scowl).
+action_contradicts_positive(sneer).
+action_contradicts_positive(mock).
+action_contradicts_positive(ridicule).
+action_contradicts_positive(scorn).
+action_contradicts_positive(recoil).
 % NOTE: "report" disabled - context-dependent (can be protective like Hermione protecting Harry)
 % action_contradicts_positive(report).
 
@@ -348,6 +377,11 @@ violation(emotional, relationship_action_mismatch,
 friendly_social_action(farewell).
 friendly_social_action(comfort).
 friendly_social_action(praise).
+% General warmth synonyms (not tied to any specific story's vocabulary)
+friendly_social_action(smile).
+friendly_social_action(embrace).
+friendly_social_action(reassure).
+friendly_social_action(welcome).
 
 % Backward compatibility alias
 social_action_contradicts_negative(A) :- friendly_social_action(A).
@@ -357,6 +391,12 @@ social_action_contradicts_negative(A) :- friendly_social_action(A).
 hostile_social_action(good_riddance).
 hostile_social_action(insult).
 hostile_social_action(threaten).
+% General hostility/coldness synonyms (not tied to any specific story's vocabulary)
+hostile_social_action(mock).
+hostile_social_action(scorn).
+hostile_social_action(sneer).
+hostile_social_action(disgust).
+hostile_social_action(recoil).
 
 % Backward compatibility alias
 social_action_contradicts_positive(A) :- hostile_social_action(A).

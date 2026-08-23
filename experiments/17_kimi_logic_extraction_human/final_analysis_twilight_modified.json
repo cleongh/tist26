@@ -1,0 +1,143 @@
+{
+  "story_id": "Twilight_modified",
+  "total_chapters": 82,
+  "total_events": 0,
+  "total_violations": 0,
+  "rule_audit": {
+    "active_count": 11,
+    "deactivated_count": 0,
+    "learned_count": 0,
+    "rules": [
+      {
+        "rule_id": "legacy:simple_narrative",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:story_rules",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:appearance",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:items",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:coherence",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:location",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:emotional",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:temporal",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:knowledge",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:causality",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      },
+      {
+        "rule_id": "legacy:narrative_state",
+        "rule_layer": "universal",
+        "active": true,
+        "overridden_by": null,
+        "override_reason": null,
+        "times_applied": 0,
+        "times_triggered_violation": 0,
+        "chapters_active": []
+      }
+    ]
+  },
+  "loose_ends": {
+    "count": 0,
+    "items": []
+  },
+  "long_range_inconsistencies": {
+    "count": 0,
+    "items": []
+  },
+  "statistics": {
+    "entities_introduced": {
+      "character": 0,
+      "location": 0,
+      "item": 0
+    },
+    "entities_resolved": {
+      "character": 0,
+      "item": 0
+    }
+  },
+  "timestamp": "2026-08-21T12:56:04.661959"
+}

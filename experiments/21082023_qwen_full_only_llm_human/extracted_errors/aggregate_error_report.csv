@@ -1,0 +1,6 @@
+Story,Total_Errors,Original_Errors,Modified_Errors,Common_Errors,Only_Original,Only_Modified
+Goosebumps,127,62,65,0,62,65
+Harry Potter,94,43,51,0,43,51
+The Hunger Games,144,75,69,0,75,69
+The Lord of the Rings,100,54,46,1,53,45
+Twilight,146,76,70,0,76,70

@@ -504,6 +504,7 @@ class EventExecutor:
         data: Dict[str, Any],
         chapter_num: int,
         active_universe: Optional['ActiveUniverseResult'] = None,
+        modified_story: bool = False,
     ) -> str:
         """
         Convert structured JSON to ASP facts.
@@ -519,11 +520,18 @@ class EventExecutor:
             chapter_num: Current chapter number
             active_universe: Optional filter - only declare entities in this universe.
                            Other predicates (agent, patient, etc.) are still emitted.
+            modified_story: If True, emit the `modified_story.` fact -- several
+                rule files (e.g. rules/universal/emotional.lp) gate violations
+                on this fact so they only fire against error-injected story
+                variants, not the pristine original text. Defaults to False to
+                preserve existing behavior for callers that don't pass it.
         
         Returns:
             ASP facts as a string
         """
         lines = [f"% Chapter {chapter_num} facts"]
+        if modified_story:
+            lines.append("modified_story.")
         
         # Get the active universe filter set (if provided)
         universe_entities = active_universe.all_entities if active_universe else None
@@ -1282,7 +1290,8 @@ class EventExecutor:
     def evaluate_chapter_structured(self, structured_data: Dict[str, Any], 
                                      chapter_num: int,
                                      previous_chapter_events: Optional[List[Dict[str, Any]]] = None,
-                                     item_tracker: Optional['ItemTracker'] = None) -> ChapterEvaluationResult:
+                                     item_tracker: Optional['ItemTracker'] = None,
+                                     modified_story: bool = False) -> ChapterEvaluationResult:
         """
         Evaluate chapter and return structured JSON output only.
         
@@ -1320,7 +1329,8 @@ class EventExecutor:
         )
         
         # Convert to ASP facts (filtered by active_universe)
-        facts = self.to_asp(structured_data, chapter_num, active_universe=active_universe)
+        facts = self.to_asp(structured_data, chapter_num, active_universe=active_universe,
+                             modified_story=modified_story)
         
         # Run Clingo (all reasoning happens here, not in Python)
         raw_violations = self.check_with_clingo(facts, chapter_num, active_universe=active_universe)

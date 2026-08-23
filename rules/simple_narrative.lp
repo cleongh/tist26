@@ -215,12 +215,40 @@ is_reflexive_action(E) :- event_type(E, exit).
 %     Does NOT require physically_at (talking without location is VALID).
 %     See narrative_state.lp for is_scene_action/1 classification.
 %
+% NOTE: extraction commonly omits an explicit `patient` for dialogue even
+% when a listener is present (narrative prose rarely names the addressee of
+% every line) so "patient missing" alone is weak evidence of a true
+% solo_communication error. Require that no OTHER character is present in
+% the scene at the same time either, so this only fires when the speaker is
+% verifiably alone -- a general, character-agnostic condition (previously
+% this was gated by a hardcoded per-character whitelist below, which both
+% baked one story's cast into a "universal" rule file and left every other
+% story's dialogue essentially unprotected).
+%
+% NOTE 2: dialogue is usually extracted as one event per line/turn, each
+% tagging only the current speaker as agent -- a listener who spoke the
+% turn immediately before/after is not present_in_scene at this exact T,
+% even though they plainly never left. Checking a small window of nearby
+% event times (not just the exact T) instead of an exact-T match captures
+% "still in the same back-and-forth exchange" without assuming anything
+% about which characters or story this is.
+other_character_present(E) :-
+    event(E),
+    agent(E, Agent),
+    event_time(E, T),
+    present_in_scene(Other, T2),
+    T2 >= T - 1,
+    T2 <= T + 1,
+    character(Other),
+    Other != Agent.
+
 violation(coherence, solo_communication, E, Type) :-
     event(E),
     event_type(E, Type),
     is_communication_type(Type),
     agent(E, _),
     not has_second_party(E),
+    not other_character_present(E),
     not is_internal_thought(E),
     not is_public_speech(E).
 
@@ -263,34 +291,6 @@ is_public_speech(E) :- event_type(E, announce).
 is_public_speech(E) :- event_type(E, speech).
 is_public_speech(E) :- event_type(E, proclaim).
 is_public_speech(E) :- event_type(E, declare).
-is_public_speech(E) :- agent(E, sorting_hat).  % Sorting hat sings/talks to crowd
-is_public_speech(E) :- agent(E, A), is_authority_figure(A), not has_second_party(E).
-
-% Authority figures often address crowds
-is_authority_figure(professor_mcgonagall).
-is_authority_figure(mcgonagall).
-is_authority_figure(albus_dumbledore).
-is_authority_figure(dumbledore).
-is_authority_figure(snape).
-is_authority_figure(professor_snape).
-is_authority_figure(hagrid).
-
-% Hogwarts ghosts often address crowds or talk generally
-is_authority_figure(fat_friar).
-is_authority_figure(nearly_headless_nick).
-is_authority_figure(bloody_baron).
-is_authority_figure(grey_lady).
-is_authority_figure(peeves).  % Poltergeist, shouts at people
-
-% Adults who may talk on phones, to themselves, or make announcements
-% Use canonical IDs (uncle_vernon, aunt_petunia) - aliases like mr_dursley 
-% are resolved via CHARACTER_ALIASES in event_executor.py
-is_authority_figure(uncle_vernon).
-is_authority_figure(aunt_petunia).
-
-% Main characters who may talk to animals, themselves, or think aloud
-is_authority_figure(harry_potter).
-is_authority_figure(harry).
 
 % --- Physical state contradictions ---
 % Character cannot be in contradictory states simultaneously WITHIN THE SAME CHAPTER.
@@ -646,21 +646,30 @@ is_travel_exempt(E) :-
 % =============================================================================
 
 % --- Emotional contradiction with previous chapter ---
-% Character shows opposite emotion from established pattern
-% NOTE: This remains as it uses cross-chapter previous_emotion tracking
-violation(emotional, emotional_contradiction, C, pair(Current, Previous)) :-
-    character_emotion(C, Current),
-    previous_emotion(C, Previous),
-    is_opposite_emotion(Current, Previous).
+% RETIRED: this fired on ANY opposite-emotion swing between consecutive
+% chapters with no gating at all -- ordinary mood swings driven by story
+% events (a happy character turned sad by a loss, etc.) are extremely common
+% and are not inherently coherence errors. The correct, general signal is
+% RELATIONSHIP-based (e.g. a character who hates another should not act
+% warmly toward that SAME character within the same chapter), which is what
+% emotional.lp's evidence-gated relationship_action_mismatch already checks
+% -- kept active, with an expanded general action vocabulary, instead of
+% this blunter own-mood-swing heuristic.
+% violation(emotional, emotional_contradiction, C, pair(Current, Previous)) :-
+%     character_emotion(C, Current),
+%     previous_emotion(C, Previous),
+%     is_opposite_emotion(Current, Previous).
 
 % --- Trait contradiction ---
-% Character behaves opposite to established personality trait
-% NOTE: Phase Five moves this to emotional.lp with evidence-gating
-% This rule is kept for backward compatibility with previous_emotion
-violation(emotional, trait_contradiction, C, pair(Current, Trait)) :-
-    character_emotion(C, Current),
-    established_trait(C, Trait),
-    is_opposite_emotion(Current, Trait).
+% RETIRED for the same reason as emotional_contradiction above: a character's
+% own emotion swinging opposite to a previously-established trait is common
+% narrative development (a normally calm character getting angry once), not
+% by itself evidence of an error. See emotional.lp's trait_action_mismatch
+% for the evidence-gated equivalent.
+% violation(emotional, trait_contradiction, C, pair(Current, Trait)) :-
+%     character_emotion(C, Current),
+%     established_trait(C, Trait),
+%     is_opposite_emotion(Current, Trait).
 
 % --- Relationship-behavior mismatch ---
 % DEPRECATED in Phase Five: Use emotional.lp relationship_action_mismatch instead.

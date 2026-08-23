@@ -37,6 +37,61 @@ sys.path.insert(0, str(PROJECT_ROOT))
 # Import logic modules
 from scripts.logic.asp_converter import to_asp
 from scripts.state.config import ERRORS_CHECKLIST_DIR
+from engine.rule_registry import RuleRegistry
+from engine.conflict_resolver import ConflictResolver
+
+
+# =============================================================================
+# Debug instrumentation (temporary, controlled by --debug)
+# =============================================================================
+
+DEBUG = False
+
+
+def dbg(msg: str, indent: int = 0) -> None:
+    """Print a debug trace line if --debug is enabled. No effect on results."""
+    if DEBUG:
+        prefix = "  " * indent
+        print(f"[DEBUG] {prefix}{msg}")
+
+
+# =============================================================================
+# ConflictResolver wiring (story metadata derived from extraction data only,
+# never hardcoded per book title, per LOGIC_DESIGN.md Section 2)
+# =============================================================================
+
+GHOST_KEYWORDS = {"ghost", "spirit", "phantom", "specter", "spectre", "apparition"}
+UNDEAD_KEYWORDS = {"undead", "vampire", "zombie", "revenant", "immortal"}
+
+
+def build_story_metadata(story_extractions: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Derive ConflictResolver story metadata purely from the LLM extraction
+    data for this story (character states/appearances), never from a
+    hardcoded per-title lookup. Used to initialize StoryContext generically
+    so the same code works unmodified on any new dataset/story.
+    """
+    ghost_characters: Set[str] = set()
+    undead_characters: Set[str] = set()
+
+    for extraction in story_extractions:
+        for char in extraction.get("extraction", {}).get("entities", {}).get("characters", []):
+            cid = char.get("id", "")
+            if not cid:
+                continue
+            signals = " ".join(str(char.get(f, "")) for f in ("state", "appearance", "emotion")).lower()
+            if any(kw in signals for kw in GHOST_KEYWORDS):
+                ghost_characters.add(cid)
+            if any(kw in signals for kw in UNDEAD_KEYWORDS):
+                undead_characters.add(cid)
+
+    return {
+        "is_fantasy": False,
+        "has_magic": False,
+        "has_teleportation": False,
+        "ghost_characters": sorted(ghost_characters),
+        "undead_characters": sorted(undead_characters),
+        "immortal_characters": [],
+    }
 
 
 # =============================================================================
@@ -134,46 +189,67 @@ def load_ground_truth(errors_dir: Path) -> Dict[str, List[GroundTruthError]]:
 # Clingo Integration
 # =============================================================================
 
-def collect_rule_files(stories: List[str] = None, rules_dir: Optional[Path] = None) -> List[Path]:
+def collect_rule_files(stories: List[str] = None, rules_dir: Optional[Path] = None,
+                        include_story_files: bool = True) -> List[Path]:
     """Collect all rule files to load into Clingo.
     
     Args:
         stories: Optional list of story names to load story-specific rules for.
                  If None, loads all story rules.
         rules_dir: Optional override for the rules directory (default: repo's rules/).
+        include_story_files: If False, skip the static rules/story/*.lp files
+            entirely (used when ConflictResolver generates story rules at
+            runtime instead, so the two mechanisms don't stack).
     """
     rules_dir = rules_dir if rules_dir is not None else PROJECT_ROOT / "rules"
     rule_files = []
+    dbg(f"collect_rule_files(stories={stories}, rules_dir={rules_dir}, "
+        f"include_story_files={include_story_files})")
+
+    if include_story_files:
+        dbg("Static rules/story/*.lp files WILL be loaded (ConflictResolver not "
+            "replacing them in this call).")
+    else:
+        dbg("Static rules/story/*.lp files are SKIPPED for this call -- story rules "
+            "are expected to be generated at runtime by ConflictResolver instead.")
     
     # Core rules
     core_file = rules_dir / "core.lp"
     if core_file.exists():
         rule_files.append(core_file)
+        dbg(f"+ core.lp (static file on disk): {core_file}", 1)
     
     # General narrative rules
     general_narrative = rules_dir / "general_narrative.lp"
     if general_narrative.exists():
         rule_files.append(general_narrative)
+        dbg(f"+ general_narrative.lp (static file on disk): {general_narrative}", 1)
     
     # Story-specific rules (legacy location)
     story_rules = rules_dir / "story_rules.lp"
     if story_rules.exists():
         rule_files.append(story_rules)
+        dbg(f"+ story_rules.lp legacy (static file on disk): {story_rules}", 1)
     
     # Enhanced detection rules
     enhanced_detection = rules_dir / "enhanced_detection.lp"
     if enhanced_detection.exists():
         rule_files.append(enhanced_detection)
+        dbg(f"+ enhanced_detection.lp (static file on disk): {enhanced_detection}", 1)
     
     # Universal rules (all .lp files)
     universal_dir = rules_dir / "universal"
     if universal_dir.exists():
         for lp_file in sorted(universal_dir.glob("*.lp")):
             rule_files.append(lp_file)
+            dbg(f"+ universal/{lp_file.name} (static file on disk)", 1)
     
     # Story-specific rules from rules/story/ directory
     story_dir = rules_dir / "story"
-    if story_dir.exists():
+    if not include_story_files:
+        dbg("Skipping rules/story/ directory entirely (include_story_files=False)")
+    elif story_dir.exists():
+        dbg(f"rules/story/ directory exists: {story_dir}")
         # Map story names to rule file names
         story_rule_map = {
             "Harry Potter": "harry_potter.lp",
@@ -191,11 +267,21 @@ def collect_rule_files(stories: List[str] = None, rules_dir: Optional[Path] = No
                     rule_file = story_dir / rule_name
                     if rule_file.exists():
                         rule_files.append(rule_file)
+                        dbg(f"+ story/{rule_name} (static, hand-authored file on disk, "
+                            f"HARDCODED to story name '{story}' via story_rule_map) "
+                            f"-> {rule_file}", 1)
+                    else:
+                        dbg(f"  (no story-specific rule file exists for '{story}': {rule_file})", 1)
         else:
             # Load all story rules
             for lp_file in sorted(story_dir.glob("*.lp")):
                 rule_files.append(lp_file)
-    
+                dbg(f"+ story/{lp_file.name} (static file on disk)", 1)
+    else:
+        dbg(f"rules/story/ directory does NOT exist under {rules_dir} "
+            "-> no story-specific rules loaded at all")
+
+    dbg(f"collect_rule_files() -> {len(rule_files)} total rule file(s)")
     return rule_files
 
 
@@ -204,6 +290,7 @@ def run_clingo(asp_facts: str, rule_files: List[Path]) -> List[Tuple[str, ...]]:
     import clingo
     
     violations = []
+    dbg(f"run_clingo() loading {len(rule_files)} rule file(s) + 1 facts temp file", 2)
     
     # Write facts to temp file
     with tempfile.NamedTemporaryFile(mode='w', suffix='.lp', delete=False) as f:
@@ -234,6 +321,7 @@ def run_clingo(asp_facts: str, rule_files: List[Path]) -> List[Tuple[str, ...]]:
     finally:
         facts_path.unlink(missing_ok=True)
     
+    dbg(f"run_clingo() -> {len(violations)} raw violation atom(s)", 2)
     return violations
 
 
@@ -415,7 +503,8 @@ def run_experiment_for_stories(
     test_stories: List[str],
     ground_truth: Dict[str, List[GroundTruthError]],
     rule_files: List[Path],
-    verbose: bool = False
+    verbose: bool = False,
+    use_conflict_resolver: bool = False
 ) -> List[StoryResult]:
     """Run experiment on test stories and compute metrics."""
     
@@ -430,12 +519,24 @@ def run_experiment_for_stories(
         
         if verbose:
             print(f"  Processing {story}: {len(story_extractions)} modified chapters")
+        dbg(f"--- Story: {story} ({len(story_extractions)} modified chapters) ---", 1)
         
         # Get ground truth for this story
         gt_errors = ground_truth.get(story, [])
         gt_by_chapter = defaultdict(list)
         for err in gt_errors:
             gt_by_chapter[err.chapter_num].append(err)
+        dbg(f"Ground truth for {story}: {len(gt_errors)} errors loaded from static CSV "
+            f"(errors_checklist), NOT generated at runtime", 2)
+        
+        conflict_resolver = None
+        if use_conflict_resolver:
+            rule_registry = RuleRegistry()
+            conflict_resolver = ConflictResolver(rule_registry)
+            story_metadata = build_story_metadata(story_extractions)
+            conflict_resolver.initialize_story_context(story, story_metadata)
+            dbg(f"ConflictResolver initialized for '{story}' with metadata derived "
+                f"from extraction data (no hardcoded per-title lookup): {story_metadata}", 2)
         
         chapter_results = []
         story_total_violations = 0
@@ -450,10 +551,43 @@ def run_experiment_for_stories(
             # Convert to ASP
             asp_facts = to_asp(chapter_data, chapter)
             asp_facts += "\n% Variant indicator\nmodified_story.\n"
+            dbg(f"Chapter {chapter}: to_asp() produced {len(asp_facts)} chars of ASP facts "
+                f"(story_rules=None, active_universe=None -- both to_asp() optional params "
+                f"are NOT passed by this script)", 2)
             
-            # Run Clingo
-            violations = run_clingo(asp_facts, rule_files)
-            categorized = [categorize_violation(v) for v in violations]
+            # Pass 1: raw violations against base (non-story) rules only
+            raw_violations = run_clingo(asp_facts, rule_files)
+            categorized = [categorize_violation(v) for v in raw_violations]
+
+            if conflict_resolver is not None and categorized:
+                generated_rule_ids = []
+                for v in categorized:
+                    conflict = conflict_resolver.analyze_violation(v)
+                    if conflict is not None:
+                        success, rule_id = conflict_resolver.resolve_conflict(conflict, resolution_type="exception")
+                        if success:
+                            generated_rule_ids.append(rule_id)
+                            dbg(f"ConflictResolver: chapter {chapter} violation "
+                                f"type={conflict.violation_type} entities={conflict.entities_involved} "
+                                f"-> generated story rule '{rule_id}'", 3)
+
+                if generated_rule_ids:
+                    story_rules_content = "\n\n".join(
+                        rule_registry.rules[rid].content for rid in generated_rule_ids
+                        if rid in rule_registry.rules
+                    )
+                    with tempfile.NamedTemporaryFile(mode='w', suffix='.lp', delete=False) as f:
+                        f.write(story_rules_content)
+                        generated_rules_path = Path(f.name)
+                    try:
+                        final_violations = run_clingo(asp_facts, rule_files + [generated_rules_path])
+                    finally:
+                        generated_rules_path.unlink(missing_ok=True)
+                    final_categorized = [categorize_violation(v) for v in final_violations]
+                    dbg(f"Chapter {chapter}: ConflictResolver pass changed violation count "
+                        f"{len(categorized)} -> {len(final_categorized)} "
+                        f"(using {len(generated_rule_ids)} generated rule(s))", 2)
+                    categorized = final_categorized
             
             # Get ground truth for this chapter
             chapter_gt = gt_by_chapter.get(chapter, [])
@@ -481,6 +615,8 @@ def run_experiment_for_stories(
             
             fp = len(categorized) - tp
             fn = len(chapter_gt) - len(matched_gt)
+            dbg(f"Chapter {chapter}: violations={len(categorized)} gt_errors={len(chapter_gt)} "
+                f"-> tp={tp} fp={fp} fn={fn}", 2)
             
             chapter_results.append(ChapterResult(
                 story=story,
@@ -505,6 +641,9 @@ def run_experiment_for_stories(
         precision = story_tp / (story_tp + story_fp) if (story_tp + story_fp) > 0 else 0
         recall = story_tp / (story_tp + story_fn) if (story_tp + story_fn) > 0 else 0
         f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+        dbg(f"Story {story} totals: violations={story_total_violations} gt={len(gt_errors)} "
+            f"tp={story_tp} fp={story_fp} fn={story_fn} "
+            f"precision={precision:.4f} recall={recall:.4f} f1={f1:.4f}", 1)
         
         story_results.append(StoryResult(
             story=story,
@@ -527,7 +666,8 @@ def run_kfold_experiment(
     extractions: List[Dict[str, Any]],
     ground_truth: Dict[str, List[GroundTruthError]],
     rule_files: List[Path],
-    verbose: bool = False
+    verbose: bool = False,
+    use_conflict_resolver: bool = False
 ) -> List[ExperimentResult]:
     """Run all k-fold experiments for a given k."""
     
@@ -537,13 +677,15 @@ def run_kfold_experiment(
     for test_combo in combinations(ALL_STORIES, k):
         test_stories = list(test_combo)
         train_stories = [s for s in ALL_STORIES if s not in test_stories]
+        dbg(f"=== k={k} combination: test={test_stories} train={train_stories} ===")
         
         if verbose:
             print(f"\nExperiment: test={test_stories}")
         
         # Run experiment
         story_results = run_experiment_for_stories(
-            extractions, test_stories, ground_truth, rule_files, verbose
+            extractions, test_stories, ground_truth, rule_files, verbose,
+            use_conflict_resolver=use_conflict_resolver
         )
         
         # Aggregate metrics
@@ -742,12 +884,31 @@ def main():
         help="K values to test (default: 1 2 3 4)"
     )
     parser.add_argument(
+        "--use-conflict-resolver",
+        action="store_true",
+        help="Generate story-specific rules at runtime via engine.ConflictResolver "
+             "(from extraction-derived metadata) instead of loading the static "
+             "rules/story/*.lp files."
+    )
+    parser.add_argument(
         "--verbose", "-v",
         action="store_true",
         help="Print verbose output"
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print detailed [DEBUG] trace lines showing exactly which rule files "
+             "are loaded (and from where), per-chapter ASP fact generation, Clingo "
+             "invocation, and per-story/per-chapter TP/FP/FN. Does not affect results."
+    )
     
     args = parser.parse_args()
+    
+    global DEBUG
+    DEBUG = args.debug
+    if DEBUG:
+        print("[DEBUG] Debug tracing ENABLED\n")
     
     # Setup paths
     experiment_dir = Path(args.experiment_dir)
@@ -784,7 +945,11 @@ def main():
     
     print("Collecting rule files...")
     print(f"Rules directory: {rules_dir}")
-    rule_files = collect_rule_files(ALL_STORIES, rules_dir=rules_dir)
+    if args.use_conflict_resolver:
+        print("ConflictResolver mode: story rules generated at runtime, "
+              "static rules/story/*.lp files skipped")
+    rule_files = collect_rule_files(ALL_STORIES, rules_dir=rules_dir,
+                                     include_story_files=not args.use_conflict_resolver)
     print(f"Found {len(rule_files)} rule files")
     
     # Run experiments for each k
@@ -796,7 +961,8 @@ def main():
         print(f"{'='*60}")
         
         results = run_kfold_experiment(
-            k, extractions, ground_truth, rule_files, args.verbose
+            k, extractions, ground_truth, rule_files, args.verbose,
+            use_conflict_resolver=args.use_conflict_resolver
         )
         
         all_results[f"k{k}"] = results

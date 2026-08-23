@@ -556,7 +556,18 @@ class FinalAnalyzer:
         # Get Chekhov candidates (latent items that remained latent - never used in events)
         chekhov_candidates = self.item_tracker.get_chekhov_candidates()
         
+        # An item introduced in the final stretch of the story hasn't had a
+        # fair chance to be paid off before the narrative ends, so its
+        # non-use is weak evidence of a genuine unresolved setup (as opposed
+        # to the story simply running out of chapters). This is a general
+        # narrative-position heuristic based only on chapter count, not tied
+        # to any specific item/character/story.
+        late_story_cutoff = total_chapters * 0.9 if total_chapters > 0 else None
+        
         for tracked_item in chekhov_candidates:
+            if late_story_cutoff is not None and tracked_item.introduced_chapter > late_story_cutoff:
+                continue
+            
             # Phase 7: Include enhanced item diagnostics
             result.loose_ends.append(LooseEnd(
                 loose_end_type="chekhov_latent",

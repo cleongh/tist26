@@ -512,12 +512,26 @@ class ItemTracker:
             1. Were originally introduced as latent
             2. NEVER got promoted to causal (never appeared in events)
             3. Are still active (not suppressed/destroyed)
+            4. Have a name (a specifically named object, not a generic/
+               anonymous reference) -- a real Chekhov's Gun setup is a
+               distinct, identifiable thing the reader is meant to
+               remember, not an unnamed background detail.
+        
+        NOTE: We do NOT additionally require event_references to be
+        non-empty here. Any item with a non-empty event_references list is
+        automatically promoted out of LATENT into CAUSAL relevance
+        elsewhere in this class (see the "event_refs and item.relevance in
+        (BACKGROUND, LATENT) -> CAUSAL" promotion logic above) -- so
+        remained_latent() already implies event_references is empty. Adding
+        that condition here would make this method always return an empty
+        list, which is a self-contradiction, not a useful filter.
         
         This excludes items that appeared in events (and thus were promoted).
         """
         return [
             item for item in self._items.values()
             if item.remained_latent() and item.is_active()
+            and item.name
         ]
     
     def get_promoted_latent_items(self) -> List[TrackedItem]:

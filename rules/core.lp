@@ -34,8 +34,15 @@
 % The engine provides: max_time(N) to define the time horizon
 % =============================================================================
 
-% Generate time points from 0 to max_time
-time(0..N) :- max_time(N).
+% Generate time points spanning this chapter's own event range.
+% NOTE: event ids/times come from a global, ever-increasing counter that is
+% never reset per chapter (StateManager.next_event_id), so bounding this to
+% 0..max_time would regenerate a time/1 domain (and everything joining on it,
+% e.g. before/2 below) that grows without bound as the story progresses even
+% though each chapter's own facts only span a handful of new event times.
+time(TMin..TMax) :- min_time(TMin), max_time(TMax).
+
+min_time(MinT) :- MinT = #min { T : event_time(_, T) }.
 
 % Default max_time if not provided (from event times)
 max_time(MaxT) :- MaxT = #max { T : event_time(_, T) }, MaxT >= 0.
@@ -980,6 +987,13 @@ time_order(E1, E2) :-
 % =============================================================================
 
 % Show violations in answer set (unsuppressed only)
+% NOTE: emotional.lp/temporal.lp's evidence-gated relationship/ordering/causal
+% rules produce violation/3 (category, type, single compound detail term),
+% which was previously never declared here -- Clingo silently drops any
+% predicate arity that isn't shown, so those rules were being solved but
+% discarded before ever reaching Python. Declaring both arities used by the
+% loaded rule set restores them without changing any rule's own logic.
+#show violation/3.
 #show violation/4.
 
 % Show suppressed violations separately (for analysis)
