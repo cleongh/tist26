@@ -65,6 +65,8 @@ def format_chapter_character_ids(characters: List[Dict[str, Any]]) -> str:
     # Extract and normalize IDs
     ids = []
     for char in characters:
+        if not isinstance(char, dict):
+            continue
         char_id = char.get("id", "")
         if char_id:
             # Normalize to snake_case
@@ -92,6 +94,8 @@ def format_chapter_item_ids(items: List[Dict[str, Any]]) -> str:
     """
     ids = []
     for item in items:
+        if not isinstance(item, dict):
+            continue
         item_id = item.get("id", "")
         if item_id:
             # Normalize to snake_case
@@ -119,6 +123,8 @@ def format_chapter_location_ids(locations: List[Dict[str, Any]]) -> str:
     """
     ids = []
     for loc in locations:
+        if not isinstance(loc, dict):
+            continue
         loc_id = loc.get("id", "")
         if loc_id:
             # Normalize to snake_case

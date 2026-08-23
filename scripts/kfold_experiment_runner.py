@@ -134,14 +134,15 @@ def load_ground_truth(errors_dir: Path) -> Dict[str, List[GroundTruthError]]:
 # Clingo Integration
 # =============================================================================
 
-def collect_rule_files(stories: List[str] = None) -> List[Path]:
+def collect_rule_files(stories: List[str] = None, rules_dir: Optional[Path] = None) -> List[Path]:
     """Collect all rule files to load into Clingo.
     
     Args:
         stories: Optional list of story names to load story-specific rules for.
                  If None, loads all story rules.
+        rules_dir: Optional override for the rules directory (default: repo's rules/).
     """
-    rules_dir = PROJECT_ROOT / "rules"
+    rules_dir = rules_dir if rules_dir is not None else PROJECT_ROOT / "rules"
     rule_files = []
     
     # Core rules
@@ -576,6 +577,90 @@ def run_kfold_experiment(
 
 
 # =============================================================================
+# Per-Category Strict Metrics
+# =============================================================================
+
+PER_CATEGORY_STRICT_CATEGORIES = ["coherence", "emotional", "location", "temporal", "causality"]
+
+
+def compute_per_category_strict(story_results: List[StoryResult]) -> Dict[str, Any]:
+    """Aggregate per-category precision/recall/f1 (strict category matching) across
+    a set of StoryResult objects (normally all 5 k=1 folds, i.e. every story tested
+    exactly once against the other four).
+
+    For each category: gt = ground truth errors of that category, tp = detected
+    violations of that category matched to an unused GT error of the same category
+    (same greedy strict-matching order used in run_experiment_for_stories),
+    violations = total detected violations of that category (matched or not).
+    precision = tp / violations, recall = tp / gt.
+    """
+    stats = {cat: {"gt": 0, "tp": 0, "violations": 0} for cat in PER_CATEGORY_STRICT_CATEGORIES}
+
+    for sr in story_results:
+        for ch in sr.chapters:
+            # ground_truth_errors dicts come from asdict() and lack the 'category'
+            # property, so re-derive it from error_type.
+            gt_cats = [
+                gt.get("category") or ERROR_TYPE_MAP.get(gt.get("error_type", ""), "other")
+                for gt in ch.ground_truth_errors
+            ]
+            matched_gt: Set[int] = set()
+
+            for v in ch.violations:
+                v_cat = v.get("category", "other")
+                if v_cat in stats:
+                    stats[v_cat]["violations"] += 1
+                for i, gt_cat in enumerate(gt_cats):
+                    if i not in matched_gt and gt_cat == v_cat:
+                        matched_gt.add(i)
+                        if v_cat in stats:
+                            stats[v_cat]["tp"] += 1
+                        break
+
+            for gt_cat in gt_cats:
+                if gt_cat in stats:
+                    stats[gt_cat]["gt"] += 1
+
+    result: Dict[str, Any] = {}
+    totals = {"gt": 0, "tp": 0, "fn": 0, "violations": 0}
+
+    for cat in PER_CATEGORY_STRICT_CATEGORIES:
+        s = stats[cat]
+        fn = s["gt"] - s["tp"]
+        precision = (s["tp"] / s["violations"] * 100) if s["violations"] > 0 else 0.0
+        recall = (s["tp"] / s["gt"] * 100) if s["gt"] > 0 else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+
+        result[cat] = {
+            "gt": s["gt"],
+            "tp": s["tp"],
+            "fn": fn,
+            "violations": s["violations"],
+            "recall": round(recall, 2),
+            "precision": round(precision, 2),
+            "f1": round(f1, 2),
+        }
+
+        totals["gt"] += s["gt"]
+        totals["tp"] += s["tp"]
+        totals["fn"] += fn
+        totals["violations"] += s["violations"]
+
+    precision = (totals["tp"] / totals["violations"] * 100) if totals["violations"] > 0 else 0.0
+    recall = (totals["tp"] / totals["gt"] * 100) if totals["gt"] > 0 else 0.0
+    f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+
+    result["total"] = {
+        **totals,
+        "recall": round(recall, 2),
+        "precision": round(precision, 2),
+        "f1": round(f1, 2),
+    }
+
+    return result
+
+
+# =============================================================================
 # JSON Serialization
 # =============================================================================
 
@@ -642,6 +727,14 @@ def main():
         help="Directory with ground truth CSVs (default: the active dataset's errors_checklist)"
     )
     parser.add_argument(
+        "--rules_dir",
+        type=str,
+        default=None,
+        help="Directory containing the ASP rule files (default: repo's rules/). "
+             "Use this to point at a specific rules snapshot, e.g. to reproduce "
+             "an older experiment's exact rule set."
+    )
+    parser.add_argument(
         "--k",
         type=int,
         nargs='+',
@@ -669,7 +762,11 @@ def main():
     errors_dir = Path(args.errors_dir) if args.errors_dir else ERRORS_CHECKLIST_DIR
     if not errors_dir.is_absolute():
         errors_dir = PROJECT_ROOT / errors_dir
-    
+
+    rules_dir = Path(args.rules_dir) if args.rules_dir else (PROJECT_ROOT / "rules")
+    if not rules_dir.is_absolute():
+        rules_dir = PROJECT_ROOT / rules_dir
+
     # Load data
     print("Loading extractions...")
     extractions_path = experiment_dir / "step2_extractions.jsonl"
@@ -686,7 +783,8 @@ def main():
         print(f"  {story}: {len(errors)} ground truth errors")
     
     print("Collecting rule files...")
-    rule_files = collect_rule_files(ALL_STORIES)
+    print(f"Rules directory: {rules_dir}")
+    rule_files = collect_rule_files(ALL_STORIES, rules_dir=rules_dir)
     print(f"Found {len(rule_files)} rule files")
     
     # Run experiments for each k
@@ -752,6 +850,20 @@ def main():
     print(f"\n{'='*60}")
     print(f"Aggregate results written to {aggregate_file}")
     print(f"{'='*60}")
+
+    # Per-category strict metrics require k=1 (one fold per story, covering
+    # the whole dataset exactly once).
+    if "k1" in all_results:
+        print("\nComputing per-category strict metrics (k=1)...")
+        per_category = compute_per_category_strict(
+            [sr for r in all_results["k1"] for sr in r.story_results]
+        )
+        per_category_file = output_dir / "per_category_strict.json"
+        with open(per_category_file, 'w', encoding='utf-8') as f:
+            json.dump(per_category, f, indent=2)
+        print(f"Written per-category strict metrics to {per_category_file}")
+    else:
+        print("\nSkipping per_category_strict.json (requires --k 1 to be included)")
 
 
 if __name__ == "__main__":

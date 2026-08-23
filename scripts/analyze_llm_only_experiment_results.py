@@ -526,7 +526,7 @@ def load_all_data(experiment_name: str) -> Dict[str, Any]:
 def main():
     """Main entry point for the script."""
     # Specify the experiment to analyze
-    experiment_name = '11_openai_full_only_llm'
+    experiment_name = '21082023_qwen_full_only_llm'
     
     print(f"Loading data for experiment: {experiment_name}")
     print("=" * 60)

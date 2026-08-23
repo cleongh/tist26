@@ -309,6 +309,9 @@ class RelationshipNormalizer:
         expanded_count = 0
         
         for rel in relationships:
+            if not isinstance(rel, dict):
+                log(f"    [RelationshipNormalizer] Skipping non-dict relationship entry: {rel!r}", "WARN")
+                continue
             from_id = rel.get("from", "")
             to_id = rel.get("to", "")
             
@@ -433,6 +436,9 @@ class RelationshipNormalizer:
         validated = []
         
         for rule in initial_rules:
+            if not isinstance(rule, dict):
+                log(f"    [RelationshipNormalizer] Skipping non-dict initial_rule entry: {rule!r}", "WARN")
+                continue
             subject = rule.get("subject", "")
             obj = rule.get("object", "")
             predicate = rule.get("predicate", "")

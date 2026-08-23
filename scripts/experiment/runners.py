@@ -548,13 +548,16 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
                      api_model: str = None, api_delay: float = 0.0,
                      use_split_extraction: bool = False,
                      llm_timeout: int = 300, 
-                     extraction_only: bool = False) -> StepResults:
+                     extraction_only: bool = False,
+                     variants: List[str] = None) -> StepResults:
     """
     Step 2 using the new engine modules (Phase 5).
     
     Args:
         use_split_extraction: If True, use Phase 2 four-function extraction pipeline
         llm_timeout: Timeout for LLM API calls in seconds (default: 300)
+        variants: Which variants to process ("original", "modified"). Defaults
+            to both if not specified.
     """
     from engine import (
         StateManager, 
@@ -609,7 +612,7 @@ def run_step2_engine(experiment_dir: Path, stories: List[str], llm_url: str,
         f.write("")
     
     for story_name in stories:
-        for variant in ["original", "modified"]:
+        for variant in (variants or ["original", "modified"]):
             if variant == "original":
                 story_dir = SOURCE_ORIGINAL_BOOKS / story_name
             else:

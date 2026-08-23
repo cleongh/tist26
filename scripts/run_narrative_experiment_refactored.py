@@ -79,6 +79,15 @@ def main():
         help="Stories to process (default: all)",
     )
     parser.add_argument(
+        "--variants",
+        type=str,
+        nargs="+",
+        choices=["original", "modified"],
+        default=None,
+        help="Which variants to process, e.g. '--variants modified' to skip "
+             "the original (unmodified) books (default: both)",
+    )
+    parser.add_argument(
         "--max-chapters",
         type=int,
         default=None,
@@ -210,7 +219,8 @@ def main():
             run_step2_engine(experiment_dir, stories, args.llm_url, max_chapters,
                              api_mode=args.api_mode, api_model=args.api_model, api_delay=args.api_delay,
                              use_split_extraction=getattr(args, 'split_extraction', False),
-                             llm_timeout=args.llm_timeout, extraction_only=args.extraction_only)
+                             llm_timeout=args.llm_timeout, extraction_only=args.extraction_only,
+                             variants=args.variants)
         else:
             # Original or Phase 4 mode
             run_step2_logic(experiment_dir, stories, args.llm_url, max_chapters,
