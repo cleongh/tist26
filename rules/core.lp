@@ -385,6 +385,32 @@ item_present(Item, Loc, T) :-
 % Alternative: item present directly (dropped/placed items)
 item_present(Item, Loc, T) :- holds(item_at(Item, Loc), T).
 
+% --- Item Explicit Presence (parallels character explicit_presence) ---
+% An item's location is explicit whenever it's the patient of an event with
+% a known scene location -- e.g. "she discovers the map [at the cabin]" or
+% "he takes the sword [from the armory]". This mirrors explicit_presence's
+% patient-derived clause in location.lp, but for items, and covers items
+% that are merely found/left/taken somewhere rather than actively carried
+% (item_present above only tracks items via their current carrier).
+item_explicit_presence(Item, Location, T, E) :-
+    event(E),
+    event_time(E, T),
+    patient(E, Item),
+    item(Item),
+    event_location(E, Location),
+    Location != unknown.
+
+% Feed into item_present so the existing item_ubiquity check (core.lp,
+% below) also catches contradictions for un-carried items, and into
+% explicit_state so the generic (entity-agnostic) temporal.lp mechanisms
+% (state_contradiction via contradictory_states(at(L1),at(L2)),
+% potential_time_travel) apply to items the same way they already do to
+% characters -- no changes needed in temporal.lp itself.
+item_present(Item, Loc, T) :- item_explicit_presence(Item, Loc, T, _).
+explicit_state(Item, at(Location), T, E) :-
+    item_explicit_presence(Item, Location, T, E),
+    item(Item).
+
 
 % =============================================================================
 % PART 5.5: LOCATION CONTAINMENT (Phase Two - Evidence-Based Presence)

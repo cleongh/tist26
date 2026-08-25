@@ -46,6 +46,8 @@
 rule(location_explicit_ubiquity, universal, "Entity cannot be explicitly at two disjoint locations simultaneously").
 rule(location_impossible_travel, universal, "Travel across disjoint containment trees requires explicit connection").
 rule(location_invalid_remote, universal, "Remote interaction requires remote action type").
+rule(location_item_impossible_relocation, universal, "An item cannot move between disjoint locations without being carried by a traveling character").
+rule(location_item_unreachable, universal, "An agent cannot physically interact with an item at a disjoint, uncarried location").
 
 
 % =============================================================================
@@ -182,6 +184,23 @@ explicit_presence_pair(Entity, L1, L2, T, E1, E2) :-
     L2 != unknown,
     E1 != E2.
 
+% --- Character's Previous Explicit Location (Before This Event) ---
+% explicit_presence(Entity, Location, T, E) ties Location to E's OWN time T,
+% so for a travel event using that same-T fact as "origin" is self-
+% referential -- it just reproduces the event's own destination, since the
+% only explicit_presence fact at that exact T comes from the event itself.
+% Origin needs the entity's most recent explicit presence STRICTLY BEFORE
+% this event's time instead.
+previous_presence_time(Entity, T, T_prev) :-
+    event(E),
+    event_time(E, T),
+    agent(E, Entity),
+    T_prev = #max { T2 : explicit_presence(Entity, _, T2, _), T2 < T }.
+
+previous_location(Entity, Location, T) :-
+    previous_presence_time(Entity, T, T_prev),
+    explicit_presence(Entity, Location, T_prev, _).
+
 
 % =============================================================================
 % PART C: CONNECTIVITY GRAPH (Updated for Containment)
@@ -200,6 +219,22 @@ connected(L1, L2) :-
     contains(Parent, L1),
     contains(Parent, L2),
     L1 != L2.
+
+% --- Mined Connectivity (data-driven, from original/unmodified text) ---
+% mined_connected(L1, L2) is a learned fact asserted by
+% mine_location_connectivity() (scripts/kfold_experiment_runner_conflict_resolver.py)
+% when a story's own ORIGINAL (unmodified) chapters show a character
+% repeatedly moving between two locations that were never given an
+% explicit connections/contains declaration -- LLM extractions routinely
+% omit an exhaustive location graph even when the narrative itself
+% demonstrates the path exists. Kept as a DISTINCT predicate from an
+% authored connection/contains fact (rather than asserting connected/2
+% directly from Python) so mined connectivity stays separately
+% attributable, per this file's own provenance/evidence-based design
+% principle above -- it is still folded into connected/2 here so every
+% existing rule that consults connectivity benefits without further changes.
+connected(L1, L2) :- mined_connected(L1, L2).
+connected(L2, L1) :- mined_connected(L1, L2).
 
 % Reachability (transitive closure)
 reachable(L1, L2) :- connected(L1, L2).
@@ -244,7 +279,7 @@ is_local_movement(E) :-
     is_travel_event(E),
     agent(E, C),
     event_time(E, T),
-    explicit_presence(C, Origin, T, _),
+    previous_location(C, Origin, T),
     event_location(E, Dest),
     same_containment_tree(Origin, Dest).
 
@@ -252,9 +287,16 @@ is_local_movement(E) :-
     is_travel_event(E),
     agent(E, C),
     event_time(E, T),
-    explicit_presence(C, Origin, T, _),
+    previous_location(C, Origin, T),
     event_destination(E, Dest),
     same_containment_tree(Origin, Dest).
+
+% No previously known location -- nothing to contradict, so travel is allowed
+is_local_movement(E) :-
+    is_travel_event(E),
+    agent(E, C),
+    event_time(E, T),
+    not previous_location(C, _, T).
 
 
 % =============================================================================
@@ -302,7 +344,7 @@ violation(location, impossible_travel,
     not is_local_movement(E),
     event_time(E, T),
     agent(E, Entity),
-    explicit_presence(Entity, Origin, T, _),
+    previous_location(Entity, Origin, T),
     event_location(E, Dest),
     Dest != unknown,
     Origin != unknown,
@@ -320,13 +362,80 @@ violation(location, impossible_travel,
     not is_local_movement(E),
     event_time(E, T),
     agent(E, Entity),
-    explicit_presence(Entity, Origin, T, _),
+    previous_location(Entity, Origin, T),
     event_destination(E, Dest),
     Dest != unknown,
     Origin != unknown,
     Origin != Dest,
     has_connectivity_info,
     not reachable(Origin, Dest).
+
+
+% --- ITEM IMPOSSIBLE RELOCATION ---
+% VIOLATION: An item's explicit location jumps between disjoint locations
+% without being carried there by a character (mirrors impossible_travel, but
+% for items -- items can't relocate themselves; either a character carries
+% them across a valid path, or the jump is unexplained).
+% Does NOT fire for:
+%   - Locations in the same containment tree (moving a sub-room within a house)
+%   - The item's very first known location (no prior location to contradict)
+%   - Missing connectivity info
+%   - An item actively being carried by a character at the time (the
+%     character's own travel is checked separately by impossible_travel)
+previous_item_presence_time(Item, T, T_prev) :-
+    event(E),
+    event_time(E, T),
+    patient(E, Item),
+    item(Item),
+    T_prev = #max { T2 : item_explicit_presence(Item, _, T2, _), T2 < T }.
+
+previous_item_location(Item, Location, T) :-
+    previous_item_presence_time(Item, T, T_prev),
+    item_explicit_presence(Item, Location, T_prev, _).
+
+violation(location, item_impossible_relocation,
+          violation_info(Item, moved_from, Origin, to, Dest, via_event, E, no_path)) :-
+    rule_active(location_item_impossible_relocation),
+    event(E),
+    event_time(E, T),
+    item_explicit_presence(Item, Dest, T, E),
+    previous_item_location(Item, Origin, T),
+    Origin != Dest,
+    Origin != unknown,
+    Dest != unknown,
+    has_connectivity_info,
+    disjoint_locations(Origin, Dest),
+    not carries(_, Item, T).
+
+
+% --- ITEM UNREACHABLE ---
+% VIOLATION: An agent physically interacts with an item (takes/uses/reads/
+% etc., per items.lp's is_item_activation_event) whose last known location
+% is disjoint from the agent's own current location, without already
+% carrying it. Mirrors invalid_remote (agent/patient copresence), but for
+% an item's last recorded place instead of a second character's presence.
+% Does NOT fire for:
+%   - The item's very first known location (nothing to contradict yet)
+%   - The agent's own location being unknown (nothing to compare against)
+%   - Missing connectivity info
+%   - The agent already carrying the item at that time
+violation(location, item_unreachable,
+          violation_info(Agent, at, AgentLoc, item, Item, last_at, ItemLoc, via_event, E)) :-
+    rule_active(location_item_unreachable),
+    event(E),
+    event_time(E, T),
+    event_type(E, Type),
+    is_item_activation_event(Type),
+    agent(E, Agent),
+    patient(E, Item),
+    item(Item),
+    character(Agent),
+    previous_location(Agent, AgentLoc, T),
+    previous_item_location(Item, ItemLoc, T),
+    AgentLoc != ItemLoc,
+    has_connectivity_info,
+    disjoint_locations(AgentLoc, ItemLoc),
+    not carries(Agent, Item, T).
 
 
 % =============================================================================

@@ -15,13 +15,13 @@
 
 % Abnormal color appearances that indicate potential errors
 abnormal_color_appearance(C) :- character_appearance(C, App), 
-    contains(App, "pale green").
+    appearance_contains(App, "pale green").
 abnormal_color_appearance(C) :- character_appearance(C, App),
-    contains(App, "grayish").
+    appearance_contains(App, "grayish").
 abnormal_color_appearance(C) :- character_appearance(C, App),
-    contains(App, "translucent").
+    appearance_contains(App, "translucent").
 abnormal_color_appearance(C) :- character_appearance(C, App),
-    contains(App, "gray white").
+    appearance_contains(App, "gray white").
 
 % Generate violation for abnormal color
 violation(coherence, abnormal_color, C, appearance, App) :-
@@ -113,13 +113,13 @@ has_unusual_state_signal :- character_state(_, petrified).
 % Signal: Pale/dark appearances (less specific)
 has_unusual_appearance_signal :- 
     character_appearance(_, App),
-    contains(App, "pale").
+    appearance_contains(App, "pale").
 has_unusual_appearance_signal :- 
     character_appearance(_, App),
-    contains(App, "dark").
+    appearance_contains(App, "dark").
 has_unusual_appearance_signal :- 
     character_appearance(_, App),
-    contains(App, "cold").
+    appearance_contains(App, "cold").
 
 % Signal: Hostile social actions (insult, good_riddance, etc)
 has_hostile_action_signal :- social_action(_, insult).
@@ -147,12 +147,22 @@ total_anomaly_signals(N) :- N = #count {
     7 : has_comfort_hostile_signal
 }.
 
-% Fire when multiple signals present
-% Threshold 3: Best balance of recall/precision
+% Fire when multiple signals present.
+% Threshold is density-adaptive (mined per-story from the ORIGINAL/unmodified
+% chapters' own event volume, see mine_signal_density_threshold in
+% kfold_experiment_runner_conflict_resolver.py), so denser extractions (e.g.
+% Kimi) require more concurrent signals than sparser ones (e.g. OpenAI)
+% before this fires. Falls back to 3 (the paper's fixed value) when nothing
+% overrides it, e.g. in the live LLM pipeline.
+default_multi_signal_threshold(3).
+multi_signal_threshold(T) :- default_multi_signal_threshold(T), not mined_multi_signal_threshold(_).
+multi_signal_threshold(T) :- mined_multi_signal_threshold(T).
+
 violation(coherence, multi_signal_anomaly, chapter, signals, N) :-
     modified_story,
     total_anomaly_signals(N),
-    N >= 3.
+    multi_signal_threshold(T),
+    N >= T.
 
 % =============================================================================
 % SECTION 3B: CATEGORY-SPECIFIC ANOMALY SIGNALS
@@ -198,13 +208,17 @@ location_anomaly_signals(N) :- N = #count {
     4 : has_travel_event_signal
 }.
 
-% Fire LOCATION violation when location signals + general anomaly
+% Fire LOCATION violation when location signals + general anomaly.
+% Gated on the same density-adaptive multi_signal_threshold(T) as
+% multi_signal_anomaly, so denser corpora need proportionally more overall
+% anomaly signal before this fires too.
 violation(location, spatial_anomaly, chapter, location_signals, N) :-
     modified_story,
     location_anomaly_signals(N),
     N >= 2,
     total_anomaly_signals(M),
-    M >= 2.
+    multi_signal_threshold(T),
+    M >= T.
 
 % --- TEMPORAL SIGNALS ---
 % Learn events (gaining knowledge) can indicate temporal issues
@@ -235,13 +249,15 @@ temporal_anomaly_signals(N) :- N = #count {
     3 : has_premature_knowledge_signal
 }.
 
-% Fire TEMPORAL violation when temporal signals + general anomaly
+% Fire TEMPORAL violation when temporal signals + general anomaly.
+% Same density-adaptive gate as spatial_anomaly above.
 violation(temporal, sequence_anomaly, chapter, temporal_signals, N) :-
     modified_story,
     temporal_anomaly_signals(N),
     N >= 2,
     total_anomaly_signals(M),
-    M >= 2.
+    multi_signal_threshold(T),
+    M >= T.
 
 % --- CAUSALITY SIGNALS ---
 % Unexplained state changes can indicate causality issues
@@ -259,13 +275,16 @@ causality_anomaly_signals(N) :- N = #count {
     2 : has_item_state_signal
 }.
 
-% Fire CAUSALITY violation when causality signals + general anomaly
+% Fire CAUSALITY violation when causality signals + general anomaly.
+% One step stricter than the density-adaptive threshold T (paper used a
+% fixed +1 margin over the other Section 3B gates: M>=3 vs M>=2).
 violation(causality, effect_anomaly, chapter, causality_signals, N) :-
     modified_story,
     causality_anomaly_signals(N),
     N >= 1,
     total_anomaly_signals(M),
-    M >= 3.
+    multi_signal_threshold(T),
+    M >= T + 1.
 
 % =============================================================================
 % SECTION 4: STRING MATCHING HELPERS
@@ -274,26 +293,28 @@ violation(causality, effect_anomaly, chapter, causality_signals, N) :-
 % Helper to check if a string contains a substring
 % This is approximated by checking if the appearance atom includes the keyword
 % Handle both quoted strings and unquoted atoms
-contains(App, "pale green") :- App = "pale green".
-contains(App, "pale green") :- App = "Pale green".
-contains(App, "pale green") :- App = pale_green.
-contains(App, "grayish") :- App = "grayish".
-contains(App, "grayish") :- App = "Grayish".
-contains(App, "grayish") :- App = grayish.
-contains(App, "translucent") :- App = "translucent".
-contains(App, "translucent") :- App = "Translucent".
-contains(App, "translucent") :- App = translucent.
-contains(App, "gray white") :- App = "gray white".
-contains(App, "gray white") :- App = gray_white.
-contains(App, "pale") :- App = pale.
-contains(App, "pale") :- App = "pale".
-contains(App, "pale") :- App = "Pale".
-contains(App, "dark") :- App = dark.
-contains(App, "dark") :- App = "dark".
-contains(App, "cold") :- App = cold.
-contains(App, "cold") :- App = "cold".
-contains(App, "cold stone") :- App = "cold stone".
-contains(App, "cold stone") :- App = cold_stone.
+% Named appearance_contains/2 (not contains/2) so it never unifies with the
+% unrelated location-containment contains/2 facts (Location, Sub-location).
+appearance_contains(App, "pale green") :- App = "pale green".
+appearance_contains(App, "pale green") :- App = "Pale green".
+appearance_contains(App, "pale green") :- App = pale_green.
+appearance_contains(App, "grayish") :- App = "grayish".
+appearance_contains(App, "grayish") :- App = "Grayish".
+appearance_contains(App, "grayish") :- App = grayish.
+appearance_contains(App, "translucent") :- App = "translucent".
+appearance_contains(App, "translucent") :- App = "Translucent".
+appearance_contains(App, "translucent") :- App = translucent.
+appearance_contains(App, "gray white") :- App = "gray white".
+appearance_contains(App, "gray white") :- App = gray_white.
+appearance_contains(App, "pale") :- App = pale.
+appearance_contains(App, "pale") :- App = "pale".
+appearance_contains(App, "pale") :- App = "Pale".
+appearance_contains(App, "dark") :- App = dark.
+appearance_contains(App, "dark") :- App = "dark".
+appearance_contains(App, "cold") :- App = cold.
+appearance_contains(App, "cold") :- App = "cold".
+appearance_contains(App, "cold stone") :- App = "cold stone".
+appearance_contains(App, "cold stone") :- App = cold_stone.
 
 % =============================================================================
 % OUTPUT

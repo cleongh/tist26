@@ -703,6 +703,15 @@ class EventExecutor:
         
         # Process events
         event_ids = []
+        # "after" (-> must_precede) refers to the event's original chapter-local
+        # id (e.g. "e4"), but eid below is the reassigned GLOBAL id -- without
+        # this map, must_precede would reference an id that never matches any
+        # event(E) fact, silently disabling ordering_violation entirely.
+        local_to_global_id = {
+            self._sanitize_id(event.get("id")): self._sanitize_id(event.get("global_id", event.get("id")))
+            for event in data.get("events", [])
+            if event.get("id")
+        }
         for i, event in enumerate(data.get("events", [])):
             eid = self._sanitize_id(event.get("global_id", event.get("id", f"e{chapter_num}_{i+1}")))
             event_ids.append(eid)
@@ -796,8 +805,9 @@ class EventExecutor:
                         lines.append(f"knowledge_source({eid}, {source_id}).")
             
             # Temporal ordering
-            after_event = self._sanitize_id(event.get("after", ""))
-            if after_event and after_event not in ("unknown", "null"):
+            after_local = self._sanitize_id(event.get("after", ""))
+            if after_local and after_local not in ("unknown", "null"):
+                after_event = local_to_global_id.get(after_local, after_local)
                 lines.append(f"must_precede({after_event}, {eid}).")
         
         # Generate implicit time ordering

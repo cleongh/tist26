@@ -132,6 +132,10 @@ class RuleRegistry:
             rule_files = [
                 self.rules_dir / "simple_narrative.lp",
                 self.rules_dir / "story_rules.lp",
+                # Restores the paper's Feb-2026 multi-signal recall rules
+                # (multi_signal_anomaly etc.), dropped from this default list
+                # at some point after that run -- see kfold-eval-baselines.md.
+                self.rules_dir / "enhanced_detection.lp",
             ]
             
             # Also load universal rules for relationship, temporal, location, etc. violations

@@ -648,11 +648,37 @@ violation(temporal, explicit_order_violated, EventB, pair(EventA, EventB)) :-
     event_global(EventB, TypeB, _),
     event_before(EventB, EventA).  % B happened before A, violating constraint
 
+% NOTE: was originally a purely global existence check (not event_of_type_
+% exists(TypeA)) -- since temporal_rule was LEARNED per-agent (every agent
+% who does TypeB also does TypeA first), checking existence for the WHOLE
+% story is far too blunt: if even one unrelated character ever performs
+% TypeA, this could never fire for anyone; conversely if TypeA is simply
+% absent from these particular modified chapters for reasons unrelated to
+% any real error (natural extraction variance), it fires for every single
+% TypeB instance regardless of agent. Scoping to the SAME agent performing
+% TypeB matches how the rule was learned and is a much sharper signal.
+agent_has_type_event(Agent, Type) :-
+    event_global(E, Type, _),
+    agent(E, Agent).
+
+% Absence of a single action type is weak evidence for a minor/one-off
+% character (who may simply never get much narrative attention at all) --
+% it's only meaningful for characters established enough to have a real
+% track record in this story. Gate on overall activity (any event types,
+% not just TypeA/TypeB) rather than any one specific verb, so this stays
+% generic and isn't tuned to any particular action vocabulary.
+agent_activity_count(Agent, N) :-
+    character(Agent),
+    N = #count { E : event_global(E, _, _), agent(E, Agent) }.
+
 violation(temporal, prerequisite_not_met, EventB, pair(TypeA, TypeB)) :-
     modified_story,
     temporal_rule(TypeA, must_precede, TypeB, _),
     event_global(EventB, TypeB, _),
-    not event_of_type_exists(TypeA).
+    agent(EventB, Agent),
+    agent_activity_count(Agent, N),
+    N >= 3,
+    not agent_has_type_event(Agent, TypeA).
 
 event_of_type_exists(Type) :- event_global(_, Type, _).
 

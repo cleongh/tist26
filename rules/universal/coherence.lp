@@ -33,6 +33,7 @@
 rule(coherence_impossible_self_action, universal, "Character cannot be both agent and patient of non-reflexive action").
 rule(coherence_contradictory_state, universal, "Character cannot be in contradictory states").
 rule(coherence_solo_communication, universal, "Communication requires a recipient").
+rule(coherence_appearance_emotion_mismatch, universal, "Appearance must be compatible with emotion, per patterns learned from this story's own text").
 
 % =============================================================================
 % SELF-REFERENTIAL IMPOSSIBILITIES
@@ -101,6 +102,15 @@ are_contradictory_states(awake, asleep).
 % are_contradictory_states(absent, present).  % DEPRECATED: use presence_contradiction
 are_contradictory_states(visible, invisible).
 are_contradictory_states(invisible, visible).
+% "dead" contradicts any other bio state actually emitted by extraction
+% (normal/injured/unconscious) -- a character shouldn't un-die without any
+% resurrection narrative device evident in the data.
+are_contradictory_states(dead, normal).
+are_contradictory_states(normal, dead).
+are_contradictory_states(dead, injured).
+are_contradictory_states(injured, dead).
+are_contradictory_states(dead, unconscious).
+are_contradictory_states(unconscious, dead).
 
 % VIOLATION: Character in contradictory states at same time
 % Uses time-indexed holds/2 from core.lp
@@ -119,6 +129,46 @@ violation(coherence, contradictory_state, C, pair(S1, S2)) :-
     character_state(C, S2),
     S1 != S2,
     are_contradictory_states(S1, S2).
+
+% --- Cross-chapter bio state contradiction ---
+% character_state/2 is a per-chapter snapshot (one value per character per
+% chapter), so the two clauses above can never actually observe two
+% DIFFERENT values for the same character in one solve -- they were dead
+% code. previous_character_state/2 (from StateManager, mirroring the
+% existing previous_emotion/2 mechanism) carries the last chapter's value
+% forward, making a genuine cross-chapter comparison possible.
+violation(coherence, contradictory_state, C, pair(Current, Previous)) :-
+    rule_active(coherence_contradictory_state),
+    character_state(C, Current),
+    previous_character_state(C, Previous),
+    Current != Previous,
+    are_contradictory_states(Current, Previous).
+
+% =============================================================================
+% APPEARANCE / EMOTION COMPATIBILITY (data-driven, no hardcoded mapping)
+% =============================================================================
+%
+% compatible_appearance_emotion/2 and has_appearance_emotion_data/1 are NOT
+% hand-written here -- they're learned per-story by the kfold runner from
+% that SAME story's own original/unmodified chapters (see
+% mine_appearance_emotion_compatibility in
+% scripts/kfold_experiment_runner_conflict_resolver.py) and injected via
+% StateManager.add_learned_fact. An appearance value only becomes "trusted"
+% (has_appearance_emotion_data/1) once it's been seen often enough in the
+% original text; a violation only fires when the CURRENT chapter pairs a
+% trusted appearance with an emotion that NEVER co-occurred with it in the
+% original text for this story.
+%
+% =============================================================================
+
+violation(coherence, appearance_emotion_mismatch, C, pair(Appearance, Emotion)) :-
+    rule_active(coherence_appearance_emotion_mismatch),
+    character_appearance(C, Appearance),
+    character_emotion(C, Emotion),
+    has_appearance_emotion_data(Appearance),
+    not compatible_appearance_emotion(Appearance, Emotion).
+
+
 
 % =============================================================================
 % COMMUNICATION VIOLATIONS

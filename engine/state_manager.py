@@ -236,6 +236,12 @@ class StateManager:
         self.persistent_relationships: Dict[Tuple[str, str], str] = {}  # (char1, char2) -> rel_type
         self.persistent_emotions: Dict[str, str] = {}  # char -> emotion
         self.persistent_traits: Dict[str, str] = {}  # char -> trait
+        self.persistent_character_states: Dict[str, str] = {}  # char -> bio state (normal/dead/injured/...)
+        # Arbitrary pre-computed ASP facts (e.g. story-wide learned patterns
+        # mined from original/unmodified text) that should be included in
+        # every chapter's fact set for this story. Not tied to any specific
+        # fact shape -- callers own the full "predicate(args)." string.
+        self.learned_facts: List[str] = []
         
         # Static facts for Clingo - derived from _entity_registry on demand
         # Memory optimization (Phase 8.1): No longer accumulates unboundedly
@@ -439,6 +445,11 @@ class StateManager:
             source_event
         )
     
+    def add_learned_fact(self, fact: str) -> None:
+        """Register a raw ASP fact string (e.g. "compatible_appearance_emotion(pale, afraid).")
+        to be included in every subsequent chapter's fact set for this story."""
+        self.learned_facts.append(fact)
+
     def add_story_rule(self, rule_type: str, subject: str, predicate: str,
                        obj: str = None, established_by: str = "e0") -> StoryRule:
         """Add a story-specific rule to the current state."""
@@ -613,6 +624,12 @@ class StateManager:
             if all_entities is not None and char not in all_entities:
                 continue
             facts.append(f"previous_emotion({char}, {emotion}).")
+
+        # Previous bio state - filter by active universe
+        for char, state in self.persistent_character_states.items():
+            if all_entities is not None and char not in all_entities:
+                continue
+            facts.append(f"previous_character_state({char}, {state}).")
         
         # Established traits - from EntityRegistry
         facts.extend(self._entity_registry.get_trait_facts(active_universe=active_universe))
@@ -625,7 +642,12 @@ class StateManager:
             facts.append(f"previous_relationship({char1}, {char2}, {rel_type}).")
             # Also generate initial_relationship for EC to derive relationship/4
             facts.append(f"initial_relationship({char1}, {char2}, {rel_type}).")
-        
+
+        # Story-wide pre-mined facts (e.g. appearance/emotion compatibility
+        # learned from this story's own original text) -- not entity-scoped,
+        # always included.
+        facts.extend(self.learned_facts)
+
         return facts
     
     def get_asp_facts_for_clingo(
@@ -716,6 +738,13 @@ class StateManager:
                     if emotion in ['nasty', 'kind', 'hostile', 'friendly', 'cruel', 'warm', 'cold']:
                         if char not in self.persistent_traits:
                             self.persistent_traits[char] = emotion
+
+            # Track current bio state (normal/dead/injured/unconscious/...)
+            if line.startswith('character_state('):
+                match = re.match(r'character_state\(([^,]+),\s*([^)]+)\)\.', line)
+                if match:
+                    char, state = match.group(1), match.group(2)
+                    self.persistent_character_states[char] = state
             
             # Track relationships
             if line.startswith('relationship('):
@@ -766,6 +795,8 @@ class StateManager:
         self.persistent_relationships = {}
         self.persistent_emotions = {}
         self.persistent_traits = {}
+        self.persistent_character_states = {}
+        self.learned_facts = []
         # Note: accumulated_facts is now a computed property, no need to reset
         self.next_event_id = 1
         self.event_log = []
@@ -827,6 +858,7 @@ class StateManager:
             "persistent_dead": list(self.persistent_dead),
             "persistent_emotions": self.persistent_emotions,
             "persistent_traits": self.persistent_traits,
+            "persistent_character_states": self.persistent_character_states,
             "persistent_relationships": {
                 f"{k[0]},{k[1]}": v 
                 for k, v in self.persistent_relationships.items()
@@ -864,6 +896,7 @@ class StateManager:
         self.persistent_dead = set(data.get("persistent_dead", []))
         self.persistent_emotions = data.get("persistent_emotions", {})
         self.persistent_traits = data.get("persistent_traits", {})
+        self.persistent_character_states = data.get("persistent_character_states", {})
         
         self.persistent_relationships = {}
         for key, val in data.get("persistent_relationships", {}).items():

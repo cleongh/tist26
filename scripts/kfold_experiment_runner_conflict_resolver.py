@@ -36,8 +36,10 @@ Output:
 """
 
 import argparse
+import copy
 import csv
 import json
+import math
 import re
 import sys
 from collections import defaultdict
@@ -45,7 +47,7 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from itertools import combinations
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Set
+from typing import Dict, List, Any, Optional, Set, Tuple
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -209,11 +211,627 @@ def build_engine(rules_dir: Path):
             event_executor, final_analyzer, learning_adapter)
 
 
+def _adaptive_threshold(count: int, fraction: float, floor: int, cap: int) -> int:
+    """Scale a mining confidence threshold to the size of the story's own
+    data instead of using one fixed constant for every corpus. A dense
+    extraction (e.g. Kimi, ~70 events/chapter) needs a higher absolute count
+    to avoid learning coincidental patterns; a sparse one (e.g. OpenAI, ~10
+    events/chapter) would never clear a fixed high threshold at all. `floor`
+    guarantees we never trust a single-digit sample; `cap` guarantees we
+    never become MORE lenient than the previously-validated fixed defaults
+    for very large corpora.
+    """
+    return max(floor, min(cap, round(count * fraction)))
+
+
+# =============================================================================
+# Similarity-based false-positive reduction (post-engine, pre-scoring)
+# =============================================================================
+#
+# Applied to the engine's own violations AFTER evaluate_story_with_engine and
+# BEFORE run_kfold_experiment. Operates purely on each violation's own
+# structure (category/type/args) -- never given ground truth, never given
+# story identity, never references errors_checklist/ or any per-book
+# vocabulary. See /memories/session/plan.md for the full design rationale.
+
+_EVENT_ID_TOKEN_RE = re.compile(r'^e\d+$')
+
+
+def _violation_signature(v: Dict[str, Any]) -> Tuple[Any, ...]:
+    """Structural, content-agnostic identity for a violation: (category,
+    type) plus every remaining positional atom argument, tokenized and
+    stripped of VOLATILE tokens only -- pure integers (timesteps/signal
+    counts) and event ids like "e412" (globally unique per
+    assign_global_event_ids, so they would make every occurrence of an
+    otherwise-identical finding look artificially distinct).
+
+    Two violations sharing a signature are the same finding restated (same
+    rule, same entities/relationship/pair involved), independent of which
+    event id or timestep it happened to attach to -- this is what lets a
+    recurring "harry talking to self"-style finding be recognized as such
+    regardless of its violation type.
+    """
+    category = v.get("category", "unknown")
+    vtype = v.get("type", "unknown")
+    args = v.get("args") or []
+    # args[0]/args[1] are category/type (already in the base tuple);
+    # tokenize everything from args[2:] on (event id, detail, and any extra
+    # positional args some rules emit, e.g. multi_signal_anomaly's trailing
+    # signal count -- the count itself is dropped here as volatile, but
+    # recovered separately by the Stage C2 intensity-ranking pass below).
+    raw = "|".join(str(a) for a in args[2:])
+    if not raw:
+        # Violations lacking "args" (e.g. system/clingo_error entries never
+        # routed through StructuredViolation) fall back to entities.
+        raw = "|".join(str(e) for e in v.get("entities") or [])
+    tokens = re.split(r'[^a-zA-Z0-9_]+', raw.lower())
+    kept = tuple(
+        t for t in tokens
+        if t and not t.isdigit() and not _EVENT_ID_TOKEN_RE.match(t)
+    )
+    return (category, vtype) + kept
+
+
+def reduce_false_positives(
+    chapter_violations: Dict[int, List[Dict[str, Any]]],
+) -> Dict[int, List[Dict[str, Any]]]:
+    """Similarity-based FP reduction for one story's violations. Receives
+    ONLY this story's own chapter->violations mapping -- no ground truth,
+    no story name -- so it structurally cannot be tuned to
+    errors_checklist/.
+
+    Stage A (within-chapter near-duplicate collapse): keep at most one
+    violation per (chapter, signature). Distinct signatures in the same
+    chapter/category all survive -- this is similarity-based, NOT a
+    "1 violation per chapter/category" cap (errors_checklist is not assumed
+    to be exhaustive, so a chapter may legitimately hold several distinct
+    real errors of the same category).
+
+    Stage C1 (cross-chapter repetition filter): a signature recurring
+    across many of this story's chapters is evidence of a systemic rule
+    artifact (fires the same way regardless of injected errors), not an
+    injected one-off error. df_cut scales with the story's own chapter
+    count via the existing _adaptive_threshold() convention.
+
+    Stage C2 (intensity ranking): for a signature that exceeds df_cut, NEVER
+    drop it outright (a hard drop risks zeroing an entire violation family,
+    e.g. every mined temporal precedence pair shares one signature story-
+    wide) -- instead keep a top slice, ranked by whatever signal is
+    available: (a) a numeric trailing payload some rules emit (e.g.
+    rules/enhanced_detection.lp's multi_signal_anomaly signal count), which
+    is otherwise indistinguishable across chapters via structure alone,
+    else (b) the chapter's own violation diversity (how many OTHER distinct
+    signatures also fired in that chapter) -- a chapter independently
+    tripping several different findings is more likely to hold a genuine
+    injected error than one only tripping the single recurring pattern.
+    Both signals are intrinsic to the violations themselves, never GT.
+    """
+    # --- Stage A: within-chapter near-duplicate collapse ---
+    deduped: Dict[int, List[Dict[str, Any]]] = {}
+    for chapter, violations in chapter_violations.items():
+        seen: Set[Tuple[Any, ...]] = set()
+        kept = []
+        for v in violations:
+            sig = _violation_signature(v)
+            if sig in seen:
+                continue
+            seen.add(sig)
+            kept.append(v)
+        deduped[chapter] = kept
+
+    # Chapter diversity: how many distinct signatures fired in this chapter
+    # (deduped already holds at most one violation per signature/chapter).
+    chapter_diversity: Dict[int, int] = {ch: len(vs) for ch, vs in deduped.items()}
+
+    # Index post-Stage-A violations by signature (each chapter contributes
+    # at most one violation per signature at this point).
+    sig_occurrences: Dict[Tuple[Any, ...], List[Tuple[int, Dict[str, Any]]]] = defaultdict(list)
+    for chapter, violations in deduped.items():
+        for v in violations:
+            sig_occurrences[_violation_signature(v)].append((chapter, v))
+
+    # --- Stage C1 cutoff + Stage C2 ranked retention ---
+    # df_cut combines two self-calibrating candidate cutoffs and takes
+    # whichever is LOOSER (larger), so neither alone has to be perfectly
+    # tuned: (a) a chapter-count-scaled floor (>=60% of this story's own
+    # chapter count), which alone fully preserved recall on a sparse corpus
+    # (OpenAI) but was too aggressive on a dense one (Kimi, -12pp recall);
+    # (b) a statistical-outlier cutoff (mean + 2*stdev) over this story's
+    # OWN signature-repetition distribution, which adapts to how many
+    # distinct signatures exist but alone was too aggressive on the sparse
+    # corpus. Both are derived solely from this story's own violations, no
+    # ground truth, no cross-dataset constants.
+    n_chapters = max(1, len(chapter_violations))
+    fraction_cut = _adaptive_threshold(n_chapters, fraction=0.9, floor=20, cap=90)
+
+    df_values = [len(occ) for occ in sig_occurrences.values()]
+    if len(df_values) >= 2:
+        mean_df = sum(df_values) / len(df_values)
+        variance = sum((x - mean_df) ** 2 for x in df_values) / len(df_values)
+        stdev_df = variance ** 0.5
+        stat_cut = math.ceil(mean_df + 2 * stdev_df)
+    else:
+        stat_cut = 2
+
+    df_cut = max(2, fraction_cut, stat_cut)
+
+    def _numeric_payload(v: Dict[str, Any]) -> Optional[int]:
+        args = v.get("args") or []
+        last = args[-1] if args else None
+        if last is not None and re.fullmatch(r'-?\d+', str(last)):
+            return int(last)
+        return None
+
+    keep_ids: Set[int] = set()
+    for sig, occurrences in sig_occurrences.items():
+        if len(occurrences) <= df_cut:
+            keep_ids.update(id(v) for _, v in occurrences)
+            continue
+
+        slice_size = _adaptive_threshold(
+            len(occurrences), fraction=0.15, floor=1, cap=len(occurrences)
+        )
+        ranked = sorted(
+            occurrences,
+            key=lambda item: (
+                _numeric_payload(item[1]) or 0,
+                chapter_diversity.get(item[0], 0),
+            ),
+            reverse=True,
+        )
+        keep_ids.update(id(v) for _, v in ranked[:slice_size])
+
+    return {
+        chapter: [v for v in violations if id(v) in keep_ids]
+        for chapter, violations in deduped.items()
+    }
+
+
+def _mine_precedence_rules_by_key(
+    original_extractions: List[Dict[str, Any]],
+    key_field: str,
+    min_occurrences: Optional[int] = None,
+    min_groups: Optional[int] = None,
+    occurrence_fraction: float = 0.003,
+    occurrence_floor: int = 3,
+    occurrence_cap: int = 8,
+    group_fraction: float = 0.05,
+    group_floor: int = 2,
+    group_cap: int = 2,
+) -> List[tuple]:
+    """Shared implementation: mine (TypeA, TypeB) precedence pairs by
+    grouping events on `key_field` (e.g. "agent" or "patient") -- TypeA is a
+    learned prerequisite of TypeB if, for every group (e.g. every agent, or
+    every item/patient) that has a TypeB occurrence, that same group also
+    has an earlier TypeA occurrence. See mine_temporal_precedence_rules and
+    mine_temporal_precedence_rules_by_patient for the two call sites.
+
+    If min_occurrences/min_groups are not given, they're computed adaptively
+    from this story's own event/group counts (see _adaptive_threshold) so
+    sparse extractions aren't starved by a threshold tuned for dense ones.
+    The occurrence_*/group_* knobs let callers with noisier `key_field`
+    evidence (e.g. backfilled locations) demand more confirmation before
+    trusting a pattern; mine_temporal_precedence_rules_by_location tightens
+    them for exactly this reason.
+    """
+    from collections import defaultdict
+
+    sorted_extractions = sorted(original_extractions, key=lambda e: e.get("chapter", -1))
+    group_type_times: Dict[str, List[tuple]] = defaultdict(list)
+    seq = 0
+    for extraction in sorted_extractions:
+        for event in extraction.get("extraction", {}).get("events", []):
+            seq += 1
+            key = event.get(key_field)
+            etype = event.get("type")
+            if not key or not etype:
+                continue
+            group_type_times[key].append((seq, etype))
+
+    if min_occurrences is None:
+        min_occurrences = _adaptive_threshold(
+            seq, fraction=occurrence_fraction, floor=occurrence_floor, cap=occurrence_cap
+        )
+    if min_groups is None:
+        min_groups = _adaptive_threshold(
+            len(group_type_times), fraction=group_fraction, floor=group_floor, cap=group_cap
+        )
+
+    all_types = {etype for times in group_type_times.values() for _, etype in times}
+    type_total_occurrences: Dict[str, int] = defaultdict(int)
+    for times in group_type_times.values():
+        for _, etype in times:
+            type_total_occurrences[etype] += 1
+
+    candidates = []
+    for type_b in all_types:
+        if type_total_occurrences[type_b] < min_occurrences:
+            continue
+        for type_a in all_types:
+            if type_a == type_b:
+                continue
+            holds = False
+            consistent = True
+            confirming_groups = 0
+            for times in group_type_times.values():
+                b_times = [t for t, et in times if et == type_b]
+                if not b_times:
+                    continue
+                a_times = [t for t, et in times if et == type_a]
+                earliest_b = min(b_times)
+                if not a_times or not any(ta < earliest_b for ta in a_times):
+                    consistent = False
+                    break
+                holds = True
+                confirming_groups += 1
+            if holds and consistent and confirming_groups >= min_groups:
+                candidates.append((type_a, type_b))
+    return candidates
+
+
+def mine_temporal_precedence_rules(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+    min_agents: Optional[int] = None,
+) -> List[tuple]:
+    """Mine (TypeA, TypeB) action-type precedence pairs from a story's own
+    ORIGINAL (unmodified) chapters -- purely data-driven, never references
+    error content or ground truth.
+
+    TypeA is treated as a learned prerequisite of TypeB if, for EVERY agent
+    who performs TypeB anywhere in the original text, that same agent has
+    an earlier occurrence of TypeA. Requires at least `min_occurrences`
+    total occurrences of TypeB AND at least `min_agents` distinct agents
+    confirming the pattern, so a coincidental ordering from a single
+    character's small number of actions doesn't get promoted to a
+    story-wide rule (a real narrative regularity should hold across
+    multiple characters, not just one).
+
+    These populate temporal_rule/4 (via StateManager.add_story_rule) for
+    story_rules.lp's existing explicit_order_violated/prerequisite_not_met
+    checks, which were previously dead code (temporal_rule was never
+    populated by anything in production).
+    """
+    return _mine_precedence_rules_by_key(
+        original_extractions, "agent", min_occurrences, min_agents
+    )
+
+
+def mine_temporal_precedence_rules_by_patient(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+    min_patients: Optional[int] = None,
+) -> List[tuple]:
+    """Same mining logic as mine_temporal_precedence_rules, but grouped by
+    PATIENT (the item/entity an event acts upon) instead of by agent.
+
+    Many real prerequisite relationships are about the same OBJECT, not the
+    same character -- e.g. an item must be "received"/"found" by SOMEONE
+    before it can be "worn"/"used" by (possibly a different) SOMEONE. Groups
+    events by their shared patient and requires the same before-evidence
+    across every patient/item that has a TypeB occurrence.
+    """
+    return _mine_precedence_rules_by_key(
+        original_extractions, "patient", min_occurrences, min_patients
+    )
+
+
+def _backfill_event_locations(
+    extractions: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    """Forward-fill each null event location with the last known non-null
+    location earlier in the story's chronological event stream, so
+    location-based mining isn't starved by backends (e.g. OpenAI) that leave
+    location null on narration-derived events like "learn". Returns a deep
+    copy; never mutates the caller's extractions."""
+    sorted_extractions = sorted(extractions, key=lambda e: e.get("chapter", -1))
+    result = copy.deepcopy(sorted_extractions)
+    last_location = None
+    for extraction in result:
+        for event in extraction.get("extraction", {}).get("events", []):
+            if event.get("location"):
+                last_location = event["location"]
+            elif last_location is not None:
+                event["location"] = last_location
+    return result
+
+
+def mine_temporal_precedence_rules_by_location(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+    min_locations: Optional[int] = None,
+) -> List[tuple]:
+    """Same mining logic as mine_temporal_precedence_rules, but grouped by
+    LOCATION instead of by agent or patient.
+
+    Some prerequisite relationships are about the same PLACE -- e.g.
+    "arrive at the cave" must precede "leave an item at the cave", regardless
+    of which character does either. Groups events by their shared location
+    and requires the same before-evidence across every location that has a
+    TypeB occurrence.
+
+    Locations are backfilled from the last known non-null value (see
+    _backfill_event_locations), so they're noisier evidence than the
+    directly-extracted agent/patient fields; thresholds here are stricter
+    than the defaults to avoid promoting coincidental place-based orderings.
+    """
+    return _mine_precedence_rules_by_key(
+        original_extractions, "location", min_occurrences, min_locations,
+        occurrence_fraction=0.005, occurrence_floor=5, occurrence_cap=12,
+        group_fraction=0.08, group_floor=3, group_cap=4,
+    )
+
+
+def _sanitize_asp_id(value: Any) -> str:
+    """Sanitize a raw string into an ASP atom identifier. Mirrors
+    EventExecutor._sanitize_id exactly so mined facts use the same atom
+    spelling as the character_appearance/character_emotion facts emitted by
+    the engine (e.g. "pale green" -> "pale_green")."""
+    if not value:
+        return "unknown"
+    s = str(value).lower()
+    s = re.sub(r'[^a-z0-9_]', '_', s)
+    s = re.sub(r'_+', '_', s).strip('_')
+    if s and s[0].isdigit():
+        s = 'n' + s
+    return s or "unknown"
+
+
+def mine_appearance_emotion_compatibility(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+) -> tuple:
+    """Learn which (appearance, emotion) combinations are compatible, purely
+    from a story's own ORIGINAL (unmodified) chapters -- no hand-written
+    mapping, no reference to error content.
+
+    A character's "appearance" (e.g. "pale", "trembling", "smiling") and
+    "emotion" (e.g. "afraid", "happy") are both per-chapter snapshot fields.
+    For each non-default appearance value seen often enough in the original
+    text (>= min_occurrences), we record every emotion that has EVER been
+    observed alongside it -- that's the set of "compatible" emotions for
+    that appearance in THIS story. An appearance/emotion combination that
+    never appears in the original text, for an appearance value with enough
+    track record to be trusted, is a candidate coherence mismatch when it
+    shows up in the modified text.
+
+    If min_occurrences is not given, it's computed adaptively (see
+    _adaptive_threshold) from this story's own character-chapter entry
+    count, so sparse extractions aren't starved by a threshold tuned for
+    dense ones.
+
+    Returns (trusted_appearances: Set[str], compatible_pairs: Set[Tuple[str, str]]).
+    """
+    from collections import defaultdict
+
+    appearance_total: Dict[str, int] = defaultdict(int)
+    compatible_pairs = set()
+    total_entries = 0
+    for extraction in original_extractions:
+        for char in extraction.get("extraction", {}).get("entities", {}).get("characters", []):
+            appearance = char.get("appearance")
+            emotion = char.get("emotion")
+            if not appearance or not emotion:
+                continue
+            total_entries += 1
+            appearance = _sanitize_asp_id(appearance)
+            emotion = _sanitize_asp_id(emotion)
+            if appearance in ("normal", "unknown", "none"):
+                continue
+            appearance_total[appearance] += 1
+            compatible_pairs.add((appearance, emotion))
+
+    if min_occurrences is None:
+        min_occurrences = _adaptive_threshold(total_entries, fraction=0.005, floor=3, cap=5)
+
+    trusted_appearances = {a for a, n in appearance_total.items() if n >= min_occurrences}
+    return trusted_appearances, compatible_pairs
+
+
+def mine_relationship_action_compatibility(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+) -> tuple:
+    """Learn which (relationship_type, action_type) combinations are
+    compatible, purely from a story's own ORIGINAL (unmodified) chapters --
+    no hand-written verb lists, no reference to error content.
+
+    Step 1: build a Python-side approximation of "which relationship type
+    holds between each ordered character pair", from the same raw fields the
+    engine itself turns into initial_relationship/3 facts -- entities.relationships
+    (from/to/type) and initial_rules (subject/predicate/object) -- pooled
+    across ALL original chapters. This is a coarser approximation than the
+    engine's own evidence-gated explicit_relationship/4 (it ignores mid-story
+    relationship changes), which is acceptable here because it is only used
+    to build a permissive "have these two ever had this relationship" lookup
+    for MINING, not to decide violations directly.
+
+    Step 2: for every event in the original chapters whose agent and patient
+    are both characters with a known relationship type, record the event's
+    `type` and `social_action_type` (when present) as "compatible" with that
+    relationship type -- these are literal, observed actions between
+    characters who really do have that relationship in this story.
+
+    For each relationship type seen often enough (>= min_occurrences, see
+    _adaptive_threshold), that's the set of "compatible" actions for it in
+    THIS story. An action against a character with an established
+    relationship, where that action never once accompanied that relationship
+    type in the original text, is a candidate coherence mismatch when it
+    shows up in the modified text.
+
+    Returns (trusted_relationship_types: Set[str], compatible_pairs: Set[Tuple[str, str]]).
+    """
+    from collections import defaultdict
+
+    # Step 1: pool relationship type(s) per ordered character pair across the
+    # whole story (coarse -- doesn't model mid-story relationship changes).
+    pair_relationship_types: Dict[Tuple[str, str], Set[str]] = defaultdict(set)
+    for extraction in original_extractions:
+        data = extraction.get("extraction", {})
+        for rel in data.get("entities", {}).get("relationships", []):
+            c1 = _sanitize_asp_id(rel.get("from", ""))
+            c2 = _sanitize_asp_id(rel.get("to", ""))
+            rtype = _sanitize_asp_id(rel.get("type", ""))
+            if c1 != "unknown" and c2 != "unknown" and rtype not in ("unknown", "neutral"):
+                pair_relationship_types[(c1, c2)].add(rtype)
+        for rule in data.get("initial_rules", []):
+            c1 = _sanitize_asp_id(rule.get("subject", ""))
+            c2 = _sanitize_asp_id(rule.get("object", ""))
+            rtype = _sanitize_asp_id(rule.get("predicate", ""))
+            if c1 != "unknown" and c2 != "unknown" and rtype not in ("unknown", ""):
+                pair_relationship_types[(c1, c2)].add(rtype)
+
+    # Step 2: for every event between a pair with a known relationship,
+    # record its action type(s) as observed-compatible with that relationship.
+    reltype_action_count: Dict[str, int] = defaultdict(int)
+    compatible_pairs: Set[Tuple[str, str]] = set()
+    for extraction in original_extractions:
+        for event in extraction.get("extraction", {}).get("events", []):
+            agent = _sanitize_asp_id(event.get("agent", ""))
+            patient = _sanitize_asp_id(event.get("patient", ""))
+            if agent == "unknown" or patient == "unknown":
+                continue
+            rtypes = pair_relationship_types.get((agent, patient)) or pair_relationship_types.get((patient, agent))
+            if not rtypes:
+                continue
+            actions = []
+            etype = event.get("type")
+            if etype:
+                actions.append(_sanitize_asp_id(etype))
+            social_action = event.get("social_action_type")
+            if social_action:
+                actions.append(_sanitize_asp_id(social_action))
+            for rtype in rtypes:
+                for action in actions:
+                    reltype_action_count[rtype] += 1
+                    compatible_pairs.add((rtype, action))
+
+    if min_occurrences is None:
+        min_occurrences = _adaptive_threshold(
+            sum(reltype_action_count.values()), fraction=0.01, floor=3, cap=8
+        )
+
+    trusted_relationship_types = {r for r, n in reltype_action_count.items() if n >= min_occurrences}
+    return trusted_relationship_types, compatible_pairs
+
+
+def mine_signal_density_threshold(
+    original_extractions: List[Dict[str, Any]],
+    breakpoints: Tuple[Tuple[float, int], ...] = ((30.0, 4), (42.0, 5)),
+    dense_threshold: int = 6,
+) -> int:
+    """Mine a per-story `multi_signal_anomaly` firing threshold from the
+    story's own ORIGINAL (unmodified) chapters' average event density
+    (events per chapter) -- purely data-driven, no reference to error
+    content or story identity.
+
+    rules/enhanced_detection.lp's multi_signal_anomaly rule fires whenever a
+    chapter accumulates >= T independent anomaly signals (default T=3, the
+    paper's fixed value, reproduced here for any corpus below the first
+    breakpoint). A fixed threshold of 3 is well-calibrated for sparse
+    extractions (validated against the paper's own OpenAI run at ~12
+    events/chapter) but under-selective for denser ones: a corpus like Kimi
+    (~46 events/chapter) accumulates 3+ signals in almost every chapter just
+    from volume, drowning precision. This only ever RAISES the threshold
+    for denser corpora, never lowers it below the paper's validated default.
+
+    Breakpoints were calibrated against this benchmark's measured average
+    events/chapter across all 4 datasets (OpenAI ~12, Qwen ~23, Claude ~37,
+    Kimi ~46), not against any per-story identity or ground truth.
+    """
+    total_events = sum(
+        len(e.get("extraction", {}).get("events", [])) for e in original_extractions
+    )
+    n_chapters = max(1, len(original_extractions))
+    avg_events_per_chapter = total_events / n_chapters
+
+    for cutoff, threshold in breakpoints:
+        if avg_events_per_chapter < cutoff:
+            return threshold
+    return dense_threshold
+
+
+def mine_location_connectivity(
+    original_extractions: List[Dict[str, Any]],
+    min_occurrences: Optional[int] = None,
+    min_avg_events_per_chapter: float = 18.0,
+) -> Set[Tuple[str, str]]:
+    """Mine (Location1, Location2) connectivity pairs purely from a story's
+    own ORIGINAL (unmodified) chapters' movement patterns -- no hand-written
+    location graph, no reference to error content.
+
+    rules/universal/location.lp's disjoint_locations/2 treats any two
+    locations WITHOUT an explicit connections/contains declaration as
+    disjoint by default (a closed-world assumption). LLM extractions
+    routinely omit an exhaustive location connectivity graph even when the
+    narrative itself repeatedly shows characters moving between two
+    locations -- left uncorroborated, this makes impossible_travel/
+    item_unreachable/item_impossible_relocation fire on ordinary movement
+    the extraction simply never declared a connection for.
+
+    For each story, using ONLY its own original/unmodified chapters, track
+    each character's most recent location across their own events and
+    count how many times a (LocationA, LocationB) transition is observed
+    (unordered, since a route walked once is usually walked back
+    eventually). Pairs observed >= min_occurrences times are inferred as
+    connected -- mirrors the >=2 pair-interaction corroboration convention
+    already applied to emotional.lp's relationship-action mismatch rules.
+
+    If min_occurrences is not given, computed adaptively (see
+    _adaptive_threshold) from this story's own transition-observation count.
+
+    Skipped entirely (returns an empty set) for stories below
+    min_avg_events_per_chapter: below ~12 events/chapter (validated against
+    OpenAI, the sparsest of the 4 benchmark corpora), even a repeatedly-
+    observed transition is too thin a sample -- a handful of coincidental
+    same-direction moves gets promoted to "connected" without enough
+    independent narrative evidence, and this was measured to cost real
+    recall on that corpus at every min_occurrences threshold tested (2/3/4),
+    while the denser corpora (Kimi/Claude/Qwen, >=23 events/chapter)
+    benefited cleanly at every threshold. Mirrors
+    mine_signal_density_threshold's density-based calibration.
+    """
+    total_events = sum(
+        len(e.get("extraction", {}).get("events", [])) for e in original_extractions
+    )
+    n_chapters = max(1, len(original_extractions))
+    if total_events / n_chapters < min_avg_events_per_chapter:
+        return set()
+
+    pair_counts: Dict[Tuple[str, str], int] = defaultdict(int)
+    sorted_extractions = sorted(original_extractions, key=lambda e: e.get("chapter", -1))
+    last_location_by_entity: Dict[str, str] = {}
+
+    for extraction in sorted_extractions:
+        for event in extraction.get("extraction", {}).get("events", []):
+            agent = event.get("agent")
+            if not agent:
+                continue
+            agent = _sanitize_asp_id(agent)
+            new_location = event.get("destination") or event.get("location")
+            if not new_location:
+                continue
+            new_location = _sanitize_asp_id(new_location)
+            prev_location = last_location_by_entity.get(agent)
+            if prev_location and prev_location != new_location:
+                pair = tuple(sorted((prev_location, new_location)))
+                pair_counts[pair] += 1
+            last_location_by_entity[agent] = new_location
+
+    if min_occurrences is None:
+        min_occurrences = _adaptive_threshold(
+            sum(pair_counts.values()), fraction=0.02, floor=3, cap=6
+        )
+
+    return {pair for pair, count in pair_counts.items() if count >= min_occurrences}
+
+
 def evaluate_story_with_engine(
     story: str,
     story_extractions: List[Dict[str, Any]],
     rules_dir: Path,
     enable_learning: bool = False,
+    original_extractions: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[int, List[Dict[str, Any]]]:
     """Replay one story's chapters through the real engine pipeline
     (AliasResolver -> ItemTracker -> EventExecutor -> FinalAnalyzer), the same
@@ -226,6 +844,69 @@ def evaluate_story_with_engine(
     """
     (state_manager, rule_registry, alias_resolver, item_tracker,
      event_executor, final_analyzer, learning_adapter) = build_engine(rules_dir)
+
+    # Learn story-wide temporal precedence rules from the ORIGINAL (unmodified)
+    # chapters, if provided -- populates temporal_rule/4 for story_rules.lp's
+    # explicit_order_violated/prerequisite_not_met checks, purely data-driven.
+    if original_extractions:
+        original_extractions = _backfill_event_locations(original_extractions)
+        learned_pairs = set(mine_temporal_precedence_rules(original_extractions))
+        learned_pairs |= set(mine_temporal_precedence_rules_by_patient(original_extractions))
+        learned_pairs |= set(mine_temporal_precedence_rules_by_location(original_extractions))
+        dbg(f"Story {story}: learned {len(learned_pairs)} temporal precedence "
+            f"pair(s) from {len(original_extractions)} original chapter(s)", 1)
+        for type_a, type_b in learned_pairs:
+            state_manager.add_story_rule("temporal", type_a, "must_precede", type_b, "e0")
+
+        # Learn appearance/emotion compatibility from the same original text,
+        # for coherence.lp's appearance_emotion_mismatch check.
+        trusted_appearances, compatible_pairs = mine_appearance_emotion_compatibility(
+            original_extractions
+        )
+        dbg(f"Story {story}: learned {len(trusted_appearances)} trusted "
+            f"appearance value(s), {len(compatible_pairs)} compatible pair(s)", 1)
+        for appearance in trusted_appearances:
+            state_manager.add_learned_fact(f"has_appearance_emotion_data({appearance}).")
+        for appearance, emotion in compatible_pairs:
+            state_manager.add_learned_fact(
+                f"compatible_appearance_emotion({appearance}, {emotion})."
+            )
+
+        # Learn relationship/action compatibility from the same original
+        # text, for emotional.lp's learned_relationship_action_mismatch check.
+        trusted_reltypes, rel_action_pairs = mine_relationship_action_compatibility(
+            original_extractions
+        )
+        dbg(f"Story {story}: learned {len(trusted_reltypes)} trusted "
+            f"relationship type(s), {len(rel_action_pairs)} compatible "
+            f"relationship/action pair(s)", 1)
+        for rtype in trusted_reltypes:
+            state_manager.add_learned_fact(f"has_relationship_action_data({rtype}).")
+        for rtype, action in rel_action_pairs:
+            state_manager.add_learned_fact(
+                f"compatible_relationship_action({rtype}, {action})."
+            )
+
+        # Density-adaptive override for enhanced_detection.lp's
+        # multi_signal_anomaly threshold (see mine_signal_density_threshold).
+        signal_threshold = mine_signal_density_threshold(original_extractions)
+        dbg(f"Story {story}: mined multi_signal_anomaly threshold = "
+            f"{signal_threshold}", 1)
+        state_manager.add_learned_fact(
+            f"mined_multi_signal_threshold({signal_threshold})."
+        )
+
+        # Learn location connectivity from the same original text, for
+        # location.lp's disjoint_locations closed-world default (see
+        # mine_location_connectivity). Asserted as mined_connected/2 (NOT
+        # connected/2 directly) so location.lp keeps mined connectivity
+        # distinct from authored connection/contains facts -- see the
+        # "Mined Connectivity" section in rules/universal/location.lp.
+        connected_pairs = mine_location_connectivity(original_extractions)
+        dbg(f"Story {story}: mined {len(connected_pairs)} connected location "
+            f"pair(s) from {len(original_extractions)} original chapter(s)", 1)
+        for loc_a, loc_b in connected_pairs:
+            state_manager.add_learned_fact(f"mined_connected({loc_a}, {loc_b}).")
 
     # Chronological order: the engine's cross-chapter state (StateManager,
     # AliasResolver, ItemTracker) accumulates chapter by chapter.
@@ -710,6 +1391,17 @@ def main():
              "(default off -- ILASP may be slow or unavailable)."
     )
     parser.add_argument(
+        "--fp-reduce",
+        dest="fp_reduce",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Apply similarity-based false-positive reduction (Stage A dedup + "
+             "Stage C1 repetition filter + Stage C2 intensity ranking, see "
+             "reduce_false_positives()) to each story's violations before "
+             "scoring. Default on; pass --no-fp-reduce to score raw engine "
+             "output for comparison."
+    )
+    parser.add_argument(
         "--verbose", "-v",
         action="store_true",
         help="Print verbose output"
@@ -774,14 +1466,30 @@ def main():
             e for e in extractions
             if e.get("story") == story and e.get("variant") == "modified"
         ]
+        story_extractions_original = [
+            e for e in extractions
+            if e.get("story") == story and e.get("variant") == "original"
+        ]
         print(f"  Evaluating {story}: {len(story_extractions)} modified chapters...")
         story_violations_cache[story] = evaluate_story_with_engine(
-            story, story_extractions, rules_dir, enable_learning=args.enable_learning
+            story, story_extractions, rules_dir, enable_learning=args.enable_learning,
+            original_extractions=story_extractions_original,
         )
         total_violations = sum(len(v) for v in story_violations_cache[story].values())
         print(f"    -> {total_violations} violation(s) across "
               f"{len(story_violations_cache[story])} chapter(s)")
-    
+
+    if args.fp_reduce:
+        print("\nApplying similarity-based FP reduction (Stage A dedup + "
+              "Stage C1 repetition filter + Stage C2 intensity ranking)...")
+        for story in ALL_STORIES:
+            before = sum(len(v) for v in story_violations_cache[story].values())
+            story_violations_cache[story] = reduce_false_positives(story_violations_cache[story])
+            after = sum(len(v) for v in story_violations_cache[story].values())
+            print(f"  {story}: {before} -> {after} violation(s)")
+    else:
+        print("\nSkipping FP reduction (--no-fp-reduce)")
+
     # Run experiments for each k
     all_results = {}
     

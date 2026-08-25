@@ -50,6 +50,7 @@ rule(emotional_relationship_action_mismatch, universal, "Actions must be consist
 rule(emotional_relationship_betrayal, universal, "Reporting a friend or family member to authorities is betrayal").
 rule(emotional_trait_action_mismatch, universal, "Actions must be consistent with character traits").
 rule(emotional_unexplained_relationship_change, universal, "Relationships require events to change").
+rule(emotional_learned_relationship_action_mismatch, universal, "Actions must be consistent with story-mined relationship-action compatibility patterns").
 
 % =============================================================================
 % RELATIONSHIP TYPES
@@ -294,6 +295,24 @@ action_contradicts_positive(recoil).
 %
 % =============================================================================
 
+% --- Pair Interaction Corroboration ---
+% A single-chapter relationship tag (initial_relationship/relationship_rule)
+% is a weak, easily-noisy signal on its own -- "not first_interaction" only
+% requires ONE prior interaction/relationship fact. Require the pair to have
+% interacted (in either direction) more than once before trusting a
+% mismatch, so a one-off mislabeled relationship can't cascade into a
+% mismatch violation against every later action for that pair.
+pair_interaction_event(C1, C2, E) :- event(E), agent(E, C1), patient(E, C2).
+pair_interaction_event(C1, C2, E) :- event(E), agent(E, C2), patient(E, C1).
+
+pair_total_events(C1, C2, N) :-
+    character(C1), character(C2), C1 != C2,
+    N = #count { E : pair_interaction_event(C1, C2, E) }.
+
+has_corroborated_relationship(C1, C2) :-
+    pair_total_events(C1, C2, N),
+    N >= 2.
+
 % --- VIOLATION: Friendly Action Toward Explicit Enemy ---
 % Uses explicit_relationship, NOT assumed relationship
 % NOTE: Uses earliest_relationship_establishment to avoid duplicate violations
@@ -311,6 +330,7 @@ violation(emotional, relationship_action_mismatch,
     patient(E, Patient),
     earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_negative_relationship(RelType),
+    has_corroborated_relationship(Agent, Patient),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
@@ -334,6 +354,7 @@ violation(emotional, relationship_action_mismatch,
     earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
     RelType != family,                           % Exclude family relationships from attack violations
+    has_corroborated_relationship(Agent, Patient),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
@@ -367,6 +388,7 @@ violation(emotional, relationship_action_mismatch,
     patient(E, Patient),
     earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_negative_relationship(RelType),
+    has_corroborated_relationship(Agent, Patient),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
 
@@ -427,8 +449,52 @@ violation(emotional, relationship_action_mismatch,
     patient(E, Patient),
     earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
     is_positive_relationship(RelType),
+    has_corroborated_relationship(Agent, Patient),
     not first_interaction(Agent, Patient, E),
     not story_exception(relationship_action_mismatch, E).
+
+% --- VIOLATION: Action Contradicts Story-Mined Relationship/Action Pattern ---
+% Purely data-driven, no hand-written verb lists: compatible_relationship_action/2
+% and has_relationship_action_data/1 are learned facts asserted by
+% mine_relationship_action_compatibility() (scripts/kfold_experiment_runner_conflict_resolver.py)
+% from this story's own ORIGINAL (unmodified) chapters -- never from error content.
+% Fires only for relationship types with enough original-text track record
+% (has_relationship_action_data), and only when the observed action (event
+% type OR social action) was NEVER once seen accompanying that relationship
+% type in the original text.
+violation(emotional, learned_relationship_action_mismatch,
+          violation_info(E, agent, Agent, acted, Type, toward, Patient,
+                        despite, RelType, established_at, T_establish)) :-
+    modified_story,
+    rule_active(emotional_learned_relationship_action_mismatch),
+    event(E),
+    event_time(E, T_event),
+    event_type(E, Type),
+    agent(E, Agent),
+    patient(E, Patient),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
+    has_relationship_action_data(RelType),
+    not compatible_relationship_action(RelType, Type),
+    has_corroborated_relationship(Agent, Patient),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(learned_relationship_action_mismatch, E).
+
+violation(emotional, learned_relationship_action_mismatch,
+          violation_info(E, agent, Agent, social_action, Action, toward, Patient,
+                        despite, RelType, established_at, T_establish)) :-
+    modified_story,
+    rule_active(emotional_learned_relationship_action_mismatch),
+    event(E),
+    event_time(E, T_event),
+    social_action(E, Action),
+    agent(E, Agent),
+    patient(E, Patient),
+    earliest_relationship_establishment(Agent, Patient, RelType, T_event, T_establish),
+    has_relationship_action_data(RelType),
+    not compatible_relationship_action(RelType, Action),
+    has_corroborated_relationship(Agent, Patient),
+    not first_interaction(Agent, Patient, E),
+    not story_exception(learned_relationship_action_mismatch, E).
 
 % --- VIOLATION: Friend Reporting to Hostile Authority ---
 % A friend reporting you to someone who is hostile towards you is a clear betrayal
