@@ -1347,6 +1347,60 @@ def suppress_violation_types(
 
 
 # =============================================================================
+# Tier 1 zero-recall-cost types (per-rule overfiring analysis)
+# =============================================================================
+#
+# Found by testing EVERY distinct (category, type) present on the OpenAI k=1
+# dataset: suppressing each of these types, individually AND combined, never
+# removes a single TP (verified via per_category_strict.json TP counts before
+# and after) while cutting a meaningful number of FPs. See
+# /memories/session/plan.md's "Comprehensive per-rule-type overfiring
+# analysis" section for the full methodology and per-type root-cause notes.
+# Combined result on OpenAI k=1 (isolated baseline, fp-reduce + primary-
+# alerts + chapter-cap 4): TP unchanged at 32, FP 451->423, P 6.63%->7.03%,
+# R unchanged at 42.67%. NOTE: unlike WEAK_EVIDENCE_TYPES (a per-chapter cap
+# of 1), these are suppressed ENTIRELY -- they contributed 0 TPs on this
+# dataset, not just excess duplicates. This is dataset-specific evidence
+# (OpenAI extraction only, not re-validated on denser extractions like Kimi
+# -- see the cross-dataset validation attempt in session memory, which
+# stalled and was abandoned) -- opt-in via --suppress-tier1-zero-cost rather
+# than a silent default, for the same overfitting caution as --suppress-types.
+TIER1_ZERO_RECALL_COST_TYPES = {
+    ("location", "impossible_travel"),
+    ("coherence", "contradictory_state"),
+    ("coherence", "abnormal_color"),
+    ("emotional", "relationship_action_mismatch"),
+    ("location", "item_ubiquity"),
+    ("coherence", "impossible_self_action"),
+    ("possession", "give_without_having"),
+    ("temporal", "missing_prerequisite"),
+}
+
+
+# =============================================================================
+# Tier 2 low-recall-cost types (per-rule overfiring analysis, phase 2)
+# =============================================================================
+#
+# Unlike Tier 1 (0 TPs lost), these types DO carry some real recall on the
+# OpenAI k=1 dataset -- suppressing them trades a small, known number of TPs
+# for a disproportionately larger number of FPs. Only "friendly_hostile_action"
+# is included: it had the best FP:TP ratio of the low-cost candidates (1 TP
+# lost for 13 FPs removed, measured on top of the isolated + fp-reduce +
+# primary-alerts + chapter-cap-4 baseline WITHOUT Tier 1 suppression yet
+# applied -- see /memories/session/plan.md for the full ranked table).
+# "solo_communication" and "effect_anomaly" were measured too but rejected:
+# stacking them past friendly_hostile_action made F1 worse and eventually
+# dropped recall below the 39% floor. "hostile_warm_action" (same rule
+# family as friendly_hostile_action) was rejected outright: it has a much
+# worse ratio (2 TP lost for only 6 FP removed).
+# Same caution as Tier 1: opt-in only, OpenAI-only evidence, not
+# cross-validated on a denser-extraction dataset.
+TIER2_LOW_RECALL_COST_TYPES = {
+    ("emotional", "friendly_hostile_action"),
+}
+
+
+# =============================================================================
 # Main
 # =============================================================================
 
@@ -1460,6 +1514,28 @@ def main():
              "before adding a type here. Default: none suppressed."
     )
     parser.add_argument(
+        "--suppress-tier1-zero-cost",
+        dest="suppress_tier1_zero_cost",
+        action="store_true",
+        default=False,
+        help="Suppress TIER1_ZERO_RECALL_COST_TYPES entirely (8 curated types "
+             "that contributed 0 TPs on the OpenAI k=1 dataset, verified both "
+             "individually and combined -- see the type definition above). "
+             "Combines with --suppress-types if both are given. Default off."
+    )
+    parser.add_argument(
+        "--suppress-tier2-low-cost",
+        dest="suppress_tier2_low_cost",
+        action="store_true",
+        default=False,
+        help="Suppress TIER2_LOW_RECALL_COST_TYPES entirely (currently just "
+             "emotional:friendly_hostile_action -- 1 TP lost for 13 FPs "
+             "removed on the OpenAI k=1 dataset, the best ratio among the "
+             "low-cost candidates -- see the type definition above). Combines "
+             "with --suppress-types/--suppress-tier1-zero-cost if given. "
+             "Default off."
+    )
+    parser.add_argument(
         "--verbose", "-v",
         action="store_true",
         help="Print verbose output"
@@ -1545,11 +1621,15 @@ def main():
     else:
         print("\nSkipping FP reduction (--no-fp-reduce)")
 
-    if args.suppress_types:
+    if args.suppress_types or args.suppress_tier1_zero_cost or args.suppress_tier2_low_cost:
         suppress_keys = set()
         for entry in args.suppress_types:
             category, _, vtype = entry.partition(":")
             suppress_keys.add((category, vtype))
+        if args.suppress_tier1_zero_cost:
+            suppress_keys |= TIER1_ZERO_RECALL_COST_TYPES
+        if args.suppress_tier2_low_cost:
+            suppress_keys |= TIER2_LOW_RECALL_COST_TYPES
         print(f"\nSuppressing violation type(s) {sorted(suppress_keys)} entirely...")
         for story in ALL_STORIES:
             before = sum(len(v) for v in story_violations_cache[story].values())
