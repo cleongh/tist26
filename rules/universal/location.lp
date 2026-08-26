@@ -247,6 +247,19 @@ reachable(L1, L3) :-
 has_connectivity_info :- connected(_, _).
 has_connectivity_info :- contains(_, _).
 
+% A location is "in the graph" if it has AT LEAST ONE declared/mined
+% connection or containment edge of its own. has_connectivity_info alone is
+% a GLOBAL flag (true story-wide the moment ANY two locations anywhere are
+% connected), so gating impossible-travel-style rules on it alone treats
+% every OTHER location pair as closed-world-disjoint even when we have zero
+% actual graph data about THOSE specific locations. Requiring both
+% endpoints to be in_location_graph narrows "no path" claims to places we
+% actually have partial connectivity evidence for.
+in_location_graph(L) :- connected(L, _).
+in_location_graph(L) :- connected(_, L).
+in_location_graph(L) :- contains(L, _).
+in_location_graph(L) :- contains(_, L).
+
 
 % =============================================================================
 % PART D: TRAVEL EVENT CLASSIFICATION
@@ -350,6 +363,8 @@ violation(location, impossible_travel,
     Origin != unknown,
     Origin != Dest,
     has_connectivity_info,
+    in_location_graph(Origin),
+    in_location_graph(Dest),
     not reachable(Origin, Dest).
 
 % Alternative: using event_destination
@@ -368,6 +383,8 @@ violation(location, impossible_travel,
     Origin != unknown,
     Origin != Dest,
     has_connectivity_info,
+    in_location_graph(Origin),
+    in_location_graph(Dest),
     not reachable(Origin, Dest).
 
 
@@ -404,6 +421,8 @@ violation(location, item_impossible_relocation,
     Origin != unknown,
     Dest != unknown,
     has_connectivity_info,
+    in_location_graph(Origin),
+    in_location_graph(Dest),
     disjoint_locations(Origin, Dest),
     not carries(_, Item, T).
 
@@ -434,6 +453,8 @@ violation(location, item_unreachable,
     previous_item_location(Item, ItemLoc, T),
     AgentLoc != ItemLoc,
     has_connectivity_info,
+    in_location_graph(AgentLoc),
+    in_location_graph(ItemLoc),
     disjoint_locations(AgentLoc, ItemLoc),
     not carries(Agent, Item, T).
 

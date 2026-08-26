@@ -23,14 +23,37 @@ Phase 4: Item Filtering & Classification Logic
 """
 
 from dataclasses import dataclass, field
+from functools import lru_cache
+from pathlib import Path
 from typing import Dict, List, Set, Optional, Any, Tuple, TYPE_CHECKING
 from enum import Enum
+import json
 import logging
 
 if TYPE_CHECKING:
     from .active_universe import ActiveUniverseResult
 
 logger = logging.getLogger(__name__)
+
+_ONTOLOGY_PATH = Path(__file__).parent.parent / "rules" / "world_knowledge" / "ontology.json"
+
+
+@lru_cache(maxsize=1)
+def _generic_scenery_noun_ids() -> frozenset:
+    """Sanitized container_types/support_surface_types from the curated
+    world-knowledge ontology (rules/world_knowledge/ontology.json) -- these
+    are plain scene-furniture nouns (table, box, chair, door), reused here
+    (not newly hardcoded) to exclude them from Chekhov's Gun candidacy: a
+    "table" that's "introduced but never used again" is almost always
+    ordinary scenery, not a planted narrative device."""
+    try:
+        with open(_ONTOLOGY_PATH, encoding="utf-8") as f:
+            ontology = json.load(f)
+    except OSError:
+        return frozenset()
+    containment = ontology.get("containment", {})
+    nouns = set(containment.get("container_types", [])) | set(containment.get("support_surface_types", []))
+    return frozenset(ItemTracker._normalize_id(n) for n in nouns)
 
 
 class ItemLifecycleState(Enum):
@@ -516,6 +539,9 @@ class ItemTracker:
                anonymous reference) -- a real Chekhov's Gun setup is a
                distinct, identifiable thing the reader is meant to
                remember, not an unnamed background detail.
+            5. Are not plain scenery nouns (table, box, chair, door, ...)
+               per the curated world-knowledge ontology -- see
+               _generic_scenery_noun_ids().
         
         NOTE: We do NOT additionally require event_references to be
         non-empty here. Any item with a non-empty event_references list is
@@ -528,10 +554,12 @@ class ItemTracker:
         
         This excludes items that appeared in events (and thus were promoted).
         """
+        generic_nouns = _generic_scenery_noun_ids()
         return [
             item for item in self._items.values()
             if item.remained_latent() and item.is_active()
             and item.name
+            and self._normalize_id(item.name) not in generic_nouns
         ]
     
     def get_promoted_latent_items(self) -> List[TrackedItem]:

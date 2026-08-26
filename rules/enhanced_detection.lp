@@ -22,6 +22,8 @@ abnormal_color_appearance(C) :- character_appearance(C, App),
     appearance_contains(App, "translucent").
 abnormal_color_appearance(C) :- character_appearance(C, App),
     appearance_contains(App, "gray white").
+abnormal_color_appearance(C) :- character_appearance(C, App),
+    appearance_contains(App, "metallic").
 
 % Generate violation for abnormal color
 violation(coherence, abnormal_color, C, appearance, App) :-
@@ -51,6 +53,9 @@ warm_action(comfort).
 warm_action(hug).
 warm_action(kiss).
 warm_action(gift).
+warm_action(respect).
+warm_action(encourage).
+warm_action(warm).
 
 % Hostile actions
 hostile_action(insult).
@@ -60,14 +65,40 @@ hostile_action(mock).
 hostile_action(criticize).
 hostile_action(report).
 hostile_action(betray).
+hostile_action(refuse).
+hostile_action(reject).
+hostile_action(disgust).
+hostile_action(recoil).
+hostile_action(dismissal).
+hostile_action(abandon).
 
-% Hostile character performing warm action = contradiction
+% Hostile character performing warm action = contradiction (checked against
+% both social_action/2 -- an explicit interaction label -- and event_emotion/2
+% -- the tone/affect attached to the event itself -- since either field can
+% carry the same warm/hostile vocabulary depending on how the extraction
+% tagged a given event).
+%
+% NOTE: a has_corroborated_relationship/not first_interaction gate (matching
+% relationship_action_mismatch's gating in rules/universal/emotional.lp) was
+% tried here and measured on the OpenAI k=1 dataset: it dropped recall
+% 42.67%->40.00% and precision 6.05%->5.88% (lost 2 emotional-category TPs
+% while removing fewer FPs), so it was reverted. Do not reintroduce that gate
+% without re-measuring against ground truth first.
 violation(emotional, hostile_warm_action, E, Agent, contradiction(Agent, Type, Patient)) :-
     modified_story,
     event(E),
     agent(E, Agent),
     patient(E, Patient),
     social_action(E, Type),
+    warm_action(Type),
+    hostile_pair(Agent, Patient).
+
+violation(emotional, hostile_warm_action, E, Agent, contradiction(Agent, Type, Patient)) :-
+    modified_story,
+    event(E),
+    agent(E, Agent),
+    patient(E, Patient),
+    event_emotion(E, Type),
     warm_action(Type),
     hostile_pair(Agent, Patient).
 
@@ -81,9 +112,20 @@ violation(emotional, friendly_hostile_action, E, Agent, contradiction(Agent, Typ
     hostile_action(Type),
     friendly_pair(Agent, Patient).
 
+violation(emotional, friendly_hostile_action, E, Agent, contradiction(Agent, Type, Patient)) :-
+    modified_story,
+    event(E),
+    agent(E, Agent),
+    patient(E, Patient),
+    event_emotion(E, Type),
+    hostile_action(Type),
+    friendly_pair(Agent, Patient).
+
 % =============================================================================
 % SECTION 3: MULTI-SIGNAL ANOMALY DETECTION
 % =============================================================================
+
+
 
 % Signal: Multiple negative emotions in chapter
 has_high_neg_emotion_signal :- 

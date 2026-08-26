@@ -120,6 +120,11 @@ class Provenance:
     Provenance tracking for conclusions (Phase 5, Step 5.1).
     
     Tracks how a conclusion was reached for full auditability.
+
+    triggering_facts/derived_facts/provenance_roots/inference_depth are
+    only populated when collect_provenance=True was passed through the
+    evaluation call chain (opt-in, offline FP-analysis only -- see
+    ProvenanceIndex). Relevance-based support, not a minimal ASP proof.
     """
     rule_id: str                        # ID of the rule that produced this conclusion
     rule_layer: str                     # "universal", "learned", or "story"
@@ -127,10 +132,14 @@ class Provenance:
     event_id: Optional[str] = None      # Event that triggered this (if applicable)
     derived_from: List[str] = field(default_factory=list)  # IDs of facts used to derive this
     timestamp: str = ""                 # When this was concluded
+    triggering_facts: List[str] = field(default_factory=list)  # EDB (input) support
+    derived_facts: List[str] = field(default_factory=list)     # IDB (rule-derived) support
+    provenance_roots: List[str] = field(default_factory=list)  # deepest EDB support
+    inference_depth: int = 0                                   # BFS closure depth reached
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to JSON-serializable dict."""
-        return {
+        result = {
             "rule_id": self.rule_id,
             "rule_layer": self.rule_layer,
             "chapter": self.chapter,
@@ -138,6 +147,12 @@ class Provenance:
             "derived_from": self.derived_from,
             "timestamp": self.timestamp,
         }
+        if self.triggering_facts or self.derived_facts or self.provenance_roots:
+            result["triggering_facts"] = self.triggering_facts
+            result["derived_facts"] = self.derived_facts
+            result["provenance_roots"] = self.provenance_roots
+            result["inference_depth"] = self.inference_depth
+        return result
 
 
 @dataclass
@@ -230,6 +245,122 @@ class ChapterEvaluationResult:
     def to_json(self, indent: int = 2) -> str:
         """Convert to JSON string."""
         return json.dumps(self.to_dict(), indent=indent)
+
+
+# =============================================================================
+# PROVENANCE COLLECTION (opt-in, offline FP-analysis only -- see
+# /memories/session/plan.md "Offline FP Analysis"). Never runs unless a
+# caller explicitly passes collect_provenance=True; the default evaluation
+# path (collect_provenance=False) is completely unaffected.
+#
+# clingo's Model.symbols(shown=True) is limited to whatever each rule
+# file's own #show directives expose (mostly just violation/4), so most
+# intermediate predicates are invisible there. Model.symbols(atoms=True)
+# bypasses #show entirely and returns every atom actually in the stable
+# model, which is what full provenance needs -- no rule-file edits or
+# #show overlay required.
+#
+# Attribution is RELEVANCE-BASED (constant-sharing closure from the
+# violation's own event/detail arguments), not a minimal ASP
+# justification/proof tree -- documented as such wherever it's surfaced.
+# =============================================================================
+
+def _atom_text(name: str, args: List[str]) -> str:
+    """Render a clingo atom the same way it would appear as an ASP fact."""
+    return f"{name}({','.join(args)})." if args else f"{name}."
+
+
+def _safe_symbol_str(symbol) -> str:
+    """str(clingo.Symbol) can raise UnicodeDecodeError for String symbols
+    carrying non-UTF-8 bytes (observed on event_source(...) facts whose
+    source text contains mis-encoded smart quotes/em-dashes from some
+    extractions). Never let that crash provenance collection -- fall back
+    to a placeholder for just that one argument."""
+    try:
+        return str(symbol)
+    except UnicodeDecodeError:
+        return "<unrepresentable>"
+
+
+def _extract_edb_fact_texts(program_text: str) -> set:
+    """Collect the exact text of every standalone fact line (no ":-", no
+    "#") in the input program -- these are the EDB (input) facts. Anything
+    in the model that is NOT in this set was derived by a rule (IDB)."""
+    edb = set()
+    for line in program_text.split("\n"):
+        line = line.strip()
+        if not line or line.startswith("%") or line.startswith("#"):
+            continue
+        if ":-" in line:
+            continue
+        if line.endswith("."):
+            edb.add(line)
+    return edb
+
+
+class ProvenanceIndex:
+    """Per-chapter index built once (when collect_provenance=True) and
+    reused for every violation found in that chapter's model."""
+
+    def __init__(self, model_atoms, program_text: str):
+        self.edb_texts = _extract_edb_fact_texts(program_text)
+        self.atom_text: List[str] = []
+        self.atom_is_edb: List[bool] = []
+        self.atom_args: List[List[str]] = []
+        self.constant_to_atoms: Dict[str, List[int]] = {}
+        for atom in model_atoms:
+            args = [_safe_symbol_str(a) for a in atom.arguments]
+            text = _atom_text(atom.name, args)
+            idx = len(self.atom_text)
+            self.atom_text.append(text)
+            self.atom_is_edb.append(text in self.edb_texts)
+            self.atom_args.append(args)
+            for const in args:
+                self.constant_to_atoms.setdefault(const, []).append(idx)
+
+    def provenance_for(
+        self, seed_constants: List[str], max_depth: int = 1
+    ) -> Tuple[List[str], List[str], List[str], int]:
+        """BFS closure over shared constants starting from a violation's
+        own arguments. Returns (triggering_facts, derived_facts,
+        provenance_roots, inference_depth).
+
+        max_depth defaults to 1 (direct hop only): recursing further
+        blows up on generic constants shared by huge unrelated fact
+        families (e.g. a location name appearing in the full
+        same_containment_tree/2 enumeration), pulling in hundreds of
+        irrelevant facts with no bearing on the violation."""
+        visited_constants = set(seed_constants)
+        frontier = set(seed_constants)
+        seen_atoms: set = set()
+        depth_of_atom: Dict[int, int] = {}
+        depth = 0
+        while frontier and depth < max_depth:
+            depth += 1
+            next_frontier: set = set()
+            for const in frontier:
+                for idx in self.constant_to_atoms.get(const, []):
+                    if idx in seen_atoms:
+                        continue
+                    seen_atoms.add(idx)
+                    depth_of_atom[idx] = depth
+                    for const2 in self.atom_args[idx]:
+                        if const2 not in visited_constants:
+                            next_frontier.add(const2)
+            visited_constants |= next_frontier
+            frontier = next_frontier
+
+        if not seen_atoms:
+            return [], [], [], 0
+
+        max_depth_reached = max(depth_of_atom.values())
+        triggering_facts = [self.atom_text[i] for i in seen_atoms if self.atom_is_edb[i]]
+        derived_facts = [self.atom_text[i] for i in seen_atoms if not self.atom_is_edb[i]]
+        provenance_roots = [
+            self.atom_text[i] for i in seen_atoms
+            if self.atom_is_edb[i] and depth_of_atom[i] == max_depth_reached
+        ]
+        return triggering_facts, derived_facts, provenance_roots, max_depth_reached
 
 
 # =============================================================================
@@ -1123,7 +1254,8 @@ class EventExecutor:
     
     def check_with_clingo(
         self, facts: str, chapter_num: int,
-        active_universe: Optional['ActiveUniverseResult'] = None
+        active_universe: Optional['ActiveUniverseResult'] = None,
+        collect_provenance: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Use Clingo to find violations in batch mode.
@@ -1140,6 +1272,11 @@ class EventExecutor:
             facts: ASP facts string (from to_asp())
             chapter_num: Current chapter number
             active_universe: Optional filter - only include facts for entities in this universe
+            collect_provenance: opt-in, offline FP-analysis only (see
+                ProvenanceIndex above). Default False -- normal evaluation
+                is completely unaffected. When True, each returned violation
+                dict gains "triggering_facts"/"derived_facts"/
+                "provenance_roots"/"inference_depth" keys.
         
         Returns:
             List of violation dictionaries
@@ -1221,10 +1358,20 @@ class EventExecutor:
             
             with ctl.solve(yield_=True) as handle:
                 for model in handle:
+                    provenance_index = None
+                    if collect_provenance:
+                        try:
+                            provenance_index = ProvenanceIndex(model.symbols(atoms=True), combined)
+                        except Exception:
+                            # Diagnostic-only feature -- never let a failure
+                            # here (e.g. a mis-encoded source_text string)
+                            # drop violations that were otherwise found.
+                            provenance_index = None
                     for atom in model.symbols(shown=True):
                         if atom.name == "violation":
-                            parts = [str(arg) for arg in atom.arguments]
+                            parts = [_safe_symbol_str(arg) for arg in atom.arguments]
                             event_id = parts[2] if len(parts) > 2 else ""
+                            detail = parts[3] if len(parts) > 3 else ""
                             
                             # Try to find source text for the event
                             source_text = ""
@@ -1240,14 +1387,25 @@ class EventExecutor:
                                             pass
                                         break
                             
-                            violations.append({
+                            violation = {
                                 "category": parts[0] if len(parts) > 0 else "unknown",
                                 "type": parts[1] if len(parts) > 1 else "unknown",
                                 "event": event_id,
-                                "detail": parts[3] if len(parts) > 3 else "",
+                                "detail": detail,
                                 "source_text": source_text,
                                 "description": f"Violation: {parts[1] if len(parts) > 1 else 'unknown'}",
-                            })
+                            }
+                            if provenance_index is not None:
+                                try:
+                                    seeds = [c for c in (event_id, detail) if c]
+                                    triggering, derived, roots, depth = provenance_index.provenance_for(seeds)
+                                    violation["triggering_facts"] = triggering
+                                    violation["derived_facts"] = derived
+                                    violation["provenance_roots"] = roots
+                                    violation["inference_depth"] = depth
+                                except Exception:
+                                    pass
+                            violations.append(violation)
                             
         except Exception as e:
             violations.append({
@@ -1301,7 +1459,8 @@ class EventExecutor:
                                      chapter_num: int,
                                      previous_chapter_events: Optional[List[Dict[str, Any]]] = None,
                                      item_tracker: Optional['ItemTracker'] = None,
-                                     modified_story: bool = False) -> ChapterEvaluationResult:
+                                     modified_story: bool = False,
+                                     collect_provenance: bool = False) -> ChapterEvaluationResult:
         """
         Evaluate chapter and return structured JSON output only.
         
@@ -1319,6 +1478,9 @@ class EventExecutor:
             chapter_num: Current chapter number
             previous_chapter_events: Events from previous chapter (for active_universe)
             item_tracker: Optional ItemTracker for active_universe computation
+            collect_provenance: opt-in, offline FP-analysis only. Default
+                False -- normal evaluation is completely unaffected. See
+                ProvenanceIndex/check_with_clingo above.
         
         Returns:
             ChapterEvaluationResult with structured violations
@@ -1343,7 +1505,10 @@ class EventExecutor:
                              modified_story=modified_story)
         
         # Run Clingo (all reasoning happens here, not in Python)
-        raw_violations = self.check_with_clingo(facts, chapter_num, active_universe=active_universe)
+        raw_violations = self.check_with_clingo(
+            facts, chapter_num, active_universe=active_universe,
+            collect_provenance=collect_provenance,
+        )
         
         # Update StateManager with persistent facts
         self.state_manager.accumulate_persistent_facts(facts)
@@ -1368,6 +1533,19 @@ class EventExecutor:
             # Determine severity based on category
             severity = self._classify_severity(v.get("category", ""), v.get("type", ""))
             
+            provenance = None
+            if collect_provenance:
+                provenance = Provenance(
+                    rule_id=f"{v.get('category', 'unknown')}/{v.get('type', 'unknown')}",
+                    rule_layer="universal",
+                    chapter=chapter_num,
+                    event_id=event_id or None,
+                    triggering_facts=v.get("triggering_facts", []),
+                    derived_facts=v.get("derived_facts", []),
+                    provenance_roots=v.get("provenance_roots", []),
+                    inference_depth=v.get("inference_depth", 0),
+                )
+            
             structured_violations.append(StructuredViolation(
                 rule=f"{v.get('category', 'unknown')}/{v.get('type', 'unknown')}",
                 category=v.get("category", "unknown"),
@@ -1377,6 +1555,7 @@ class EventExecutor:
                 entities=entities,
                 severity=severity,
                 source_text=v.get("source_text"),
+                provenance=provenance,
             ))
         
         return ChapterEvaluationResult(

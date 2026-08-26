@@ -54,6 +54,8 @@ PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.state.config import ERRORS_CHECKLIST_DIR, RULES_DIR
+from scripts.chapter_cap import apply_chapter_cap
+from scripts.primary_alert_selector import select_primary_alerts
 from engine import (
     StateManager,
     RuleRegistry,
@@ -831,12 +833,20 @@ def evaluate_story_with_engine(
     story_extractions: List[Dict[str, Any]],
     rules_dir: Path,
     enable_learning: bool = False,
-    original_extractions: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[int, List[Dict[str, Any]]]:
     """Replay one story's chapters through the real engine pipeline
     (AliasResolver -> ItemTracker -> EventExecutor -> FinalAnalyzer), the same
     orchestration run_step2_engine uses for a live LLM run, just without the
     LLM call (chapter data comes from the extraction JSONL instead).
+
+    Isolation: this function must never receive or use ORIGINAL-story
+    extractions. Detection/ranking for a modified story depends only on that
+    story's own modified chapters plus fixed, authored rules -- original
+    chapters (mining temporal precedence, appearance/emotion compatibility,
+    relationship/action compatibility, signal-density thresholds, or location
+    connectivity from them) must have zero influence here. The mine_* helpers
+    defined below are kept for reference/tests but are intentionally NOT
+    called from this function.
 
     Returns a dict of chapter_num -> list of violation dicts (each shaped
     like {"category", "type", "event", "detail"}, matching
@@ -844,69 +854,6 @@ def evaluate_story_with_engine(
     """
     (state_manager, rule_registry, alias_resolver, item_tracker,
      event_executor, final_analyzer, learning_adapter) = build_engine(rules_dir)
-
-    # Learn story-wide temporal precedence rules from the ORIGINAL (unmodified)
-    # chapters, if provided -- populates temporal_rule/4 for story_rules.lp's
-    # explicit_order_violated/prerequisite_not_met checks, purely data-driven.
-    if original_extractions:
-        original_extractions = _backfill_event_locations(original_extractions)
-        learned_pairs = set(mine_temporal_precedence_rules(original_extractions))
-        learned_pairs |= set(mine_temporal_precedence_rules_by_patient(original_extractions))
-        learned_pairs |= set(mine_temporal_precedence_rules_by_location(original_extractions))
-        dbg(f"Story {story}: learned {len(learned_pairs)} temporal precedence "
-            f"pair(s) from {len(original_extractions)} original chapter(s)", 1)
-        for type_a, type_b in learned_pairs:
-            state_manager.add_story_rule("temporal", type_a, "must_precede", type_b, "e0")
-
-        # Learn appearance/emotion compatibility from the same original text,
-        # for coherence.lp's appearance_emotion_mismatch check.
-        trusted_appearances, compatible_pairs = mine_appearance_emotion_compatibility(
-            original_extractions
-        )
-        dbg(f"Story {story}: learned {len(trusted_appearances)} trusted "
-            f"appearance value(s), {len(compatible_pairs)} compatible pair(s)", 1)
-        for appearance in trusted_appearances:
-            state_manager.add_learned_fact(f"has_appearance_emotion_data({appearance}).")
-        for appearance, emotion in compatible_pairs:
-            state_manager.add_learned_fact(
-                f"compatible_appearance_emotion({appearance}, {emotion})."
-            )
-
-        # Learn relationship/action compatibility from the same original
-        # text, for emotional.lp's learned_relationship_action_mismatch check.
-        trusted_reltypes, rel_action_pairs = mine_relationship_action_compatibility(
-            original_extractions
-        )
-        dbg(f"Story {story}: learned {len(trusted_reltypes)} trusted "
-            f"relationship type(s), {len(rel_action_pairs)} compatible "
-            f"relationship/action pair(s)", 1)
-        for rtype in trusted_reltypes:
-            state_manager.add_learned_fact(f"has_relationship_action_data({rtype}).")
-        for rtype, action in rel_action_pairs:
-            state_manager.add_learned_fact(
-                f"compatible_relationship_action({rtype}, {action})."
-            )
-
-        # Density-adaptive override for enhanced_detection.lp's
-        # multi_signal_anomaly threshold (see mine_signal_density_threshold).
-        signal_threshold = mine_signal_density_threshold(original_extractions)
-        dbg(f"Story {story}: mined multi_signal_anomaly threshold = "
-            f"{signal_threshold}", 1)
-        state_manager.add_learned_fact(
-            f"mined_multi_signal_threshold({signal_threshold})."
-        )
-
-        # Learn location connectivity from the same original text, for
-        # location.lp's disjoint_locations closed-world default (see
-        # mine_location_connectivity). Asserted as mined_connected/2 (NOT
-        # connected/2 directly) so location.lp keeps mined connectivity
-        # distinct from authored connection/contains facts -- see the
-        # "Mined Connectivity" section in rules/universal/location.lp.
-        connected_pairs = mine_location_connectivity(original_extractions)
-        dbg(f"Story {story}: mined {len(connected_pairs)} connected location "
-            f"pair(s) from {len(original_extractions)} original chapter(s)", 1)
-        for loc_a, loc_b in connected_pairs:
-            state_manager.add_learned_fact(f"mined_connected({loc_a}, {loc_b}).")
 
     # Chronological order: the engine's cross-chapter state (StateManager,
     # AliasResolver, ItemTracker) accumulates chapter by chapter.
@@ -1340,6 +1287,66 @@ def experiment_result_to_dict(result: ExperimentResult) -> Dict[str, Any]:
 
 
 # =============================================================================
+# Weak-evidence type cap
+# =============================================================================
+#
+# Unlike the uniform per-chapter cap (scripts/chapter_cap.py, all types
+# competing for the same N slots), this targets ONLY the specific rule types
+# whose own firing logic is absence/aggregate-based rather than an explicit
+# positive contradiction (see scripts/confidence_verifier.py's evidence-
+# profile registry): prerequisite_not_met ("TypeA never occurs anywhere"),
+# chekhov_gun ("item never mentioned again"), and multi_signal_anomaly
+# (aggregate signal count, no single explicit contradiction). These three
+# are documented (see /memories/repo/kfold-eval-baselines.md) as the
+# dominant false-positive volume sources on this benchmark. Capped to 1/
+# chapter each; every other violation type is left untouched.
+WEAK_EVIDENCE_TYPES = {
+    ("temporal", "prerequisite_not_met"),
+    ("causality", "chekhov_gun"),
+    ("coherence", "multi_signal_anomaly"),
+}
+
+
+def cap_weak_evidence_types(
+    chapter_violations: Dict[int, List[Dict[str, Any]]],
+    max_per_type: int = 1,
+) -> Dict[int, List[Dict[str, Any]]]:
+    """Keep at most `max_per_type` violations per chapter for each
+    (category, type) pair in WEAK_EVIDENCE_TYPES; all other types pass
+    through unchanged."""
+    capped: Dict[int, List[Dict[str, Any]]] = {}
+    for chapter, violations in chapter_violations.items():
+        kept: List[Dict[str, Any]] = []
+        type_counts: Dict[Tuple[str, str], int] = defaultdict(int)
+        for v in violations:
+            key = (v.get("category", "unknown"), v.get("type", "unknown"))
+            if key in WEAK_EVIDENCE_TYPES:
+                if type_counts[key] >= max_per_type:
+                    continue
+                type_counts[key] += 1
+            kept.append(v)
+        capped[chapter] = kept
+    return capped
+
+
+def suppress_violation_types(
+    chapter_violations: Dict[int, List[Dict[str, Any]]],
+    suppress_keys: Set[Tuple[str, str]],
+) -> Dict[int, List[Dict[str, Any]]]:
+    """Remove ALL violations whose (category, type) is in `suppress_keys`,
+    every chapter. Ground-truth-free at runtime -- `suppress_keys` must be
+    supplied by the caller (e.g. --suppress-types) from prior offline
+    analysis, never computed from a live GT lookup here."""
+    return {
+        chapter: [
+            v for v in violations
+            if (v.get("category"), v.get("type")) not in suppress_keys
+        ]
+        for chapter, violations in chapter_violations.items()
+    }
+
+
+# =============================================================================
 # Main
 # =============================================================================
 
@@ -1402,6 +1409,57 @@ def main():
              "output for comparison."
     )
     parser.add_argument(
+        "--chapter-cap",
+        dest="chapter_cap",
+        type=int,
+        default=0,
+        help="Keep at most N violations per chapter (ground-truth-free, ranked "
+             "by scripts/confidence_verifier.py's evidence tier via "
+             "scripts/chapter_cap.py, diversity-first across distinct "
+             "category/type pairs). Applied AFTER --fp-reduce/--weak-evidence-cap "
+             "AND after --primary-alerts (if both are given -- measured to "
+             "compose better in that order). 0 (default) disables the cap."
+    )
+    parser.add_argument(
+        "--weak-evidence-cap",
+        dest="weak_evidence_cap",
+        type=int,
+        default=0,
+        help="Keep at most N violations per chapter for each of the specific "
+             "absence/aggregate-based rule types in WEAK_EVIDENCE_TYPES "
+             "(prerequisite_not_met, chekhov_gun, multi_signal_anomaly) -- "
+             "every other violation type is untouched. Applied AFTER "
+             "--fp-reduce, BEFORE --chapter-cap. 0 (default) disables it."
+    )
+    parser.add_argument(
+        "--primary-alerts",
+        dest="primary_alerts",
+        action="store_true",
+        default=False,
+        help="Score only one PRIMARY violation per (chapter, category) -- the "
+             "best-evidenced candidate per scripts/primary_alert_selector.py, "
+             "ground-truth-free and modified-story-only. All other candidates "
+             "are demoted to SUPPORTING and excluded from scoring but kept in "
+             "a diagnostic JSON. Applied AFTER --fp-reduce/--weak-evidence-cap, "
+             "BEFORE --chapter-cap. Default off."
+    )
+    parser.add_argument(
+        "--suppress-types",
+        dest="suppress_types",
+        nargs="+",
+        default=[],
+        metavar="CATEGORY:TYPE",
+        help="Remove ALL violations matching the given 'category:type' pairs "
+             "(e.g. 'emotional:relationship_action_mismatch') entirely, before "
+             "--weak-evidence-cap/--primary-alerts/--chapter-cap. Ground-truth-"
+             "free at runtime -- the decision to name a type here must come "
+             "from prior offline analysis (see /memories/repo or the OpenAI "
+             "vocab report), never from a live GT lookup. Use with caution: a "
+             "type contributing 0 TPs on one dataset may still carry real "
+             "recall on another (denser-extraction) dataset -- re-validate "
+             "before adding a type here. Default: none suppressed."
+    )
+    parser.add_argument(
         "--verbose", "-v",
         action="store_true",
         help="Print verbose output"
@@ -1462,18 +1520,15 @@ def main():
           "reused across every k-fold combination below.")
     story_violations_cache: Dict[str, Dict[int, List[Dict[str, Any]]]] = {}
     for story in ALL_STORIES:
+        # Original-story chapters are intentionally never loaded here: modified-
+        # story detection must be fully isolated from original-story content.
         story_extractions = [
             e for e in extractions
             if e.get("story") == story and e.get("variant") == "modified"
         ]
-        story_extractions_original = [
-            e for e in extractions
-            if e.get("story") == story and e.get("variant") == "original"
-        ]
         print(f"  Evaluating {story}: {len(story_extractions)} modified chapters...")
         story_violations_cache[story] = evaluate_story_with_engine(
             story, story_extractions, rules_dir, enable_learning=args.enable_learning,
-            original_extractions=story_extractions_original,
         )
         total_violations = sum(len(v) for v in story_violations_cache[story].values())
         print(f"    -> {total_violations} violation(s) across "
@@ -1489,6 +1544,68 @@ def main():
             print(f"  {story}: {before} -> {after} violation(s)")
     else:
         print("\nSkipping FP reduction (--no-fp-reduce)")
+
+    if args.suppress_types:
+        suppress_keys = set()
+        for entry in args.suppress_types:
+            category, _, vtype = entry.partition(":")
+            suppress_keys.add((category, vtype))
+        print(f"\nSuppressing violation type(s) {sorted(suppress_keys)} entirely...")
+        for story in ALL_STORIES:
+            before = sum(len(v) for v in story_violations_cache[story].values())
+            story_violations_cache[story] = suppress_violation_types(
+                story_violations_cache[story], suppress_keys
+            )
+            after = sum(len(v) for v in story_violations_cache[story].values())
+            print(f"  {story}: {before} -> {after} violation(s)")
+
+    if args.weak_evidence_cap > 0:
+        print(f"\nApplying weak-evidence type cap (max {args.weak_evidence_cap} "
+              "violation(s)/chapter for prerequisite_not_met/chekhov_gun/"
+              "multi_signal_anomaly only)...")
+        for story in ALL_STORIES:
+            before = sum(len(v) for v in story_violations_cache[story].values())
+            story_violations_cache[story] = cap_weak_evidence_types(
+                story_violations_cache[story], args.weak_evidence_cap
+            )
+            after = sum(len(v) for v in story_violations_cache[story].values())
+            print(f"  {story}: {before} -> {after} violation(s)")
+
+    if args.primary_alerts:
+        print("\nSelecting one PRIMARY alert per (chapter, category) "
+              "(scripts/primary_alert_selector.py)...")
+        diagnostics: Dict[str, Dict[int, List[Dict[str, Any]]]] = {}
+        for story in ALL_STORIES:
+            annotated = select_primary_alerts(story_violations_cache[story])
+            diagnostics[story] = annotated
+            before = sum(len(v) for v in story_violations_cache[story].values())
+            story_violations_cache[story] = {
+                chapter: [v for v in violations if v.get("disposition") == "primary"]
+                for chapter, violations in annotated.items()
+            }
+            after = sum(len(v) for v in story_violations_cache[story].values())
+            print(f"  {story}: {before} -> {after} primary violation(s) "
+                  f"({before - after} demoted to supporting)")
+        diagnostics_file = output_dir / "primary_supporting_diagnostics.json"
+        with open(diagnostics_file, 'w', encoding='utf-8') as f:
+            json.dump(diagnostics, f, indent=2)
+        print(f"Written primary/supporting diagnostics to {diagnostics_file}")
+
+    if args.chapter_cap > 0:
+        # NOTE: applied AFTER --primary-alerts (not before) -- measured on the
+        # OpenAI k=1 dataset to compose better in this order: same recall,
+        # fewer residual FPs (e.g. ccap=4 after primary-select: micro P
+        # 6.50%->6.63%, TP unchanged at 32; capping first then selecting
+        # primaries was strictly worse or equal at every tested cap value).
+        print(f"\nApplying chapter cap (max {args.chapter_cap} violation(s)/chapter, "
+              "confidence-tier ranked, diversity-first)...")
+        for story in ALL_STORIES:
+            before = sum(len(v) for v in story_violations_cache[story].values())
+            story_violations_cache[story] = apply_chapter_cap(
+                story_violations_cache[story], args.chapter_cap
+            )
+            after = sum(len(v) for v in story_violations_cache[story].values())
+            print(f"  {story}: {before} -> {after} violation(s)")
 
     # Run experiments for each k
     all_results = {}
