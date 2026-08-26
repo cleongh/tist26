@@ -2,41 +2,290 @@
   "version": "1.0.0",
   "description": "Generic, story-agnostic world-knowledge predicates used only to VERIFY existing candidates (never to generate new ones). Every key/value here is a generic class or relation (container, support_surface, portable, material, state, action, relationship_type) -- never a character/story/chapter-specific name.",
   "containment": {
-    "container_types": ["room", "house", "building", "box", "bag", "vehicle", "cave", "castle", "chest", "pocket"],
-    "support_surface_types": ["table", "floor", "ground", "chair", "shelf", "bed", "wall"]
+    "container_types": [
+      "room",
+      "house",
+      "building",
+      "box",
+      "bag",
+      "vehicle",
+      "cave",
+      "castle",
+      "chest",
+      "pocket",
+      "cabinet",
+      "cupboard",
+      "drawer",
+      "wardrobe",
+      "closet",
+      "jar",
+      "bottle",
+      "case",
+      "sheath",
+      "pack"
+    ],
+    "support_surface_types": [
+      "table",
+      "floor",
+      "ground",
+      "chair",
+      "shelf",
+      "bed",
+      "wall",
+      "desk",
+      "couch",
+      "sofa",
+      "bench",
+      "counter",
+      "windowsill",
+      "mantel"
+    ]
+  },
+  "generic_descriptive_objects": {
+    "_comment": "Generic, story-agnostic classes of everyday objects that typically appear as scene-setting/characterization description rather than planted narrative devices (clothing worn once, architectural fixtures, ambient decor, vehicles, consumables). Used ONLY to exclude Chekhov's-Gun candidates whose id/name contains one of these generic nouns as a whole token -- never to positively assert anything about a specific story's items. NOTE: reading_material_types (book/letter/note/...) and generic_tool_types (gear/tools/kit/...) were tested and REJECTED -- each cost 1 TP on the OpenAI k=1 dataset (verified via isolated per-category testing). Do not re-add without re-measuring.",
+    "clothing_types": [
+      "shirt",
+      "sweater",
+      "blazer",
+      "jacket",
+      "coat",
+      "cloak",
+      "robe",
+      "cape",
+      "hood",
+      "skirt",
+      "dress",
+      "sweats",
+      "sock",
+      "socks",
+      "shoe",
+      "shoes",
+      "boot",
+      "boots",
+      "glove",
+      "gloves",
+      "scarf",
+      "belt",
+      "helmet",
+      "cap",
+      "hat",
+      "sling",
+      "brace",
+      "leggings",
+      "ribbon",
+      "pillowcase"
+    ],
+    "architectural_fixture_types": [
+      "window",
+      "windows",
+      "lamp",
+      "lamps",
+      "light",
+      "lights",
+      "drain",
+      "curtain",
+      "curtains",
+      "blind",
+      "blinds",
+      "ceiling",
+      "signboard",
+      "porch",
+      "stairs",
+      "doorway"
+    ],
+    "ambient_decor_types": [
+      "candle",
+      "candles",
+      "pillow",
+      "pillows",
+      "blanket",
+      "rug",
+      "vase",
+      "photo",
+      "photograph",
+      "postcard",
+      "card",
+      "poster",
+      "painting"
+    ],
+    "vehicle_types": [
+      "car",
+      "motorcycle",
+      "bike",
+      "bikes",
+      "bicycle",
+      "wagon",
+      "truck",
+      "van",
+      "cylinder"
+    ],
+    "consumable_types": [
+      "food",
+      "drink",
+      "juice",
+      "water",
+      "wine",
+      "ale",
+      "medicine",
+      "tube"
+    ]
   },
   "affordances": {
-    "requires_possession": ["give", "drop", "use", "throw", "wield", "read", "eat", "drink", "wear", "open", "break", "hand_over"],
-    "requires_support_surface": ["sit", "lie", "place", "put_down", "rest"],
-    "requires_sight": ["read", "see", "watch", "observe", "look", "aim"],
-    "requires_hearing": ["hear", "listen", "eavesdrop"],
-    "requires_speech": ["speak", "shout", "sing", "call", "yell", "tell", "say"]
+    "requires_possession": [
+      "give",
+      "drop",
+      "use",
+      "throw",
+      "wield",
+      "read",
+      "eat",
+      "drink",
+      "wear",
+      "open",
+      "break",
+      "hand_over"
+    ],
+    "requires_support_surface": [
+      "sit",
+      "lie",
+      "place",
+      "put_down",
+      "rest"
+    ],
+    "requires_sight": [
+      "read",
+      "see",
+      "watch",
+      "observe",
+      "look",
+      "aim"
+    ],
+    "requires_hearing": [
+      "hear",
+      "listen",
+      "eavesdrop"
+    ],
+    "requires_speech": [
+      "speak",
+      "shout",
+      "sing",
+      "call",
+      "yell",
+      "tell",
+      "say"
+    ]
   },
   "material_properties": {
-    "non_edible_materials": ["metal", "glass", "plastic", "wood", "stone", "paper", "rock"],
-    "edible_materials": ["food", "fruit", "vegetable", "meat", "bread"],
-    "flammable_materials": ["wood", "paper", "cloth", "oil"],
-    "non_flammable_materials": ["metal", "stone", "glass", "water"]
+    "non_edible_materials": [
+      "metal",
+      "glass",
+      "plastic",
+      "wood",
+      "stone",
+      "paper",
+      "rock"
+    ],
+    "edible_materials": [
+      "food",
+      "fruit",
+      "vegetable",
+      "meat",
+      "bread"
+    ],
+    "flammable_materials": [
+      "wood",
+      "paper",
+      "cloth",
+      "oil"
+    ],
+    "non_flammable_materials": [
+      "metal",
+      "stone",
+      "glass",
+      "water"
+    ]
   },
   "state_incompatibility": {
     "mutually_exclusive_states": [
-      ["dead", "alive"],
-      ["dead", "normal"],
-      ["dead", "injured"],
-      ["dead", "unconscious"],
-      ["asleep", "awake"],
-      ["visible", "invisible"]
+      [
+        "dead",
+        "alive"
+      ],
+      [
+        "dead",
+        "normal"
+      ],
+      [
+        "dead",
+        "injured"
+      ],
+      [
+        "dead",
+        "unconscious"
+      ],
+      [
+        "asleep",
+        "awake"
+      ],
+      [
+        "visible",
+        "invisible"
+      ]
     ]
   },
   "trait_action_incompatibility": {
-    "blind": ["requires_sight"],
-    "deaf": ["requires_hearing"],
-    "mute": ["requires_speech"]
+    "blind": [
+      "requires_sight"
+    ],
+    "deaf": [
+      "requires_hearing"
+    ],
+    "mute": [
+      "requires_speech"
+    ]
   },
   "emotional_action_compatibility": {
-    "positive_relationship_types": ["loves", "likes", "trusts", "respects", "friendly", "ally", "friend", "family"],
-    "negative_relationship_types": ["hates", "dislikes", "distrusts", "fears", "hostile", "enemy", "rival"],
-    "actions_incompatible_with_positive": ["attack", "hit", "hurt", "betray", "abandon", "insult", "curse", "threaten", "kill", "murder"],
-    "actions_incompatible_with_negative": ["hug", "kiss", "gift", "praise", "comfort", "farewell", "congratulate", "embrace", "welcome"]
+    "positive_relationship_types": [
+      "loves",
+      "likes",
+      "trusts",
+      "respects",
+      "friendly",
+      "ally",
+      "friend",
+      "family"
+    ],
+    "negative_relationship_types": [
+      "hates",
+      "dislikes",
+      "distrusts",
+      "fears",
+      "hostile",
+      "enemy",
+      "rival"
+    ],
+    "actions_incompatible_with_positive": [
+      "attack",
+      "hit",
+      "hurt",
+      "betray",
+      "abandon",
+      "insult",
+      "curse",
+      "threaten",
+      "kill",
+      "murder"
+    ],
+    "actions_incompatible_with_negative": [
+      "hug",
+      "kiss",
+      "gift",
+      "praise",
+      "comfort",
+      "farewell",
+      "congratulate",
+      "embrace",
+      "welcome"
+    ]
   }
 }

@@ -40,12 +40,16 @@ _ONTOLOGY_PATH = Path(__file__).parent.parent / "rules" / "world_knowledge" / "o
 
 @lru_cache(maxsize=1)
 def _generic_scenery_noun_ids() -> frozenset:
-    """Sanitized container_types/support_surface_types from the curated
-    world-knowledge ontology (rules/world_knowledge/ontology.json) -- these
-    are plain scene-furniture nouns (table, box, chair, door), reused here
-    (not newly hardcoded) to exclude them from Chekhov's Gun candidacy: a
-    "table" that's "introduced but never used again" is almost always
-    ordinary scenery, not a planted narrative device."""
+    """Sanitized container_types/support_surface_types/generic_descriptive_
+    objects (clothing, architectural fixtures, ambient decor) from the
+    curated world-knowledge ontology (rules/world_knowledge/ontology.json)
+    -- these are plain scene-setting nouns (table, box, chair, shirt,
+    window, candle, ...), reused here (not newly hardcoded) to exclude them
+    from Chekhov's Gun candidacy: a "shirt" or "window" that's "introduced
+    but never used again" is almost always ordinary description/atmosphere,
+    not a planted narrative device. Matched at the TOKEN level (see
+    get_chekhov_candidates) so compound ids like "wooden_box" or
+    "dark_blazer" are still caught via their "box"/"blazer" token."""
     try:
         with open(_ONTOLOGY_PATH, encoding="utf-8") as f:
             ontology = json.load(f)
@@ -53,6 +57,11 @@ def _generic_scenery_noun_ids() -> frozenset:
         return frozenset()
     containment = ontology.get("containment", {})
     nouns = set(containment.get("container_types", [])) | set(containment.get("support_surface_types", []))
+    descriptive = ontology.get("generic_descriptive_objects", {})
+    for key, values in descriptive.items():
+        if key == "_comment":
+            continue
+        nouns |= set(values)
     return frozenset(ItemTracker._normalize_id(n) for n in nouns)
 
 
@@ -217,10 +226,10 @@ class ItemTracker:
         events = filtered.get("events", [])
         
         # Step 1: Find all item references in events
-        event_item_refs = self._find_item_references_in_events(events)
+        items = entities.get("items", [])
+        event_item_refs = self._find_item_references_in_events(events, items)
         
         # Step 2: Register and classify extracted items
-        items = entities.get("items", [])
         for item in items:
             item_id = self._normalize_id(item.get("id", "") or item.get("name", ""))
             if not item_id or item_id == "unknown":
@@ -363,6 +372,7 @@ class ItemTracker:
     def _find_item_references_in_events(
         self,
         events: List[Dict[str, Any]],
+        known_items: Optional[List[Dict[str, Any]]] = None,
     ) -> Dict[str, List[str]]:
         """
         Find items referenced in events.
@@ -376,6 +386,12 @@ class ItemTracker:
             Dict mapping item_id -> list of event_ids that reference it
         """
         item_refs: Dict[str, List[str]] = {}
+        item_names = {
+            self._normalize_id(item.get("id", "") or item.get("name", "")): self._normalize_id(
+                item.get("name", "") or item.get("id", "")
+            )
+            for item in (known_items or [])
+        }
         
         for event in events:
             event_id = event.get("id", "")
@@ -402,7 +418,20 @@ class ItemTracker:
                         item_refs[item_id] = []
                     if event_id not in item_refs[item_id]:
                         item_refs[item_id].append(event_id)
-        
+
+            normalized_source = self._normalize_id(event.get("source_text", ""))
+            if normalized_source:
+                source_tokens = set(normalized_source.split("_"))
+                for item_id, item_name in item_names.items():
+                    name_tokens = [
+                        token for token in item_name.split("_")
+                        if len(token) >= 3 and token not in {"the", "and", "from", "with"}
+                    ]
+                    if item_id and name_tokens and all(token in source_tokens for token in name_tokens):
+                        item_refs.setdefault(item_id, [])
+                        if event_id not in item_refs[item_id]:
+                            item_refs[item_id].append(event_id)
+
         return item_refs
     
     def _update_lifecycle_from_events(
@@ -551,7 +580,7 @@ class ItemTracker:
         remained_latent() already implies event_references is empty. Adding
         that condition here would make this method always return an empty
         list, which is a self-contradiction, not a useful filter.
-        
+
         This excludes items that appeared in events (and thus were promoted).
         """
         generic_nouns = _generic_scenery_noun_ids()
@@ -559,9 +588,21 @@ class ItemTracker:
             item for item in self._items.values()
             if item.remained_latent() and item.is_active()
             and item.name
-            and self._normalize_id(item.name) not in generic_nouns
+            and not self._is_generic_scenery_object(item.name, generic_nouns)
         ]
-    
+
+    @staticmethod
+    def _is_generic_scenery_object(name: str, generic_nouns: frozenset) -> bool:
+        """True if any underscore-separated token of the normalized name is
+        itself a generic scenery/clothing/fixture noun (e.g. "wooden_box",
+        "dark_blazer", "rocking_chair" match via their "box"/"blazer"/
+        "chair" token) -- catches compound/descriptive item ids, not just
+        an exact whole-name match."""
+        normalized = ItemTracker._normalize_id(name)
+        if normalized in generic_nouns:
+            return True
+        return any(token in generic_nouns for token in normalized.split("_"))
+
     def get_promoted_latent_items(self) -> List[TrackedItem]:
         """
         Get items that were promoted from latent to causal (Phase 6).

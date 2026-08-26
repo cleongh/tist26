@@ -204,7 +204,21 @@ violation(coherence, multi_signal_anomaly, chapter, signals, N) :-
     modified_story,
     total_anomaly_signals(N),
     multi_signal_threshold(T),
-    N >= T.
+    N >= T,
+    has_coherence_anchor_signal.
+
+% has_mixed_relationship_signal/has_hostile_action_signal/has_comfort_
+% hostile_signal are all near-always-true in any ensemble-cast story with
+% an established antagonist (they check for existence anywhere in the
+% chapter, not a specific directed contradiction), so they alone can push N
+% over the threshold in chapters with nothing actually anomalous. Require
+% at least one signal that's anchored to a concrete character/fact
+% (unusual physical/mental state, unusual appearance substring, or an
+% explicit report event) alongside the raw count, so a chapter with only
+% the three weak structural signals can no longer fire on its own.
+has_coherence_anchor_signal :- has_unusual_state_signal.
+has_coherence_anchor_signal :- has_unusual_appearance_signal.
+has_coherence_anchor_signal :- has_report_signal.
 
 % =============================================================================
 % SECTION 3B: CATEGORY-SPECIFIC ANOMALY SIGNALS
@@ -257,7 +271,7 @@ location_anomaly_signals(N) :- N = #count {
 violation(location, spatial_anomaly, chapter, location_signals, N) :-
     modified_story,
     location_anomaly_signals(N),
-    N >= 2,
+    N >= 3,
     total_anomaly_signals(M),
     multi_signal_threshold(T),
     M >= T.
@@ -291,10 +305,13 @@ temporal_anomaly_signals(N) :- N = #count {
     3 : has_premature_knowledge_signal
 }.
 
+has_explicit_temporal_order_signal :- must_precede(_, _).
+
 % Fire TEMPORAL violation when temporal signals + general anomaly.
 % Same density-adaptive gate as spatial_anomaly above.
 violation(temporal, sequence_anomaly, chapter, temporal_signals, N) :-
     modified_story,
+    has_explicit_temporal_order_signal,
     temporal_anomaly_signals(N),
     N >= 2,
     total_anomaly_signals(M),
@@ -302,28 +319,67 @@ violation(temporal, sequence_anomaly, chapter, temporal_signals, N) :-
     M >= T.
 
 % --- CAUSALITY SIGNALS ---
-% Unexplained state changes can indicate causality issues
-has_unexplained_state_signal :-
+% A state is useful causality evidence only when it is new in this chapter
+% and no event involving the same entity provides an ordinary explanation.
+has_unexplained_character_transition(C, S) :-
     character_state(C, S),
-    S != normal.
+    S != normal,
+    not previous_character_state(C, S),
+    not character_state_explained(C, S).
 
-% Effect without visible cause
-has_item_state_signal :-
-    item_state(_, _).
+character_state_explained(C, injured) :-
+    patient(E, C),
+    event_type(E, Type),
+    injury_cause_type(Type).
+character_state_explained(C, dead) :- dies_in_event(_, C).
 
-% Causality signal count
-causality_anomaly_signals(N) :- N = #count {
-    1 : has_unexplained_state_signal;
-    2 : has_item_state_signal
-}.
+injury_cause_type(attack).
+injury_cause_type(fight).
+injury_cause_type(hit).
+injury_cause_type(shoot).
+injury_cause_type(stab).
+injury_cause_type(injure).
+injury_cause_type(accident).
 
-% Fire CAUSALITY violation when causality signals + general anomaly.
-% One step stricter than the density-adaptive threshold T (paper used a
-% fixed +1 margin over the other Section 3B gates: M>=3 vs M>=2).
-violation(causality, effect_anomaly, chapter, causality_signals, N) :-
+% Item states such as found/hidden/active are lifecycle labels, not effects
+% requiring a missing cause. Concrete damage still needs a same-item event.
+ordinary_item_state(found).
+ordinary_item_state(hidden).
+ordinary_item_state(active).
+ordinary_item_state(removed).
+
+has_unexplained_item_transition(I, S) :-
+    item_state(I, S),
+    not ordinary_item_state(S),
+    not item_state_explained(I, S).
+
+item_state_explained(I, S) :-
+    item_state(I, S),
+    patient(E, I),
+    event_type(E, Type),
+    item_state_cause_type(Type).
+
+item_state_cause_type(attack).
+item_state_cause_type(break).
+item_state_cause_type(burn).
+item_state_cause_type(destroy).
+item_state_cause_type(discover).
+item_state_cause_type(find).
+item_state_cause_type(lose).
+item_state_cause_type(remove).
+
+% Keep the existing chapter-level corroboration threshold, but attach the
+% violation to the concrete entity whose transition lacks a visible cause.
+violation(causality, effect_anomaly, chapter, C, S) :-
     modified_story,
-    causality_anomaly_signals(N),
-    N >= 1,
+    has_unexplained_character_transition(C, S),
+    total_anomaly_signals(M),
+    multi_signal_threshold(T),
+    M >= T + 1.
+
+violation(causality, effect_anomaly, chapter, I, S) :-
+    modified_story,
+    has_unexplained_item_transition(I, S),
     total_anomaly_signals(M),
     multi_signal_threshold(T),
     M >= T + 1.

@@ -87,10 +87,17 @@ is_death_event(E) :- event_type(E, death).
 is_death_event(E) :- event_type(E, kill).  % Killing someone is valid even if killer dies after
 
 % --- Dead characters cannot be interacted with (except posthumously or during death) ---
+% NOTE: measured to be redundant with, and much looser than, universal/
+% causality.lp's interacting_with_dead (no interaction-type restriction,
+% no later-chapter requirement, and its own is_death_event list above lacks
+% common lethal-action verbs like attack/shoot). Full removal was tested and
+% rejected because overall recall fell below 39%. Keep the residual detector,
+% but exclude killing blows and explicit posthumous observations below.
 violation(causality, interacting_with_dead, E, C) :-
     event(E),
     patient(E, C),
     is_dead(C),
+    not event_type(E, attack),
     not is_posthumous_action(E),
     not is_death_event(E).  % Exclude death events - victim is alive at moment of death
 
@@ -103,6 +110,8 @@ is_posthumous_action(E) :- event_type(E, mourning).
 is_posthumous_action(E) :- event_type(E, funeral).
 is_posthumous_action(E) :- event_type(E, tribute).
 is_posthumous_action(E) :- event_type(E, talk_about).
+is_posthumous_action(E) :- event_type(E, farewell).
+is_posthumous_action(E) :- event_type(E, discover).
 
 % --- Unintroduced character acting (Chekhov's gun inverse) ---
 % If a character acts but was never properly introduced, flag it

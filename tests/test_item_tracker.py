@@ -309,6 +309,29 @@ class TestItemTracker:
         # Latent items that were never used are Chekhov candidates
         candidates = tracker.get_chekhov_candidates()
         assert len(candidates) == 2
+
+    def test_source_text_all_item_name_tokens_promote_latent_item(self):
+        tracker = ItemTracker()
+        extraction = {
+            "entities": {
+                "items": [
+                    {"id": "silver_parachute", "name": "Silver Parachute", "relevance": "latent"},
+                    {"id": "silver_key", "name": "Silver Key", "relevance": "latent"},
+                ],
+            },
+            "events": [
+                {
+                    "id": "e1",
+                    "type": "arrive",
+                    "source_text": "A small pot hung from the silver parachute.",
+                },
+            ],
+        }
+
+        tracker.process_extraction(extraction, 0)
+
+        assert tracker.get_item("silver_parachute").relevance == ItemRelevance.CAUSAL
+        assert tracker.get_item("silver_key").relevance == ItemRelevance.LATENT
     
     def test_to_asp_facts(self):
         """Test generating ASP facts."""
